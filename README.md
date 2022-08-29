@@ -1,4 +1,7 @@
 # Project "Raidho"
+## We are
+- 나유진
+- 김경문
 
 ## Installed Packages
 - 스타일 적용 : styled-components
