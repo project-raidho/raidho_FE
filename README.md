@@ -10,3 +10,4 @@
 - logger (개발 편하게 도와줌) 설치 : yarn add redux-logger
 - image resizing : yarn add browser-image-compression
 - kakao login : yarn add react-kakao-login
+- pr 테스트할게요
