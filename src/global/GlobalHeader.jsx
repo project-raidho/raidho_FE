@@ -5,6 +5,7 @@ import Potal from "../global/globalModal/Potal";
 import LoginModal from "../components/login/LoginContainer";
 import styled from "styled-components";
 
+
 const GlobalHeader = () => {
   const [ modalOn, setModalOn ] = useState(false);
   const handleModal = () => {
