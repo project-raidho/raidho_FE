@@ -30,6 +30,7 @@ const VARIANTS = {
     --button-color: #FFFFFF;
     --button-bg-color: #CFCFCF;
     --button-hover-bg-color: #CFCFCF;
+    --button-border-color: #CFCFCF;
   `,
   line: css`
     --button-color: #1E1E1E;
@@ -61,26 +62,26 @@ const StyledButton = styled.button`
   margin: 0;
   border: none;
   cursor: pointer;
-  // font-family: "Noto Sans KR", sans-serif;
   width: var(--button-width);
-  height: var(--button-height);
+  height: var(--button-height, 40px);
   font-size: var(--button-font-size, 1rem);
-  padding: var(--button-padding, 12px 16px);
+  padding: var(--button-padding, 5px 16px);
   border-radius: var(--button-radius, 30px);
   background: var(--button-bg-color, #7188FF);
   color: var(--button-color, #ffffff);
   border: 1px solid var(--button-border-color, #7188FF);
+  box-shadow: var(--input-box-shadow, 0px 4px 5px rgba(0, 0, 0, 0.1));
 
   &:active,
   &:hover,
   &:focus {
-    // background: var(--button-hover-bg-color, #025ce2);
+
   }
 
   &:disabled {
     cursor: default;
     opacity: 0.5;
-    // background: var(--button-bg-color, #025ce2);
+ 
   }
 `;
 
