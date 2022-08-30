@@ -18,6 +18,10 @@ const MainPage = ({ props }) => {
         variant="primary"
       >소셜로그인!</Button>
       <Button 
+        size="large"
+        variant="gray"
+      >테스트!</Button>
+      <Button 
         onClick={handleModal}
         size="small"
         variant="primary"
