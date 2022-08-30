@@ -10,7 +10,6 @@ const MainPage = ({ props }) => {
   const handleModal = () => {
     setModalOn(!modalOn);
   }
-
   return (
     <>
       <GlobalHeader />
@@ -31,7 +30,6 @@ const MainPage = ({ props }) => {
         </Potal>
       </StMainPageWrap>
     </>
-
   );
 };
 
