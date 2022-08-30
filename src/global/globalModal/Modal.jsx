@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Modal = ({ onClose }) => {
+
   return(
     <>
     <Background onClick={onClose} />
       <ModalContentBox>
         <div className="contents">
-          내용 들어가야함
+       내용
         </div>
       </ModalContentBox>
     </>
