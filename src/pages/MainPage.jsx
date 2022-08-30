@@ -8,11 +8,11 @@ const MainPage = ({ props }) => {
   const handleModal = () => {
     setModalOn(!modalOn);
   }
-
+  
   return(
     <StMainPageWrap>
       MainPage
-      <button onClick={handleModal}>모달 오픈!</button>
+      <button onClick={handleModal}>로그인</button>
       <Potal>
         {modalOn && <Modal onClose={handleModal} /> }
       </Potal>

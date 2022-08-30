@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const URL = {
   BASE: process.env.REACT_APP_BASE_URL,
@@ -48,6 +49,8 @@ const userSlice = createSlice({
 
   }
 });
+
+
 
 
 export default userSlice.reducer;
