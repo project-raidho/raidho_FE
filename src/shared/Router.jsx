@@ -7,7 +7,8 @@ import UpdatePostPage from '../pages/UpdatePostPage';
 import CreateMeetingPage from '../pages/CreateMeetingPage';
 import MeetingListPage from '../pages/MeetingListPage';
 import ChattingPage from '../pages/ChattingPage';
-
+import KakaoLogin from '../components/login/KakaoLogin';
+import NaverLogin from '../components/login/NaverLogin';
 
 const Routers = () => {
   return (
@@ -20,6 +21,8 @@ const Routers = () => {
         <Route path='/createMeeting' element={<CreateMeetingPage />} />
         <Route path='/meetingList' element={<MeetingListPage />} />
         <Route path='/chatting/:chattingId' element={<ChattingPage />} />
+        <Route path="/oauth/kakao" element={<KakaoLogin/>} />
+        <Route path='/oauth/naver' element={<NaverLogin/>} />
         
       </Routes>
     </BrowserRouter>
