@@ -24,6 +24,7 @@ const CreatePostImage = (props) => {
         <img
           src={file.preview}
           onLoad={() => { URL.revokeObjectURL(file.preview) }}
+          alt={file.name}
         />
       </StThumbInner>
     </StThumb>
@@ -31,9 +32,7 @@ const CreatePostImage = (props) => {
 
   useEffect(() => {
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-  }, []);
-
-  console.log("files ::: ", files);
+  }, [files]);
 
   const clickThumbImage = () => {}
   return(
