@@ -8,13 +8,13 @@ import CreateMeetingPage from '../pages/CreateMeetingPage';
 import MeetingListPage from '../pages/MeetingListPage';
 import ChattingPage from '../pages/ChattingPage';
 import KakaoLogin from '../components/login/KakaoLogin';
-import NaverLogin from '../components/login/NaverLogin';
+// import NaverLogin from '../components/login/NaverLogin';
 
 const Routers = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<MainPage />} />
+        <Route path='/' element={<MainPage />} /> 
         <Route path='/myProfile' element={<MyProfilePage />} />
         <Route path='/createPost' element={<CreatePostPage />} />
         <Route path='/updatePost/:postId' element={<UpdatePostPage />} />
@@ -22,7 +22,7 @@ const Routers = () => {
         <Route path='/meetingList' element={<MeetingListPage />} />
         <Route path='/chatting/:chattingId' element={<ChattingPage />} />
         <Route path="/oauth/kakao" element={<KakaoLogin/>} />
-        <Route path='/oauth/naver' element={<NaverLogin/>} />
+        {/* <Route path='/oauth/naver' element={<NaverLogin/>} /> */}
         
       </Routes>
     </BrowserRouter>
