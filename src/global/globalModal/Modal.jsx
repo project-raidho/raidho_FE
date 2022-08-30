@@ -8,7 +8,7 @@ const Modal = ({ onClose }) => {
     <Background onClick={onClose} />
       <ModalContentBox>
         <div className="contents">
-       
+       내용
         </div>
       </ModalContentBox>
     </>
