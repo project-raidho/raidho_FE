@@ -1,13 +1,17 @@
 import React from "react";
-import Input from "../elements/Input";
+import GlobalHeader from "../global/GlobalHeader";
+import GlobalLayout from "../global/GlobalLayout";
+import CreatePostContainer from "../components/createPost/CreatePostContainer";
 import styled from "styled-components";
 
 const CreatePostPage = () => {
 
   return(
     <StCreatePostPageWrap>
-      CreatePostPage
-      <Input size="medium" variant="default" />
+      <GlobalHeader />
+      <GlobalLayout>
+        <CreatePostContainer />
+      </GlobalLayout>
     </StCreatePostPageWrap>
   );
 };
@@ -15,5 +19,6 @@ const CreatePostPage = () => {
 export default CreatePostPage;
 
 const StCreatePostPageWrap = styled.div`
-  background-color: green;
+  width: 100%;
+  height: 100vh;
 `;
