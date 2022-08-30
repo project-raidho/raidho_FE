@@ -1,10 +1,12 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { useEffect } from "react";
+import { useLocation,
+    //  useNavigate 
+    } from "react-router-dom";
 
 const KakaoLogin= ()=> {
     const location =useLocation();
-    const navigate=useNavigate();
+    // const navigate=useNavigate();
     const KAKAO_CODE = location.search.split('=')[1];
     console.log(KAKAO_CODE)
     // const URI = process.env.REACT_APP_BASE_URI;
