@@ -22,5 +22,6 @@
 - image resizing : yarn add browser-image-compression
 - kakao login : yarn add react-kakao-login
 - 이미지 drop 업로드 : yarn add react-dropzone
+- 이미지 crop : yarn add react-image-crop
 
 - **

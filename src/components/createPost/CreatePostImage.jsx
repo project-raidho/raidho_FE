@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import CreatePostImageCrop from "./CreatePostImageCrop";
 import styled from "styled-components";
 
 const CreatePostImage = (props) => {
   const [files, setFiles] = useState([]);
+  const [selectedImage, setSelectedImage] = useState();
+  const [selectedImageIndex, setSelectedImageIndex] = useState();
   const {
     getRootProps, 
     getInputProps
@@ -18,8 +21,8 @@ const CreatePostImage = (props) => {
     }
   });
   
-  const thumbs = files.map(file => (
-    <StThumb key={file.name} onClick={() => clickThumbImage()}>
+  const thumbs = files.map((file, index) => (
+    <StThumb key={file.name} onClick={() => clickThumbImage(file, index)}>
       <StThumbInner>
         <img
           src={file.preview}
@@ -29,18 +32,35 @@ const CreatePostImage = (props) => {
       </StThumbInner>
     </StThumb>
   ));
+  
+  const clickThumbImage = (file, index) => {
+    console.log(file, index);
+    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImageIndex(index);
+  }
 
   useEffect(() => {
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  const clickThumbImage = () => {}
+  console.log(files.length);
+  console.log(selectedImage);
+  console.log(selectedImageIndex);
+
   return(
     <StCreatePostImageWrap>
-      <StImageDropZone {...getRootProps({className: 'dropzone'})}>
-        <input {...getInputProps()} />
-        <p>이미지를 드레그 또는 클릭해서 선택해주세요.</p>
-      </StImageDropZone>
+      {files.length !== 0 ? 
+        <CreatePostImageCrop 
+          selectedImage={selectedImage} 
+          selectedImageIndex={selectedImageIndex} 
+        />
+      :
+        <StImageDropZone {...getRootProps({className: 'dropzone'})}>
+          <input {...getInputProps()} />
+          <p>이미지를 드레그 또는 클릭해서 선택해주세요.</p>
+        </StImageDropZone>
+      }
+
       <StThumbsContainer>
         {thumbs}
       </StThumbsContainer>
