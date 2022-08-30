@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     --main-color: #7188FF;
     --sub-color:#CFCFCF;
     --red-color: #FF4040;
+    --gray-color: #CFCFCF;
     --text-color: #1E1E1E;
   }
   * {
