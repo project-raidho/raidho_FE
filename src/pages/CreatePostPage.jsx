@@ -1,4 +1,5 @@
 import React from "react";
+import Input from "../elements/Input";
 import styled from "styled-components";
 
 const CreatePostPage = () => {
@@ -6,6 +7,7 @@ const CreatePostPage = () => {
   return(
     <StCreatePostPageWrap>
       CreatePostPage
+      <Input size="medium" variant="default" />
     </StCreatePostPageWrap>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Potal from "../global/globalModal/Potal";
 import Modal from "../global/globalModal/Modal";
+import Button from "../elements/Button";
 import styled from "styled-components";
 
 const MainPage = ({ props }) => {
@@ -12,7 +13,16 @@ const MainPage = ({ props }) => {
   return(
     <StMainPageWrap>
       MainPage
-      <button onClick={handleModal}>로그인</button>
+
+      <Button 
+        size="large"
+        variant="primary"
+      >소셜로그인!</Button>
+      <Button 
+        onClick={handleModal}
+        size="small"
+        variant="primary"
+      >모달 오픈!</Button>
       <Potal>
         {modalOn && <Modal onClose={handleModal} /> }
       </Potal>
