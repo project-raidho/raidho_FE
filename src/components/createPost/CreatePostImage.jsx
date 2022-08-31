@@ -125,7 +125,7 @@ const StThumbInner = styled.div`
   width: 100%;
   min-width: 0px;
   overflow: hidden;
-  background-color: pink;
+  background-color: var(--bg-color);
 
   img {
     display: block;
@@ -140,5 +140,5 @@ const StThumbsContainer = styled.aside`
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 16px;
-  background-color: yellow;
+  border: 1px solid purple;
 `;

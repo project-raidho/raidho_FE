@@ -97,10 +97,10 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     };
     setUploadImages(targetUploadImage);
   };
-  console.log("completedCrop ::::", completedCrop);
-  console.log("uploadImages ::::", uploadImages);
-  console.log("imagesTemp ::::", imagesTemp);
-  console.log("selectedImageIndex ::::", selectedImageIndex);
+  // console.log("completedCrop ::::", completedCrop);
+  // console.log("uploadImages ::::", uploadImages);
+  // console.log("imagesTemp ::::", imagesTemp);
+  // console.log("selectedImageIndex ::::", selectedImageIndex);
 
   return (
     <StCreatePostImageCrop>

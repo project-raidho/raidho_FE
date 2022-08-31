@@ -63,7 +63,7 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   width: var(--button-width);
-  height: var(--button-height, 40px);
+  height: var(--button-height, 55px);
   font-size: var(--button-font-size, 1rem);
   padding: var(--button-padding, 5px 16px);
   border-radius: var(--button-radius, 30px);
