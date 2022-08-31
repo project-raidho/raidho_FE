@@ -137,6 +137,9 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
 
 export default CreatePostImageCrop;
 const StCreatePostImageCrop=styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
   border: 1px solid blue;
