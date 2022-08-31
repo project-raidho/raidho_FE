@@ -26,7 +26,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   const canvasRef = useRef(null);
   const [ crop, setCrop ] = useState(null);
   const [ completedCrop, setCompletedCrop ] = useState(null);
-  const [ uploadImages, setUploadImages ] = useState([{}, {}, {}, {}, {}]);
+  const [ uploadImages, setUploadImages ] = useState(null);
   const [ aspect, setAspect ] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
@@ -89,7 +89,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     //   "image/jpeg",
     //   0.95
     // );
-    //setUploadImages(uploadImages, [uploadImages.splice(selectedImageIndex, 0, completedCrop)]);
+    setUploadImages(uploadImages, [uploadImages.splice(selectedImageIndex, 0, completedCrop)]);
    
   };
   console.log("completedCrop ::::", completedCrop);
