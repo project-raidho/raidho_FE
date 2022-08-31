@@ -7,7 +7,7 @@ const SIZES = {
     --button-radius: 30px;
   `,
   medium: css`
-    --button-font-size: 24px;
+    --button-font-size: 1.2rem;
     --button-width: 220px;
     --button-height: 50px;
     --button-radius: 25px;
