@@ -9,7 +9,8 @@ const CreatePostImage = (props) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState();
   const {
     getRootProps, 
-    getInputProps
+    getInputProps,
+    fileRejections
   } = useDropzone({
     accept: {
       'image/*': []
@@ -18,9 +19,25 @@ const CreatePostImage = (props) => {
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
-    }
+      // ::: 편집화면 첫 이미지는 첫번째 이미지로 설정
+      setSelectedImage(acceptedFiles[0].preview);
+    },
+    maxFiles:5 // ::: 최대 이미지 개수 설정하기
   });
+
+  // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
+  const fileRejectionItems = fileRejections.map(({ file, errors  }) => { 
+    return (
+      <li key={file.path}>
+           {file.path} - {file.size} bytes
+           <ul>
+             {errors.map(error => <li key={error.code}> 이미지는 최대 5장까지만 넣을 수 있습니다 / {error.message}</li>)}
+          </ul>
+      </li>
+    ) 
+   });
   
+   // ::: 썸네일 이미지 출력하기
   const thumbs = files.map((file, index) => (
     <StThumb key={file.name} onClick={() => clickThumbImage(file, index)}>
       <StThumbInner>
@@ -33,6 +50,7 @@ const CreatePostImage = (props) => {
     </StThumb>
   ));
   
+  // ::: 썸네일 이미지 클릭시 편집 화면에 이미지 띄우기
   const clickThumbImage = (file, index) => {
     console.log(file, index);
     setSelectedImage(URL.createObjectURL(file));
@@ -43,14 +61,11 @@ const CreatePostImage = (props) => {
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  console.log(files.length);
-  console.log(selectedImage);
-  console.log(selectedImageIndex);
-
   return(
     <StCreatePostImageWrap>
       {files.length !== 0 ? 
         <CreatePostImageCrop 
+          files={files}
           selectedImage={selectedImage} 
           selectedImageIndex={selectedImageIndex} 
         />
@@ -64,6 +79,8 @@ const CreatePostImage = (props) => {
       <StThumbsContainer>
         {thumbs}
       </StThumbsContainer>
+
+      <ul>{fileRejectionItems}</ul>
     </StCreatePostImageWrap>
   );
 };

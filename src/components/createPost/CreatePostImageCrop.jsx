@@ -26,6 +26,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   const canvasRef = useRef(null);
   const [ crop, setCrop ] = useState(null);
   const [ completedCrop, setCompletedCrop ] = useState(null);
+  const [ uploadImages, setUploadImages ] = useState(null);
   const [ aspect, setAspect ] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
@@ -76,6 +77,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     );
   };
 
+  let imagesTemp = [];
   const onChangeCropImage = () => {
   	createCanvas();
     
@@ -87,26 +89,32 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     //   "image/jpeg",
     //   0.95
     // );
+    setUploadImages(uploadImages, [uploadImages.splice(selectedImageIndex, 0, completedCrop)]);
+   
   };
+  console.log("completedCrop ::::", completedCrop);
+  console.log("uploadImages ::::", uploadImages);
+  console.log("imagesTemp ::::", imagesTemp);
+  console.log("selectedImageIndex ::::", selectedImageIndex);
 
   return (
     <StCreatePostImageCrop>
       <StImageSizeButtonWrap>
-        <button
+        <Button
           onClick={()=>onClickImageSize(Number(16 / 9))}
         >
           16 : 9
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={()=>onClickImageSize(Number(3 / 4))}
         >
           3 : 4
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={()=>onClickImageSize(Number(1 / 1))}
         >
           1 : 1
-        </button>
+        </Button>
       </StImageSizeButtonWrap>
       <ReactCrop 
         crop={crop}
@@ -137,6 +145,9 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
 
 export default CreatePostImageCrop;
 const StCreatePostImageCrop=styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
   border: 1px solid blue;
