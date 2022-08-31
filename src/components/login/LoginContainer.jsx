@@ -2,8 +2,24 @@ import KakaoOauth from "../../shared/KaKaoOauth";
 import FaceBookLogin from "./FacebookLogin";
 import React from "react";
 import styled from "styled-components";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ onClose }) => {
+  const navigate=useNavigate();
+  const oAuthLoginHandler =(id, email)=> {
+    let request = {
+        oAuhId: id,
+        email,
+    }
+        const URI = process.env.REACT_APP_BASE_URI;
+        const res= axios.post(`${URI}/ouath/facebook`, request)
+        
+        localStorage.setItem("Authorization", res.headers.authorization);
+        navigate("/");
+  
+}
+
 
   return(
     <>
@@ -11,7 +27,7 @@ const LoginModal = ({ onClose }) => {
       <ModalContentBox>
         <div className="contents">
          <KakaoOauth/>
-         <FaceBookLogin/>
+         <FaceBookLogin oAuthLoginHandler={oAuthLoginHandler}/>
          <button>네이버로 로그인</button>
         
         </div>

@@ -40,7 +40,7 @@ const VARIANTS = {
   `,
 };
 
-function Button({ size, variant, children }) {
+function Button({ size, variant, children, ...props }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
@@ -48,6 +48,7 @@ function Button({ size, variant, children }) {
     <StyledButton
       sizeStyle={sizeStyle}
       variantStyle={variantStyle}
+     {...props}
     >
       {children}
     </StyledButton>
