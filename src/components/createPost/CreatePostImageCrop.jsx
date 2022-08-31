@@ -26,7 +26,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   const canvasRef = useRef(null);
   const [ crop, setCrop ] = useState(null);
   const [ completedCrop, setCompletedCrop ] = useState(null);
-  const [ uploadImages, setUploadImages ] = useState(null);
+  const [ uploadImages, setUploadImages ] = useState([{}, {}, {}, {}, {}]);
   const [ aspect, setAspect ] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
@@ -77,7 +77,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     );
   };
 
-  let imagesTemp = [];
+  let imagesTemp = uploadImages;
   const onChangeCropImage = () => {
   	createCanvas();
     
@@ -89,13 +89,18 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     //   "image/jpeg",
     //   0.95
     // );
-    setUploadImages(uploadImages, [uploadImages.splice(selectedImageIndex, 0, completedCrop)]);
-   
+    
+    // ::: 전송할 이미지 배열 형태로 저장하기
+    const targetUploadImage = () => {
+      imagesTemp.splice(selectedImageIndex, 0, completedCrop);
+      return imagesTemp;
+    };
+    setUploadImages(targetUploadImage);
   };
-  console.log("completedCrop ::::", completedCrop);
-  console.log("uploadImages ::::", uploadImages);
-  console.log("imagesTemp ::::", imagesTemp);
-  console.log("selectedImageIndex ::::", selectedImageIndex);
+  // console.log("completedCrop ::::", completedCrop);
+  // console.log("uploadImages ::::", uploadImages);
+  // console.log("imagesTemp ::::", imagesTemp);
+  // console.log("selectedImageIndex ::::", selectedImageIndex);
 
   return (
     <StCreatePostImageCrop>
