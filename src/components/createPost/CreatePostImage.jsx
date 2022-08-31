@@ -6,7 +6,7 @@ import styled from "styled-components";
 const CreatePostImage = (props) => {
   const [files, setFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
-  const [selectedImageIndex, setSelectedImageIndex] = useState();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const {
     getRootProps, 
     getInputProps,
