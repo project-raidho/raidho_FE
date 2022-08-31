@@ -7,7 +7,7 @@ const SIZES = {
     --button-radius: 30px;
   `,
   medium: css`
-    --button-font-size: 24px;
+    --button-font-size: 1.2rem;
     --button-width: 220px;
     --button-height: 50px;
     --button-radius: 25px;
@@ -63,7 +63,7 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   width: var(--button-width);
-  height: var(--button-height, 40px);
+  height: var(--button-height, 55px);
   font-size: var(--button-font-size, 1rem);
   padding: var(--button-padding, 5px 16px);
   border-radius: var(--button-radius, 30px);

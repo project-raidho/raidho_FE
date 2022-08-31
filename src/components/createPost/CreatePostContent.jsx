@@ -5,7 +5,7 @@ const CreatePostContent = () => {
 
   return(
     <StCreatePostContentWrap>
-      rrr
+      내용, 태그 기능 추가되야 함.
     </StCreatePostContentWrap>
   );
 };
@@ -14,5 +14,5 @@ export default CreatePostContent;
 
 const StCreatePostContentWrap = styled.div`
   width: 100%;
-  background-color: skyblue;
+  border: 1px solid blue;
 `;
