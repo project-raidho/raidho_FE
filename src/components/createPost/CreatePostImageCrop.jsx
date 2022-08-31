@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import ReactCrop, { Crop, centerCrop, makeAspectCrop, PixelCrop } from "react-image-crop";
+import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
-const centerAspectCrop = ({ mediaWidth, mediaHeight, aspect }) => {
+const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   return centerCrop(
     makeAspectCrop(
       {
@@ -28,6 +28,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   const [ completedCrop, setCompletedCrop ] = useState(null);
   const [ aspect, setAspect ] = useState(16 / 9);
 
+  // ::: 이미지 비율 버튼 클릭 이벤트
   const onClickImageSize = (selectAspect) => {
     console.log(selectAspect);
     const { width, height } = imageRef.current;
@@ -35,14 +36,14 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     setCrop(centerAspectCrop(width, height, selectAspect));
   }
 
+  // ::: 이미지 로드 되었을 때
   const onImageLoad = (event) => {
-    if(aspect) {
-      const { width, height } = event.currentTarget;
-      setCrop(centerAspectCrop(width, height, aspect));
-    }
+    const { width, height } = event.currentTarget;
+    setCrop(centerAspectCrop(width, height, aspect));
+    console.log(selectedImageIndex);
   }
 
-  // 크롭 영역 canvas에 넣기
+  // ::: 크롭 영역 canvas에 넣기
   const createCanvas = () => {
     if (!completedCrop || !canvasRef.current || !imageRef.current) {
       return;
@@ -118,6 +119,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
           src={selectedImage}
           ref={imageRef}
           onLoad={onImageLoad}
+          alt="편집할이미지"
          />
       </ReactCrop>
 
