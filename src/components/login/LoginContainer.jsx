@@ -1,4 +1,5 @@
 import KakaoOauth from "../../shared/KaKaoOauth";
+import FaceBookLogin from "./FacebookLogin";
 import React from "react";
 import styled from "styled-components";
 
@@ -10,8 +11,9 @@ const LoginModal = ({ onClose }) => {
       <ModalContentBox>
         <div className="contents">
          <KakaoOauth/>
+         <FaceBookLogin/>
          <button>네이버로 로그인</button>
-         <button>페이스북으로 로그인</button>
+        
         </div>
       </ModalContentBox>
     </>

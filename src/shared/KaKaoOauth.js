@@ -30,12 +30,7 @@ const Kakaobutton =styled.a`
     display: flex;
     justify-content: center;
     align-items: center;
- 
-    
-
     height: 60px;
-
-    
     color: #1c1c1c;
     border: none;
 
