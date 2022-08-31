@@ -40,15 +40,15 @@ const VARIANTS = {
   `,
 };
 
-function Button({ disabled, size, variant, children }) {
+function Button({ size, variant, children, ...props }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
     <StyledButton
-      disabled={disabled}
       sizeStyle={sizeStyle}
       variantStyle={variantStyle}
+     {...props}
     >
       {children}
     </StyledButton>
@@ -76,12 +76,6 @@ const StyledButton = styled.button`
   &:hover,
   &:focus {
 
-  }
-
-  &:disabled {
-    cursor: default;
-    opacity: 0.5;
- 
   }
 `;
 

@@ -1,4 +1,10 @@
-# Project "Raidho"
+# Project "Raidho ::: 라디오"
+## Project Info
+- 📌 여행하고 싶은 사람들이 이용하는 공간으로, 함께 여행하고 싶은 사람을 모집하고, 경험을 공유하는 웹 서비스
+- 📌 자전거, 오토바이 등 같은 취미를 가지고 있는 사람을 구하기 어려운 여행을 쉽게 모집할 수 있도록 도와주는 서비스
+
+-----
+
 ## Member Info
 | Position | Name | Blog | MBTI |
 | ----- | ----- | ----- | ----- |
@@ -22,5 +28,6 @@
 - image resizing : yarn add browser-image-compression
 - kakao login : yarn add react-kakao-login
 - 이미지 drop 업로드 : yarn add react-dropzone
+- 이미지 crop : yarn add react-image-crop
 
 - **

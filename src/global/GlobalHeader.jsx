@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import GlobalLayout from "./GlobalLayout";
 import Input from "../elements/Input";
+import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
 import LoginModal from "../components/login/LoginContainer";
 import styled from "styled-components";
@@ -16,7 +17,10 @@ const GlobalHeader = () => {
     <StGlobalHeaderWrap>
       <GlobalLayout>
         <Input size="medium" variant="default" />
-        <button onClick={handleModal}>로그인</button>
+        <Button 
+         size="small"
+         variant="primary"
+        onClick={handleModal}>로그인</Button>
         <Potal>
           {modalOn && <LoginModal onClose={handleModal} /> }
         </Potal>
