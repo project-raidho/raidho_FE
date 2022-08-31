@@ -35,7 +35,7 @@ const VARIANTS = {
   `,
 };
 
-function Input({ disabled, size, variant, children }) {
+function Input({ disabled, size, variant, children, ...props }) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
@@ -44,6 +44,7 @@ function Input({ disabled, size, variant, children }) {
       disabled={disabled}
       sizeStyle={sizeStyle}
       variantStyle={variantStyle}
+      {...props}
     >
       {children}
     </StyledInput>

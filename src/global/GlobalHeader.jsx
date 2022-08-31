@@ -31,15 +31,14 @@ const GlobalHeader = () => {
       <label className="testCheckedLogin">
         <input type="checkbox" onClick={testCheckedLogin} /> 로그인 여부 확인
       </label>
-      
       <GlobalLayout>
-      <StHeaderRow>
-        <StRaidhoLogo>
-          <Link to={'/'}>
-            <img src={RaidhoLogo} alt="RaidhoLogo" />
-          </Link>
-        </StRaidhoLogo>
-        <SearchContainer isLogin={isLogin} />
+        <StHeaderRow>
+          <StRaidhoLogo>
+            <Link to={'/'}>
+              <img src={RaidhoLogo} alt="RaidhoLogo" />
+            </Link>
+          </StRaidhoLogo>
+          <SearchContainer isLogin={isLogin} />
           {isLogin ?
             <StHeaderRightMenu>
               <p>
@@ -60,15 +59,15 @@ const GlobalHeader = () => {
               </p>
             </StHeaderRightMenu>
           :
-          <StHeaderRightMenu>
-            <Button 
-              size="small"
-              variant="primary"
-              onClick={handleModal}>로그인</Button>
-            <Potal>
-              {modalOn && <LoginModal onClose={handleModal} /> }
-            </Potal>
-          </StHeaderRightMenu>
+            <StHeaderRightMenu>
+              <Button 
+                size="small"
+                variant="primary"
+                onClick={handleModal}>로그인</Button>
+              <Potal>
+                {modalOn && <LoginModal onClose={handleModal} /> }
+              </Potal>
+            </StHeaderRightMenu>
           }
         </StHeaderRow>
       </GlobalLayout>

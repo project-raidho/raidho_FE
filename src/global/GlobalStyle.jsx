@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     --red-color: #FF4040;
     --gray-color: #CFCFCF;
     --text-color: #1E1E1E;
+    --box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
   }
   * {
     font-weight: 400;
