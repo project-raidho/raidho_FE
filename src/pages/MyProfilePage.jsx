@@ -1,11 +1,17 @@
 import React from "react";
+import GlobalLayout from "../global/GlobalLayout";
+import GlobalHeader from "../global/GlobalHeader";
+import MyProfileContainer from "../components/myProfile/MyProfileContainer";
 import styled from "styled-components";
 
 const MyProfilePage = () => {
 
   return(
     <StMyProfilePageWrap>
-      MyProfilePage
+      <GlobalHeader />
+      <GlobalLayout>
+        <MyProfileContainer />
+      </GlobalLayout>
     </StMyProfilePageWrap>
   );
 };
@@ -13,5 +19,6 @@ const MyProfilePage = () => {
 export default MyProfilePage;
 
 const StMyProfilePageWrap = styled.div`
-  background-color: orange;
+  min-height: 100vh;
+  background-color: var(--bg-color);
 `;
