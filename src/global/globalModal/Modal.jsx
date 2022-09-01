@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Modal = ({ onClose }) => {
+const Modal = ({ onClose, childeren }) => {
 
   return(
     <>
     <Background onClick={onClose} />
       <ModalContentBox>
         <div className="contents">
-       내용
+        {childeren}
         </div>
       </ModalContentBox>
     </>
@@ -28,6 +28,7 @@ const Background = styled.div`
   top: 0;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 `;
 
 const ModalContentBox = styled.div`
@@ -39,6 +40,7 @@ const ModalContentBox = styled.div`
   margin-top: -250px;
   background-color: white;
   overflow: scroll;
+  z-index: 6;
 
   .contents {
     width: 100%;

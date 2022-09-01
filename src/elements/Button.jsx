@@ -26,6 +26,13 @@ const SIZES = {
     --button-margin-right: 25px;
     --button-radius: 25px;
   `,
+  square: css`
+    --button-font-size: 1.5rem;
+    --button-width: auto;
+    --button-height: 40px;
+    --button-padding: 0 16px;
+    --button-radius: 0px;
+  `,
 };
 
 const VARIANTS = {
@@ -41,12 +48,20 @@ const VARIANTS = {
     --button-border-color: #CFCFCF;
   `,
   line: css`
-    --button-color: #1E1E1E;
+    --button-color: var(--title-color);
     --button-border-color: var(--main-color);
-    --button-bg-color: #FFFFFF;
+    --button-bg-color: var(--bgSub-color);
     --button-hover-bg-color: var(--main-color);
     --button-hover-text-color: #FFFFFF;
   `,
+  lineSquare: css`
+  --button-color: var(--title-color);
+  --button-border-color: var(--gray-color);
+  --button-bg-color: var(--bgSub-color);
+  --button-hover-bg-color: var(--bgSub-color);
+  --button-hover-text-color: var(--title-color);
+  --button-box-shadow: none;
+`,
 };
 
 function Button({ size, variant, children, ...props }) {

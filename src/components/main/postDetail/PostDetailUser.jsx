@@ -8,12 +8,12 @@ const PostDeailUser= ({postDetail})=> {
           <StProfileRightBox>
           <h2>{postDetail.memberName}</h2>
           <div>2022년 9월 1일 게시</div>
-           <p>{postDetail.tags.map((tag, i)=> (
+           <div className="tagList">{postDetail.tags.map((tag, i)=> (
             <div key={i}>{tag}</div>
-        ))}</p>
-         <p>{postDetail.locationTags.map((tag, i)=> (
+        ))}</div>
+         <div className="tagList">{postDetail.locationTags.map((tag, i)=> (
             <div key={i}>{tag}</div>
-        ))}</p>
+        ))}</div>
           </StProfileRightBox>
         
        
@@ -37,7 +37,7 @@ margin-top: 10px;
     height: 100%;
     object-fit: cover;
     }
-    p {
+    .tagList {
         display:flex;
          gap:10px
     }

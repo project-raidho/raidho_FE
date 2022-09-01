@@ -10,12 +10,12 @@ const MainPage = () => {
   
   return (
 
-      <StMainPageWrap>
+    <StMainPageWrap>
       <GlobalHeader />
       <GlobalLayout>
-      <MainMenu/>
+        <MainMenu/>
       </GlobalLayout>
-      </StMainPageWrap>
+    </StMainPageWrap>
   
   );
 };
@@ -23,5 +23,5 @@ const MainPage = () => {
 export default MainPage;
 
 const StMainPageWrap = styled.div`
-  background-color: #fff;
+  background-color: var(--bg-color);
 `;
