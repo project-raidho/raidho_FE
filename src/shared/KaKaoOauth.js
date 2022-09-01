@@ -10,13 +10,10 @@ const REDIRECT_URI =  "http://raidho.site/oauth/kakao";
     <h1>
         <Kakaobutton className="kaako" href={KAKAO_AUTH_URL}><img
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          
           alt="kakao"
         /></Kakaobutton>
     </h1>
-
 )
-
 }
 
 export default KakaoOauth;
@@ -35,6 +32,6 @@ const Kakaobutton =styled.a`
     border: none;
 
  img {
-  width: 300px;
+  width: 268px;
  }
 `

@@ -4,6 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import NaverLogin from "./NaverLogin";
+import RaidhoLogo from "../../assets/raidhoLogo.svg";
 
 const LoginModal = ({ onClose }) => {
   const navigate=useNavigate();
@@ -23,10 +25,15 @@ const LoginModal = ({ onClose }) => {
     <>
     <Background onClick={onClose} />
       <ModalContentBox>
+      <button  className="closeButton" onClick={onClose}>x</button>
+      <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
+      
+      
         <div className="contents">
          <KakaoOauth/>
-         <FaceBookLogin oAuthLoginHandler={oAuthLoginHandler}/>
-         <button>네이버로 로그인</button>
+         <NaverLogin/>
+         <FaceBookLogin className="faceBookLogin" oAuthLoginHandler={oAuthLoginHandler}/>
+        
         
         </div>
       </ModalContentBox>
@@ -52,21 +59,42 @@ const Background = styled.div`
 
 const ModalContentBox = styled.div`
   position: absolute;
-  height: 720px;
+  height: 600px;
   width: 480px;
   top: 50%;
   left: 50%;
-  margin-top: -360px;
+  margin-top: -200px;
   margin-left: -240px;
   background-color: var(--bg-color);
   border: 1px solid var(--title-color);
   z-index: 6;
-  
+  text-align: center;
+  .closeButton {
+    position:absolute;
+        top:10px;
+        right:10px;
+        background-color: transparent;
+        border:none;
+        margin-top: 20px;
+        margin-right: 20px;
+        font-size: 18px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    }
+
+  .logoImg{
+    margin-top:100px;
+    margin-bottom: 50px;
+  }
   .contents {
+    justify-content: center;
     width: 100%;
     height: 100%;
     padding: 20px;
     z-index: 3;
-
+  }
+  .faceBookLogin{
+    margin: auto;
   }
 `;
