@@ -5,32 +5,31 @@ import axios from "axios";
 
 const PostDeailLike= ({postDetail})=> {
     const initial=postDetail.heartCount
-    const [heartCount, setHeartCount]=useState(initial)
-    console.log(heartCount)
+    console.log(initial)
+    const [count, setCount]=useState(0);
+    
     const [like, setLike] = useState(false)
 
     console.log(like)
-    const URI = process.env.REACT_APP_BASE_URI;
-  
-    let config = {
-        headers: {
-          Authorization: localStorage.getItem("Authorization"),
-          RefreshToken: localStorage.getItem("RefreshToken"),
-        },
-      };
+    // const URI = process.env.REACT_APP_BASE_URI;
+    // let config = {
+    //     headers: {
+    //       Authorization: localStorage.getItem("Authorization"),
+    //       RefreshToken: localStorage.getItem("RefreshToken"),
+    //     },
+    //   };
 
     const toggleLike = async () => {
-        
-         
+    
           if(like===false){
-            setHeartCount(heartCount+1)
-             await axios.post(`${URI}/detail/like`, {like:true}, config)
+            setCount(count+1)
+            //  await axios.post(`${URI}/detail/like`, {like:true}, config)
+        
           }else{
-            setHeartCount(heartCount-1)
-            await axios.post(`${URI}/detail/like`, {like:false}, config)
+            setCount(count-1)
+            // await axios.post(`${URI}/detail/like`, {like:false}, config)
           }
-          setLike(!like)
-      
+          return setLike(!like)
             
           
            // [POST] 사용자가 좋아요를 누름 -> DB 갱신
@@ -38,7 +37,7 @@ const PostDeailLike= ({postDetail})=> {
         }
     return(
         <StlikeWrapper>
-        <StHeartCountBox>{heartCount}</StHeartCountBox>
+        <StHeartCountBox>{postDetail.heartCount+count}</StHeartCountBox>
         <HeartButton like={like} onClick={toggleLike}/>
         </StlikeWrapper>
     )

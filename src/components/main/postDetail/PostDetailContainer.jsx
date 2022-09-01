@@ -32,7 +32,7 @@ const StDeailContainer=styled.div`
 
     .closeButton {
         float: right;
-        background-color: #fff;
+        background-color: transparent;
         border:none;
         margin-top: 20px;
         margin-right: 20px;
