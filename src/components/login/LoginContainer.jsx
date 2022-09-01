@@ -63,7 +63,7 @@ const ModalContentBox = styled.div`
   width: 480px;
   top: 50%;
   left: 50%;
-  margin-top: -200px;
+  margin-top: -300px;
   margin-left: -240px;
   background-color: var(--bg-color);
   border: 1px solid var(--title-color);

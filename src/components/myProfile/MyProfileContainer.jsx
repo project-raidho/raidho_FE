@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
 import styled from "styled-components";
 
 const MyProfileContainer = () => {
+
+  // ::: 게시글 더보기 기능 구현
+  const [ isMore, setIsMore ] = useState(false);
+
+  const onClickMorePost = () => {
+    setIsMore(!isMore);
+  }
 
   return(
     <StMyProfileContainerWrap>
@@ -13,11 +20,18 @@ const MyProfileContainer = () => {
       </StMyProfileTitleRow>
       <UpdateMyProfile />
 
-      <StMyProfileTitleRow>
+      <StMyProfileTitleRow isMore={isMore}>
         <h3>내가 쓴 글</h3>
+        <p 
+          onClick={onClickMorePost}
+        >
+          더보기
+        </p>
         <span className="bgMiddleLine"/>
       </StMyProfileTitleRow>
-      <MyPostList />
+      <MyPostList 
+        isMore={isMore} 
+      />
 
       <StMyProfileTitleRow>
         <h3>계정 / 보안</h3>
@@ -60,5 +74,17 @@ const StMyProfileTitleRow = styled.div`
     height: 1px;
     background-color: var(--line-color);
     z-index: 1;
+  }
+
+  p {
+    display: ${(props) => props.isMore && "none"};
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--title-color);
+    padding-left: 25px;
+    background-color: var(--bg-color);
+    z-index: 2;
+    transition: 0.2ms;
+    cursor: pointer;
   }
 `;
