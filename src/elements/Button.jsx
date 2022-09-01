@@ -41,9 +41,9 @@ const VARIANTS = {
     --button-border-color: #CFCFCF;
   `,
   line: css`
-    --button-color: #1E1E1E;
+    --button-color: var(--title-color);
     --button-border-color: var(--main-color);
-    --button-bg-color: #FFFFFF;
+    --button-bg-color: var(--bgSub-color);
     --button-hover-bg-color: var(--main-color);
     --button-hover-text-color: #FFFFFF;
   `,
