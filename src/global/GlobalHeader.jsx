@@ -55,6 +55,7 @@ const GlobalHeader = () => {
               <p>
                 <Link to={'/myProfile'}>
                   {/* ::: 로그인한 유저 프로필 이미지 넣어야 함 / 링크에 유저아이디 연결?! */}
+                  
                 </Link>
               </p>
             </StHeaderRightMenu>
