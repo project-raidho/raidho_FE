@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Modal = ({ onClose, childeren }) => {
+const Modal = ({ onClose, children }) => {
 
   return(
     <>
     <Background onClick={onClose} />
       <ModalContentBox>
         <div className="contents">
-        {childeren}
+          {children}
         </div>
       </ModalContentBox>
     </>
@@ -34,20 +34,23 @@ const Background = styled.div`
 const ModalContentBox = styled.div`
   position: absolute;
   height: 500px;
-  width: 50%;
+  width: 480px;
   top: 50%;
-  left: 25%;
+  left: 50%;
   margin-top: -250px;
-  background-color: white;
-  overflow: scroll;
+  margin-left: -240px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--title-color);
   z-index: 6;
+  text-align: center;
 
   .contents {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: tomato;
     padding: 20px;
-    z-index: 3;
-
   }
 `;
