@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import styled from "styled-components";
 import HeartButton from "../HeartButton"
-import axios from "axios";
+// import axios from "axios";
 
 const PostDeailLike= ({postDetail})=> {
     const initial=postDetail.heartCount
