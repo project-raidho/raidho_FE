@@ -20,6 +20,7 @@ const Heart = styled.img`
     position:absolute;
         bottom: 20px;
          left : 20px;
+         cursor: pointer;
     
     
 `;
