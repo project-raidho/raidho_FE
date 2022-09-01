@@ -9,6 +9,7 @@ import styled from "styled-components";
 import RaidhoLogo from "../assets/raidhoLogo.svg";
 import AddPostIcon from "../assets/addPost.svg";
 import GoChattingIcon from "../assets/goChatting.svg";
+import SampleProfileImage from "../assets/sampleProfile.png";
 
 
 const GlobalHeader = () => {
@@ -55,7 +56,7 @@ const GlobalHeader = () => {
               <p>
                 <Link to={'/myProfile'}>
                   {/* ::: 로그인한 유저 프로필 이미지 넣어야 함 / 링크에 유저아이디 연결?! */}
-                  
+                  <img src={SampleProfileImage} alt="사용자 프로필 이미지" />
                 </Link>
               </p>
             </StHeaderRightMenu>
@@ -124,10 +125,17 @@ const StHeaderRightMenu = styled.div`
   p:last-child {
     width: 55px;
     height: 55px;
+    border: 1px solid var(--gray-color);
     border-radius: 50%;
     background-color: var(--main-color);
     margin-right: 0;
     overflow: hidden;
+
+    img {
+      width:100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   p span {
