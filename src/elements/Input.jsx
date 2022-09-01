@@ -18,17 +18,16 @@ const SIZES = {
 
 const VARIANTS = {
   default: css`
-    --input-color: #1E1E1E;
+    --input-color: var(--text-color);
     --input-bg-color: #FFFFFF;
     --input-border-color: #A0A0A0;
     --input-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     --input-focus-border: 1px solid var(--main-color);
   `,
   search: css`
-    --input-color: #1E1E1E;
+    --input-color: var(--text-color);
     --input-bg-color: #FFFFFF;
     --input-border-color: #A0A0A0;
-    --input-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     --input-search-background: no-repeat 98.5% center url(${SearchIcon}) var(--bg-color);
   `,
 };
@@ -64,7 +63,7 @@ const StyledInput = styled.input`
   background-color: var(--input-bg-color, #FFFFFF);
   color: var(--input-color, #A0A0A0);
   border: 1px solid var(--input-border-color, #A0A0A0);
-  box-shadow: var(--input-box-shadow, 0px 4px 5px rgba(0, 0, 0, 0.1));
+  box-shadow: var(--input-box-shadow, none);
   background: var(--input-search-background);
 
   &:focus {

@@ -28,6 +28,7 @@ const StDeailContainer=styled.div`
     border: 1px solid;
     border-radius: 20px;
     padding: 20px 50px;
+    box-shadow: var(--box-shadow);
 
     .closeButton {
         float: right;
