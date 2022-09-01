@@ -104,6 +104,7 @@ const StSearchDetailBox = styled.div`
 
   input {
     border: ${(props)=>props.isFocusSearch === true && "none"};
+    box-shadow: ${(props)=>props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
   }
 `;
 
@@ -115,6 +116,7 @@ const StSearchDetailList = styled.div`
   h3 {
     font-size: 1.5rem;
     margin: 15px 0;
+    color: var(--title-color);
   }
 `;
 
