@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HeartButton from "./HeartButton";
 import React, { useState, useEffect } from "react";
 
-const MainPostCard= ({image})=> {
+const MainPostCard= ({image, onClick})=> {
 
     const [like, setLike] = useState(false)
     
@@ -26,7 +26,7 @@ const MainPostCard= ({image})=> {
     return(
         
         <Stfigure>
-        <img className="img" src={image} alt="img"/>
+        <img className="img" src={image} alt="img" onClick={onClick}/>
         <HeartButton className="likebutton" like={like} onClick={toggleLike}/>
         </Stfigure>
        
@@ -45,11 +45,13 @@ const Stfigure=styled.figure`
     .img{
         width:100%;
         position: relative;
+        cursor: pointer;
     }
     .likebutton{
         position:absolute;
         top: 20px;
          left : 10px;
+         
     }
 
 `
