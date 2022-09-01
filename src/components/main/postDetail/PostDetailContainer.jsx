@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PostDeailLike from "./PostDetailLike";
 import PostDeailUser from "./PostDetailUser";
 
 
@@ -10,8 +11,8 @@ const PostDeailContainer= ({postDetail, setDetailopen})=> {
         <StDeailContainer>
        <button  className="closeButton" onClick={closeContainer}>x</button>
         <img className="postImg" src={postDetail.postImgs[0]} alt="img"/>
+        <PostDeailLike postDetail={postDetail}/>
       <PostDeailUser postDetail={postDetail}/>
-      
         <StContentBox>{postDetail.content}</StContentBox>
         </StDeailContainer>
 
@@ -31,7 +32,7 @@ const StDeailContainer=styled.div`
 
     .closeButton {
         float: right;
-        background-color: #fff;
+        background-color: transparent;
         border:none;
         margin-top: 20px;
         margin-right: 20px;

@@ -25,17 +25,20 @@ const MainPostCard= ({image, onClick})=> {
   
     return(
         
-        <Stfigure>
+        <StFigure>
         <img className="img" src={image} alt="img" onClick={onClick}/>
-        <HeartButton className="likebutton" like={like} onClick={toggleLike}/>
-        </Stfigure>
+        <div className="likebutton" >
+        <HeartButton like={like} onClick={toggleLike}/>
+        </div>
+      
+        </StFigure>
        
     )
 }
 
 export default MainPostCard;
 
-const Stfigure=styled.figure`
+const StFigure=styled.figure`
     display:inline-block;
     position: relative;
     
@@ -44,13 +47,13 @@ const Stfigure=styled.figure`
     margin-bottom: 15px;
     .img{
         width:100%;
-        position: relative;
+       
         cursor: pointer;
     }
     .likebutton{
-        position:absolute;
-        top: 20px;
-         left : 10px;
+    position:absolute;
+    bottom: 20px;
+    left : 20px;
          
     }
 

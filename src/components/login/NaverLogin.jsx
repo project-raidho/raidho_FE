@@ -1,8 +1,6 @@
 
 import styled from 'styled-components'
-            // useEffect 와 같이 기본으로 제공하는 훅이기에 같이 import 해주자.
 import { useEffect, useRef } from 'react'
-
 const NaverLogin = ({ setGetToken, setUserInfo }) => {
       
     const naverRef = useRef()
@@ -77,46 +75,17 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
 	}
 
 	return (
-		<>
-        
-                 {/* // 선언 된 naverRef 를 ref 속성을 이용하여 적용하자. */}
-			<NaverIdLogin ref={naverRef} id="naverIdLogin" />
-			<NaverLoginBtn onClick={handleNaverLogin}>
-				<NaverIcon alt="navericon" />
-				<NaverLoginTitle>네이버로 로그인</NaverLoginTitle>
-			</NaverLoginBtn>
-		</>
+		<StWrapper>
+			<div onClick={handleNaverLogin} ref={naverRef} id="naverIdLogin" />
+		
+		</StWrapper>
 	)
 }
 
 export default NaverLogin
 
-const NaverIdLogin = styled.div`
-	display: none;
+const StWrapper=styled.div`
+	 display: flex;
+  justify-content: center;
+  margin-top:20px;
 `
-
-const NaverLoginBtn = styled.button`
-	display: flex;
-	align-items: center;
-	width: 360px;
-	height: 56px;
-	background-color: #03c75a;
-	border-radius: 6px;
-`
-
-// 로그인 버튼 사용가이드 링크를 들어가면 이미지를 받아 이렇게 적용이 가능하다 ! 
-const NaverIcon = styled.div`
-	width: 30px;
-	height: 30px;
-	margin-left: 10px;
-	background: url('/images/Login/navericon.png') no-repeat center;
-	background-size: 30px;
-`
-
-const NaverLoginTitle = styled.span`
-	margin-left: 90px;
-	color: ${({ theme }) => theme.White};
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 24px;
- `
