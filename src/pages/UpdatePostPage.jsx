@@ -13,5 +13,5 @@ const UpdatePostPage = () => {
 export default UpdatePostPage;
 
 const StUpdatePostPageWrap = styled.div`
-  background-color: red;
+  background-color: blue;
 `;
