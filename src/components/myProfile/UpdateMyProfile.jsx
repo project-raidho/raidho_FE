@@ -62,6 +62,10 @@ const UpdateMyProfile = (props) => {
               variant="default"
               placeholder={userInfo.userComment}
             />
+            <StButtonWrap>
+              <Button size="medium" onClick={handleModal}>취소</Button>
+              <Button size="medium">수정</Button>
+            </StButtonWrap>
           </Modal>
         }
       </Potal>
@@ -115,4 +119,12 @@ const StMyProfileBox = styled.div`
       font-size: 1.5rem;
     }
   }
+`;
+
+const StButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;
