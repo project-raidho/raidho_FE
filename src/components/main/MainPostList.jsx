@@ -120,7 +120,7 @@ const MainPostList = ({ best }) => {
       postImgs: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"],
       tags: ["#등산", "#한라산"],
       locationTags: ["#경기", "#안양"],
-      heartcount: 100,
+      heartCount: 100,
       memberId: 1,
       memberImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
       memberName: "김경문",
