@@ -7,7 +7,7 @@ import MainPostCard from "./MainPostCard";
 import PostDeailContainer from "./postDetail/PostDetailContainer";
 
 const MainPostList = ({ best }) => {
-  const initial = [ {
+  const postList = [ {
     id: 1,
     imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"
   },
@@ -104,15 +104,15 @@ const MainPostList = ({ best }) => {
     imgurl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU"
   }]
   useEffect(() => {
-    getbestimages();
+    // getbestimages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [postList, setPostList] = useState(initial);
+  //const [postList, setPostList] = useState(initial);
   const URI = process.env.REACT_APP_BASE_URI;
-  const getbestimages = async () => {
-    const res = await axios.get(`${URI}/bestPostList`);
-    return setPostList(res.data);
-  }
+  // const getbestimages = async () => {
+  //   const res = await axios.get(`${URI}/bestPostList`);
+  //   return setPostList(res.data);
+  // }
   const [postDetail, setPostDetail] = useState(
     {
       id: 1,
