@@ -1,11 +1,16 @@
-import KakaoOauth from "../../shared/KaKaoOauth";
+// import KakaoOauth from "../../shared/KaKaoOauth";
 import FaceBookLogin from "./FacebookLogin";
 import React from "react";
 import styled from "styled-components";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import NaverLogin from "./NaverLogin";
+// import NaverLogin from "./NaverLogin";
 import RaidhoLogo from "../../assets/raidhoLogo.svg";
+import {
+  KAKAO_AUTH_URL,
+  // GOOGLE_AUTH_URL,
+  NAVER_AUTH_URL,
+} from "../../shared/SocialOAuth";
 
 const LoginModal = ({ onClose }) => {
   const navigate=useNavigate();
@@ -30,8 +35,23 @@ const LoginModal = ({ onClose }) => {
       
       
         <div className="contents">
-         <KakaoOauth/>
-         <NaverLogin/>
+        <h1>
+        <Kakaobutton className="kaako" href={KAKAO_AUTH_URL}><img
+          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+          alt="kakao"
+        /></Kakaobutton>
+        </h1>
+        <a href={NAVER_AUTH_URL}>
+        <img
+                  margin="10px"
+                  width="268px"
+                  height="60px"
+                  src={require("../../assets/naverlogo.png")}
+                  alt="네이버로그인"
+                />
+                {/* <NaverLogin/> */}
+        </a>
+        
          <FaceBookLogin className="faceBookLogin" oAuthLoginHandler={oAuthLoginHandler}/>
         
         
@@ -98,3 +118,20 @@ const ModalContentBox = styled.div`
     margin: auto;
   }
 `;
+
+const Kakaobutton =styled.a`
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: #1c1c1c;
+    border: none;
+
+ img {
+  width: 268px;
+ }
+`
