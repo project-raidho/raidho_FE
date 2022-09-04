@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-const CreatePostContent = () => {
+const CreatePostContent = ({ typedPostContent }) => {
+  const [ postContent, setPostContent ] = useState(null);
 
-  const checkKeyPressHash = (event) => {
-    console.log(event.code);
-    if(event.code === "Digit3" && event.key === "#") {
-      console.log("해시를 입력했습니다!");
-    }
-
+  const onChangeContent = (event) => {
+    setPostContent(event.target.value);
   }
+  typedPostContent(postContent);
 
   return(
     <StCreatePostContentWrap>
-      <textarea
-        onKeyPress={checkKeyPressHash}
-      ></textarea>
-      
+      <textarea 
+        onChange={onChangeContent}
+        placeholder="경험을 소개해주세요!"
+      />
     </StCreatePostContentWrap>
   );
 };
@@ -28,8 +26,11 @@ const StCreatePostContentWrap = styled.div`
  
   textarea {
     width: 100%;
-    height: 300px;
-    font-size: 2rem;
+    height: 200px;
+    font-size: 1.2rem;
+    border: 1px solid var(--gray-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
     background-color: var(--subBg-color);
   }
 `;

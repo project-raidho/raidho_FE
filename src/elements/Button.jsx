@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const SIZES = {
   small: css`
-    --button-font-size: 1rem;
+    --button-font-size: 1.2rem;
     --button-padding: 5px 25px;
     --button-radius: 30px;
   `,
