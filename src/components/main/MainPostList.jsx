@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -108,36 +108,48 @@ const MainPostList = ({ best }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //const [postList, setPostList] = useState(initial);
-  const URI = process.env.REACT_APP_BASE_URI;
+  // const URI = process.env.REACT_APP_BASE_URI;
   // const getbestimages = async () => {
   //   const res = await axios.get(`${URI}/bestPostList`);
   //   return setPostList(res.data);
   // }
-  const [postDetail, setPostDetail] = useState(
-    {
-      id: 1,
-      content: "너무 멋져요~~",
-      postImgs: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"],
-      tags: ["#등산", "#한라산"],
-      locationTags: ["#경기", "#안양"],
-      heartCount: 100,
-      memberId: 1,
-      memberImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
-      memberName: "김경문",
-    }
-  );
+  // const [postDetail, setPostDetail] = useState(
+  //   {
+  //     id: 1,
+  //     content: "너무 멋져요~~",
+  //     postImgs: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"],
+  //     tags: ["#등산", "#한라산"],
+  //     locationTags: ["#경기", "#안양"],
+  //     heartCount: 100,
+  //     memberId: 1,
+  //     memberImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
+  //     memberName: "김경문",
+  //   }
+  // );
+
+  const postDetail = {
+    id: 1,
+    content: "너무 멋져요~~",
+    postImgs: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"],
+    tags: ["#등산", "#한라산"],
+    locationTags: ["#경기", "#안양"],
+    heartCount: 100,
+    memberId: 1,
+    memberImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
+    memberName: "김경문",
+  }
   
    
 
 // ::: 상세보기 가져오는 axios
-  const getpostdetail = async (id) => {
-    const res = await axios.get(`${URI}/detail/${id}`);
-    return setPostDetail(res.data);
-  };
+  // const getpostdetail = async (id) => {
+  //   const res = await axios.get(`${URI}/detail/${id}`);
+  //   return setPostDetail(res.data);
+  // };
 // ::: 상세보기 열고 닫는 state
   const [detailopen, setDetailopen] = useState(false)
   const detailhandler = (id) => {
-    getpostdetail(id)
+    //getpostdetail(id)
     setDetailopen(true)
 
   };
