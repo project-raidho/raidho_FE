@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "../../elements/Button";
@@ -26,7 +26,7 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   const canvasRef = useRef(null);
   const [ crop, setCrop ] = useState(null);
   const [ completedCrop, setCompletedCrop ] = useState(null);
-  const [ uploadImages, setUploadImages ] = useState([{}, {}, {}, {}, {}]);
+  const [ uploadImages, setUploadImages ] = useState([]);
   const [ aspect, setAspect ] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
@@ -45,7 +45,8 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   }
 
   // ::: 크롭 영역 canvas에 넣기
-  const createCanvas = () => {
+ 
+  const createCanvas = useCallback(() => {
     if (!completedCrop || !canvasRef.current || !imageRef.current) {
       return;
     }
@@ -75,15 +76,15 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
       crop.width * scaleX,
       crop.height * scaleY
     );
-  };
+  }, [completedCrop]);
+
 
   let imagesTemp = uploadImages;
   const onChangeCropImage = () => {
   	createCanvas();
-    
     if (!canvasRef.current) return;
     
-    // canvas를 blob 형태로 만들어서 이미지 업로드하기
+    // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
     // canvasRef.current.toBlob(
     //   (blob) => uploadCoverImage(blob),
     //   "image/jpeg",
@@ -97,10 +98,16 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     };
     setUploadImages(targetUploadImage);
   };
+
+  // ::: 이미지 미리보기 편집할 때마다 확인 할 수 있게 설정
+  useEffect(() => {
+    createCanvas();
+  }, [completedCrop, createCanvas]);
+
   // console.log("completedCrop ::::", completedCrop);
   // console.log("uploadImages ::::", uploadImages);
-  // console.log("imagesTemp ::::", imagesTemp);
-  // console.log("selectedImageIndex ::::", selectedImageIndex);
+  console.log("imagesTemp ::::", imagesTemp);
+  console.log("selectedImageIndex ::::", selectedImageIndex);
 
   return (
     <StCreatePostImageCrop>
@@ -136,14 +143,16 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
          />
       </ReactCrop>
 
+      <StCanvasPreview 
+        ref={canvasRef}
+      />
+
       <Button 
         onClick={onChangeCropImage}
       >
         저장하기
       </Button>
-      <canvas 
-        ref={canvasRef}
-      />
+      
     </StCreatePostImageCrop>
   );
 }
@@ -165,3 +174,10 @@ const StCreatePostImageCrop=styled.div`
 const StImageSizeButtonWrap = styled.div`
   border: 1px solid orange;
 `;
+
+const StCanvasPreview = styled.canvas`
+  max-width: 80%;
+  min-height: 0;
+  max-height: 300px;
+  border: 1px solid orange;
+`
