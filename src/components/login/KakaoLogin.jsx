@@ -11,7 +11,7 @@ const KakaoLogin= ()=> {
     console.log(KAKAO_CODE)
     const URI = process.env.REACT_APP_BASE_URI;
     useEffect(()=> {
-        const res= axios.get(`${URI}/ouath/kakao?code=${KAKAO_CODE}`)
+        const res= axios.get(`${URI}/user/kakao/callback?code=${KAKAO_CODE}`)
         console.log(res)
         localStorage.setItem("Authorization", res.headers.authorization);
         navigate("/");
