@@ -10,6 +10,7 @@ const FaceBookLogin = ({ oAuthLoginHandler }) => {
   
   const responseFacebook = (response) => {
     const { id, email } = response; //페이스북 응답객체에서 id와 email을 할당한 후 
+    console.log(response)
     oAuthLoginHandler(Number(id), email);  // props로 내려준 oAuthLoginHandler라는 함수에 인자로 넘겨준다.
   };
 

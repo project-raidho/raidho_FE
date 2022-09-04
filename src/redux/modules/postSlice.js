@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const URL = {
-  BASE: process.env.REACT_APP_BASE_URL,
-};
+// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import axios from "axios";
+import {createSlice } from "@reduxjs/toolkit";
+// const URL = {
+//   BASE: process.env.REACT_APP_BASE_URL,
+// };
 
 // ::: 초기값
 const initialState = {
