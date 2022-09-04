@@ -29,5 +29,8 @@
 - kakao login : yarn add react-kakao-login
 - 이미지 drop 업로드 : yarn add react-dropzone
 - 이미지 crop : yarn add react-image-crop
+- tag 기능 : yarn add @yaireo/tagify
 
-- **
+-----
+
+## Package 선택 이유
