@@ -8,7 +8,7 @@ const CreatePostPage = () => {
 
   return(
     <StCreatePostPageWrap>
-      <GlobalHeader />
+      <GlobalHeader /> 
       <GlobalLayout>
         <CreatePostContainer />
       </GlobalLayout>
@@ -20,5 +20,6 @@ export default CreatePostPage;
 
 const StCreatePostPageWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: var(--bg-color);
 `;

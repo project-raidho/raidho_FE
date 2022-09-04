@@ -7,6 +7,7 @@ const CreatePostImage = (props) => {
   const [files, setFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
   const {
     getRootProps, 
     getInputProps,
@@ -25,17 +26,19 @@ const CreatePostImage = (props) => {
     maxFiles:5 // ::: 최대 이미지 개수 설정하기
   });
 
+
   // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
-  const fileRejectionItems = fileRejections.map(({ file, errors  }) => { 
-    return (
-      <li key={file.path}>
-           {file.path} - {file.size} bytes
-           <ul>
-             {errors.map(error => <li key={error.code}> 이미지는 최대 5장까지만 넣을 수 있습니다 / {error.message}</li>)}
-          </ul>
-      </li>
-    ) 
-   });
+  useEffect(() => {
+    fileRejections.length > 0 ?
+      setFileRejectionsMessage(
+        <>
+          <span>- 이미지는 최대 5장까지 업로드가 가능합니다!</span> <br />
+          <strong>현재 업로드한 이미지 개수 : {fileRejections.length}</strong>
+        </>
+      )
+    : setFileRejectionsMessage(null)
+  }, [fileRejections]);
+
   
    // ::: 썸네일 이미지 출력하기
   const thumbs = files.map((file, index) => (
@@ -80,7 +83,9 @@ const CreatePostImage = (props) => {
         {thumbs}
       </StThumbsContainer>
 
-      <ul>{fileRejectionItems}</ul>
+      <StAlertMessage>
+        {fileRejectionsMessage}
+      </StAlertMessage>
     </StCreatePostImageWrap>
   );
 };
@@ -89,7 +94,6 @@ export default CreatePostImage;
 
 const StCreatePostImageWrap = styled.div`
   width: 100%;
-  background-color: ivory;
 `;
 
 const StImageDropZone = styled.div`
@@ -99,8 +103,10 @@ const StImageDropZone = styled.div`
   justify-content: center;
   width: 100%;
   height: 100px;
-  border: 1px solid var(--gray-color);
+  border: 1px dashed var(--gray-color);
   border-radius: 20px;
+  background-color: var(--bg-color);
+  cursor: pointer;
 
   p {
     text-align: center;
@@ -137,8 +143,24 @@ const StThumbInner = styled.div`
 
 const StThumbsContainer = styled.aside`
   display: flex;
+  min-height: 100px;
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 16px;
-  border: 1px solid purple;
+  background-color: var(--bgSub-color);
 `;
+
+const StAlertMessage = styled.p`
+  line-height: 1.3;
+  font-style: italic;
+  margin-top: 1rem;
+
+  span, strong {
+    color: var(--red-color);
+  }
+  
+  strong {
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+`
