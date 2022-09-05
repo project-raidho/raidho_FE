@@ -13,6 +13,9 @@ import SampleProfileImage from "../assets/sampleProfile.png";
 
 
 const GlobalHeader = () => {
+  const [ test, setTest ] = useState('');
+
+  console.log(test);
   
   // ::: 로그인 여부 확인하기
   const [ isLogin, setIsLogin ] = useState(false);
@@ -27,7 +30,7 @@ const GlobalHeader = () => {
   const handleModal = () => {
     setModalOn(!modalOn);
   }
-  
+
   return(
     <StGlobalHeaderWrap>
       <label className="testCheckedLogin">
@@ -42,6 +45,7 @@ const GlobalHeader = () => {
           </StRaidhoLogo>
           <SearchContainer 
             isLogin={isLogin} 
+            setTest={setTest}
           />
           {isLogin ?
             <StHeaderRightMenu>

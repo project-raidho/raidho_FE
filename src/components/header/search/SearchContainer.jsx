@@ -4,7 +4,7 @@ import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import styled from "styled-components";
 
-const SearchContainer = ({ isLogin }) => {
+const SearchContainer = ({ isLogin, setTest }) => {
   const navigate = useNavigate();
 
   // ::: 검색창 focus 여부 확인하기
@@ -62,8 +62,10 @@ const SearchContainer = ({ isLogin }) => {
           JSON.stringify(myRecentSearches)
         );
         
+        setTest(searchInput);
         goSearchDetail(searchInput);
-        setSearchInput('');
+
+        //setSearchInput('');
       }
     }
   }
@@ -93,9 +95,6 @@ const SearchContainer = ({ isLogin }) => {
     setMyRecentSearches(myRecentSearches.filter(search => search !== tag));
   }
 
-
-  // console.log("recentSearch =====>>>>> ", myRecentSearches);
-  // console.log("localStorage ::::", localStorage.getItem("recentSearches"));
 
   return(
     <StSearchContainerWrap 
