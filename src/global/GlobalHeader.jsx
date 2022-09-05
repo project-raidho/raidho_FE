@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import GlobalLayout from "./GlobalLayout";
 import Button from "../elements/Button";
@@ -13,6 +13,7 @@ import SampleProfileImage from "../assets/sampleProfile.png";
 
 
 const GlobalHeader = () => {
+  
   // ::: 로그인 여부 확인하기
   const [ isLogin, setIsLogin ] = useState(false);
 
@@ -26,7 +27,7 @@ const GlobalHeader = () => {
   const handleModal = () => {
     setModalOn(!modalOn);
   }
-
+  
   return(
     <StGlobalHeaderWrap>
       <label className="testCheckedLogin">
@@ -39,7 +40,9 @@ const GlobalHeader = () => {
               <img src={RaidhoLogo} alt="RaidhoLogo" />
             </Link>
           </StRaidhoLogo>
-          <SearchContainer isLogin={isLogin} />
+          <SearchContainer 
+            isLogin={isLogin} 
+          />
           {isLogin ?
             <StHeaderRightMenu>
               <p>
