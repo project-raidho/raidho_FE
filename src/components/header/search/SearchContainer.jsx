@@ -1,21 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import styled from "styled-components";
 
 const SearchContainer = ({ isLogin }) => {
+  const navigate = useNavigate();
+
   // ::: 검색창 focus 여부 확인하기
   const [ isFocusSearch, setIsFocusSearch ] = useState(false);
 
-  // ::: 최근 검색 기록 샘플
-  const recentlySearchList = [
-    "자전거 여행",
-    "여행지 추천",
-    "서울 여행",
-    "배낭 여행",
-    "바다 추천"
-  ];
+  // ::: 검색 입력 내용 확인하기
+  const [ searchInput, setSearchInput ] = useState('');
+
+  // ::: 최근 검색 기록 확인하기
+  const loadedRecentSearches = localStorage.getItem('recentSearches')
+    ? JSON.parse(localStorage.getItem('recentSearches'))
+    : [];
+  const [ myRecentSearches, setMyRecentSearches] = useState(loadedRecentSearches);
 
   // ::: 추천 테마 리스트 샘플
   const themeList = [
@@ -25,6 +27,75 @@ const SearchContainer = ({ isLogin }) => {
     {themeName: "클라이밍", themeImage: "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/53932247_826285544383664_3053291739625291776_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=1Hd45M8Uz6wAX9gh658&_nc_ht=scontent-ssn1-1.xx&oh=00_AT-2gRhK6AVu7k-3DkpxbIWwCicb5x78BXN-MREC-IufjQ&oe=633521FA"},
     {themeName: "보도", themeImage: "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/53932247_826285544383664_3053291739625291776_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=1Hd45M8Uz6wAX9gh658&_nc_ht=scontent-ssn1-1.xx&oh=00_AT-2gRhK6AVu7k-3DkpxbIWwCicb5x78BXN-MREC-IufjQ&oe=633521FA"},
   ];
+
+  // ::: 검색창에 입력한 값 확인하기
+  const onChangeSearchContent = (event) => {
+    setSearchInput(event.target.value);
+  }
+
+  // ::: 검색 상세보기 페이지 이동하기
+  const goSearchDetail = (url) => {
+    navigate(`/tag?tag=${url}`);
+  }
+
+  // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
+  const onKeyPressSearchEnter = (event) => {
+    if( event.key === "Enter" ) {
+      if( searchInput === '' ) {
+        return false;
+
+      } else {
+        // ::: 최근 검색어 중복 값 체크하기
+        myRecentSearches.includes(searchInput) === true
+        ? setMyRecentSearches((myRecentSearches) => 
+          [
+            searchInput,
+            ...myRecentSearches.filter(search => search !== searchInput)
+          ]
+        )
+        : setMyRecentSearches((myRecentSearches) => 
+          [searchInput, ...myRecentSearches]
+        );
+        
+        localStorage.setItem(
+          "recentSearches",
+          JSON.stringify(myRecentSearches)
+        );
+        
+        goSearchDetail(searchInput);
+        setSearchInput('');
+      }
+    }
+  }
+
+  useEffect(() => {
+    // ::: 최근 검색기록 표시될 최대 개수 정하기
+    const MAXIMUM_SIZE = 5;
+    const newRecentSearches = myRecentSearches.length > MAXIMUM_SIZE
+      ? [...myRecentSearches.slice(0, -1)]
+      : myRecentSearches;
+
+    const searchlist = localStorage.getItem("recentSearches");
+
+    if(searchlist === null) {
+      localStorage.setItem("recentSearches", []);
+    } else {
+      localStorage.setItem(
+        "recentSearches",
+        JSON.stringify(newRecentSearches)
+      );
+    }
+    setMyRecentSearches(newRecentSearches);
+  }, [myRecentSearches]);
+
+  // ::: 최근검색기록 삭제하기
+  const deleteRecentSearch = (tag) => {
+    setMyRecentSearches(myRecentSearches.filter(search => search !== tag));
+  }
+
+
+  // console.log("recentSearch =====>>>>> ", myRecentSearches);
+  // console.log("localStorage ::::", localStorage.getItem("recentSearches"));
 
   return(
     <StSearchContainerWrap 
@@ -38,23 +109,31 @@ const SearchContainer = ({ isLogin }) => {
           variant="search" 
           onFocus={() => {setIsFocusSearch(true)}}
           onBlur={() => {setIsFocusSearch(false)}}
+          onChange={onChangeSearchContent}
+          onKeyPress={onKeyPressSearchEnter}
+          value={searchInput}
         />
         <StSearchDetailList>
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
-            {recentlySearchList.map((tag, index)=>(
-              <Link 
-                key={tag+index}
-                // ::: 테그별 링크 연결 시켜야 함
-                to={`/`}
-              >
+            {myRecentSearches.map((tag, index)=>(
                 <Button 
+                  key={tag+index}
                   size="tag" 
                   variant="line"
                 >
-                  {tag}
+                  <Link 
+                    to={`/tag?tag=${tag}`}
+                  >
+                    {tag}
+                  </Link>
+                  <span 
+                    className="tagCloseIcon"
+                    onClick={()=>{deleteRecentSearch(tag)}}
+                  >
+                    X
+                  </span>
                 </Button>
-              </Link>
             ))}
           </StSearchDetailRow>
 
@@ -63,8 +142,8 @@ const SearchContainer = ({ isLogin }) => {
             {themeList.map((themeCard)=>(
               <Link 
                 key={themeCard.themeName} 
-                // ::: 테그별 링크 연결 시켜야 함
-                to={`/`}
+                // ::: 테마별 링크 연결 시켜야 함
+                to={`/tag?tag=${themeCard.themeName}`}
               >
                 <StTagCard 
                   bgImage={`url(${themeCard.themeImage})`}
@@ -122,8 +201,25 @@ const StSearchDetailList = styled.div`
 
 const StSearchDetailRow = styled.div`
   button {
+    position: relative;
     margin-bottom: 15px;
   }
+
+  .tagCloseIcon {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		font-size: 1.2rem;
+		color: var(--main-color);
+		border-radius: 50%;
+		background: var(--bg-color);
+		cursor: pointer;
+	}
 `;
 
 const StTagCardWrap = styled.div`
