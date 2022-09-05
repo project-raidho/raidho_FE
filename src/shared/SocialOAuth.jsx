@@ -1,13 +1,21 @@
 
-const KAKAO_CLIENT_ID = "7e0e932177f25c237ca90728893d9a21";
-const KAKAO_REDIRECT_URI = "https://xn--wk0b636a.com/user/kakao/callback";
+const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID
+const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI
+
+// const KAKAO_CLIENT_ID = "e08a67dbcfb2bfbb134c46fba64b2f29";
+// const KAKAO_REDIRECT_URI = "https://raidho.site/login/oauth2/code/kakao";
+
+
+
+const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID
+const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_CALLBACK_URL
+// const NAVER_CLIENT_ID = "oq32J_8jgLtjcSRvYUO4";
+// const NAVER_REDIRECT_URI = "https://xn--wk0b636a.com/user/naver/callback";
+
+
 
 const GOOGLE_CLIENT_ID ="418085046130-194eqk6jjjmn32gnfiv6g331ooh985de.apps.googleusercontent.com";
 const GOOGLE_REDIRECT_URI = "https://xn--wk0b636a.com/user/google/callback";
-
-const NAVER_CLIENT_ID = "oq32J_8jgLtjcSRvYUO4";
-const NAVER_REDIRECT_URI = "https://xn--wk0b636a.com/user/naver/callback";
-
 
 const randomString = () => {
   const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";

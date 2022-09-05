@@ -6,7 +6,7 @@ export const chatAPI = {
       return axios.post(`/api/chat/rooms`, data);
     },
     getChatList: function () {
-      return axios.get(`/api/chat/rooms`);
+      // return axios.get(`/api/chat/rooms`);
     },
     getChatMessages: function (roomId) {
       return axios.get(`/api/chat/rooms/${roomId}/messages`);

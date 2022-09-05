@@ -8,7 +8,7 @@ import CreateMeetingPage from '../pages/CreateMeetingPage';
 import MeetingListPage from '../pages/MeetingListPage';
 import ChattingPage from '../pages/ChattingPage';
 import KakaoLogin from '../components/login/KakaoLogin';
-// import NaverLogin from '../components/login/NaverLogin';
+import NaverLogin from '../components/login/NaverLogin';
 
 const Routers = () => {
   return (
@@ -20,9 +20,9 @@ const Routers = () => {
         <Route path='/updatePost/:postId' element={<UpdatePostPage />} />
         <Route path='/createMeeting' element={<CreateMeetingPage />} />
         <Route path='/meetingList' element={<MeetingListPage />} />
-        <Route path='/chatting/:chattingId' element={<ChattingPage />} />
+        <Route path='/chatting' element={<ChattingPage />} />
         <Route path="/user/kakao/callback" element={<KakaoLogin/>} />
-        {/* <Route path='/oauth/naver' element={<NaverLogin/>} /> */}
+        <Route path='/oauth/naver' element={<NaverLogin/>} />
         
       </Routes>
     </BrowserRouter>
