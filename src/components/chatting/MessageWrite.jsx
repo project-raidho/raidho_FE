@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import ChatInput from '../../elements/ChatInput';
 
 // 아이콘
-import { IoArrowUp } from 'react-icons/io5';
+// import { IoArrowUp } from 'react-icons/io5';
 
 // 리덕스 접근
-import { useSelector, useDispatch } from 'react-redux';
+import { 
+  // useSelector,
+   useDispatch } from 'react-redux';
 
 // 채팅 관련 함수들 가져오기
 import { chatActions } from '../../redux/modules/chat';
@@ -21,7 +23,8 @@ const MessageWrite = (props) => {
 
   const { sendMessage } = props;
 
-  const loading = useSelector((state) => state.chat.loading);
+//   const loading = useSelector((state) => state.chat.loading);
+const loading=true;
 
   // 텍스트 기록 함수
   const handleMessageText = (e) => {
@@ -46,7 +49,7 @@ const MessageWrite = (props) => {
           sendMessage();
           setMessageText('');
         }}
-        ref={autoFocusRef}
+        mref={autoFocusRef}
         loading={loading}
       />
 
@@ -58,7 +61,8 @@ const MessageWrite = (props) => {
             setMessageText('');
           }}
         >
-          <IoArrowUp />
+          {/* <IoArrowUp className="arrowicon"/> */}
+          <StSubmit>전송</StSubmit>
         </IconWrap>
       ) : null}
     </Container>
@@ -87,8 +91,12 @@ const IconWrap = styled.div`
   height: 100%;
   width: 5%;
   font-size: 25px;
-  cursor: pointer;
-  
+  cursor: pointer;  
 `;
+
+const StSubmit= styled.div`
+  color: whitesmoke;
+`
+
 
 export default MessageWrite;
