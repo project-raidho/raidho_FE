@@ -50,16 +50,16 @@ const Container = styled.div`
   }
 `;
 
-const TagWrap = styled.div`
-  margin: 0px 5px;
-  padding: 5px;
-  font-size: 1rem;
-  background-color: orange;
-  border-radius: 10px;
-  @media ${(props) => props.theme.mobile} {
-    font-size: 0.5rem;
-  }
-  color: whitesmoke;
-`
+// const TagWrap = styled.div`
+//   margin: 0px 5px;
+//   padding: 5px;
+//   font-size: 1rem;
+//   background-color: orange;
+//   border-radius: 10px;
+//   @media ${(props) => props.theme.mobile} {
+//     font-size: 0.5rem;
+//   }
+//   color: whitesmoke;
+// `
 
 export default ChatName;
