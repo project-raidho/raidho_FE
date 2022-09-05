@@ -9,6 +9,7 @@ import { chatActions } from '../redux/modules/chat';
 
 // 리덕스
 import { useDispatch } from 'react-redux';
+import AppLayout from '../global/AppLayout';
 
 
 // 채팅 페이지 컴포넌트
@@ -22,16 +23,18 @@ const Chatting = (props) => {
 
   return (
     <Container>
-      {/* <ChatList /> */}
+      <AppLayout>
       <ChatWrap>
         <ChattingRoom />
       </ChatWrap>
+      </AppLayout>
+    
     </Container>
   );
 };
 
 const Container = styled.div`
-  ${(props) => props.theme.flex_row};
+  /* ${(props) => props.theme.flex_row}; */
   width: 100%;
   height: 100%;
   ${(props) => props.theme.border_box};

@@ -4,16 +4,17 @@ import styled from 'styled-components';
 
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
 const ChatName = (props) => {
-  const { roomName, category } = props;
-  // 카테고리 2개까지 표시
-  const categoryInfo = [];
-  for (let i = 0; i < 2; i++) {
-    if (category[i] === undefined) {
-      continue
-    }
-    categoryInfo.push(category[i])
-  }
-  return <Container>{roomName}
+  // const { roomName, category } = props;
+  // // 카테고리 2개까지 표시
+  // const categoryInfo = [];
+  // for (let i = 0; i < 2; i++) {
+  //   if (category[i] === undefined) {
+  //     continue
+  //   }
+  //   categoryInfo.push(category[i])
+  // }
+  return <Container>
+    {/* {roomName}
     {categoryInfo.map((c, idx) => {
       return (
         <TagWrap
@@ -23,7 +24,7 @@ const ChatName = (props) => {
         </TagWrap>
 
       )
-    })}
+    })} */}
 
 
   </Container>;
