@@ -26,7 +26,6 @@ const Routers = () => {
         <Route path='/chatting' element={<ChattingPage />} />
         <Route path="/user/kakao/callback" element={<KakaoLogin/>} />
         <Route path='/oauth/naver' element={<NaverLogin/>} />
-        
       </Routes>
     </BrowserRouter>
   );

@@ -16,5 +16,4 @@ const StGlobalLayoutWrap = styled.div`
   width: 100%;
   max-width: 1305px;
   margin: 0 auto;
-  /* background-color: rgba(0, 0, 0, 0.2); */
 `;
