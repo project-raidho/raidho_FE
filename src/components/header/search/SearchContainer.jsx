@@ -5,6 +5,9 @@ import Button from "../../../elements/Button";
 import styled from "styled-components";
 
 const SearchContainer = ({ isLogin, setTest }) => {
+
+  // 잉?
+  
   const navigate = useNavigate();
 
   // ::: 검색창 focus 여부 확인하기
