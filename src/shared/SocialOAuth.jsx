@@ -1,6 +1,8 @@
+const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID
+const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI
 
-const KAKAO_CLIENT_ID = "7e0e932177f25c237ca90728893d9a21";
-const KAKAO_REDIRECT_URI = "https://xn--wk0b636a.com/user/kakao/callback";
+// const KAKAO_CLIENT_ID = "7e0e932177f25c237ca90728893d9a21";
+// const KAKAO_REDIRECT_URI = "https://xn--wk0b636a.com/user/kakao/callback";
 
 const GOOGLE_CLIENT_ID ="418085046130-194eqk6jjjmn32gnfiv6g331ooh985de.apps.googleusercontent.com";
 const GOOGLE_REDIRECT_URI = "https://xn--wk0b636a.com/user/google/callback";
