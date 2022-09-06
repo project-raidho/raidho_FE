@@ -10,6 +10,7 @@ const KakaoLogin =  () => {
     
     
     useEffect(()=> {
+
         const KAKAO_CODE = location.search.split('=')[1];
         console.log(KAKAO_CODE)
         //const URI = process.env.REACT_APP_BASE_URI;
