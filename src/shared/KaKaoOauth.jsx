@@ -8,7 +8,7 @@ const REDIRECT_URI =  "http://raidho.site/oauth/kakao";
 
  return(
     <h1>
-        <Kakaobutton className="kaako" href={KAKAO_AUTH_URL}><img
+        <Kakaobutton className="kakao" href={KAKAO_AUTH_URL}><img
           src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
           alt="kakao"
         /></Kakaobutton>

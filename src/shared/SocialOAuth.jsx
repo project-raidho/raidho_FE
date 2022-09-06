@@ -1,10 +1,5 @@
-
 const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID
 const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI
-
-// const KAKAO_CLIENT_ID = "e08a67dbcfb2bfbb134c46fba64b2f29";
-// const KAKAO_REDIRECT_URI = "https://raidho.site/login/oauth2/code/kakao";
-
 
 
 const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID
