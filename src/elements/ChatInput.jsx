@@ -16,9 +16,9 @@ const ChatInput = (props) => {
     is_submit,
     onSubmit,
     MessageWrite,
-    loading,
+    // loading,
   } = props;
-
+const loading= true;
   if (multiLine) {
     return (
       <Grid>
@@ -52,7 +52,6 @@ const ChatInput = (props) => {
         ) : (
           <ElMessageWrite
             value="메시지 전송중 ..."
-
           >
 
           </ElMessageWrite>

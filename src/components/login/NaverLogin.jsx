@@ -105,11 +105,11 @@ const NaverLogin = (props) => {
 	const res= axios.get(`${URI}/user/naver/callback?code=${code}&state=${state}`)
 	console.log(res)
 	// localStorage.setItem("Authorization", res.headers.authorization);
-    navigate("/", { replace: true });
+    navigate("/");
 	   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <React.Fragment>연결 화면 테스트</React.Fragment>;
+
 };
 
 export default NaverLogin;
