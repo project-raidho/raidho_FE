@@ -8,17 +8,14 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    # strategy:
-      # matrix:
-      #   node-versions: [16.x]
 
     steps:
       - name: Checkout source code.
         uses: actions/checkout@v2
 
-      - name: Check Node v            # Node v 확인
+      - name: Check Node v
         run: node -v
 
       - name: Install Dependencies
@@ -34,7 +31,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy                  # Upload build file to S3
+      - name: Deploy 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
