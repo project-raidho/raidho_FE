@@ -106,13 +106,13 @@ const chat = createReducer(initialState, {
 
 // 채팅방 목록 조회
 const getChatList = () => async (dispatch, getState) => {
-  try {
-    const res = await chatAPI.getChatList();
-    dispatch(getChat(res.data));
-  }
-  catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   const res = await chatAPI.getChatList();
+  //   dispatch(getChat(res.data));
+  // }
+  // catch (error) {
+  //   console.log(error);
+  // }
 };
 
 // DB에 존재하는 채팅방 메시지들 가져오기

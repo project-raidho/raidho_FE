@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NoRoom = (props) => {
-  return <Container></Container>;
+  return <Container>가나다</Container>;
 };
 
 const Container = styled.div`

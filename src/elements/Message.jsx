@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 // 리덕스 접근
-import { useSelector} from 'react-redux';
+// import { useSelector} from 'react-redux';
 
 // 프로필 사진
 import  Image  from './Image';
@@ -15,8 +15,9 @@ import  Image  from './Image';
 // 사용자 - 상대방의 메시지 내용을 출력할 말풍선 컴포넌트
 const Message = (props) => {
   // 사용자 아이디, 프로필 사진을 가져오기
-  let { id, profileUrl } = useSelector((state) => state.user.userInfo);
-
+  // let { id, profileUrl } = useSelector((state) => state.user.userInfo);
+  let id=1; 
+   let profileUrl ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZkadB9ZHoVSbYxeua2K3cQSZ84WymLC5STQ&usqp=CAU"; 
   const { messageInfo } = props;
   React.useEffect(() => {
     // 로딩중
