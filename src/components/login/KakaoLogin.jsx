@@ -27,7 +27,7 @@ const KakaoLogin =  () => {
     
     useEffect(()=> {
         kakaoLoginAction();
-        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     }
     
