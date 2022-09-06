@@ -24,7 +24,7 @@ const Routers = () => {
         <Route path='/createMeeting' element={<CreateMeetingPage />} />
         <Route path='/meetingList' element={<MeetingListPage />} />
         <Route path='/chatting' element={<ChattingPage />} />
-        <Route path="/user/kakao/callback" element={<KakaoLogin/>} />
+        <Route path="/login/oauth2/code/kakao" element={<KakaoLogin/>} />
         <Route path='/oauth/naver' element={<NaverLogin/>} />
         
       </Routes>
