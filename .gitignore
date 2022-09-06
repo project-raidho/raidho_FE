@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # add
-.env
+.env.local
 db.json
