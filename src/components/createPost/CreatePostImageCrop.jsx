@@ -44,7 +44,6 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   };
 
   // ::: 크롭 영역 canvas에 넣기
-
   const createCanvas = useCallback(() => {
     if (!completedCrop || !canvasRef.current || !imageRef.current) {
       return;
