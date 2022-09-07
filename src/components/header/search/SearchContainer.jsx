@@ -79,7 +79,7 @@ const SearchContainer = ({ isLogin }) => {
       dispatch(addRecentSearch(searchInput));
       dispatch(getRecentSearch());
 
-      // ::: 테그별 상세페이지 이동
+      // ::: 태그별 상세페이지 이동
       goSearchDetail(searchInput);
     }
   };
@@ -89,7 +89,7 @@ const SearchContainer = ({ isLogin }) => {
     dispatch(deleteRecentSearch(tag));
   };
 
-  // ::: 처음 들어왔을 때
+  // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
     dispatch(getRecentSearch());
     location.state !== null && setSearchInput(location.state.tagKeyword);
