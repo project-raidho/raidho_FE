@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useLocation,
-     useNavigate 
-    } from "react-router-dom";
+    useNavigate 
+  } from "react-router-dom";
 
 const KakaoLogin =  () => {
-    const location =useLocation();
-    const navigate=useNavigate();
+  const location =useLocation();
+  const navigate=useNavigate();
+
 
     const kakaoLoginAction = async () => {
         try{
@@ -31,5 +32,6 @@ const KakaoLogin =  () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     }
+
     
 export default KakaoLogin;
