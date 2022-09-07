@@ -1,5 +1,5 @@
 import React from "react";
-// import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import GlobalLayout from "../global/GlobalLayout";
 import GlobalHeader from "../global/GlobalHeader";
 import SearchTagContainer from "../components/searchTag/SearchTagContainder";
@@ -7,7 +7,9 @@ import styled from "styled-components";
 
 const SearchTagPage = () => {
   // const location = useLocation();
-  // const decodeUri = decodeURI(location.search);
+  // // const decodeUri = decodeURI(location.search);
+
+  // console.log("state", location.state);
   
 
   // useEffect(() => {

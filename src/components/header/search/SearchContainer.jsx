@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import styled from "styled-components";
 
-const SearchContainer = ({ isLogin, setTest }) => {
+const SearchContainer = ({ isLogin }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   // ::: 검색창 focus 여부 확인하기
   const [ isFocusSearch, setIsFocusSearch ] = useState(false);
@@ -35,7 +37,22 @@ const SearchContainer = ({ isLogin, setTest }) => {
 
   // ::: 검색 상세보기 페이지 이동하기
   const goSearchDetail = (url) => {
-    navigate(`/tag?tag=${url}`);
+    navigate(`/tag?tag=${url}`, {
+      state : {
+        tagKeyword: url,
+      }
+    });
+
+  }
+
+  const checkKeyWord = () => {
+    if(location.state) {
+      console.log("location.state ::::", location.state);
+    } else {
+      const { tagKeyword } = location.state;
+      console.log(tagKeyword);
+
+    };
   }
 
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
@@ -45,6 +62,9 @@ const SearchContainer = ({ isLogin, setTest }) => {
         return false;
 
       } else {
+        goSearchDetail(searchInput);
+        
+        checkKeyWord();
         // ::: 최근 검색어 중복 값 체크하기
         myRecentSearches.includes(searchInput) === true
         ? setMyRecentSearches((myRecentSearches) => 
@@ -61,16 +81,12 @@ const SearchContainer = ({ isLogin, setTest }) => {
           "recentSearches",
           JSON.stringify(myRecentSearches)
         );
-        
-        setTest(searchInput);
-        goSearchDetail(searchInput);
-
-        //setSearchInput('');
       }
     }
   }
 
   useEffect(() => {
+    
     // ::: 최근 검색기록 표시될 최대 개수 정하기
     const MAXIMUM_SIZE = 5;
     const newRecentSearches = myRecentSearches.length > MAXIMUM_SIZE
@@ -94,8 +110,7 @@ const SearchContainer = ({ isLogin, setTest }) => {
   const deleteRecentSearch = (tag) => {
     setMyRecentSearches(myRecentSearches.filter(search => search !== tag));
   }
-
-
+ 
   return(
     <StSearchContainerWrap 
       isLogin={isLogin}
