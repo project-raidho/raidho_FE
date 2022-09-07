@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GlobalLayout from "./GlobalLayout";
 import Button from "../elements/Button";
@@ -11,68 +11,60 @@ import AddPostIcon from "../assets/addPost.svg";
 import GoChattingIcon from "../assets/goChatting.svg";
 import SampleProfileImage from "../assets/sampleProfile.png";
 
-
 const GlobalHeader = () => {
   // ::: 로그인 여부 확인하기
-  const [ isLogin, setIsLogin ] = useState(false);
-
-  // ::: 로그인 여부에 따라 헤더 레이아웃 달리 적용하기 위해 테스트용으로 사용
-  const testCheckedLogin = (event) => {
-    setIsLogin(event.target.checked);
-  }
+  const [isLogin, setIsLogin] = useState(false);
+  const userIsLogin = localStorage.getItem("Authorization");
 
   // ::: 모달 여부 확인하기
-  const [ modalOn, setModalOn ] = useState(false);
+  const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
-  }
+  };
 
-  return(
+  useEffect(() => {
+    // ::: 로그인 여부 확인하기
+    userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
+  }, [userIsLogin]);
+
+  return (
     <StGlobalHeaderWrap>
-      <label className="testCheckedLogin">
-        <input type="checkbox" onClick={testCheckedLogin} /> 로그인 여부 확인
-      </label>
       <GlobalLayout>
         <StHeaderRow>
           <StRaidhoLogo>
-            <Link to={'/'}>
+            <Link to={"/"}>
               <img src={RaidhoLogo} alt="RaidhoLogo" />
             </Link>
           </StRaidhoLogo>
-          <SearchContainer 
-            isLogin={isLogin} 
-          />
-          {isLogin ?
+          <SearchContainer isLogin={isLogin} />
+          {isLogin ? (
             <StHeaderRightMenu>
               <p>
-                <Link to={'/createPost'}>
+                <Link to={"/createPost"}>
                   <img src={AddPostIcon} alt="게시물 추가하러 가기" />
                 </Link>
               </p>
               <p>
-                <Link to={'/meetingList'}>
+                <Link to={"/meetingList"}>
                   <img src={GoChattingIcon} alt="채팅하러 가기" />
                   <span>5</span>
                 </Link>
               </p>
               <p>
-                <Link to={'/myProfile'}>
+                <Link to={"/myProfile"}>
                   {/* ::: 로그인한 유저 프로필 이미지 넣어야 함 / 링크에 유저아이디 연결?! */}
                   <img src={SampleProfileImage} alt="사용자 프로필 이미지" />
                 </Link>
               </p>
             </StHeaderRightMenu>
-          :
+          ) : (
             <StHeaderRightMenu>
-              <Button 
-                size="small"
-                variant="primary"
-                onClick={handleModal}>로그인</Button>
-              <Potal>
-                {modalOn && <LoginModal onClose={handleModal} /> }
-              </Potal>
+              <Button size="small" variant="primary" onClick={handleModal}>
+                로그인
+              </Button>
+              <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
             </StHeaderRightMenu>
-          }
+          )}
         </StHeaderRow>
       </GlobalLayout>
     </StGlobalHeaderWrap>
@@ -134,7 +126,7 @@ const StHeaderRightMenu = styled.div`
     overflow: hidden;
 
     img {
-      width:100%;
+      width: 100%;
       height: 100%;
       object-fit: contain;
     }
@@ -152,6 +144,5 @@ const StHeaderRightMenu = styled.div`
     border-radius: 50%;
     background-color: var(--main-color);
     margin-left: 10px;
-
   }
 `;

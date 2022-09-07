@@ -8,7 +8,6 @@ const SearchContainer = ({ isLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   // ::: 검색창 focus 여부 확인하기
   const [ isFocusSearch, setIsFocusSearch ] = useState(false);
 
@@ -42,17 +41,6 @@ const SearchContainer = ({ isLogin }) => {
         tagKeyword: url,
       }
     });
-
-  }
-
-  const checkKeyWord = () => {
-    if(location.state) {
-      console.log("location.state ::::", location.state);
-    } else {
-      const { tagKeyword } = location.state;
-      console.log(tagKeyword);
-
-    };
   }
 
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
@@ -63,8 +51,7 @@ const SearchContainer = ({ isLogin }) => {
 
       } else {
         goSearchDetail(searchInput);
-        
-        checkKeyWord();
+
         // ::: 최근 검색어 중복 값 체크하기
         myRecentSearches.includes(searchInput) === true
         ? setMyRecentSearches((myRecentSearches) => 
@@ -76,7 +63,8 @@ const SearchContainer = ({ isLogin }) => {
         : setMyRecentSearches((myRecentSearches) => 
           [searchInput, ...myRecentSearches]
         );
-        
+        console.log("333myRecentSearches :::", searchInput);
+        console.log("333myRecentSearches :::", myRecentSearches);
         localStorage.setItem(
           "recentSearches",
           JSON.stringify(myRecentSearches)
@@ -86,25 +74,31 @@ const SearchContainer = ({ isLogin }) => {
   }
 
   useEffect(() => {
-    
-    // ::: 최근 검색기록 표시될 최대 개수 정하기
-    const MAXIMUM_SIZE = 5;
-    const newRecentSearches = myRecentSearches.length > MAXIMUM_SIZE
-      ? [...myRecentSearches.slice(0, -1)]
-      : myRecentSearches;
-
-    const searchlist = localStorage.getItem("recentSearches");
-
-    if(searchlist === null) {
-      localStorage.setItem("recentSearches", []);
+    if(location.state === null) {
+      console.log("null이다");
     } else {
-      localStorage.setItem(
-        "recentSearches",
-        JSON.stringify(newRecentSearches)
-      );
+      console.log("location keyword :::", location.state.tagKeyword);
+      setSearchInput(String(location.state.tagKeyword));
+      
+      // ::: 최근 검색기록 표시될 최대 개수 정하기
+      const MAXIMUM_SIZE = 5;
+      const newRecentSearches = myRecentSearches.length > MAXIMUM_SIZE
+        ? [...myRecentSearches.slice(0, -1)]
+        : myRecentSearches;
+
+      const searchlist = localStorage.getItem("recentSearches");
+
+      if(searchlist === null) {
+        localStorage.setItem("recentSearches", []);
+      } else {
+        localStorage.setItem(
+          "recentSearches",
+          JSON.stringify(newRecentSearches)
+        );
+      }
+      setMyRecentSearches(newRecentSearches);
     }
-    setMyRecentSearches(newRecentSearches);
-  }, [myRecentSearches]);
+  }, [myRecentSearches, location.state, searchInput]);
 
   // ::: 최근검색기록 삭제하기
   const deleteRecentSearch = (tag) => {
