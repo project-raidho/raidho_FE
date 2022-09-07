@@ -8,6 +8,12 @@ const SIZES = {
     --input-height: 55px;
     --input-radius: 20px;
   `,
+   square: css`
+   --input-font-size: 1.5rem;
+   --input-width: 50%;
+   --input-height: 200px;
+   --input-radius: 20px;
+ `,
   large: css`
     --input-font-size: 1.5rem;
     --input-width: 100%;
