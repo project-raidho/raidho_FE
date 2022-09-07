@@ -23,9 +23,11 @@ jobs:
         run: |
           echo "REACT_APP_KAKAO_CLIENT_ID=$REACT_APP_KAKAO_CLIENT_ID" >> .env
           echo "REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI" >> .env
+          echo "REACT_APP_BASE_URI=$REACT_APP_BASE_URI" >> .env
         env:
           REACT_APP_KAKAO_CLIENT_ID: ${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}
           REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
+          REACT_APP_BASE_URI: ${{ secrets.REACT_APP_BASE_URI }}
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
