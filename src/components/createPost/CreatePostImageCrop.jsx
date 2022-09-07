@@ -8,26 +8,25 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   return centerCrop(
     makeAspectCrop(
       {
-        unit: '%',
+        unit: "%",
         width: 100,
       },
       aspect,
       mediaWidth,
-      mediaHeight,
+      mediaHeight
     ),
     mediaWidth,
-    mediaHeight,
+    mediaHeight
   );
-}
+};
 
 const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
-
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
-  const [ crop, setCrop ] = useState(null);
-  const [ completedCrop, setCompletedCrop ] = useState(null);
-  const [ uploadImages, setUploadImages ] = useState([]);
-  const [ aspect, setAspect ] = useState(16 / 9);
+  const [crop, setCrop] = useState(null);
+  const [completedCrop, setCompletedCrop] = useState(null);
+  const [uploadImages, setUploadImages] = useState([]);
+  const [aspect, setAspect] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
   const onClickImageSize = (selectAspect) => {
@@ -35,17 +34,17 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     const { width, height } = imageRef.current;
     setAspect(selectAspect);
     setCrop(centerAspectCrop(width, height, selectAspect));
-  }
+  };
 
   // ::: 이미지 로드 되었을 때
   const onImageLoad = (event) => {
     const { width, height } = event.currentTarget;
     setCrop(centerAspectCrop(width, height, aspect));
     console.log(selectedImageIndex);
-  }
+  };
 
   // ::: 크롭 영역 canvas에 넣기
- 
+
   const createCanvas = useCallback(() => {
     if (!completedCrop || !canvasRef.current || !imageRef.current) {
       return;
@@ -78,19 +77,18 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     );
   }, [completedCrop]);
 
-
   let imagesTemp = uploadImages;
   const onChangeCropImage = () => {
-  	createCanvas();
+    createCanvas();
     if (!canvasRef.current) return;
-    
+
     // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
     // canvasRef.current.toBlob(
     //   (blob) => uploadCoverImage(blob),
     //   "image/jpeg",
     //   0.95
     // );
-    
+
     // ::: 전송할 이미지 배열 형태로 저장하기
     const targetUploadImage = () => {
       imagesTemp.splice(selectedImageIndex, 0, completedCrop);
@@ -112,53 +110,34 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
   return (
     <StCreatePostImageCrop>
       <StImageSizeButtonWrap>
-        <Button
-          onClick={()=>onClickImageSize(Number(16 / 9))}
-        >
-          16 : 9
-        </Button>
-        <Button
-          onClick={()=>onClickImageSize(Number(3 / 4))}
-        >
-          3 : 4
-        </Button>
-        <Button
-          onClick={()=>onClickImageSize(Number(1 / 1))}
-        >
-          1 : 1
-        </Button>
+        <Button onClick={() => onClickImageSize(Number(16 / 9))}>16 : 9</Button>
+        <Button onClick={() => onClickImageSize(Number(3 / 4))}>3 : 4</Button>
+        <Button onClick={() => onClickImageSize(Number(1 / 1))}>1 : 1</Button>
       </StImageSizeButtonWrap>
-      <ReactCrop 
+      <ReactCrop
         crop={crop}
         onChange={(crop) => setCrop(crop)}
         onComplete={(crop) => setCompletedCrop(crop)}
         aspect={aspect}
       >
-        <img 
+        <img
           className="originImage"
           src={selectedImage}
           ref={imageRef}
           onLoad={onImageLoad}
           alt="편집할이미지"
-         />
+        />
       </ReactCrop>
 
-      <StCanvasPreview 
-        ref={canvasRef}
-      />
+      <StCanvasPreview ref={canvasRef} />
 
-      <Button 
-        onClick={onChangeCropImage}
-      >
-        저장하기
-      </Button>
-      
+      <Button onClick={onChangeCropImage}>저장하기</Button>
     </StCreatePostImageCrop>
   );
-}
+};
 
 export default CreatePostImageCrop;
-const StCreatePostImageCrop=styled.div`
+const StCreatePostImageCrop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,6 +152,10 @@ const StCreatePostImageCrop=styled.div`
 
 const StImageSizeButtonWrap = styled.div`
   border: 1px solid orange;
+
+  button {
+    margin-right: 10px;
+  }
 `;
 
 const StCanvasPreview = styled.canvas`
@@ -180,4 +163,4 @@ const StCanvasPreview = styled.canvas`
   min-height: 0;
   max-height: 300px;
   border: 1px solid orange;
-`
+`;
