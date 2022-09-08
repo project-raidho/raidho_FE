@@ -11,6 +11,7 @@ const MeetingListContainer = () => {
 
   console.log(locationList);
   console.log(meetingList);
+
   return (
     <StMeetingListContainerWrap>
       <StMeetingCategoryRow className="themeCategoryRow">
@@ -30,7 +31,9 @@ const MeetingListContainer = () => {
       </StMeetingCategoryRow>
 
       <StMeetingCardBox>
-        <MeetingListCard />
+        {meetingList.map((meeting) => (
+          <MeetingListCard key={meeting.id} meeting={meeting} />
+        ))}
       </StMeetingCardBox>
     </StMeetingListContainerWrap>
   );
