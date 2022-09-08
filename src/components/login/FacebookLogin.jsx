@@ -50,7 +50,7 @@ const StWrapper = styled.div`
 `
 
 const FaceBookLoginButton = styled.button`
-margin-top: 20px;
+/* margin-top: 20px; */
     width: 268px;
     height: 60px;
     font-size: 18px;

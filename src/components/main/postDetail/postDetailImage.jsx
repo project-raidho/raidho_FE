@@ -31,7 +31,7 @@ const PostDeailImage= ({ images }) => {
       .slick-list {
         margin-top: 50px;   
        width:570px;
-        z-index: 100;
+        z-index: 3;
         overflow: hidden;
       }
     
