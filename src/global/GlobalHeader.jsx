@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import GlobalLayout from "./GlobalLayout";
 import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
@@ -11,73 +11,91 @@ import AddPostIcon from "../assets/addPost.svg";
 import GoChattingIcon from "../assets/goChatting.svg";
 import SampleProfileImage from "../assets/sampleProfile.png";
 
-
 const GlobalHeader = () => {
-  const [ test, setTest ] = useState('');
+  const navigate = useNavigate();
 
-  console.log(test);
-  
+  // ::: 헤더 스크롤 이벤트 구현하기
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const onScrollHeader = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+
   // ::: 로그인 여부 확인하기
-  const [ isLogin, setIsLogin ] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const userIsLogin = localStorage.getItem("Authorization");
 
-  // ::: 로그인 여부에 따라 헤더 레이아웃 달리 적용하기 위해 테스트용으로 사용
-  const testCheckedLogin = (event) => {
-    setIsLogin(event.target.checked);
-  }
+  // ::: 유저 토글 메뉴 확인하기
+  const [isToggle, setIsToggle] = useState(false);
 
   // ::: 모달 여부 확인하기
-  const [ modalOn, setModalOn ] = useState(false);
+  const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
-  }
+  };
 
-  return(
-    <StGlobalHeaderWrap>
-      <label className="testCheckedLogin">
-        <input type="checkbox" onClick={testCheckedLogin} /> 로그인 여부 확인
-      </label>
+  // ::: 로그아웃 하기
+  const onClickLogOut = () => {
+    localStorage.removeItem("Authorization");
+    setIsLogin(false);
+    navigate("/");
+  };
+
+  useEffect(() => {
+    // ::: 로그인 여부 확인하기
+    userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
+
+    // ::: 헤더 스크롤이벤트 구현하기
+    window.addEventListener("scroll", onScrollHeader);
+  }, [userIsLogin]);
+
+  return (
+    <StGlobalHeaderWrap
+      className={scrollPosition < 100 ? "originHeader" : "changeHeader"}
+    >
       <GlobalLayout>
         <StHeaderRow>
           <StRaidhoLogo>
-            <Link to={'/'}>
+            <Link to={"/"}>
               <img src={RaidhoLogo} alt="RaidhoLogo" />
             </Link>
           </StRaidhoLogo>
-          <SearchContainer 
-            isLogin={isLogin} 
-            setTest={setTest}
-          />
-          {isLogin ?
+          <SearchContainer isLogin={isLogin} />
+          {isLogin ? (
             <StHeaderRightMenu>
-              <p>
-                <Link to={'/createPost'}>
+              <div className="rightMenu">
+                <Link to={"/createPost"}>
                   <img src={AddPostIcon} alt="게시물 추가하러 가기" />
                 </Link>
-              </p>
-              <p>
-                <Link to={'/meetingList'}>
+              </div>
+              <div className="rightMenu">
+                <Link to={"/meetingList"}>
                   <img src={GoChattingIcon} alt="채팅하러 가기" />
                   <span>5</span>
                 </Link>
-              </p>
-              <p>
-                <Link to={'/myProfile'}>
-                  {/* ::: 로그인한 유저 프로필 이미지 넣어야 함 / 링크에 유저아이디 연결?! */}
-                  <img src={SampleProfileImage} alt="사용자 프로필 이미지" />
-                </Link>
-              </p>
+              </div>
+              <div
+                className="rightMenu userMenu"
+                onClick={() => {
+                  setIsToggle(!isToggle);
+                }}
+              >
+                <img src={SampleProfileImage} alt="사용자 프로필 이미지" />
+              </div>
+              <StToggleBox isToggle={isToggle}>
+                <li>
+                  <Link to={`/myProfile`}>마이페이지</Link>
+                </li>
+                <li onClick={onClickLogOut}>로그아웃</li>
+              </StToggleBox>
             </StHeaderRightMenu>
-          :
+          ) : (
             <StHeaderRightMenu>
-              <Button 
-                size="small"
-                variant="primary"
-                onClick={handleModal}>로그인</Button>
-              <Potal>
-                {modalOn && <LoginModal onClose={handleModal} /> }
-              </Potal>
+              <Button size="small" variant="primary" onClick={handleModal}>
+                로그인
+              </Button>
+              <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
             </StHeaderRightMenu>
-          }
+          )}
         </StHeaderRow>
       </GlobalLayout>
     </StGlobalHeaderWrap>
@@ -92,10 +110,20 @@ const StGlobalHeaderWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 135px;
-  padding-top: 80px;
   margin-bottom: 58px;
   background-color: var(--bg-color);
+  transition: 0.3s;
+
+  &.originHeader {
+    height: 135px;
+    padding-top: 80px;
+  }
+  &.changeHeader {
+    position: fixed;
+    height: 105px;
+    padding: 25px 0;
+    z-index: 10;
+  }
 
   .testCheckedLogin {
     position: absolute;
@@ -118,18 +146,19 @@ const StRaidhoLogo = styled.h1`
 `;
 
 const StHeaderRightMenu = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   height: 100%;
 
-  p {
+  .rightMenu {
     position: relative;
     margin-right: 18px;
   }
 
-  p:last-child {
+  .userMenu {
     width: 55px;
     height: 55px;
     border: 1px solid var(--gray-color);
@@ -137,15 +166,16 @@ const StHeaderRightMenu = styled.div`
     background-color: var(--main-color);
     margin-right: 0;
     overflow: hidden;
+    cursor: pointer;
 
     img {
-      width:100%;
+      width: 100%;
       height: 100%;
       object-fit: contain;
     }
   }
 
-  p span {
+  .rightMenu span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -157,6 +187,44 @@ const StHeaderRightMenu = styled.div`
     border-radius: 50%;
     background-color: var(--main-color);
     margin-left: 10px;
+  }
+`;
 
+const StToggleBox = styled.ul`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  right: 0px;
+  top: 70px;
+  width: 120px;
+  height: ${(props) => (props.isToggle === true ? "100px" : "0px")};
+  border: ${(props) =>
+    props.isToggle === true ? "1px solid var(--gray-color)" : "0px"};
+  background-color: var(--bg-color);
+  padding: ${(props) => (props.isToggle === true ? "0.5rem 1rem" : "0px")};
+  overflow: hidden;
+  transition: 0.3s;
+  z-index: 10;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-color);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
   }
 `;
