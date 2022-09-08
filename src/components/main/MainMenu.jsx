@@ -35,4 +35,7 @@ const MainMenu = () => {
 export default MainMenu;
 const StMenuset = styled.div`
   display: flex;
+  button {
+    margin-right: 1.5rem;
+  }
 `;

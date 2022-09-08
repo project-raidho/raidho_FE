@@ -1,11 +1,16 @@
 import React from "react";
+import GlobalHeader from "../global/GlobalHeader";
+import GlobalLayout from "../global/GlobalLayout";
+import MeetingListContainer from "../components/meetingList/MeetingListContainer";
 import styled from "styled-components";
 
 const MeetingListPage = () => {
-
-  return(
+  return (
     <StMeetingListPageWrap>
-      MeetingListPage
+      <GlobalHeader />
+      <GlobalLayout>
+        <MeetingListContainer />
+      </GlobalLayout>
     </StMeetingListPageWrap>
   );
 };
@@ -13,5 +18,6 @@ const MeetingListPage = () => {
 export default MeetingListPage;
 
 const StMeetingListPageWrap = styled.div`
-  background-color: purple;
+  min-height: 100vh;
+  background-color: var(--bg-color);
 `;

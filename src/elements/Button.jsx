@@ -37,31 +37,32 @@ const SIZES = {
 
 const VARIANTS = {
   primary: css`
-    --button-color: #FFFFFF;
-    --button-bg-color: #7188FF;
-    --button-hover-bg-color: #7188FF;
+    --button-color: #ffffff;
+    --button-bg-color: #7188ff;
+    --button-hover-bg-color: #7188ff;
   `,
   gray: css`
-    --button-color: #FFFFFF;
-    --button-bg-color: #CFCFCF;
-    --button-hover-bg-color: #CFCFCF;
-    --button-border-color: #CFCFCF;
+    --button-color: #1e1e1e;
+    --button-bg-color: #cfcfcf;
+    --button-hover-bg-color: var(--bg-color);
+    --button-border-color: var(--gray-color);
+    --button-hover-text-color: var(--gray-color);
   `,
   line: css`
     --button-color: var(--title-color);
     --button-border-color: var(--main-color);
     --button-bg-color: var(--bgSub-color);
     --button-hover-bg-color: var(--main-color);
-    --button-hover-text-color: #FFFFFF;
+    --button-hover-text-color: #ffffff;
   `,
   lineSquare: css`
-  --button-color: var(--title-color);
-  --button-border-color: var(--gray-color);
-  --button-bg-color: var(--bgSub-color);
-  --button-hover-bg-color: var(--bgSub-color);
-  --button-hover-text-color: var(--title-color);
-  --button-box-shadow: none;
-`,
+    --button-color: var(--title-color);
+    --button-border-color: var(--gray-color);
+    --button-bg-color: var(--bgSub-color);
+    --button-hover-bg-color: var(--bgSub-color);
+    --button-hover-text-color: var(--title-color);
+    --button-box-shadow: none;
+  `,
 };
 
 function Button({ size, variant, children, ...props }) {
@@ -69,11 +70,7 @@ function Button({ size, variant, children, ...props }) {
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton
-      sizeStyle={sizeStyle}
-      variantStyle={variantStyle}
-     {...props}
-    >
+    <StyledButton sizeStyle={sizeStyle} variantStyle={variantStyle} {...props}>
       {children}
     </StyledButton>
   );
@@ -91,9 +88,9 @@ const StyledButton = styled.button`
   font-size: var(--button-font-size, 1rem);
   padding: var(--button-padding, 5px 16px);
   border-radius: var(--button-radius, 30px);
-  background: var(--button-bg-color, #7188FF);
+  background: var(--button-bg-color, #7188ff);
   color: var(--button-color, #ffffff);
-  border: 1px solid var(--button-border-color, #7188FF);
+  border: 1px solid var(--button-border-color, #7188ff);
   box-shadow: var(--button-box-shadow, 0px 4px 5px rgba(0, 0, 0, 0.1));
   margin-right: var(--button-margin-right, 0);
 

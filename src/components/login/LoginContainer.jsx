@@ -41,16 +41,13 @@ const LoginModal = ({ onClose }) => {
           alt="kakao"
         /></Kakaobutton>
         </h1>
-        <a href={NAVER_AUTH_URL}>
-        <img
-                  margin="10px"
-                  width="268px"
-                  height="60px"
-                  src={require("../../assets/naverlogo.png")}
-                  alt="네이버로그인"
-                />
-                {/* <NaverLogin/> */}
-        </a>
+        <Naverbutton href={NAVER_AUTH_URL}>
+          <img
+            src={require("../../assets/naverlogo.png")}
+            alt="네이버로그인"
+          />
+          {/* <NaverLogin/> */}
+        </Naverbutton>
         
          <FaceBookLogin className="faceBookLogin" oAuthLoginHandler={oAuthLoginHandler}/>
         
@@ -116,10 +113,12 @@ const ModalContentBox = styled.div`
   }
   .faceBookLogin{
     margin: auto;
+    
   }
 `;
 
 const Kakaobutton =styled.a`
+
     font-size: 18px;
     font-weight: 400;
     letter-spacing: -.04em;
@@ -133,5 +132,20 @@ const Kakaobutton =styled.a`
 
  img {
   width: 268px;
+  height: 100%;
  }
 `
+const Naverbutton = styled.a`
+  display: block;
+  margin: 20px auto;
+  width: 268px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 5px;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+`;
