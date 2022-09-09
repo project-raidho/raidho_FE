@@ -7,8 +7,11 @@ import styled from "styled-components";
 const MeetingListContainer = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const locationList = useSelector((state) => state.themeSlice.locationList);
+  const meetingList = useSelector((state) => state.meetingSlice.meetingList);
 
   console.log(locationList);
+  console.log(meetingList);
+
   return (
     <StMeetingListContainerWrap>
       <StMeetingCategoryRow className="themeCategoryRow">
@@ -28,7 +31,9 @@ const MeetingListContainer = () => {
       </StMeetingCategoryRow>
 
       <StMeetingCardBox>
-        <MeetingListCard />
+        {meetingList.map((meeting) => (
+          <MeetingListCard key={meeting.id} meeting={meeting} />
+        ))}
       </StMeetingCardBox>
     </StMeetingListContainerWrap>
   );

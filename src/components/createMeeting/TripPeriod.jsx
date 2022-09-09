@@ -1,3 +1,4 @@
+
 import { DateRange } from 'react-date-range';
 import { addDays } from "date-fns"	
 
@@ -39,8 +40,5 @@ const TripPeriod = ({ setTripPeriod  }) => {
 export default TripPeriod;
 
 const CalenderContainer = styled.div`
-display:flex;
-
-`
-
-      
+  display: flex;
+`;

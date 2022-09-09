@@ -1,9 +1,10 @@
-import React, {useState, useCallback} from "react";
-import { Calendar } from 'react-date-range'; // 얘가 캘린더 라이브러리
-import ko from 'date-fns/locale/ko';	     // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
-import moment from 'moment';
+import React, { useState, useCallback } from "react";
+import { Calendar } from "react-date-range"; // 얘가 캘린더 라이브러리
+import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
+import moment from "moment";
 import Input from "../../elements/Input";
 import styled from "styled-components";
+
 
 const RoomCloseDateBox=()=>{
     const [showCalendar, setShowCalendar] = useState(false);   // 캘린더 여는 토글
@@ -22,31 +23,35 @@ const RoomCloseDateBox=()=>{
   }
     
 
-    return (<StRoomCloseDateBoxContainer>
-        <Input value={inputdate} variant="default" size="medium" onFocus={()=>setShowCalendar(true)} onChange={inputonChangeHandler}/>
-  {showCalendar &&  // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
+
+  return (
+    <StRoomCloseDateBoxContainer>
+      <Input
+        value={inputdate}
+        variant="default"
+        size="medium"
+        onFocus={() => setShowCalendar(true)}
+        onChange={inputonChangeHandler}
+      />
+      {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
         <Calendar
-        editableDateInputs={true}
-          locale={ko} 	// 한국어 달력
-          months={1}  	// 1달치 달력만 디스플레이
-          minDate={tomorrow}  // 최소날짜값 내일이면 내일부터 선택가능하다.
-          date={date}		// 날짜값
-          onChange={onChangeDate} 	     // onChange 함수
-          dateDisplayFormat={'yyyy.mm.dd'} // 날짜 포맷값
+          editableDateInputs={true}
+          locale={ko} // 한국어 달력
+          months={1} // 1달치 달력만 디스플레이
+          minDate={tomorrow} // 최소날짜값 내일이면 내일부터 선택가능하다.
+          date={date} // 날짜값
+          onChange={onChangeDate} // onChange 함수
+          dateDisplayFormat={"yyyy.mm.dd"} // 날짜 포맷값
         />
-       } 
-
+      )}
     </StRoomCloseDateBoxContainer>
-
-      
-    )
-}
- 
-export default RoomCloseDateBox 
+  );
+};
 
 
-const StRoomCloseDateBoxContainer=styled.div`
-   display: flexbox;
-    
+export default RoomCloseDateBox;
 
-`
+
+const StRoomCloseDateBoxContainer = styled.div`
+  display: flexbox;
+`;

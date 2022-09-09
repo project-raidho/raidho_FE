@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import postSlice from "./modules/postSlice";
 import userSlice from "./modules/userSlice";
+import meetingSlice from "./modules/meetingSlice";
 import searchSlice from "./modules/searchSlice";
 import themeSlice from "./modules/themeSlice";
 import Chat from './modules/chat';
@@ -10,6 +11,7 @@ import logger from "redux-logger";
 const reducer = combineReducers({
   postSlice,
   userSlice,
+  meetingSlice,
   searchSlice,
   themeSlice,
   chat: Chat
