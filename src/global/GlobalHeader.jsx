@@ -50,7 +50,7 @@ const GlobalHeader = () => {
 
   return (
     <StGlobalHeaderWrap
-      className={scrollPosition < 100 ? "originHeader" : "changeHeader"}
+      className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
     >
       <GlobalLayout>
         <StHeaderRow>
@@ -120,6 +120,8 @@ const StGlobalHeaderWrap = styled.div`
   }
   &.changeHeader {
     position: fixed;
+    left: 0;
+    top: 0;
     height: 105px;
     padding: 25px 0;
     z-index: 10;
