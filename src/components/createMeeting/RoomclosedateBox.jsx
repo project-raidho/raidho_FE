@@ -6,7 +6,7 @@ import Input from "../../elements/Input";
 import styled from "styled-components";
 
 
-const RoomCloseDateBox=()=>{
+const RoomCloseDateBox=({setRoomCloseDate})=>{
     const [showCalendar, setShowCalendar] = useState(false);   // 캘린더 여는 토글
     const tomorrow = moment().add(1, 'd').toDate(); 	// 내일 날짜 기본값지정을 위해 
     const [date, setDate] = useState(tomorrow); 	// date 를 선언하고 기본값을 내일날짜로 지정
@@ -15,14 +15,14 @@ const RoomCloseDateBox=()=>{
         if (!date) {return;} // 날짜값이 없을 때 예외처리
         setDate( date); // 날짜값이 들어오면 date 를 set해준다
         setInputdate(moment(date).format('YYYY-MM-DD'))
+        setRoomCloseDate(moment(date).format('YYYY-MM-DD'))
         setShowCalendar(false)
            // eslint-disable-next-line react-hooks/exhaustive-deps
     },[date]);
   const inputonChangeHandler=(e)=> {
-    setInputdate(e.target.value)
+    setInputdate(e.target.value);
+    // setRoomCloseDate(inputdate);
   }
-    
-
 
   return (
     <StRoomCloseDateBoxContainer>
@@ -31,6 +31,7 @@ const RoomCloseDateBox=()=>{
         variant="default"
         size="medium"
         onFocus={() => setShowCalendar(true)}
+        // onBlur={()=>setShowCalendar(false)}
         onChange={inputonChangeHandler}
       />
       {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
