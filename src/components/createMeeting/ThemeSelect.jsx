@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../elements/Button';
+import { useSelector } from 'react-redux';
 
-const ThemeSelect = ({setTheme}) => {
- 
+const ThemeSelect = ({ setTheme }) => {
+
     let [btnActive, setBtnActive] = useState("");
-    const themeList = ['자전거', '등산', '힐링','바다'];
+    // const themeList = ['자전거', '등산', '힐링','바다'];
+    const themeList = useSelector((state) => state.themeSlice.themeList);
 
     const toggleActive = (e) => {
-      
+
         setTheme(e.target.value)
         setBtnActive((prev) => {
             return e.target.value;
-          });
+        });
     };
 
     return (
         <StThemeSelectBox>
-            {themeList.map((cur, index) => {
+            {themeList.map((theme, index) => {
                 return (
-                    <Button
-                        value={cur}
+                    <StButton
+                        value={theme.themeName}
                         size="small"
-                        variant={(cur ===btnActive? "primary": "gray")}
+                        variant={(theme.themeName === btnActive ? "primary" : "gray")}
                         key={index}
                         onClick={toggleActive}
-                        style={{marginRight: "20px",
-                                width:"100px"}}
+                        themeImage={theme.themeImage}
+
                     >
-                        {cur}
-                    </Button>
+                        {theme.themeName}
+                    </StButton>
                 )
             })}
 
@@ -48,3 +50,11 @@ const StThemeSelectBox = styled.div`
   align-items: center;
   list-style: none;
 `;
+
+const StButton = styled(Button)`
+    margin-right: 20px;
+    width:"100px";
+    /* background-image:URL(${props => props.themeImage}); 
+    background-size: cover; */
+`
+

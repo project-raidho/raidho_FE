@@ -15,6 +15,7 @@ const RoomCloseDateBox=()=>{
         setDate( date); // 날짜값이 들어오면 date 를 set해준다
         setInputdate(moment(date).format('YYYY-MM-DD'))
         setShowCalendar(false)
+           // eslint-disable-next-line react-hooks/exhaustive-deps
     },[date]);
   const inputonChangeHandler=(e)=> {
     setInputdate(e.target.value)
@@ -41,7 +42,7 @@ const RoomCloseDateBox=()=>{
     )
 }
  
-export default RoomCloseDateBox
+export default RoomCloseDateBox 
 
 
 const StRoomCloseDateBoxContainer=styled.div`

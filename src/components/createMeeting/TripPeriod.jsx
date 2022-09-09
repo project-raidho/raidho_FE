@@ -1,6 +1,5 @@
 import { DateRange } from 'react-date-range';
-import { addDays } from "date-fns"
-import moment from 'moment';	
+import { addDays } from "date-fns"	
 
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -11,7 +10,7 @@ import { ko } from 'date-fns/esm/locale';
 
 
 
-const Calender = ({ startDate, setStartDate, endDate, setEndDate }) => {
+const TripPeriod = ({ setTripPeriod  }) => {
     const [state, setState] = useState([
         {
             startDate: new Date(),
@@ -26,22 +25,18 @@ const Calender = ({ startDate, setStartDate, endDate, setEndDate }) => {
             showPreview={false}
              locale={ko} 
                 editableDateInputs={true}
-                onChange={(item) => setState([item.selection])}
+                onChange={(item) => {setState([item.selection]); setTripPeriod([item.selection])}}
                 moveRangeOnFirstSelection={false}
                 ranges={state}
                 months={2}
                 direction="horizontal"
                 dateDisplayFormat={'yyyy/MMM/d일'} // 날짜 포맷값
             />
-
-
-
-
         </CalenderContainer>
 
     )
 }
-export default Calender;
+export default TripPeriod;
 
 const CalenderContainer = styled.div`
 display:flex;
