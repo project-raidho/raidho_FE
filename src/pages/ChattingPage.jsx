@@ -1,34 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import ChattingRoom from '../components/chatting/ChattingRoom';
+import ChattingRoom from "../components/chatting/ChattingRoom";
 
 // 채팅 관련 함수들 가져오기
-import { chatActions } from '../redux/modules/chat';
-
+import { chatActions } from "../redux/modules/chat";
 
 // 리덕스
-import { useDispatch } from 'react-redux';
-import AppLayout from '../global/AppLayout';
-
+import { useDispatch } from "react-redux";
+import AppLayout from "../global/AppLayout";
 
 // 채팅 페이지 컴포넌트
 const Chatting = (props) => {
-
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(chatActions.getChatList());
-       // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container>
       <AppLayout>
-      <ChatWrap>
-        <ChattingRoom />
-      </ChatWrap>
+        <ChatWrap>
+          <ChattingRoom />
+        </ChatWrap>
       </AppLayout>
-    
     </Container>
   );
 };
@@ -38,6 +34,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   ${(props) => props.theme.border_box};
+  background-color: var(--bg-color);
 `;
 
 // ChatName, MessageList 감싸는 요소
