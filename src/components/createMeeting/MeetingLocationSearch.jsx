@@ -21,7 +21,7 @@ const MeetingLocationSearch=()=> {
   }
 
 
-  const [address, setAddress] = useState(''); // 주소
+  // const [address, setAddress] = useState(''); // 주소
   const [addressDetail, setAddressDetail] = useState(''); // 상세주소
 
 
@@ -47,7 +47,7 @@ const MeetingLocationSearch=()=> {
       fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
     }
 
-    setAddress(data.zonecode);
+    // setAddress(data.zonecode);
     setAddressDetail(fullAddr);
     setInputText(fullAddr)
     setPlace(fullAddr)
