@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import ThemeSelect from './ThemeSelect';
-import TripLocationSelect from './TripLocationSelect';
+
 import axios from 'axios';
 import Button from '../../elements/Button';
 import TripPeriod from './TripPeriod';
-import Input from '../../elements/Input';
+
 import CreatePostTags from '../createPost/CreatePostTags';
 import RoomCloseDateBox from './RoomclosedateBox';
 import MeetingLocationSearch from './MeetingLocationSearch';
+import TripPeopleCount from './TripPeopleCount';
+import TextField from '@mui/material/TextField';
 
 const CreateMeetingContatiner = () => {
     const [theme, setTheme] = useState("");
-    const [tripLocation, setTripLocation] = useState([]);
-    const selectedTags = (tags) => {
-        console.log(tags);
+    const [locationtags, setLocationTags] = useState([]);
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [tags, setTags] = useState([]);
+    const [people, setPeople] = useState();
+    const [roomClosedate, setRoomCloseDate] = useState()
+    const [tripPeriod, setTripPeriod] = useState([{ startDate: "", endDate: "" }]);
+    const [departLocation, setDepartLocation] = useState();
+
+    const selectedLocationTags = (tags) => {
+        setLocationTags(tags);
     };
-    const [tripPeriod, setTripPeriod] = useState({});
-    console.log(tripPeriod)
+
+
+    const selectedTags = (tags) => {
+        setTags(tags);
+    };
+
+
 
 
 
@@ -33,9 +48,14 @@ const CreateMeetingContatiner = () => {
     // };
     const data = {
         theme: theme,
-        tripLocation: tripLocation,
-        tripPeriod: tripPeriod[0]
-
+        locationtags: locationtags,
+        title: title,
+        desc: desc,
+        tripPeriod: tripPeriod,
+        tags: tags,
+        people: people,
+        roomClosedate:roomClosedate,
+        departLocation: departLocation
     }
     console.log(data);
     const postcreatemeeting = async (id) => {
@@ -53,30 +73,54 @@ const CreateMeetingContatiner = () => {
             <ThemeSelect setTheme={setTheme} />
 
             <h1>여행장소</h1>
-            <TripLocationSelect setTripLocation={setTripLocation} />
-            <h1>제목</h1>
-            <Input variant="default" size="medium" />
+            <StTags>
+                <CreatePostTags
+                    className="tagbox"
+                    selectedTags={selectedLocationTags}
+                    tags={['예시)프랑스']}
+                    tagMassage={'여행할 도시나 나라를 입력해주세요!'}
+                />
 
+            </StTags>
+            <h1>제목</h1>
+            <StTitleBox
+                multiline
+                maxRows={4}
+               
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
             <h1>설명</h1>
-            <Input variant="default" size="square" />
+            <StDescBox
+                id="outlined-multiline-static"
+                multiline
+                rows={4}
+              
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+            />
+
 
             <h1>해시태그</h1>
             <StTags>
                 <CreatePostTags
-                className="tagbox"
+                    className="tagbox"
                     selectedTags={selectedTags}
-                    tags={['활동적']}
+                    tags={['예시)활동적']}
                     tagMassage={'태그를 입력해주세요!'}
                 />
+
             </StTags>
 
+
             <h1>모집인원</h1>
+            <TripPeopleCount setPeople={setPeople} />
             <h1>모집마감일자</h1>
-            <RoomCloseDateBox />
+            <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate}/>
             <h1>여행기간</h1>
-            <TripPeriod setTripPeriod={setTripPeriod}/>
+            <TripPeriod setTripPeriod={setTripPeriod} />
             <h1>출발장소</h1>
-            <MeetingLocationSearch />
+            <MeetingLocationSearch setDepartLocation={setDepartLocation} />
 
             <Button
                 size="small"
@@ -95,13 +139,40 @@ const StContainer = styled.div`
         margin-top: 20px;
     }
 `
+const StTitleBox = styled(TextField)`
+width: 50%;
+height:55px;
+
+element.style {
+    height:50px
+}
+.css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+
+}
+
+.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+font-size:1.5rem;
+height:55px;
+padding: 5px
+}
+`
+const StDescBox = styled(TextField)`
+width: 50%;
+.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+font-size:1.5rem;
+padding: 5px
+}
+`
 
 const StTags = styled.div`
-width: 600px;
+
 .kkqTPl {
+    width: 50%;
+    height: 55px;
     border-radius: 10px;
     border: 1px solid #A0A0A0;
     box-shadow: 0px 4px 5px rgba(0,0,0,0.1);
+    border: 1px solid;
 }
 `
 

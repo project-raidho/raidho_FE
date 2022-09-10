@@ -85,14 +85,7 @@ const TripLocationSelect = ({setTripLocation})=> {
 </FormControl>
       
          
-             
-        {/* <select name="gugun1" id="gugun1" value={gu} onChange={guhandleSelect} >
-        {optionlist.map((item) => (
-            <option value={item} key={item}>
-              {item}
-            </option>
-          ))}
-        </select> */}
+  
         </div>
      
     )

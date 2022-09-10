@@ -6,7 +6,7 @@ import Button from '../../elements/Button';
 
 
 
-const MeetingLocationSearch=()=> {
+const MeetingLocationSearch=({setDepartLocation})=> {
   const [InputText, setInputText] = useState('')
   const [Place, setPlace] = useState('')
 
@@ -23,12 +23,7 @@ const MeetingLocationSearch=()=> {
 
   // const [address, setAddress] = useState(''); // 주소
   const [addressDetail, setAddressDetail] = useState(''); // 상세주소
-
-
   const [isOpenPost, setIsOpenPost] = useState(false);
-
- 
-
   const onChangeOpenPost = () => {
     setIsOpenPost(!isOpenPost);
   };
@@ -51,6 +46,7 @@ const MeetingLocationSearch=()=> {
     setAddressDetail(fullAddr);
     setInputText(fullAddr)
     setPlace(fullAddr)
+    setDepartLocation(fullAddr)
     setIsOpenPost(false);
   };
 
