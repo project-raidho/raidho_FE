@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Button from "../../elements/Button";
-import TripLocationSelect from "../createMeeting/TripLocationSelect";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
 
@@ -9,9 +8,24 @@ const MeetingListContainer = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
 
+  const meetingStatus = [
+    {
+      statusNum: 1,
+      statusText: "모집중",
+    },
+    {
+      statusNum: 2,
+      statusText: "모집완료",
+    },
+    {
+      statusNum: 3,
+      statusText: "여행완료",
+    },
+  ];
+
   return (
     <StMeetingListContainerWrap>
-      <h2>원하는 테마를 선택해주세요!</h2>
+      <h2>원하는 여행 지역을 선택해주세요!</h2>
       <StMeetingCategoryRow className="themeCategoryRow">
         {themeList.map((theme, index) => (
           <Button size="medium" variant="gray" key={theme.themeName + index}>
@@ -20,9 +34,13 @@ const MeetingListContainer = () => {
         ))}
       </StMeetingCategoryRow>
 
-      <h2>원하는 여행 지역을 선택해주세요!</h2>
-      <StMeetingCategoryRow>
-        <TripLocationSelect />
+      <StMeetingCategoryRow className="flexRightLayout">
+        {meetingStatus.map((status) => (
+          <label key={status.statusNum}>
+            <input type="checkbox" value={status.statusNum} />
+            <span>{status.statusText}</span>
+          </label>
+        ))}
       </StMeetingCategoryRow>
 
       <StMeetingCardBox>
@@ -46,29 +64,27 @@ const StMeetingListContainerWrap = styled.div`
 `;
 
 const StMeetingCategoryRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
   padding: 1rem 0 0;
   margin-bottom: 1rem;
+  &.flexRightLayout {
+    justify-content: flex-end;
+  }
   button {
     margin-right: 1rem;
     margin-bottom: 1rem;
   }
-  &.themeCategoryRow {
-  }
-  .locationList {
-    width: 100%;
-    max-width: 430px;
-    height: 50px;
-    border: 1px solid var(--gray-color);
 
-    li {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 50px;
-      border-bottom: 1px solid var(--gray-color);
-    }
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 1rem;
   }
 `;
 

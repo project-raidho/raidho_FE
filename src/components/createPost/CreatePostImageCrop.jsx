@@ -20,7 +20,11 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   );
 };
 
-const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
+const CreatePostImageCrop = ({
+  selectedImage,
+  selectedImageIndex,
+  selectedPostImages,
+}) => {
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
   const [crop, setCrop] = useState(null);
@@ -30,10 +34,17 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
 
   // ::: 이미지 비율 버튼 클릭 이벤트
   const onClickImageSize = (selectAspect) => {
-    console.log(selectAspect);
-    const { width, height } = imageRef.current;
-    setAspect(selectAspect);
-    setCrop(centerAspectCrop(width, height, selectAspect));
+    const alertMessageImageSize = window.confirm(
+      "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠어요?"
+    );
+    if (alertMessageImageSize) {
+      console.log(selectAspect);
+      const { width, height } = imageRef.current;
+      setAspect(selectAspect);
+      setCrop(centerAspectCrop(width, height, selectAspect));
+      setUploadImages([]);
+    }
+    return false;
   };
 
   // ::: 이미지 로드 되었을 때
@@ -82,18 +93,11 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     if (!canvasRef.current) return;
 
     // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
-    // canvasRef.current.toBlob(
-    //   (blob) => uploadCoverImage(blob),
-    //   "image/jpeg",
-    //   0.95
-    // );
-
-    // ::: 전송할 이미지 배열 형태로 저장하기
-    const targetUploadImage = () => {
-      imagesTemp.splice(selectedImageIndex, 0, completedCrop);
-      return imagesTemp;
-    };
-    setUploadImages(targetUploadImage);
+    canvasRef.current.toBlob(
+      (blob) => setUploadImages([blob, ...uploadImages]),
+      "image/jpeg",
+      0.95
+    );
   };
 
   // ::: 이미지 미리보기 편집할 때마다 확인 할 수 있게 설정
@@ -101,17 +105,36 @@ const CreatePostImageCrop = ({ selectedImage, selectedImageIndex }) => {
     createCanvas();
   }, [completedCrop, createCanvas]);
 
-  // console.log("completedCrop ::::", completedCrop);
-  // console.log("uploadImages ::::", uploadImages);
+  console.log("uploadImages ::::", uploadImages);
   console.log("imagesTemp ::::", imagesTemp);
   console.log("selectedImageIndex ::::", selectedImageIndex);
+
+  selectedPostImages(imagesTemp);
 
   return (
     <StCreatePostImageCrop>
       <StImageSizeButtonWrap>
-        <Button onClick={() => onClickImageSize(Number(16 / 9))}>16 : 9</Button>
-        <Button onClick={() => onClickImageSize(Number(3 / 4))}>3 : 4</Button>
-        <Button onClick={() => onClickImageSize(Number(1 / 1))}>1 : 1</Button>
+        <Button
+          size="small"
+          variant="line"
+          onClick={() => onClickImageSize(Number(16 / 9))}
+        >
+          16 : 9
+        </Button>
+        <Button
+          size="small"
+          variant="line"
+          onClick={() => onClickImageSize(Number(3 / 4))}
+        >
+          3 : 4
+        </Button>
+        <Button
+          size="small"
+          variant="line"
+          onClick={() => onClickImageSize(Number(1 / 1))}
+        >
+          1 : 1
+        </Button>
       </StImageSizeButtonWrap>
       <ReactCrop
         crop={crop}
@@ -142,16 +165,14 @@ const StCreatePostImageCrop = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  border: 1px solid blue;
 
   .originImage {
-    border: 1px solid yellow;
+    border: 1px solid var(--gray-color);
   }
 `;
 
 const StImageSizeButtonWrap = styled.div`
-  border: 1px solid orange;
-
+  margin-bottom: 1rem;
   button {
     margin-right: 10px;
   }
@@ -161,5 +182,6 @@ const StCanvasPreview = styled.canvas`
   max-width: 80%;
   min-height: 0;
   max-height: 300px;
-  border: 1px solid orange;
+  border: 1px solid var(--gray-color);
+  margin-top: 1rem;
 `;
