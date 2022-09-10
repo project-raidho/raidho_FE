@@ -1,4 +1,8 @@
 module.exports = {
+  globals: {
+    window: true,
+    document: true,
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
@@ -7,7 +11,7 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
+    // 'prettier/@typescript-eslint',
   ],
   rules: {
     'linebreak-style': 0,
