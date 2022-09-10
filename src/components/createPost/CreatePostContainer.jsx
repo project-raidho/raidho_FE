@@ -43,24 +43,28 @@ const CreatePostContainer = () => {
     setPostLocationTags(tags);
   };
 
-  const URI = process.env.REACT_APP_BASE_URI;
+  // const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
   const onCreatePost = async () => {
+    // const form = new FormData();
+    // form.append("imgUrl", postImages);
+
+    const json = JSON.stringify(postContent);
+    const blob = new Blob([json], { type: "application/json" });
+    //form.append("content", blob);
     try {
       const postResponse = await axios.post(
-        `${URI}/api/post`,
+        `http://15.164.166.87:8080/api/post`,
         {
-          file: postImages,
-          content: postContent,
-          tags: postTags,
-          locationTags: postLocationTags,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: localStorage.getItem("Authorization"),
-          },
+          imgUrl: postImages,
+          content: blob,
         }
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //     Authorization: null,
+        //   },
+        // }
       );
       console.log("postResponse", postResponse.data);
     } catch (error) {
