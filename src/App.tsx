@@ -13,14 +13,12 @@ function App() {
   }, []);
 
   const darkOnOff = () => {
-    if (typeof window !== 'undefined') {
-      if (document.getElementsByTagName('html')[0].classList.contains('darkMode')) {
-        document.getElementsByTagName('html')[0].classList.remove('darkMode');
-        window.localStorage.setItem('bgMode', 'light');
-      } else {
-        document.getElementsByTagName('html')[0].classList.add('darkMode');
-        window.localStorage.setItem('bgMode', 'dark');
-      }
+    if (document.getElementsByTagName('html')[0].classList.contains('darkMode')) {
+      document.getElementsByTagName('html')[0].classList.remove('darkMode');
+      window.localStorage.setItem('bgMode', 'light');
+    } else {
+      document.getElementsByTagName('html')[0].classList.add('darkMode');
+      window.localStorage.setItem('bgMode', 'dark');
     }
   };
   return (

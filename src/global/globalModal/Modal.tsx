@@ -1,17 +1,19 @@
-import React from "react";
-import styled from "styled-components";
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
 
-const Modal = ({ onClose, children }) => {
+interface Props {
+  children: ReactNode;
+  onClose: any;
+}
 
-  return(
-    <>
-    <Background onClick={onClose} />
+function Modal({ onClose, children }: Props) {
+  return (
+    <div>
+      <Background onClick={onClose} />
       <ModalContentBox>
-        <div className="contents">
-          {children}
-        </div>
+        <div className="contents">{children}</div>
       </ModalContentBox>
-    </>
+    </div>
   );
 }
 

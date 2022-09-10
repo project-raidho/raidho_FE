@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Input from "../../elements/Input";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Input from '../../elements/Input';
 
-const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
+function CreatePostTags({ tags, selectedTags, tagMassage }) {
   const [postTags, setPostTags] = useState(tags);
 
   // ::: 태그 삭제하기
@@ -12,10 +12,10 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
 
   // ::: 태그 추가하기
   const addTags = (event) => {
-    if (event.target.value !== "") {
+    if (event.target.value !== '') {
       setPostTags([...postTags, event.target.value]);
       selectedTags([...postTags, event.target.value]);
-      event.target.value = "";
+      event.target.value = '';
     }
   };
 
@@ -33,12 +33,12 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
       </ul>
       <Input
         type="text"
-        onKeyUp={(event) => (event.key === "Enter" ? addTags(event) : null)}
+        onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
         placeholder={tagMassage}
       />
     </StCreatePostTagsWrap>
   );
-};
+}
 
 export default CreatePostTags;
 

@@ -1,30 +1,26 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-import Button from "../../elements/Button";
-import styled from "styled-components";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+import styled from 'styled-components';
+import Button from '../../elements/Button';
 
 const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   return centerCrop(
     makeAspectCrop(
       {
-        unit: "%",
+        unit: '%',
         width: 100,
       },
       aspect,
       mediaWidth,
-      mediaHeight
+      mediaHeight,
     ),
     mediaWidth,
-    mediaHeight
+    mediaHeight,
   );
 };
 
-const CreatePostImageCrop = ({
-  selectedImage,
-  selectedImageIndex,
-  selectedPostImages,
-}) => {
+function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostImages }) {
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
   const [crop, setCrop] = useState(null);
@@ -35,7 +31,7 @@ const CreatePostImageCrop = ({
   // ::: 이미지 비율 버튼 클릭 이벤트
   const onClickImageSize = (selectAspect) => {
     const alertMessageImageSize = window.confirm(
-      "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠어요?"
+      '이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠어요?',
     );
     if (alertMessageImageSize) {
       console.log(selectAspect);
@@ -59,7 +55,7 @@ const CreatePostImageCrop = ({
     if (!completedCrop || !canvasRef.current || !imageRef.current) {
       return;
     }
-    const ctx = canvasRef.current.getContext("2d");
+    const ctx = canvasRef.current.getContext('2d');
     if (!ctx) return;
 
     const crop = completedCrop;
@@ -72,7 +68,7 @@ const CreatePostImageCrop = ({
     canvasRef.current.height = crop?.height * pixelRatio * scaleY;
 
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx.imageSmoothingQuality = "high";
+    ctx.imageSmoothingQuality = 'high';
 
     ctx.drawImage(
       imageRef.current,
@@ -83,7 +79,7 @@ const CreatePostImageCrop = ({
       0,
       0,
       crop.width * scaleX,
-      crop.height * scaleY
+      crop.height * scaleY,
     );
   }, [completedCrop]);
 
@@ -93,11 +89,7 @@ const CreatePostImageCrop = ({
     if (!canvasRef.current) return;
 
     // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
-    canvasRef.current.toBlob(
-      (blob) => setUploadImages([blob, ...uploadImages]),
-      "image/jpeg",
-      0.95
-    );
+    canvasRef.current.toBlob((blob) => setUploadImages([blob, ...uploadImages]), 'image/jpeg', 0.95);
   };
 
   // ::: 이미지 미리보기 편집할 때마다 확인 할 수 있게 설정
@@ -105,34 +97,22 @@ const CreatePostImageCrop = ({
     createCanvas();
   }, [completedCrop, createCanvas]);
 
-  console.log("uploadImages ::::", uploadImages);
-  console.log("imagesTemp ::::", imagesTemp);
-  console.log("selectedImageIndex ::::", selectedImageIndex);
+  console.log('uploadImages ::::', uploadImages);
+  console.log('imagesTemp ::::', imagesTemp);
+  console.log('selectedImageIndex ::::', selectedImageIndex);
 
   selectedPostImages(imagesTemp);
 
   return (
     <StCreatePostImageCrop>
       <StImageSizeButtonWrap>
-        <Button
-          size="small"
-          variant="line"
-          onClick={() => onClickImageSize(Number(16 / 9))}
-        >
+        <Button size="small" variant="line" onClick={() => onClickImageSize(Number(16 / 9))}>
           16 : 9
         </Button>
-        <Button
-          size="small"
-          variant="line"
-          onClick={() => onClickImageSize(Number(3 / 4))}
-        >
+        <Button size="small" variant="line" onClick={() => onClickImageSize(Number(3 / 4))}>
           3 : 4
         </Button>
-        <Button
-          size="small"
-          variant="line"
-          onClick={() => onClickImageSize(Number(1 / 1))}
-        >
+        <Button size="small" variant="line" onClick={() => onClickImageSize(Number(1 / 1))}>
           1 : 1
         </Button>
       </StImageSizeButtonWrap>
@@ -142,13 +122,7 @@ const CreatePostImageCrop = ({
         onComplete={(crop) => setCompletedCrop(crop)}
         aspect={aspect}
       >
-        <img
-          className="originImage"
-          src={selectedImage}
-          ref={imageRef}
-          onLoad={onImageLoad}
-          alt="편집할이미지"
-        />
+        <img className="originImage" src={selectedImage} ref={imageRef} onLoad={onImageLoad} alt="편집할이미지" />
       </ReactCrop>
 
       <StCanvasPreview ref={canvasRef} />
@@ -156,7 +130,7 @@ const CreatePostImageCrop = ({
       <Button onClick={onChangeCropImage}>저장하기</Button>
     </StCreatePostImageCrop>
   );
-};
+}
 
 export default CreatePostImageCrop;
 const StCreatePostImageCrop = styled.div`
