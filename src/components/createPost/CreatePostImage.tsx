@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import CreatePostImageCrop from "./CreatePostImageCrop";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import styled from 'styled-components';
+import CreatePostImageCrop from './CreatePostImageCrop';
 
-const CreatePostImage = ({ selectedPostImages }) => {
+function CreatePostImage({ selectedPostImages }) {
   const [files, setFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: {
-      "image/*": [],
+      'image/*': [],
     },
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
-          })
-        )
+          }),
+        ),
       );
       // ::: 편집화면 첫 이미지는 첫번째 이미지로 설정
       setSelectedImage(acceptedFiles[0].preview);
@@ -33,7 +33,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
           <>
             <span>- 이미지는 최대 5장까지 업로드가 가능합니다!</span> <br />
             <strong>현재 업로드한 이미지 개수 : {fileRejections.length}</strong>
-          </>
+          </>,
         )
       : setFileRejectionsMessage(null);
   }, [fileRejections]);
@@ -74,7 +74,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
           selectedPostImages={selectedPostImages}
         />
       ) : (
-        <StImageDropZone {...getRootProps({ className: "dropzone" })}>
+        <StImageDropZone {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
           <p>이미지를 드레그 또는 클릭해서 선택해주세요.</p>
         </StImageDropZone>
@@ -84,7 +84,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
     </StCreatePostImageWrap>
   );
-};
+}
 
 export default CreatePostImage;
 
