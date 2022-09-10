@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 const SIZES = {
   small: css`
@@ -65,7 +65,14 @@ const VARIANTS = {
   `,
 };
 
-function Button({ size, variant, children, ...props }) {
+interface Props {
+  size: any;
+  variant: any;
+  children: any;
+  props: any;
+}
+
+function Button({ size, variant, children, ...props }: Props) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
@@ -77,8 +84,8 @@ function Button({ size, variant, children, ...props }) {
 }
 
 const StyledButton = styled.button`
-  ${(p) => p.sizeStyle}
-  ${(p) => p.variantStyle}
+  ${(p: any) => p.sizeStyle}
+  ${(p: any) => p.variantStyle}
 
   margin: 0;
   border: none;

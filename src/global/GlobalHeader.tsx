@@ -1,45 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, NavLink } from "react-router-dom";
-import GlobalLayout from "./GlobalLayout";
-import Button from "../elements/Button";
-import Potal from "../global/globalModal/Potal";
-import LoginModal from "../components/login/LoginContainer";
-import SearchContainer from "../components/header/search/SearchContainer";
-import styled from "styled-components";
-import RaidhoLogo from "../assets/raidhoLogo.svg";
-import AddPostIcon from "../assets/addPost.svg";
-import GoChattingIcon from "../assets/goChatting.svg";
-import SampleProfileImage from "../assets/sampleProfile.png";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import GlobalLayout from './GlobalLayout';
+import Button from '../elements/Button';
+import Potal from './globalModal/Potal';
+import LoginModal from '../components/login/LoginContainer';
+import SearchContainer from '../components/header/search/SearchContainer';
+import RaidhoLogo from '../assets/raidhoLogo.svg';
+import AddPostIcon from '../assets/addPost.svg';
+import GoChattingIcon from '../assets/goChatting.svg';
+import SampleProfileImage from '../assets/sampleProfile.png';
 
-const GlobalHeader = () => {
+interface headerProps {
+  isToggle: boolean;
+  userIsLogin: string;
+}
+
+function GlobalHeader() {
   const navigate = useNavigate();
 
   // ::: 헤더 스크롤 이벤트 구현하기
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
   const onScrollHeader = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
 
   // ::: 로그인 여부 확인하기
-  const [isLogin, setIsLogin] = useState(false);
-  const userIsLogin = localStorage.getItem("Authorization");
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const userIsLogin = localStorage.getItem('Authorization');
 
   // ::: 유저 토글 메뉴 확인하기
-  const [isToggle, setIsToggle] = useState(false);
+  const [isToggle, setIsToggle] = useState<boolean>(false);
 
-  const [isAddPostToggle, setIsAddPostToggle] = useState(false);
+  const [isAddPostToggle, setIsAddPostToggle] = useState<boolean>(false);
 
   // ::: 모달 여부 확인하기
-  const [modalOn, setModalOn] = useState(false);
+  const [modalOn, setModalOn] = useState<boolean>(false);
   const handleModal = () => {
     setModalOn(!modalOn);
   };
 
   // ::: 로그아웃 하기
   const onClickLogOut = () => {
-    localStorage.removeItem("Authorization");
+    localStorage.removeItem('Authorization');
     setIsLogin(false);
-    navigate("/");
+    navigate('/');
   };
 
   useEffect(() => {
@@ -47,32 +52,24 @@ const GlobalHeader = () => {
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
 
     // ::: 헤더 스크롤이벤트 구현하기
-    window.addEventListener("scroll", onScrollHeader);
+    window.addEventListener('scroll', onScrollHeader);
   }, [userIsLogin]);
 
   return (
-    <StGlobalHeaderWrap
-      className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
-    >
+    <StGlobalHeaderWrap className={scrollPosition < 500 ? 'originHeader' : 'changeHeader'}>
       <GlobalLayout>
         <StHeaderRow>
           <StRaidhoLogo>
-            <Link to={"/"}>
+            <Link to={'/'}>
               <img src={RaidhoLogo} alt="RaidhoLogo" />
             </Link>
           </StRaidhoLogo>
           <SearchContainer isLogin={isLogin} />
           <StHeaderMidMenu>
-            <NavLink
-              to={`/`}
-              className={({ isActive }) => (isActive ? "selected" : "not")}
-            >
+            <NavLink to={`/`} className={({ isActive }) => (isActive ? 'selected' : 'not')}>
               여행 후기
             </NavLink>
-            <NavLink
-              to={`/meetingList`}
-              className={({ isActive }) => (isActive ? "selected" : "not")}
-            >
+            <NavLink to={`/meetingList`} className={({ isActive }) => (isActive ? 'selected' : 'not')}>
               여행 친구 찾기
             </NavLink>
           </StHeaderMidMenu>
@@ -98,7 +95,7 @@ const GlobalHeader = () => {
                 </StToggleBox>
               </div>
               <div className="rightMenu">
-                <Link to={"/chatting"}>
+                <Link to={'/chatting'}>
                   <img src={GoChattingIcon} alt="채팅하러 가기" />
                   <span>5</span>
                 </Link>
@@ -131,7 +128,7 @@ const GlobalHeader = () => {
       </GlobalLayout>
     </StGlobalHeaderWrap>
   );
-};
+}
 
 export default GlobalHeader;
 
@@ -245,11 +242,10 @@ const StToggleBox = styled.ul`
   right: 0px;
   top: 70px;
   width: 150px;
-  height: ${(props) => (props.isToggle === true ? "100px" : "0px")};
-  border: ${(props) =>
-    props.isToggle === true ? "1px solid var(--gray-color)" : "0px"};
+  height: ${(props: headerProps) => (props.isToggle === true ? '100px' : '0px')};
+  border: ${(props: headerProps) => (props.isToggle === true ? '1px solid var(--gray-color)' : '0px')};
   background-color: var(--bg-color);
-  padding: ${(props) => (props.isToggle === true ? "0.5rem 1rem" : "0px")};
+  padding: ${(props: headerProps) => (props.isToggle === true ? '0.5rem 1rem' : '0px')};
   margin-right: -50px;
   overflow: hidden;
   transition: 0.3s;
