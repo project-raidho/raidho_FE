@@ -5,13 +5,13 @@ import Routers from './shared/Router';
 function App() {
   // ::: Dark & Light 기능구현
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const bgMode = window.localStorage.getItem('bgMode');
-      if (bgMode === 'dark') {
-        document.getElementsByTagName('html')[0].classList.add('darkMode');
-      }
+    const bgMode = window.localStorage.getItem('bgMode');
+
+    if (bgMode === 'dark') {
+      document.getElementsByTagName('html')[0].classList.add('darkMode');
     }
   }, []);
+
   const darkOnOff = () => {
     if (document.getElementsByTagName('html')[0].classList.contains('darkMode')) {
       document.getElementsByTagName('html')[0].classList.remove('darkMode');

@@ -1,4 +1,8 @@
 module.exports = {
+  globals: {
+    window: true,
+    document: true,
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
