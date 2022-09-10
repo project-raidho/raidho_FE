@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import GlobalLayout from "./GlobalLayout";
 import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
@@ -27,6 +27,8 @@ const GlobalHeader = () => {
   // ::: 유저 토글 메뉴 확인하기
   const [isToggle, setIsToggle] = useState(false);
 
+  const [isAddPostToggle, setIsAddPostToggle] = useState(false);
+
   // ::: 모달 여부 확인하기
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
@@ -50,7 +52,7 @@ const GlobalHeader = () => {
 
   return (
     <StGlobalHeaderWrap
-      className={scrollPosition < 100 ? "originHeader" : "changeHeader"}
+      className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
     >
       <GlobalLayout>
         <StHeaderRow>
@@ -60,15 +62,43 @@ const GlobalHeader = () => {
             </Link>
           </StRaidhoLogo>
           <SearchContainer isLogin={isLogin} />
+          <StHeaderMidMenu>
+            <NavLink
+              to={`/`}
+              className={({ isActive }) => (isActive ? "selected" : "not")}
+            >
+              여행 후기
+            </NavLink>
+            <NavLink
+              to={`/meetingList`}
+              className={({ isActive }) => (isActive ? "selected" : "not")}
+            >
+              여행 친구 찾기
+            </NavLink>
+          </StHeaderMidMenu>
           {isLogin ? (
             <StHeaderRightMenu>
               <div className="rightMenu">
-                <Link to={"/createPost"}>
+                <p
+                  onClick={() => {
+                    setIsToggle(false);
+                    setIsAddPostToggle(!isAddPostToggle);
+                  }}
+                >
                   <img src={AddPostIcon} alt="게시물 추가하러 가기" />
-                </Link>
+                </p>
+
+                <StToggleBox isToggle={isAddPostToggle}>
+                  <li>
+                    <Link to={`/createPost`}>여행 후기 작성하기</Link>
+                  </li>
+                  <li>
+                    <Link to={`/createMeeting`}>모집글 작성하기</Link>
+                  </li>
+                </StToggleBox>
               </div>
               <div className="rightMenu">
-                <Link to={"/meetingList"}>
+                <Link to={"/chatting"}>
                   <img src={GoChattingIcon} alt="채팅하러 가기" />
                   <span>5</span>
                 </Link>
@@ -76,6 +106,7 @@ const GlobalHeader = () => {
               <div
                 className="rightMenu userMenu"
                 onClick={() => {
+                  setIsAddPostToggle(false);
                   setIsToggle(!isToggle);
                 }}
               >
@@ -112,14 +143,17 @@ const StGlobalHeaderWrap = styled.div`
   width: 100%;
   margin-bottom: 58px;
   background-color: var(--bg-color);
-  transition: 0.3s;
+  transition: 1s;
 
   &.originHeader {
     height: 135px;
     padding-top: 80px;
+    padding-bottom: 50px;
   }
   &.changeHeader {
     position: fixed;
+    left: 0;
+    top: 0;
     height: 105px;
     padding: 25px 0;
     z-index: 10;
@@ -143,6 +177,18 @@ const StRaidhoLogo = styled.h1`
   width: 200px;
   height: 55px;
   padding-top: 0.6rem;
+`;
+
+const StHeaderMidMenu = styled.div`
+  a {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+  }
+  .selected {
+    border-bottom: 2px solid var(--title-color);
+  }
+  .not {
+  }
 `;
 
 const StHeaderRightMenu = styled.div`
@@ -198,12 +244,13 @@ const StToggleBox = styled.ul`
   justify-content: space-between;
   right: 0px;
   top: 70px;
-  width: 120px;
+  width: 150px;
   height: ${(props) => (props.isToggle === true ? "100px" : "0px")};
   border: ${(props) =>
     props.isToggle === true ? "1px solid var(--gray-color)" : "0px"};
   background-color: var(--bg-color);
   padding: ${(props) => (props.isToggle === true ? "0.5rem 1rem" : "0px")};
+  margin-right: -50px;
   overflow: hidden;
   transition: 0.3s;
   z-index: 10;
@@ -216,11 +263,16 @@ const StToggleBox = styled.ul`
     width: 100%;
     height: 50%;
     text-align: center;
+    font-size: 1.2rem;
     border-bottom: 1px solid var(--gray-color);
     cursor: pointer;
 
     &:hover {
       text-decoration: underline;
+    }
+
+    a {
+      font-size: 1.2rem;
     }
   }
 
