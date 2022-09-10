@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   // ::: 웹폰트 임시 적용(nexon폰트 경우 weight 300, 400, 700)
