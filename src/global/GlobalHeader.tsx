@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalLayout from './GlobalLayout';
@@ -60,16 +60,16 @@ function GlobalHeader() {
       <GlobalLayout>
         <StHeaderRow>
           <StRaidhoLogo>
-            <Link to={'/'}>
+            <Link to="/">
               <img src={RaidhoLogo} alt="RaidhoLogo" />
             </Link>
           </StRaidhoLogo>
           <SearchContainer isLogin={isLogin} />
           <StHeaderMidMenu>
-            <NavLink to={`/`} className={({ isActive }) => (isActive ? 'selected' : 'not')}>
+            <NavLink to="/" className={({ isActive }) => (isActive ? 'selected' : 'not')}>
               여행 후기
             </NavLink>
-            <NavLink to={`/meetingList`} className={({ isActive }) => (isActive ? 'selected' : 'not')}>
+            <NavLink to="/meetingList" className={({ isActive }) => (isActive ? 'selected' : 'not')}>
               여행 친구 찾기
             </NavLink>
           </StHeaderMidMenu>
@@ -87,15 +87,15 @@ function GlobalHeader() {
 
                 <StToggleBox isToggle={isAddPostToggle}>
                   <li>
-                    <Link to={`/createPost`}>여행 후기 작성하기</Link>
+                    <Link to="/createPost">여행 후기 작성하기</Link>
                   </li>
                   <li>
-                    <Link to={`/createMeeting`}>모집글 작성하기</Link>
+                    <Link to="/createMeeting">모집글 작성하기</Link>
                   </li>
                 </StToggleBox>
               </div>
               <div className="rightMenu">
-                <Link to={'/chatting'}>
+                <Link to="/chatting">
                   <img src={GoChattingIcon} alt="채팅하러 가기" />
                   <span>5</span>
                 </Link>
@@ -111,7 +111,7 @@ function GlobalHeader() {
               </div>
               <StToggleBox isToggle={isToggle}>
                 <li>
-                  <Link to={`/myProfile`}>마이페이지</Link>
+                  <Link to="/myProfile">마이페이지</Link>
                 </li>
                 <li onClick={onClickLogOut}>로그아웃</li>
               </StToggleBox>

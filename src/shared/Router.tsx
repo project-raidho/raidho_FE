@@ -11,24 +11,23 @@ import ChattingPage from '../pages/ChattingPage';
 import KakaoLogin from '../components/login/KakaoLogin';
 import NaverLogin from '../components/login/NaverLogin';
 
-const Routers = () => {
+function Routers() {
   return (
     <BrowserRouter>
-
       <Routes>
-        <Route path='/' element={<MainPage />} /> 
-        <Route path='/myProfile' element={<MyProfilePage />} />
-        <Route path='/createPost' element={<CreatePostPage />} />
-        <Route path='/updatePost/:postId' element={<UpdatePostPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/myProfile" element={<MyProfilePage />} />
+        <Route path="/createPost" element={<CreatePostPage />} />
+        <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
         <Route path="/tag" element={<SearchTagPage />} />
-        <Route path='/createMeeting' element={<CreateMeetingPage />} />
-        <Route path='/meetingList' element={<MeetingListPage />} />
-        <Route path='/chatting' element={<ChattingPage />} />
-        <Route path="/login/oauth2/code/kakao" element={<KakaoLogin/>} />
-        <Route path='/oauth/naver' element={<NaverLogin/>} />
+        <Route path="/createMeeting" element={<CreateMeetingPage />} />
+        <Route path="/meetingList" element={<MeetingListPage />} />
+        <Route path="/chatting" element={<ChattingPage />} />
+        <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
+        <Route path="/oauth/naver" element={<NaverLogin />} />
       </Routes>
     </BrowserRouter>
   );
-};
+}
 
 export default Routers;

@@ -4,7 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import styled from 'styled-components';
 import Button from '../../elements/Button';
 
-const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
+const centerAspectCrop = (mediaWidth: number, mediaHeight: number, aspect: number) => {
   return centerCrop(
     makeAspectCrop(
       {
@@ -20,7 +20,13 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   );
 };
 
-function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostImages }) {
+interface Props {
+  selectedImage: string;
+  selectedImageIndex: number;
+  selectedPostImages: any;
+}
+
+function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostImages }: Props) {
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
   const [crop, setCrop] = useState(null);
@@ -29,7 +35,7 @@ function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostIm
   const [aspect, setAspect] = useState(16 / 9);
 
   // ::: 이미지 비율 버튼 클릭 이벤트
-  const onClickImageSize = (selectAspect) => {
+  const onClickImageSize = (selectAspect: any) => {
     const alertMessageImageSize = window.confirm(
       '이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠어요?',
     );
@@ -44,7 +50,7 @@ function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostIm
   };
 
   // ::: 이미지 로드 되었을 때
-  const onImageLoad = (event) => {
+  const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const { width, height } = event.currentTarget;
     setCrop(centerAspectCrop(width, height, aspect));
     console.log(selectedImageIndex);
