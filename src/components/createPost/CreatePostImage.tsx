@@ -3,10 +3,10 @@ import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import CreatePostImageCrop from './CreatePostImageCrop';
 
-function CreatePostImage({ selectedPostImages }) {
-  const [files, setFiles] = useState([]);
-  const [selectedImage, setSelectedImage] = useState();
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+function CreatePostImage({ selectedPostImages }: any) {
+  const [files, setFiles] = useState<object[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string>();
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: {

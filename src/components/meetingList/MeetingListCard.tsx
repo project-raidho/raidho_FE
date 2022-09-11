@@ -1,8 +1,20 @@
-import React from "react";
-import Button from "../../elements/Button";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import Button from '../../elements/Button';
 
-const MeetingListCard = ({ meeting }) => {
+interface meeting {
+  meetingTheme: object;
+  locationTag: string[];
+  meetingStatus: number;
+  memberImage: string;
+  memberName: string;
+  meetingTitle: string;
+  meetingPeriod: string;
+  meetingAddress: string;
+  meetingTags: object;
+}
+
+function MeetingListCard({ meeting }: meeting) {
   return (
     <StMeetingListCardWrap>
       <StMeetingCardRow className="flexBetweenLayout">
@@ -28,8 +40,8 @@ const MeetingListCard = ({ meeting }) => {
         </dl>
       </StMeetingCardRow>
       <StMeetingCardRow>
-        {meeting.meetingTags.map((tag, index) => (
-          <span key={tag + index}>#{tag}&nbsp;</span>
+        {meeting.meetingTags.map((tag: {}, index: number) => (
+          <span key={tag}>#{tag}&nbsp;</span>
         ))}
       </StMeetingCardRow>
       <StMeetingCardRow className="flexBetweenLayout">
@@ -40,7 +52,7 @@ const MeetingListCard = ({ meeting }) => {
       </StMeetingCardRow>
     </StMeetingListCardWrap>
   );
-};
+}
 
 export default MeetingListCard;
 

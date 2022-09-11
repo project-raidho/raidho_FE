@@ -19,6 +19,7 @@ function CreatePostContainer() {
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
+    // console.log(event.target);
   };
 
   // ::: 입력된 데이터 취합하기
@@ -43,6 +44,10 @@ function CreatePostContainer() {
   };
 
   const URI = process.env.REACT_APP_BASE_URI;
+  // const userToken = (): string | void => {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   localStorage.getItem('Authorization') !== null ? localStorage.getItem('Authorization') : null;
+  // };
   // ::: 서버전송세팅
   const onCreatePost = async () => {
     try {
@@ -68,6 +73,10 @@ function CreatePostContainer() {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -84,13 +93,7 @@ function CreatePostContainer() {
         <StStepTitle>태그 입력하기</StStepTitle>
         <CreatePostTags selectedTags={selectedTags} tags={['자전거여행']} tagMassage={postTagMessage} />
         <StButtonWrap>
-          <Button
-            size="small"
-            variant="gray"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
+          <Button size="small" variant="gray" onClick={goBack}>
             취소
           </Button>
           <Button size="small" onClick={onCreatePost}>

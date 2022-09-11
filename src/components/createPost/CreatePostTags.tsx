@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../elements/Input';
 
-function CreatePostTags({ tags, selectedTags, tagMassage }) {
+interface Props {
+  tags: string[];
+  selectedTags: string[];
+  tagMassage: string;
+}
+
+function CreatePostTags({ tags, selectedTags, tagMassage }: Props) {
   const [postTags, setPostTags] = useState(tags);
 
   // ::: 태그 삭제하기
-  const removeTags = (indexToRemove) => {
+  const removeTags = (indexToRemove: number) => {
     setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
   };
 
@@ -22,8 +28,8 @@ function CreatePostTags({ tags, selectedTags, tagMassage }) {
   return (
     <StCreatePostTagsWrap>
       <ul id="tags">
-        {postTags.map((tag, index) => (
-          <li key={index} className="tag">
+        {postTags.map((tag: string, index: number) => (
+          <li key={tag} className="tag">
             <span className="tagTitle">{tag}</span>
             <span className="tagCloseIcon" onClick={() => removeTags(index)}>
               x
@@ -33,7 +39,7 @@ function CreatePostTags({ tags, selectedTags, tagMassage }) {
       </ul>
       <Input
         type="text"
-        onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
+        onKeyUp={(event: React.KeyboardEvent<HTMLElement>) => (event.key === 'Enter' ? addTags(event) : null)}
         placeholder={tagMassage}
       />
     </StCreatePostTagsWrap>

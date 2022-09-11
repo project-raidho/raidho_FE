@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import axios from "axios";
-import imageCompression from "browser-image-compression";
-import Button from "../../elements/Button";
-import Input from "../../elements/Input";
-import Potal from "../../global/globalModal/Potal";
-import Modal from "../../global/globalModal/Modal";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import axios from 'axios';
+import imageCompression from 'browser-image-compression';
+import styled from 'styled-components';
+import Button from '../../elements/Button';
+import Input from '../../elements/Input';
+import Potal from '../../global/globalModal/Potal';
+import Modal from '../../global/globalModal/Modal';
 
-const UpdateMyProfile = (props) => {
+function UpdateMyProfile() {
   // ::: 유저 정보 샘플
   const userInfo = {
-    userName: "yoojin",
+    userName: 'yoojin',
     userProfileImage:
-      "https://avatars.githubusercontent.com/u/99028253?s=400&u=678da99d93c1eab91489f73b080993fb689c56b4&v=4",
-    userComment: "나는 개발을 사랑한다.",
+      'https://avatars.githubusercontent.com/u/99028253?s=400&u=678da99d93c1eab91489f73b080993fb689c56b4&v=4',
+    userComment: '나는 개발을 사랑한다.',
   };
 
   const [selectedPostImage, setSelectedPostImage] = useState(null);
@@ -45,42 +45,40 @@ const UpdateMyProfile = (props) => {
   };
 
   // ::: 이미지 미리보기(Image Preview)
-  const onChangePostImageFile = async (event) => {
+  const onChangePostImageFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const postImageFile = event.target.files[0];
     try {
       const compressedFile = await compressImageAndGetImageFile(postImageFile);
       setCompressedImageFile(compressedFile);
-      const finalCompressedImage = await imageCompression.getDataUrlFromFile(
-        compressedFile
-      );
+      const finalCompressedImage = await imageCompression.getDataUrlFromFile(compressedFile);
       setSelectedPostImage(finalCompressedImage);
     } catch (error) {
-      console.log("__PostImage_uploadImageError ::", error);
-      alert("이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!");
+      console.log('__PostImage_uploadImageError ::', error);
+      alert('이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!');
     }
   };
 
-  const onChangeUpdateUserName = (event) => {
+  const onChangeUpdateUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUpdateNickname(event.target.value);
   };
-  const onChangeUpdateUserComment = (event) => {
+  const onChangeUpdateUserComment = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUpdateComment(event.target.value);
   };
 
-  console.log("compressedImageFile", compressedImageFile);
-  console.log("updateNickname", updateNickname);
-  console.log("updateComment", updateComment);
+  console.log('compressedImageFile', compressedImageFile);
+  console.log('updateNickname', updateNickname);
+  console.log('updateComment', updateComment);
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
     // :: 서버 주소
     const URI = process.env.REACT_APP_BASE_URI;
     const USER = {
-      AUTHORIZATION: localStorage.getItem("Authorization"),
+      AUTHORIZATION: localStorage.getItem('Authorization'),
     };
     // :: image file formData 형식 변환
     const form = new FormData();
-    form.append("file", compressedImageFile);
+    form.append('file', compressedImageFile);
 
     try {
       const profileResponse = await axios.put(
@@ -92,10 +90,10 @@ const UpdateMyProfile = (props) => {
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
             Authorization: USER.AUTHORIZATION,
           },
-        }
+        },
       );
 
       console.log(profileResponse);
@@ -123,13 +121,11 @@ const UpdateMyProfile = (props) => {
           <Modal onClose={handleModal}>
             <StUpdateUserProfileModal>
               <StUpdateUserProfileTitle>프로필 이미지</StUpdateUserProfileTitle>
-              <StUserProfileImageBox
-                userImageProfile={`url(${userInfo.userProfileImage})`}
-              >
+              <StUserProfileImageBox userImageProfile={`url(${userInfo.userProfileImage})`}>
                 <span className="changeImageMessage">사진변경</span>
                 <input
                   type="file"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                   onChange={onChangePostImageFile}
                   accept="image/jpg, image/jpeg, image/png"
                 />
@@ -138,9 +134,9 @@ const UpdateMyProfile = (props) => {
                     src={selectedPostImage}
                     alt="preview"
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
                     }}
                   />
                 )}
@@ -173,7 +169,7 @@ const UpdateMyProfile = (props) => {
       </Potal>
     </StUpdateMyProfileWrap>
   );
-};
+}
 
 export default UpdateMyProfile;
 
@@ -249,11 +245,7 @@ const StUserProfileImageBox = styled.label`
   justify-content: center;
   width: 170px;
   height: 170px;
-  background-image: linear-gradient(
-      0deg,
-      rgba(71, 71, 71, 0.57),
-      rgba(71, 71, 71, 0.57)
-    ),
+  background-image: linear-gradient(0deg, rgba(71, 71, 71, 0.57), rgba(71, 71, 71, 0.57)),
     ${(props) => props.userImageProfile && props.userImageProfile};
   background-size: cover;
   background-position: center;
