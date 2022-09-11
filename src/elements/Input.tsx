@@ -1,66 +1,61 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import SearchIcon from '../assets/search.svg';
-
-const SIZES = {
-  medium: css`
-    --input-font-size: 1.5rem;
-    --input-width: 50%;
-    --input-height: 55px;
-    --input-radius: 20px;
-  `,
-  square: css`
-    --input-font-size: 1.5rem;
-    --input-width: 50%;
-    --input-height: 200px;
-    --input-radius: 20px;
-  `,
-  large: css`
-    --input-font-size: 1.5rem;
-    --input-width: 100%;
-    --input-height: 55px;
-    --input-radius: 20px;
-  `,
-};
-
-const VARIANTS = {
-  default: css`
-    --input-color: var(--text-color);
-    --input-bg-color: #ffffff;
-    --input-border-color: #a0a0a0;
-    --input-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
-    --input-focus-border: 1px solid var(--main-color);
-  `,
-  search: css`
-    --input-color: var(--text-color);
-    --input-bg-color: #ffffff;
-    --input-border-color: #a0a0a0;
-    --input-search-background: no-repeat 98.5% center url(${SearchIcon}) var(--bg-color);
-  `,
-};
+import styled, { css, FlattenInterpolation, FlattenSimpleInterpolation } from 'styled-components';
+import { INPUT_SIZES } from '../utils/UtilSize';
+import { INPUT_VARIANTS } from '../utils/UtilVariant';
 
 interface Props {
-  disabled: boolean;
-  size: any;
-  variant: any;
-  children: any;
-  props: any;
+  disabled?: boolean;
+  size?: 'square' | 'medium' | 'large';
+  variant?: 'default' | 'search';
+  children?: React.ReactNode;
+  placeholder?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  value?: string;
+  onChange?: (event: any) => void;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLElement>) => void;
+  onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
-function Input({ disabled, size, variant, children, ...props }: Props) {
-  const sizeStyle: any = SIZES[size];
-  const variantStyle: any = VARIANTS[variant];
+function Input({
+  disabled = false,
+  value = '',
+  size = 'square',
+  variant = 'default',
+  placeholder = '',
+  onChange,
+  onFocus,
+  onBlur,
+  onKeyUp,
+  onKeyPress,
+  children,
+}: Props) {
+  const sizeStyle = INPUT_SIZES[size];
+  const variantStyle = INPUT_VARIANTS[variant];
 
   return (
-    <StyledInput disabled={disabled} sizeStyle={sizeStyle} variantStyle={variantStyle} {...props}>
+    <StyledInput
+      disabled={disabled}
+      sizeStyle={sizeStyle}
+      variantStyle={variantStyle}
+      placeholder={placeholder}
+      onChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onKeyUp={onKeyUp}
+      onKeyPress={onKeyPress}
+    >
       {children}
     </StyledInput>
   );
 }
 
-const StyledInput = styled.input`
-  ${(p) => p.sizeStyle}
-  ${(p) => p.variantStyle}
+const StyledInput = styled.input<{
+  sizeStyle: FlattenSimpleInterpolation;
+  variantStyle: FlattenSimpleInterpolation;
+}>`
+  ${({ sizeStyle }) => sizeStyle}
+  ${({ variantStyle }) => variantStyle}
 
   margin: 0;
   border: none;

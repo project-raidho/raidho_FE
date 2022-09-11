@@ -124,7 +124,7 @@ export default SearchContainer;
 
 const StSearchContainerWrap = styled.div`
   position: relative;
-  width: ${(props) => (props.isLogin === true ? '53%' : '58%')};
+  width: ${(props: any) => (props.isLogin === true ? '53%' : '58%')};
   height: 55px;
 `;
 

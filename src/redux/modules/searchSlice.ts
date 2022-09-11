@@ -1,17 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface searchState {
+  isLoading: boolean;
+  error: null | string;
+  recentSearch: string[];
+}
 
 // ::: 초기값
 const initialState = {
   isLoading: false,
   error: null,
   recentSearch: [],
-};
+} as searchState;
 
 const searchSlice = createSlice({
   name: 'searchSlice',
   initialState,
   reducers: {
-    getRecentSearch: (state, action) => {
+    getRecentSearch: (state) => {
       const initRecentSearches = localStorage.getItem('recentSearches');
       initRecentSearches
         ? (state.recentSearch = JSON.parse(localStorage.getItem('recentSearches')))

@@ -64,28 +64,28 @@ function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostIm
     const ctx = canvasRef.current.getContext('2d');
     if (!ctx) return;
 
-    const crop = completedCrop;
+    const cropping = completedCrop;
 
     const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
     const pixelRatio = window.devicePixelRatio;
 
-    canvasRef.current.width = crop.width * pixelRatio * scaleX;
-    canvasRef.current.height = crop?.height * pixelRatio * scaleY;
+    canvasRef.current.width = cropping.width * pixelRatio * scaleX;
+    canvasRef.current.height = cropping?.height * pixelRatio * scaleY;
 
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = 'high';
 
     ctx.drawImage(
       imageRef.current,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
+      cropping.x * scaleX,
+      cropping.y * scaleY,
+      cropping.width * scaleX,
+      cropping.height * scaleY,
       0,
       0,
-      crop.width * scaleX,
-      crop.height * scaleY,
+      cropping.width * scaleX,
+      cropping.height * scaleY,
     );
   }, [completedCrop]);
 
@@ -95,7 +95,7 @@ function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostIm
     if (!canvasRef.current) return;
 
     // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
-    canvasRef.current.toBlob((blob) => setUploadImages([blob, ...uploadImages]), 'image/jpeg', 0.95);
+    canvasRef.current.toBlob((blob: Blob) => setUploadImages([blob, ...uploadImages]), 'image/jpeg', 0.95);
   };
 
   // ::: 이미지 미리보기 편집할 때마다 확인 할 수 있게 설정
@@ -122,12 +122,7 @@ function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostIm
           1 : 1
         </Button>
       </StImageSizeButtonWrap>
-      <ReactCrop
-        crop={crop}
-        onChange={(crop) => setCrop(crop)}
-        onComplete={(crop) => setCompletedCrop(crop)}
-        aspect={aspect}
-      >
+      <ReactCrop crop={crop} onChange={() => setCrop(crop)} onComplete={() => setCompletedCrop(crop)} aspect={aspect}>
         <img className="originImage" src={selectedImage} ref={imageRef} onLoad={onImageLoad} alt="편집할이미지" />
       </ReactCrop>
 

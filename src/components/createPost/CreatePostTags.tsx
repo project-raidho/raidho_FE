@@ -17,7 +17,7 @@ function CreatePostTags({ tags, selectedTags, tagMassage }: Props) {
   };
 
   // ::: 태그 추가하기
-  const addTags = (event) => {
+  const addTags = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.target.value !== '') {
       setPostTags([...postTags, event.target.value]);
       selectedTags([...postTags, event.target.value]);
@@ -38,7 +38,6 @@ function CreatePostTags({ tags, selectedTags, tagMassage }: Props) {
         ))}
       </ul>
       <Input
-        type="text"
         onKeyUp={(event: React.KeyboardEvent<HTMLElement>) => (event.key === 'Enter' ? addTags(event) : null)}
         placeholder={tagMassage}
       />

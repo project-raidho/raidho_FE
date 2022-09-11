@@ -7,7 +7,7 @@ import Input from '../../elements/Input';
 import Potal from '../../global/globalModal/Potal';
 import Modal from '../../global/globalModal/Modal';
 
-function UpdateMyProfile() {
+function UpdateMyProfile(props: any) {
   // ::: 유저 정보 샘플
   const userInfo = {
     userName: 'yoojin',
@@ -16,25 +16,25 @@ function UpdateMyProfile() {
     userComment: '나는 개발을 사랑한다.',
   };
 
-  const [selectedPostImage, setSelectedPostImage] = useState(null);
-  const [compressedImageFile, setCompressedImageFile] = useState(null);
-  const [updateNickname, setUpdateNickname] = useState(userInfo.userName);
-  const [updateComment, setUpdateComment] = useState(userInfo.userComment);
+  const [selectedUserImage, setSelectedUserImage] = useState<string | null>(null);
+  const [compressedImageFile, setCompressedImageFile] = useState<Blob | null>(null);
+  const [updateNickname, setUpdateNickname] = useState<string>(userInfo.userName);
+  const [updateComment, setUpdateComment] = useState<string>(userInfo.userComment);
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
+  const [modalOn, setModalOn] = useState<boolean>(false);
   const handleModal = () => {
     setModalOn(!modalOn);
 
     // ::: 유저가 입력한 값 초기화 시키기
-    setSelectedPostImage(null);
+    setSelectedUserImage(null);
     setCompressedImageFile(null);
     setUpdateNickname(userInfo.userName);
     setUpdateNickname(userInfo.userComment);
   };
 
   // ::: 이미지 리사이징(Resizing)
-  const compressImageAndGetImageFile = async (postImageFile) => {
+  const compressImageAndGetImageFile = async (postImageFile: any) => {
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
@@ -51,11 +51,13 @@ function UpdateMyProfile() {
       const compressedFile = await compressImageAndGetImageFile(postImageFile);
       setCompressedImageFile(compressedFile);
       const finalCompressedImage = await imageCompression.getDataUrlFromFile(compressedFile);
-      setSelectedPostImage(finalCompressedImage);
+      setSelectedUserImage(finalCompressedImage);
     } catch (error) {
       console.log('__PostImage_uploadImageError ::', error);
       alert('이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!');
     }
+
+    console.log('selectedUserImage', selectedUserImage);
   };
 
   const onChangeUpdateUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +70,7 @@ function UpdateMyProfile() {
   console.log('compressedImageFile', compressedImageFile);
   console.log('updateNickname', updateNickname);
   console.log('updateComment', updateComment);
+  console.log(':::::', selectedUserImage);
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
@@ -129,9 +132,9 @@ function UpdateMyProfile() {
                   onChange={onChangePostImageFile}
                   accept="image/jpg, image/jpeg, image/png"
                 />
-                {selectedPostImage && (
+                {selectedUserImage && (
                   <img
-                    src={selectedPostImage}
+                    src={selectedUserImage}
                     alt="preview"
                     style={{
                       width: '100%',
@@ -246,7 +249,7 @@ const StUserProfileImageBox = styled.label`
   width: 170px;
   height: 170px;
   background-image: linear-gradient(0deg, rgba(71, 71, 71, 0.57), rgba(71, 71, 71, 0.57)),
-    ${(props) => props.userImageProfile && props.userImageProfile};
+    ${(props: any) => props.userImageProfile && props.userImageProfile};
   background-size: cover;
   background-position: center;
   border-radius: 50%;

@@ -54,8 +54,7 @@ function CreatePostImage({ selectedPostImages }: any) {
   ));
 
   // ::: 썸네일 이미지 클릭시 편집 화면에 이미지 띄우기
-  const clickThumbImage = (file, index) => {
-    console.log(file, index);
+  const clickThumbImage = (file: File, index: number) => {
     setSelectedImage(URL.createObjectURL(file));
     setSelectedImageIndex(index);
   };

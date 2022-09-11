@@ -40,7 +40,6 @@ function RoomCloseDateBox({ setRoomCloseDate }: IDate) {
         // onBlur={()=>setShowCalendar(false)}
         onChange={inputonChangeHandler}
         disabled={undefined}
-        children={undefined}
       />
       {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
         <Calendar

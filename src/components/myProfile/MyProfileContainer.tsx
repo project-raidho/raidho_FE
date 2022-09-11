@@ -70,7 +70,7 @@ const StMyProfileTitleRow = styled.div`
   }
 
   p {
-    display: ${(props) => props.isMore && 'none'};
+    display: ${(props: any) => props.isMore && 'none'};
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);
