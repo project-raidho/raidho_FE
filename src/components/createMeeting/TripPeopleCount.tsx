@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-function TripPeopleCount({ setPeople }) {
+interface IPeople {
+  setPeople: Dispatch<SetStateAction<string>>;
+}
+
+function TripPeopleCount({ setPeople }: IPeople) {
   const countList = ['2명', '3명', '4명', '5명', '6명이상'];
   const [count, setCount] = useState('');
 
-  const countonChange = (e) => {
+  const countonChange = (e: SelectChangeEvent<string>) => {
     setCount(e.target.value);
     setPeople(e.target.value);
   };
@@ -18,8 +22,8 @@ function TripPeopleCount({ setPeople }) {
         <MenuItem value="">
           <em>인원 선택</em>
         </MenuItem>
-        {countList.map((item, i) => (
-          <MenuItem value={item} key={i}>
+        {countList.map((item) => (
+          <MenuItem value={item} key={item}>
             {item}
           </MenuItem>
         ))}
