@@ -24,9 +24,10 @@ interface Props {
   selectedImage: string;
   selectedImageIndex: number;
   selectedPostImages: any;
+  files: any;
 }
 
-function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostImages }: Props) {
+function CreatePostImageCrop({ selectedImage, selectedImageIndex, selectedPostImages, files }: Props) {
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
   const [crop, setCrop] = useState(null);

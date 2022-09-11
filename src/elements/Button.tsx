@@ -7,7 +7,7 @@ interface Props {
   size?: 'small' | 'medium' | 'large' | 'tag' | 'square';
   variant?: 'primary' | 'gray' | 'line' | 'lineSquare';
   children?: React.ReactNode;
-  onClick?: () => void | React.MouseEvent<HTMLButtonElement>;
+  onClick?: () => void | React.MouseEvent<HTMLButtonElement> | Promise<void> | boolean;
 }
 
 function Button({ size = 'small', variant = 'primary', children, onClick }: Props) {

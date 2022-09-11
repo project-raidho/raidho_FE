@@ -3,7 +3,11 @@ import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 import CreatePostImageCrop from './CreatePostImageCrop';
 
-function CreatePostImage({ selectedPostImages }: any) {
+interface Props {
+  selectedPostImages: Blob[] | null;
+}
+
+function CreatePostImage({ selectedPostImages }: Props) {
   const [files, setFiles] = useState<object[]>([]);
   const [selectedImage, setSelectedImage] = useState<string>();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -14,7 +18,7 @@ function CreatePostImage({ selectedPostImages }: any) {
     },
     onDrop: (acceptedFiles) => {
       setFiles(
-        acceptedFiles.map((file) =>
+        acceptedFiles.map((file: File) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           }),
