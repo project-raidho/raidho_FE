@@ -1,45 +1,38 @@
-import React, { useState } from "react";
-import UpdateMyProfile from "./UpdateMyProfile";
-import MyPostList from "./MyPostList";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import UpdateMyProfile from './UpdateMyProfile';
+import MyPostList from './MyPostList';
 
-const MyProfileContainer = () => {
-
+function MyProfileContainer() {
   // ::: 게시글 더보기 기능 구현
-  const [ isMore, setIsMore ] = useState(false);
+  const [isMore, setIsMore] = useState<boolean>(false);
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
-  }
+  };
 
-  return(
+  return (
     <StMyProfileContainerWrap>
       <StMyProfileTitleRow>
         <h3>프로필</h3>
-        <span className="bgMiddleLine"/>
+        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <UpdateMyProfile />
 
       <StMyProfileTitleRow isMore={isMore}>
         <h3>내가 쓴 글</h3>
-        <p 
-          onClick={onClickMorePost}
-        >
-          더보기
-        </p>
-        <span className="bgMiddleLine"/>
+        <p onClick={onClickMorePost}>더보기</p>
+        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
-      <MyPostList 
-        isMore={isMore} 
-      />
+      <MyPostList isMore={isMore} />
 
       <StMyProfileTitleRow>
         <h3>계정 / 보안</h3>
-        <span className="bgMiddleLine"/>
+        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
     </StMyProfileContainerWrap>
   );
-};
+}
 
 export default MyProfileContainer;
 
@@ -77,7 +70,7 @@ const StMyProfileTitleRow = styled.div`
   }
 
   p {
-    display: ${(props) => props.isMore && "none"};
+    display: ${(props) => props.isMore && 'none'};
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);

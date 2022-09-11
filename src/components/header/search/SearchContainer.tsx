@@ -1,42 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getRecentSearch,
-  addRecentSearch,
-  deleteRecentSearch,
-} from "../../../redux/modules/searchSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Input from "../../../elements/Input";
-import Button from "../../../elements/Button";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { RootState } from '../../../redux/store';
+import { getRecentSearch, addRecentSearch, deleteRecentSearch } from '../../../redux/modules/searchSlice';
+import Input from '../../../elements/Input';
+import Button from '../../../elements/Button';
 
-const SearchContainer = ({ isLogin }) => {
+interface Props {
+  isLogin: boolean;
+}
+
+function SearchContainer({ isLogin }: Props) {
   // ::: 검색기록 전역상태관리 하기(리덕스 툴킷 이용)
   const dispatch = useDispatch();
-  const recentSearchList = useSelector(
-    (state) => state.searchSlice.recentSearch
-  );
+  const recentSearchList = useSelector((state: RootState) => state.searchSlice.recentSearch);
 
   // ::: 태그별 상세 페이지 이동하기
   const navigate = useNavigate();
   const location = useLocation();
 
   // ::: 추천 테마 리스트 전역에서 불러오기
-  const themeList = useSelector((state) => state.themeSlice.themeList);
+  const themeList = useSelector((state: RootState) => state.themeSlice.themeList);
 
   // ::: 검색창 focus 여부 확인하기
-  const [isFocusSearch, setIsFocusSearch] = useState(false);
+  const [isFocusSearch, setIsFocusSearch] = useState<boolean>(false);
 
   // ::: 검색 입력 내용 확인하기
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState<string>('');
 
   // ::: 검색창에 입력한 값 확인하기
-  const onChangeSearchContent = (event) => {
+  const onChangeSearchContent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
   };
 
   // ::: 검색 상세보기 페이지 이동하기
-  const goSearchDetail = (url) => {
+  const goSearchDetail = (url: string) => {
     navigate(`/tag?tag=${url}`, {
       state: {
         tagKeyword: url,
@@ -45,9 +44,9 @@ const SearchContainer = ({ isLogin }) => {
   };
 
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
-  const onKeyPressSearchEnter = (event) => {
-    if (event.key === "Enter") {
-      if (searchInput === "") {
+  const onKeyPressSearchEnter = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter') {
+      if (searchInput === '') {
         return false;
       }
       dispatch(addRecentSearch(searchInput));
@@ -59,7 +58,7 @@ const SearchContainer = ({ isLogin }) => {
   };
 
   // ::: 최근검색기록 삭제하기
-  const onClickDeleteRecentSearch = (tag) => {
+  const onClickDeleteRecentSearch = (tag: string) => {
     dispatch(deleteRecentSearch(tag));
   };
 
@@ -89,7 +88,7 @@ const SearchContainer = ({ isLogin }) => {
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
-              <Button key={tag + index} size="tag" variant="line">
+              <Button key={tag} size="tag" variant="line">
                 <Link to={`/tag?tag=${tag}`}>{tag}</Link>
                 <span
                   className="tagCloseIcon"
@@ -105,15 +104,13 @@ const SearchContainer = ({ isLogin }) => {
 
           <h3>추천 테마</h3>
           <StTagCardWrap>
-            {themeList.map((themeCard) => (
+            {themeList.map((themeCard: object) => (
               <Link
                 key={themeCard.themeName}
                 // ::: 테마별 링크 연결 시켜야 함
                 to={`/tag?tag=${themeCard.themeName}`}
               >
-                <StTagCard bgImage={`url(${themeCard.themeImage})`}>
-                  {themeCard.themeName}
-                </StTagCard>
+                <StTagCard bgImage={`url(${themeCard.themeImage})`}>{themeCard.themeName}</StTagCard>
               </Link>
             ))}
           </StTagCardWrap>
@@ -121,13 +118,13 @@ const SearchContainer = ({ isLogin }) => {
       </StSearchDetailBox>
     </StSearchContainerWrap>
   );
-};
+}
 
 export default SearchContainer;
 
 const StSearchContainerWrap = styled.div`
   position: relative;
-  width: ${(props) => (props.isLogin === true ? "53%" : "58%")};
+  width: ${(props) => (props.isLogin === true ? '53%' : '58%')};
   height: 55px;
 `;
 
@@ -136,20 +133,18 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "455px" : "58px")};
-  border: ${(props) =>
-    props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
+  height: ${(props: any) => (props.isFocusSearch === true ? '455px' : '58px')};
+  border: ${(props: any) => (props.isFocusSearch === true ? '1px solid var(--gray-color)' : 'none')};
   border-radius: 20px 20px 10px 10px;
-  box-shadow: ${(props) => props.isFocusSearch === true && "var(--box-shadow)"};
+  box-shadow: ${(props: any) => props.isFocusSearch === true && 'var(--box-shadow)'};
   background-color: var(--bg-color);
   overflow: hidden;
   transition: 0.5s;
   z-index: 5;
 
   input {
-    border: ${(props) => props.isFocusSearch === true && "none"};
-    box-shadow: ${(props) =>
-      props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
+    border: ${(props: any) => props.isFocusSearch === true && 'none'};
+    box-shadow: ${(props: any) => (props.isFocusSearch === true ? 'none' : '0px 4px 5px rgba(0, 0, 0, 0.1)')};
   }
 `;
 
@@ -204,22 +199,14 @@ const StTagCard = styled.p`
   font-weight: 700;
   text-align: center;
   border-radius: 15px;
-  background-image: linear-gradient(
-      0deg,
-      rgba(71, 71, 71, 0.57),
-      rgba(71, 71, 71, 0.57)
-    ),
-    ${(props) => props.bgImage && props.bgImage};
+  background-image: linear-gradient(0deg, rgba(71, 71, 71, 0.57), rgba(71, 71, 71, 0.57)),
+    ${(props: any) => props.bgImage && props.bgImage};
   background-size: cover;
   background-position: center;
   cursor: pointer;
 
   &:hover {
-    background-image: linear-gradient(
-        0deg,
-        rgba(71, 71, 71, 0.7),
-        rgba(71, 71, 71, 0.7)
-      ),
-      ${(props) => props.bgImage && props.bgImage};
+    background-image: linear-gradient(0deg, rgba(71, 71, 71, 0.7), rgba(71, 71, 71, 0.7)),
+      ${(props: any) => props.bgImage && props.bgImage};
   }
 `;

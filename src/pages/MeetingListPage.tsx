@@ -1,10 +1,10 @@
-import React from "react";
-import GlobalHeader from "../global/GlobalHeader";
-import GlobalLayout from "../global/GlobalLayout";
-import MeetingListContainer from "../components/meetingList/MeetingListContainer";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import GlobalHeader from '../global/GlobalHeader';
+import GlobalLayout from '../global/GlobalLayout';
+import MeetingListContainer from '../components/meetingList/MeetingListContainer';
 
-const MeetingListPage = () => {
+function MeetingListPage() {
   return (
     <StMeetingListPageWrap>
       <GlobalHeader />
@@ -13,7 +13,7 @@ const MeetingListPage = () => {
       </GlobalLayout>
     </StMeetingListPageWrap>
   );
-};
+}
 
 export default MeetingListPage;
 

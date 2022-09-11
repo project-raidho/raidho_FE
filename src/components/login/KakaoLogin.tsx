@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const KakaoLogin = () => {
+function KakaoLogin() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,8 +22,9 @@ const KakaoLogin = () => {
 
   useEffect(() => {
     kakaoLoginAction();
+
     // eslint-disable-next-line
   }, []);
-};
+}
 
 export default KakaoLogin;

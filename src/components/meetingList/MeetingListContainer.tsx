@@ -1,25 +1,46 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Button from "../../elements/Button";
-import MeetingListCard from "./MeetingListCard";
-import styled from "styled-components";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { RootState } from '../../redux/store';
+import Button from '../../elements/Button';
+import MeetingListCard from './MeetingListCard';
 
-const MeetingListContainer = () => {
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-  const meetingList = useSelector((state) => state.meetingSlice.meetingList);
+interface meeting {
+  id: number;
+  memberName: string;
+  memberImage: string;
+  meetingTitle: string;
+  meetingTheme: string;
+  locationTag: string;
+  meetingTags: string[];
+  meetingAddress: string;
+  meetingPeople: number;
+  meetingParticipant: number;
+  meetingStatus: number;
+  meetingPeriod: string;
+}
+
+interface status {
+  statusNum: number;
+  statusText: string;
+}
+
+function MeetingListContainer() {
+  const themeList = useSelector((state: RootState) => state.themeSlice.themeList);
+  const meetingList = useSelector((state: RootState) => state.meetingSlice.meetingList);
 
   const meetingStatus = [
     {
       statusNum: 1,
-      statusText: "모집중",
+      statusText: '모집중',
     },
     {
       statusNum: 2,
-      statusText: "모집완료",
+      statusText: '모집완료',
     },
     {
       statusNum: 3,
-      statusText: "여행완료",
+      statusText: '여행완료',
     },
   ];
 
@@ -27,15 +48,15 @@ const MeetingListContainer = () => {
     <StMeetingListContainerWrap>
       <h2>원하는 여행 지역을 선택해주세요!</h2>
       <StMeetingCategoryRow className="themeCategoryRow">
-        {themeList.map((theme, index) => (
-          <Button size="medium" variant="gray" key={theme.themeName + index}>
+        {themeList.map((theme) => (
+          <Button size="medium" variant="gray" key={theme.themeName}>
             {theme.themeName}
           </Button>
         ))}
       </StMeetingCategoryRow>
 
       <StMeetingCategoryRow className="flexRightLayout">
-        {meetingStatus.map((status) => (
+        {meetingStatus.map((status: status) => (
           <label key={status.statusNum}>
             <input type="checkbox" value={status.statusNum} />
             <span>{status.statusText}</span>
@@ -44,13 +65,13 @@ const MeetingListContainer = () => {
       </StMeetingCategoryRow>
 
       <StMeetingCardBox>
-        {meetingList.map((meeting) => (
+        {meetingList.map((meeting: meeting) => (
           <MeetingListCard key={meeting.id} meeting={meeting} />
         ))}
       </StMeetingCardBox>
     </StMeetingListContainerWrap>
   );
-};
+}
 
 export default MeetingListContainer;
 

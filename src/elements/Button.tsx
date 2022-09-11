@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 const SIZES = {
@@ -70,14 +71,15 @@ interface Props {
   variant: any;
   children: any;
   props: any;
+  onClick: React.MouseEvent<HTMLButtonElement> | undefined;
 }
 
-function Button({ size, variant, children, ...props }: Props) {
+function Button({ size, variant, children, onClick, ...props }: Props) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton sizeStyle={sizeStyle} variantStyle={variantStyle} {...props}>
+    <StyledButton sizeStyle={sizeStyle} variantStyle={variantStyle} onClick={onClick} {...props}>
       {children}
     </StyledButton>
   );
