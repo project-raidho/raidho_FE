@@ -14,27 +14,29 @@ import 'moment/locale/ko';
 interface Props {
   setTripPeriod: Dispatch<SetStateAction<{ startDate: string; endDate: string }>>;
 }
-interface Stateinterface {
+interface RangeDates {
   startDate: Date | undefined;
   endDate: Date | undefined;
-  key: string;
+  key: string | undefined;
 }
 
 function TripPeriod({ setTripPeriod }: Props) {
-  const [state, setState] = useState<Stateinterface[]>([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 1),
-      key: 'selection',
-    },
-  ]);
+  const [state, setState] = useState<RangeDates>({
+    startDate: new Date(),
+    endDate: addDays(new Date(), 1),
+    key: 'selection',
+  });
   // setInputdate(moment(date).format('YYYY-MM-DD'))
 
   const onChangeHandler = (item: RangeKeyDict) => {
-    setState([item.selection]);
+    setState({
+      startDate: item.selection.startDate,
+      endDate: item.selection.endDate,
+      key: item.selection.key,
+    });
     setTripPeriod({
-      startDate: moment([item.selection][0].startDate).format('YYYY-MM-DD'),
-      endDate: moment([item.selection][0].endDate).format('YYYY-MM-DD'),
+      startDate: moment(item.selection.startDate).format('YYYY-MM-DD'),
+      endDate: moment(item.selection.endDate).format('YYYY-MM-DD'),
     });
   };
   return (
@@ -43,9 +45,9 @@ function TripPeriod({ setTripPeriod }: Props) {
         showPreview={false}
         locale={ko}
         editableDateInputs
-        onChange={(item) => onChangeHandler(item)}
+        onChange={(range: RangeKeyDict) => onChangeHandler(range)}
         moveRangeOnFirstSelection={false}
-        ranges={state}
+        ranges={[state]}
         months={2}
         direction="horizontal"
         dateDisplayFormat="yyyy/MMM/d일" // 날짜 포맷값
