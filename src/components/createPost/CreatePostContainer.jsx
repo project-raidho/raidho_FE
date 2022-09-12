@@ -25,21 +25,21 @@ const CreatePostContainer = () => {
   const [postLocationTags, setPostLocationTags] = useState([]);
 
   const selectedPostImages = (images) => {
-    console.log("selectedPostImages", images);
+    // console.log("selectedPostImages", images);
     setPostImages(images);
   };
   const typedPostContent = (text) => {
-    console.log("typedPostContent", text);
+    // console.log("typedPostContent", text);
     setpostContent(text);
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
+    // console.log(tags);
     setPostTags(tags);
   };
 
   const locationTags = (tags) => {
-    console.log("location", tags);
+    // console.log("location", tags);
     setPostLocationTags(tags);
   };
 
@@ -48,26 +48,36 @@ const CreatePostContainer = () => {
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
-    for (let i = 0; i < postImages.length; i++) {
-      let file = new File([postImages[i]], `postImage${i}`);
-      formData.append("imgUrl", file);
-      console.log("postImages ====> ::: ", file);
-    }
-    const json = JSON.stringify(postContent);
-    const blob = new Blob([json], { type: "application/json" });
-    formData.append("content", blob);
+    // for (let i = 0; i < postImages.length; i++) {
+    //   let file = new File([postImages[i]], `postImage${i}`);
+    //   formData.append("imgUrl", file);
+    //   // console.log("postImages ====> ::: ", file);
+    // }
+    //const file = new File(postImages, "postImages");
+    // formData.append("imgUrl", file);
 
-    console.log("postContent ====> ::: ", blob);
+    // formData.append("content", postContent);
+    // formData.append("tags", postTags);
+    // formData.append("locationTags", postLocationTags);
+
+    console.log(":: here postImages::");
+    console.log(postImages);
+    let file = new File(postImages, "test", {
+      type: "multipart/form-data",
+    });
+
+    console.log(":: file::", JSON.stringify(file));
+    formData.append("file", file);
+    // formData.append("file", postImages);
+    // console.log("postContent ====> ::: ", blob);
     try {
       const postResponse = await axios.post(
         `http://15.164.166.87:8080/api/post`,
-        {
-          formData,
-        },
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: null,
+            // Authorization: localStorage.getItem("Authorization"),
           },
         }
       );
