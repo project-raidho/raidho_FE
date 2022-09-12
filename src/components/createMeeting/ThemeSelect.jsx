@@ -7,7 +7,14 @@ const ThemeSelect = ({ setTheme }) => {
   let [btnActive, setBtnActive] = useState("");
 
   const themeList = useSelector((state) => state.themeSlice.themeList);
-
+  //   const themeList = [
+  //     "국내",
+  //     "유럽",
+  //     "아시아",
+  //     "아메리카",
+  //     "아프리카",
+  //     "오세아니아",
+  //   ];
   const toggleActive = (e) => {
     setTheme(e.target.value);
     setBtnActive((prev) => {
@@ -21,7 +28,7 @@ const ThemeSelect = ({ setTheme }) => {
         return (
           <StButton
             value={theme.themeName}
-            size="small"
+            size="large"
             variant={theme.themeName === btnActive ? "primary" : "gray"}
             key={index}
             onClick={toggleActive}
@@ -48,7 +55,8 @@ const StThemeSelectBox = styled.div`
 
 const StButton = styled(Button)`
   margin-right: 20px;
-  width: "100px";
+  font-size: 13px;
+  width: 300px;
   /* background-image:URL(${(props) => props.themeImage}); 
     background-size: cover; */
 `;

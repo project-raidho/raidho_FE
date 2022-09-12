@@ -67,7 +67,7 @@ const CreateMeetingContatiner = () => {
   return (
     <StContainer>
       <p>step 1. 여행정보 입력</p>
-      <h1>대륙 입력</h1>
+      <h1>대륙 선택</h1>
       <ThemeSelect setTheme={setTheme} />
 
       <h1>여행갈 나라/도시 입력</h1>
@@ -83,7 +83,7 @@ const CreateMeetingContatiner = () => {
       <TripPeriod setTripPeriod={setTripPeriod} />
       <h1>여행희망인원</h1>
       <TripPeopleCount setPeople={setPeople} />
-
+      <br />
       <p>step 2. 모집글정보 입력</p>
       <h1>모집글 제목</h1>
       <StTitleBox
@@ -117,9 +117,9 @@ const CreateMeetingContatiner = () => {
       <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
 
-      <Button size="small" variant="primary" onClick={postcreatemeeting}>
+      <CreateButton size="small" variant="primary" onClick={postcreatemeeting}>
         등록하기
-      </Button>
+      </CreateButton>
     </StContainer>
   );
 };
@@ -129,14 +129,15 @@ const StContainer = styled.div`
   width: 50%;
   p {
     font-size: 30px;
+    margin-top: 50px;
   }
   h1 {
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
   }
 `;
 const StTitleBox = styled(TextField)`
-  width: 50%;
+  width: 100%;
   height: 55px;
 
   element.style {
@@ -152,7 +153,7 @@ const StTitleBox = styled(TextField)`
   }
 `;
 const StDescBox = styled(TextField)`
-  width: 50%;
+  width: 100%;
   .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
     font-size: 1.5rem;
     padding: 5px;
@@ -168,6 +169,10 @@ const StTags = styled.div`
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid;
   }
+`;
+
+const CreateButton = styled(Button)`
+  float: right;
 `;
 
 // const StCategorySelectBox = styled.div`
