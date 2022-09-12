@@ -6,20 +6,16 @@ import GlobalHeader from "../global/GlobalHeader";
 import GlobalLayout from "../global/GlobalLayout";
 
 const CreateMeetingPage = () => {
-
-  return(
+  return (
     <StCreateMeetingPageWrap>
-    <GlobalHeader />
-    <GlobalLayout>
-   <CreateMeetingContainer/>
-    </GlobalLayout>
-  </StCreateMeetingPageWrap>
-
+      <GlobalHeader />
+      <GlobalLayout>
+        <CreateMeetingContainer />
+      </GlobalLayout>
+    </StCreateMeetingPageWrap>
   );
 };
 
 export default CreateMeetingPage;
 
-const StCreateMeetingPageWrap = styled.div`
-  background-color: skyblue;
-`;
+const StCreateMeetingPageWrap = styled.div``;

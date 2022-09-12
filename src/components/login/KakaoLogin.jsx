@@ -12,10 +12,11 @@ const KakaoLogin = () => {
       console.log(KAKAO_CODE);
       const URI = process.env.REACT_APP_BASE_URI;
       const res = await axios.get(
-        `${URI}/login/oauth2/code/kakao?code=${KAKAO_CODE}`
+        `http://15.164.166.87:8080/login/oauth2/code/kakao?code=${KAKAO_CODE}`
       );
       console.log(res);
       localStorage.setItem("Authorization", res.headers.authorization);
+      localStorage.setItem("memberId", res.data.id);
       navigate("/");
     } catch (error) {
       console.log(error);

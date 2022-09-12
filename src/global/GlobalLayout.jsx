@@ -2,12 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const GlobalLayout = ({ children }) => {
-
-  return(
-    <StGlobalLayoutWrap>
-      { children }
-    </StGlobalLayoutWrap>
-  );
+  return <StGlobalLayoutWrap>{children}</StGlobalLayoutWrap>;
 };
 
 export default GlobalLayout;
