@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import UpdatePostContent from "./UpdatePostContent";
 import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
+import PostDeailImage from "../postDetail/postDetailImage";
 import styled from "styled-components";
 
 const CreatePostContainer = () => {
-  const [postDetail, setPostDetail] = useState({});
+  const postDetail = useSelector((state) => state.postSlice.postList);
+  //const [postDetail, setPostDetail] = useState(postDetailList);
   // ::: 입력된 데이터 취합하기
   const [postContent, setpostContent] = useState(postDetail.content);
   const [postTags, setPostTags] = useState(postDetail.tags);
@@ -49,19 +52,19 @@ const CreatePostContainer = () => {
   const onUpdatePost = async () => {
     const formData = new FormData();
 
-    const jsonContent = JSON.stringify(postContent);
-    const jsonTags = JSON.stringify(postTags);
-    const jsonLocationTags = JSON.stringify(postLocationTags);
+    // const jsonContent = JSON.stringify(postContent);
+    // const jsonTags = JSON.stringify(postTags);
+    // const jsonLocationTags = JSON.stringify(postLocationTags);
 
-    const blobContent = new Blob([jsonContent], { type: "application/json" });
-    const blobTags = new Blob([jsonTags], { type: "application/json" });
-    const blobLocationTags = new Blob([jsonLocationTags], {
-      type: "application/json",
-    });
+    // const blobContent = new Blob([jsonContent], { type: "application/json" });
+    // const blobTags = new Blob([jsonTags], { type: "application/json" });
+    // const blobLocationTags = new Blob([jsonLocationTags], {
+    //   type: "application/json",
+    // });
 
-    formData.append("content", blobContent);
-    formData.append("tags", blobTags);
-    formData.append("locationTags", blobLocationTags);
+    formData.append("content", postContent);
+    formData.append("tags", postTags);
+    formData.append("locationTags", postLocationTags);
 
     try {
       const postUpdateResponse = await axios.put(
@@ -85,40 +88,41 @@ const CreatePostContainer = () => {
 
   // ::: 게시글 상세 내용 불러오기
   useEffect(() => {
-    const getPostDetail = async () => {
-      try {
-        const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
-        console.log(responsePostDetail.data);
-        setPostDetail(responsePostDetail.data);
-      } catch (error) {
-        console.log(
-          "게시글 수정 페이지 - 상세 게시글 조회 에러 안내 ::: ",
-          error
-        );
-      }
-    };
+    // const getPostDetail = async () => {
+    //   try {
+    //     const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
+    //     console.log(responsePostDetail.data);
+    //     setPostDetail(responsePostDetail.data);
+    //   } catch (error) {
+    //     console.log(
+    //       "게시글 수정 페이지 - 상세 게시글 조회 에러 안내 ::: ",
+    //       error
+    //     );
+    //   }
+    // };
   }, []);
 
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
-        <StStepTitle>이미지 업로드 하기</StStepTitle>
+        <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
+        {/* <PostDeailImage images={postDetail.postImgs} /> */}
       </StCreatePostColumn>
       <StCreatePostColumn>
-        <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
+        <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>
         <UpdatePostContent
           typedPostContent={typedPostContent}
           content={postDetail.content}
         />
 
-        <StStepTitle>다녀온 곳 입력하기</StStepTitle>
+        <StStepTitle>다녀온 곳 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedLocationTags}
           tags={postDetail.locationTags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
-        <StStepTitle>태그 입력하기</StStepTitle>
+        <StStepTitle>태그 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
           tags={postDetail.postTags}

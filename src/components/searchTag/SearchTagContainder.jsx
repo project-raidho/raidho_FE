@@ -15,7 +15,7 @@ const SearchTagContainer = () => {
 
   console.log(postList);
 
-  // ::: Uri 한글꺠짐 방지
+  // ::: Uri 한글깨짐 방지
   const decodeUri = decodeURI(location?.search);
   const tagName = decodeUri.split("=")[1];
   const tagUri = location.pathname.includes("post");
@@ -41,7 +41,7 @@ const SearchTagContainer = () => {
         {themeList.map((themeCard) => (
           <Link
             key={themeCard.themeName}
-            to={`/tag?tag=${themeCard.themeName}`}
+            to={`/post/best?tag=${themeCard.themeName}`}
           >
             <StTagCard bgImage={`url(${themeCard.themeImage})`}>
               {themeCard.themeName}
