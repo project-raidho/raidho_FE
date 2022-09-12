@@ -12,7 +12,6 @@ function ThemeSelect({ setTheme }: ITeme) {
   const themeList = ['국내', '유럽', '아시아', '아메리카', '아프리카', '오세아니아'];
 
   const toggleActive = (theme: string) => {
-    console.log(theme);
     setTheme(theme);
     setBtnActive(theme);
   };
@@ -50,5 +49,5 @@ const StThemeSelectBox = styled.div`
 
 const StButton = styled(Button)`
   margin-right: 20px;
-  width: '100px';
+  width: 100px;
 `;

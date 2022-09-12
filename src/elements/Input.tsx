@@ -40,25 +40,35 @@ const VARIANTS = {
 };
 
 interface Props {
+  value: string | undefined;
+  onFocus?: React.FocusEventHandler<HTMLInputElement> | undefined;
+  onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   disabled: boolean;
-  size: any;
-  variant: any;
-  children: any;
-  props: any;
+  size: 'medium' | 'square' | 'large';
+  variant: 'default' | 'search';
+  // children: JSX.Element;
+  // props: any;
 }
 
-function Input({ disabled, size, variant, children, ...props }: Props) {
-  const sizeStyle: any = SIZES[size];
-  const variantStyle: any = VARIANTS[variant];
+function Input({ value, onFocus, onChange, disabled, size, variant }: Props) {
+  const sizeStyle = SIZES[size];
+  const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledInput disabled={disabled} sizeStyle={sizeStyle} variantStyle={variantStyle} {...props}>
-      {children}
-    </StyledInput>
+    <StyledInput
+      value={value}
+      onChange={onChange}
+      onFocus={onFocus}
+      disabled={disabled}
+      sizeStyle={sizeStyle}
+      variantStyle={variantStyle}
+    />
+    //   {children}
+    // </StyledInput>
   );
 }
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ sizeStyle: any; variantStyle: any }>`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
 

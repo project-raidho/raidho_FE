@@ -39,9 +39,9 @@ function RoomCloseDateBox({ setRoomCloseDate }: IDate) {
         onFocus={() => setShowCalendar(true)}
         // onBlur={()=>setShowCalendar(false)}
         onChange={inputonChangeHandler}
-        disabled={undefined}
-        children={undefined}
+        disabled={false} // props={undefined}
       />
+
       {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
         <Calendar
           editableDateInputs

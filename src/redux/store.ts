@@ -5,7 +5,7 @@ import userSlice from './modules/userSlice';
 import meetingSlice from './modules/meetingSlice';
 import searchSlice from './modules/searchSlice';
 import themeSlice from './modules/themeSlice';
-import Chat from './modules/chat';
+import chat from './modules/chat';
 
 // ::: 여러개의 reducer 통합
 const reducer = combineReducers({
@@ -14,7 +14,7 @@ const reducer = combineReducers({
   meetingSlice,
   searchSlice,
   themeSlice,
-  chat: Chat,
+  chat,
 });
 
 // ::: 스토어 생성, 미들웨어 설정

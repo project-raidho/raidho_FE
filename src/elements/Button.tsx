@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 const SIZES = {
   small: css`
@@ -67,27 +67,26 @@ const VARIANTS = {
 };
 
 interface Props {
-  size: any;
-  variant: any;
+  size: 'small' | 'medium' | 'large' | 'tag' | 'square';
+  variant: 'primary' | 'gray' | 'line' | 'lineSquare';
   children: any;
-  props: any;
-  onClick: React.MouseEvent<HTMLButtonElement> | undefined;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Button({ size, variant, children, onClick, ...props }: Props) {
+function Button({ size, variant, children, onClick }: Props) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledButton sizeStyle={sizeStyle} variantStyle={variantStyle} onClick={onClick} {...props}>
+    <StyledButton sizeStyle={sizeStyle} variantStyle={variantStyle} onClick={onClick}>
       {children}
     </StyledButton>
   );
 }
 
-const StyledButton = styled.button`
-  ${(p: any) => p.sizeStyle}
-  ${(p: any) => p.variantStyle}
+const StyledButton = styled.button<{ sizeStyle: any; variantStyle: any }>`
+  ${({ sizeStyle }) => sizeStyle}
+  ${({ variantStyle }) => variantStyle}
 
   margin: 0;
   border: none;
@@ -101,7 +100,7 @@ const StyledButton = styled.button`
   color: var(--button-color, #ffffff);
   border: 1px solid var(--button-border-color, #7188ff);
   box-shadow: var(--button-box-shadow, 0px 4px 5px rgba(0, 0, 0, 0.1));
-  margin-right: var(--button-margin-right, 0);
+  margin-right: var(--button-margin-right, 20px);
 
   &:active,
   &:hover,

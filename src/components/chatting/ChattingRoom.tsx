@@ -3,12 +3,16 @@ import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
 
 // Components
+import {
+  // useDispatch,
+  useSelector,
+} from 'react-redux';
 import MessageList from './MessageList';
 import MessageWrite from './MessageWrite';
 import ChatList from './ChatList';
 
 // elements
-import  ChatName  from '../../elements/ChatName';
+import ChatName from '../../elements/ChatName';
 
 // 채팅 관련 함수들 가져오기
 // import { chatActions } from '../../redux/modules/chat';
@@ -17,10 +21,6 @@ import  ChatName  from '../../elements/ChatName';
 // import { getCookie } from '../shared/cookie';
 
 // 리덕스
-import { 
-  // useDispatch,
-   useSelector } from 'react-redux';
-
 
 // 소켓 통신
 // import Stomp from 'stompjs';
@@ -29,12 +29,10 @@ import {
 // components
 import NoRoom from './NoRoom';
 
-
 // 채팅 방 컴포넌트
-const ChattingRoom = (props) => {
+function ChattingRoom(props) {
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
-
 
   // 소켓 통신 객체
   // const sock = new SockJS('http://15.164.97.250:8080/chatting');
@@ -43,16 +41,15 @@ const ChattingRoom = (props) => {
   // 방 제목 가져오기
   const { roomName, category } = useSelector((state) => state.chat.currentChat);
   // const roomId = useSelector((state) => state.chat.currentChat.roomId);
-const roomId=2;
+  const roomId = 2;
   // 토큰
   // const token = localStorage.getItem('access-token');
-  
 
   // 보낼 메시지 텍스트
   // const messageText = useSelector((state) => state.chat.messageText);
   // sedner 정보 가져오기
   // let sender = useSelector((state) => state.user.userInfo?.username);
-  let sender= "김";
+  let sender = '김';
   if (!sender) {
     sender = localStorage.getItem('username');
   }
@@ -121,38 +118,38 @@ const roomId=2;
 
   // 메시지 보내기
   function sendMessage() {
-  //   try {
-  //     // token이 없으면 로그인 페이지로 이동
-  //     if (!token) {
-  //       alert('토큰이 없습니다. 다시 로그인 해주세요.');
-  //       navigate('/');
-  //     }
-  //     // send할 데이터
-  //     const data = {
-  //       type: 'TALK',
-  //       roomId: roomId,
-  //       sender: sender,
-  //       message: messageText,
-  //     };
-  //     // 빈문자열이면 리턴
-  //     if (messageText === '') {
-  //       return;
-  //     }
-  //     // 로딩 중
-  //     dispatch(chatActions.isLoading());
-  //     waitForConnection(ws, function () {
-  //       ws.send(
-  //         '/pub/api/chat/message',
-  //         { token: token },
-  //         JSON.stringify(data)
-  //       );
-  //       console.log(ws.ws.readyState);
-  //       dispatch(chatActions.writeMessage(''));
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     console.log(ws.ws.readyState);
-  //   }
+    //   try {
+    //     // token이 없으면 로그인 페이지로 이동
+    //     if (!token) {
+    //       alert('토큰이 없습니다. 다시 로그인 해주세요.');
+    //       navigate('/');
+    //     }
+    //     // send할 데이터
+    //     const data = {
+    //       type: 'TALK',
+    //       roomId: roomId,
+    //       sender: sender,
+    //       message: messageText,
+    //     };
+    //     // 빈문자열이면 리턴
+    //     if (messageText === '') {
+    //       return;
+    //     }
+    //     // 로딩 중
+    //     dispatch(chatActions.isLoading());
+    //     waitForConnection(ws, function () {
+    //       ws.send(
+    //         '/pub/api/chat/message',
+    //         { token: token },
+    //         JSON.stringify(data)
+    //       );
+    //       console.log(ws.ws.readyState);
+    //       dispatch(chatActions.writeMessage(''));
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //     console.log(ws.ws.readyState);
+    //   }
   }
 
   return (
@@ -168,7 +165,7 @@ const roomId=2;
       )}
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   ${(props) => props.theme.border_box};

@@ -68,7 +68,7 @@ const chat = createReducer(initialState, {
     state.messages = [];
   },
   [setMessages]: (state, action) => {
-    state.messages = action.payload
+    state.messages = action.payload;
   },
   [isLoading]: (state, action) => {
     state.loading = false;
@@ -88,9 +88,8 @@ const chat = createReducer(initialState, {
   },
   [deleteCategory]: (state, action) => {
     state.selectedCategory.splice(state.selectedCategory.indexOf(action.payload), 1);
-  }
+  },
 });
-
 
 // const createRoom = (data, closePopup) => async (dispatch, getState, { history }) => {
 //   try {
@@ -122,12 +121,10 @@ const getChatMessages = () => async (dispatch, getState) => {
     const res = await chatAPI.getChatMessages(roomId);
     const chatMessagesArray = res.data.content;
     dispatch(setMessages(chatMessagesArray));
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
-
 
 export const chatActions = {
   // createRoom,
@@ -143,7 +140,7 @@ export const chatActions = {
   setCategory,
   clearCategory,
   getChat,
-  deleteCategory
+  deleteCategory,
 };
 
-export default chat;
+export default chat.reducer;
