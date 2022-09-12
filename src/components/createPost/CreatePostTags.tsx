@@ -4,7 +4,7 @@ import Input from '../../elements/Input';
 
 interface Props {
   tags: string[];
-  selectedTags: string[];
+  selectedTags: any;
   tagMassage: string;
 }
 
@@ -17,11 +17,11 @@ function CreatePostTags({ tags, selectedTags, tagMassage }: Props) {
   };
 
   // ::: 태그 추가하기
-  const addTags = (event) => {
-    if (event.target.value !== '') {
-      setPostTags([...postTags, event.target.value]);
-      selectedTags([...postTags, event.target.value]);
-      event.target.value = '';
+  const addTags = (event: React.KeyboardEvent<HTMLElement>) => {
+    if ((event.target as HTMLInputElement).value !== '') {
+      setPostTags([...postTags, (event.target as HTMLInputElement).value]);
+      selectedTags([...postTags, (event.target as HTMLInputElement).value]);
+      (event.target as HTMLInputElement).value = '';
     }
   };
 
@@ -38,7 +38,6 @@ function CreatePostTags({ tags, selectedTags, tagMassage }: Props) {
         ))}
       </ul>
       <Input
-        type="text"
         onKeyUp={(event: React.KeyboardEvent<HTMLElement>) => (event.key === 'Enter' ? addTags(event) : null)}
         placeholder={tagMassage}
       />

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import Button from '../../elements/Button';
 
-interface ITeme {
+interface ITheme {
   setTheme: Dispatch<SetStateAction<string>>;
 }
 
-function ThemeSelect({ setTheme }: ITeme) {
+function ThemeSelect({ setTheme }: ITheme) {
   const [btnActive, setBtnActive] = useState('');
   const themeList = ['국내', '유럽', '아시아', '아메리카', '아프리카', '오세아니아'];
 
