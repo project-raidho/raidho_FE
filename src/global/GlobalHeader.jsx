@@ -11,6 +11,8 @@ import RaidhoLogo from "../assets/raidhoLogo.svg";
 import AddPostIcon from "../assets/addPost.svg";
 import GoChattingIcon from "../assets/goChatting.svg";
 import DefaultMemberImage from "../assets/defaultProfileImage.svg";
+import IconLight from "../assets/iconLightMode.svg";
+import IconDark from "../assets/iconDarkMode.svg";
 
 const GlobalHeader = () => {
   const navigate = useNavigate();
@@ -61,9 +63,9 @@ const GlobalHeader = () => {
     if (checkDarkMode) {
       document.getElementsByTagName("html")[0].classList.add("darkMode");
     }
-  }, []);
+  }, [dispatch, checkDarkMode]);
 
-  const darkOnOff = (event) => {
+  const darkOnOff = () => {
     if (
       document.getElementsByTagName("html")[0].classList.contains("darkMode")
     ) {
@@ -98,11 +100,10 @@ const GlobalHeader = () => {
             >
               여행 친구 찾기
             </NavLink>
-            <StSwitchButton>
+            <StSwitchButton checkDarkMode={checkDarkMode}>
               <input
                 type="checkbox"
                 onClick={darkOnOff}
-                //ref={RefDarkModeButton}
                 checked={checkDarkMode && "checked"}
               />
               <span className="onoffSwitch"></span>
@@ -179,26 +180,6 @@ const StGlobalHeaderWrap = styled.div`
   /* transition: 1s; */
   padding: 30px 0;
   z-index: 10;
-
-  /* &.originHeader {
-    height: 135px;
-    padding-top: 80px;
-    padding-bottom: 50px;
-  }
-  &.changeHeader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 105px;
-    padding: 25px 0;
-    z-index: 10;
-  } */
-`;
-
-const StButtonDarkMode = styled.button`
-  position: absolute;
-  top: 50px;
-  left: 50px;
 `;
 
 const StSwitchButton = styled.label`
@@ -234,6 +215,11 @@ const StSwitchButton = styled.label`
     width: 22px;
     left: 4px;
     bottom: 4px;
+    color: var(--gray-color);
+    background-image: ${(props) =>
+      props.checkDarkMode ? `url(${IconDark})` : `url(${IconLight})`};
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: #fff;
     -webkit-transition: 0.5s;
     transition: 0.4s;

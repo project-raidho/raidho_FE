@@ -90,7 +90,12 @@ const SearchContainer = ({ isLogin }) => {
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
               <Button key={tag + index} size="tag" variant="line">
-                <Link to={`/tag?tag=${tag}`}>{tag}</Link>
+                <Link
+                  to={`/tag?tag=${tag}`}
+                  onClick={() => setSearchInput(tag)}
+                >
+                  {tag}
+                </Link>
                 <span
                   className="tagCloseIcon"
                   onClick={() => {
@@ -127,7 +132,7 @@ export default SearchContainer;
 
 const StSearchContainerWrap = styled.div`
   position: relative;
-  width: ${(props) => (props.isLogin === true ? "47%" : "50%")};
+  width: ${(props) => (props.isLogin === true ? "47%" : "54%")};
   height: 55px;
 `;
 
