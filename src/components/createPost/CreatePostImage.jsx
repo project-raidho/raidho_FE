@@ -71,6 +71,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
           files={files}
           selectedImage={selectedImage}
           selectedImageIndex={selectedImageIndex}
+          selectedPostImages={selectedPostImages}
         />
       ) : (
         <StImageDropZone {...getRootProps({ className: "dropzone" })}>
@@ -80,7 +81,6 @@ const CreatePostImage = ({ selectedPostImages }) => {
       )}
 
       <StThumbsContainer>{thumbs}</StThumbsContainer>
-
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
     </StCreatePostImageWrap>
   );
@@ -118,7 +118,6 @@ const StThumb = styled.div`
   width: 100px;
   height: 100px;
   padding: 4px;
-  border: 1px solid red;
 `;
 
 const StThumbInner = styled.div`

@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const CreatePostContent = ({ typedPostContent }) => {
-  const [ postContent, setPostContent ] = useState(null);
-
   const onChangeContent = (event) => {
-    setPostContent(event.target.value);
-  }
-  typedPostContent(postContent);
+    typedPostContent(event.target.value);
+  };
 
-  return(
+  return (
     <StCreatePostContentWrap>
-      <textarea 
-        onChange={onChangeContent}
-        placeholder="경험을 소개해주세요!"
-      />
+      <textarea onChange={onChangeContent} placeholder="경험을 소개해주세요!" />
     </StCreatePostContentWrap>
   );
 };
@@ -23,7 +17,7 @@ export default CreatePostContent;
 
 const StCreatePostContentWrap = styled.div`
   width: 100%;
- 
+
   textarea {
     width: 100%;
     height: 200px;
@@ -34,4 +28,3 @@ const StCreatePostContentWrap = styled.div`
     background-color: var(--subBg-color);
   }
 `;
-
