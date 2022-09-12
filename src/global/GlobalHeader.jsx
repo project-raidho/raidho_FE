@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, NavLink } from "react-router-dom";
-import GlobalLayout from "./GlobalLayout";
 import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
 import LoginModal from "../components/login/LoginContainer";
@@ -9,16 +8,21 @@ import styled from "styled-components";
 import RaidhoLogo from "../assets/raidhoLogo.svg";
 import AddPostIcon from "../assets/addPost.svg";
 import GoChattingIcon from "../assets/goChatting.svg";
-import SampleProfileImage from "../assets/sampleProfile.png";
+import DefaultMemberImage from "../assets/defaultProfileImage.svg";
 
 const GlobalHeader = () => {
   const navigate = useNavigate();
+  const RefDarkModeButton = useRef();
+  const memberImage =
+    localStorage.getItem("memberImage") === "null"
+      ? `${DefaultMemberImage}`
+      : localStorage.getItem("memberImage");
 
   // ::: 헤더 스크롤 이벤트 구현하기
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const onScrollHeader = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  };
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const onScrollHeader = () => {
+  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  // };
 
   // ::: 로그인 여부 확인하기
   const [isLogin, setIsLogin] = useState(false);
@@ -38,6 +42,10 @@ const GlobalHeader = () => {
   // ::: 로그아웃 하기
   const onClickLogOut = () => {
     localStorage.removeItem("Authorization");
+    localStorage.removeItem("memberImage");
+    localStorage.removeItem("memberName");
+    localStorage.removeItem("memberIntro");
+
     setIsLogin(false);
     navigate("/");
   };
@@ -47,14 +55,38 @@ const GlobalHeader = () => {
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
 
     // ::: 헤더 스크롤이벤트 구현하기
-    window.addEventListener("scroll", onScrollHeader);
+    //   window.addEventListener("scroll", onScrollHeader);
   }, [userIsLogin]);
+
+  // ::: Dark & Light 기능구현
+  useEffect(() => {
+    const bgMode = localStorage.getItem("bgMode");
+    if (bgMode === "dark") {
+      document.getElementsByTagName("html")[0].classList.add("darkMode");
+      RefDarkModeButton.current.checked = true;
+    }
+    RefDarkModeButton.current.checked = false;
+  }, []);
+  const darkOnOff = (event) => {
+    if (
+      document.getElementsByTagName("html")[0].classList.contains("darkMode")
+    ) {
+      document.getElementsByTagName("html")[0].classList.remove("darkMode");
+      localStorage.setItem("bgMode", "light");
+      console.log(event.target.checked);
+      event.target.checked = false;
+    } else {
+      document.getElementsByTagName("html")[0].classList.add("darkMode");
+      localStorage.setItem("bgMode", "dark");
+      event.target.checked = true;
+    }
+  };
 
   return (
     <StGlobalHeaderWrap
-      className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
+    //className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
     >
-      <GlobalLayout>
+      <StGlobalLayoutHeader>
         <StHeaderRow>
           <StRaidhoLogo>
             <Link to={"/"}>
@@ -75,6 +107,14 @@ const GlobalHeader = () => {
             >
               여행 친구 찾기
             </NavLink>
+            <StSwitchButton>
+              <input
+                type="checkbox"
+                onClick={darkOnOff}
+                ref={RefDarkModeButton}
+              />
+              <span className="onoffSwitch"></span>
+            </StSwitchButton>
           </StHeaderMidMenu>
           {isLogin ? (
             <StHeaderRightMenu>
@@ -110,7 +150,7 @@ const GlobalHeader = () => {
                   setIsToggle(!isToggle);
                 }}
               >
-                <img src={SampleProfileImage} alt="사용자 프로필 이미지" />
+                <img src={memberImage} alt="사용자 프로필 이미지" />
               </div>
               <StToggleBox isToggle={isToggle}>
                 <li>
@@ -128,7 +168,7 @@ const GlobalHeader = () => {
             </StHeaderRightMenu>
           )}
         </StHeaderRow>
-      </GlobalLayout>
+      </StGlobalLayoutHeader>
     </StGlobalHeaderWrap>
   );
 };
@@ -136,6 +176,7 @@ const GlobalHeader = () => {
 export default GlobalHeader;
 
 const StGlobalHeaderWrap = styled.div`
+  position: fixed;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -143,9 +184,11 @@ const StGlobalHeaderWrap = styled.div`
   width: 100%;
   margin-bottom: 58px;
   background-color: var(--bg-color);
-  transition: 1s;
+  /* transition: 1s; */
+  padding: 30px 0;
+  z-index: 10;
 
-  &.originHeader {
+  /* &.originHeader {
     height: 135px;
     padding-top: 80px;
     padding-bottom: 50px;
@@ -157,13 +200,70 @@ const StGlobalHeaderWrap = styled.div`
     height: 105px;
     padding: 25px 0;
     z-index: 10;
+  } */
+`;
+
+const StButtonDarkMode = styled.button`
+  position: absolute;
+  top: 50px;
+  left: 50px;
+`;
+
+const StSwitchButton = styled.label`
+  position: relative;
+  width: 55px;
+  height: 30px;
+  margin-left: 10px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
-  .testCheckedLogin {
+  .onoffSwitch {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background-color: #ccc;
+    box-shadow: inset 1px 5px 1px var(--gray-color);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
+
+  .onoffSwitch:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    -webkit-transition: 0.5s;
+    transition: 0.4s;
+    border-radius: 20px;
+  }
+
+  input:checked + .onoffSwitch {
+    background-color: var(--main-color);
+    box-shadow: inset 1px 5px 1px var(--main-color);
+  }
+
+  input:checked + .onoffSwitch:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+`;
+
+const StGlobalLayoutHeader = styled.div`
+  width: 100%;
+  max-width: 1305px;
+  margin: 0 auto;
 `;
 
 const StHeaderRow = styled.div`
@@ -180,6 +280,10 @@ const StRaidhoLogo = styled.h1`
 `;
 
 const StHeaderMidMenu = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   a {
     margin-right: 0.5rem;
     font-size: 1.5rem;
@@ -217,7 +321,7 @@ const StHeaderRightMenu = styled.div`
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 

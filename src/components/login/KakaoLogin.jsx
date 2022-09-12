@@ -15,7 +15,11 @@ const KakaoLogin = () => {
         `${URI}/login/oauth2/code/kakao?code=${KAKAO_CODE}`
       );
       console.log(res);
+
       localStorage.setItem("Authorization", res.headers.authorization);
+      localStorage.setItem("memberName", res.data.memberName);
+      localStorage.setItem("memberIntro", res.data.memberIntro);
+      localStorage.setItem("memberImage", res.data.memberImage);
       navigate("/");
     } catch (error) {
       console.log(error);
