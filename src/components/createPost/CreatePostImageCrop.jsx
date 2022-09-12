@@ -109,7 +109,7 @@ const CreatePostImageCrop = ({
   console.log("imagesTemp ::::", imagesTemp);
   console.log("selectedImageIndex ::::", selectedImageIndex);
 
-  selectedPostImages(imagesTemp);
+  selectedPostImages(uploadImages);
 
   return (
     <StCreatePostImageCrop>

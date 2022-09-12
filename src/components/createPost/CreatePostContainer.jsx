@@ -45,26 +45,31 @@ const CreatePostContainer = () => {
 
   // const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
+  // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
-    // const form = new FormData();
-    // form.append("imgUrl", postImages);
-
+    const formData = new FormData();
+    for (let i = 0; i < postImages.length; i++) {
+      let file = new File([postImages[i]], `postImage${i}`);
+      formData.append("imgUrl", file);
+      console.log("postImages ====> ::: ", file);
+    }
     const json = JSON.stringify(postContent);
     const blob = new Blob([json], { type: "application/json" });
-    //form.append("content", blob);
+    formData.append("content", blob);
+
+    console.log("postContent ====> ::: ", blob);
     try {
       const postResponse = await axios.post(
         `http://15.164.166.87:8080/api/post`,
         {
-          imgUrl: postImages,
-          content: blob,
+          formData,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: null,
+          },
         }
-        // {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //     Authorization: null,
-        //   },
-        // }
       );
       console.log("postResponse", postResponse.data);
     } catch (error) {
