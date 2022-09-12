@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, NavLink } from "react-router-dom";
+import { getDarkMode, updateDarkMode } from "../redux/modules/searchSlice";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
 import LoginModal from "../components/login/LoginContainer";
@@ -12,17 +14,14 @@ import DefaultMemberImage from "../assets/defaultProfileImage.svg";
 
 const GlobalHeader = () => {
   const navigate = useNavigate();
-  const RefDarkModeButton = useRef();
+  const dispatch = useDispatch();
+  const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
+
+  // ::: 유저 프로필 이미지 적용하기
   const memberImage =
     localStorage.getItem("memberImage") === "null"
       ? `${DefaultMemberImage}`
       : localStorage.getItem("memberImage");
-
-  // ::: 헤더 스크롤 이벤트 구현하기
-  // const [scrollPosition, setScrollPosition] = useState(0);
-  // const onScrollHeader = () => {
-  //   setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-  // };
 
   // ::: 로그인 여부 확인하기
   const [isLogin, setIsLogin] = useState(false);
@@ -31,6 +30,7 @@ const GlobalHeader = () => {
   // ::: 유저 토글 메뉴 확인하기
   const [isToggle, setIsToggle] = useState(false);
 
+  // ::: 게시글 추가 메뉴 확인하기
   const [isAddPostToggle, setIsAddPostToggle] = useState(false);
 
   // ::: 모달 여부 확인하기
@@ -53,39 +53,30 @@ const GlobalHeader = () => {
   useEffect(() => {
     // ::: 로그인 여부 확인하기
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
-
-    // ::: 헤더 스크롤이벤트 구현하기
-    //   window.addEventListener("scroll", onScrollHeader);
   }, [userIsLogin]);
 
   // ::: Dark & Light 기능구현
   useEffect(() => {
-    const bgMode = localStorage.getItem("bgMode");
-    if (bgMode === "dark") {
+    dispatch(getDarkMode());
+    if (checkDarkMode) {
       document.getElementsByTagName("html")[0].classList.add("darkMode");
-      RefDarkModeButton.current.checked = true;
     }
-    RefDarkModeButton.current.checked = false;
   }, []);
+
   const darkOnOff = (event) => {
     if (
       document.getElementsByTagName("html")[0].classList.contains("darkMode")
     ) {
       document.getElementsByTagName("html")[0].classList.remove("darkMode");
-      localStorage.setItem("bgMode", "light");
-      console.log(event.target.checked);
-      event.target.checked = false;
+      dispatch(updateDarkMode(false));
     } else {
       document.getElementsByTagName("html")[0].classList.add("darkMode");
-      localStorage.setItem("bgMode", "dark");
-      event.target.checked = true;
+      dispatch(updateDarkMode(true));
     }
   };
 
   return (
-    <StGlobalHeaderWrap
-    //className={scrollPosition < 500 ? "originHeader" : "changeHeader"}
-    >
+    <StGlobalHeaderWrap>
       <StGlobalLayoutHeader>
         <StHeaderRow>
           <StRaidhoLogo>
@@ -111,7 +102,8 @@ const GlobalHeader = () => {
               <input
                 type="checkbox"
                 onClick={darkOnOff}
-                ref={RefDarkModeButton}
+                //ref={RefDarkModeButton}
+                checked={checkDarkMode && "checked"}
               />
               <span className="onoffSwitch"></span>
             </StSwitchButton>
