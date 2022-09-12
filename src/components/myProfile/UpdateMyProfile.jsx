@@ -6,20 +6,23 @@ import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
 import Modal from "../../global/globalModal/Modal";
 import styled from "styled-components";
+import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const UpdateMyProfile = (props) => {
-  // ::: 유저 정보 샘플
-  const userInfo = {
-    userName: "yoojin",
-    userProfileImage:
-      "https://avatars.githubusercontent.com/u/99028253?s=400&u=678da99d93c1eab91489f73b080993fb689c56b4&v=4",
-    userComment: "나는 개발을 사랑한다.",
+  // ::: 유저 정보 가져오기
+  const memberInfo = {
+    memberName: localStorage.getItem("memberName"),
+    memberImage:
+      localStorage.getItem("memberImage") === "null"
+        ? `${DefaultMemberImage}`
+        : localStorage.getItem("memberImage"),
+    memberIntro: localStorage.getItem("memberIntro"),
   };
 
-  const [selectedPostImage, setSelectedPostImage] = useState(null);
+  const [selectedMemberImage, setSelectedMemberImage] = useState(null);
   const [compressedImageFile, setCompressedImageFile] = useState(null);
-  const [updateNickname, setUpdateNickname] = useState(userInfo.userName);
-  const [updateComment, setUpdateComment] = useState(userInfo.userComment);
+  const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
+  const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -27,10 +30,10 @@ const UpdateMyProfile = (props) => {
     setModalOn(!modalOn);
 
     // ::: 유저가 입력한 값 초기화 시키기
-    setSelectedPostImage(null);
+    setSelectedMemberImage(null);
     setCompressedImageFile(null);
-    setUpdateNickname(userInfo.userName);
-    setUpdateNickname(userInfo.userComment);
+    setUpdateNickname(memberInfo.memberName);
+    setUpdateNickname(memberInfo.memberIntro);
   };
 
   // ::: 이미지 리사이징(Resizing)
@@ -53,17 +56,17 @@ const UpdateMyProfile = (props) => {
       const finalCompressedImage = await imageCompression.getDataUrlFromFile(
         compressedFile
       );
-      setSelectedPostImage(finalCompressedImage);
+      setSelectedMemberImage(finalCompressedImage);
     } catch (error) {
       console.log("__PostImage_uploadImageError ::", error);
       alert("이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!");
     }
   };
 
-  const onChangeUpdateUserName = (event) => {
+  const onChangeUpdateMemberName = (event) => {
     setUpdateNickname(event.target.value);
   };
-  const onChangeUpdateUserComment = (event) => {
+  const onChangeUpdateMemberComment = (event) => {
     setUpdateComment(event.target.value);
   };
 
@@ -107,11 +110,11 @@ const UpdateMyProfile = (props) => {
     <StUpdateMyProfileWrap>
       <StMyProfileBox>
         <p>
-          <img src={userInfo.userProfileImage} alt={userInfo.userName} />
+          <img src={memberInfo.memberImage} alt={memberInfo.memberName} />
         </p>
         <dl>
-          <dt>{userInfo.userName}</dt>
-          <dd>{userInfo.userComment}</dd>
+          <dt>{memberInfo.memberName}</dt>
+          <dd>{memberInfo.memberIntro}</dd>
         </dl>
       </StMyProfileBox>
       <Button onClick={handleModal} size="square" variant="lineSquare">
@@ -123,8 +126,8 @@ const UpdateMyProfile = (props) => {
           <Modal onClose={handleModal}>
             <StUpdateUserProfileModal>
               <StUpdateUserProfileTitle>프로필 이미지</StUpdateUserProfileTitle>
-              <StUserProfileImageBox
-                userImageProfile={`url(${userInfo.userProfileImage})`}
+              <StmemberImageBox
+                userImageProfile={`url(${memberInfo.memberImage})`}
               >
                 <span className="changeImageMessage">사진변경</span>
                 <input
@@ -133,9 +136,9 @@ const UpdateMyProfile = (props) => {
                   onChange={onChangePostImageFile}
                   accept="image/jpg, image/jpeg, image/png"
                 />
-                {selectedPostImage && (
+                {selectedMemberImage && (
                   <img
-                    src={selectedPostImage}
+                    src={selectedMemberImage}
                     alt="preview"
                     style={{
                       width: "100%",
@@ -144,20 +147,20 @@ const UpdateMyProfile = (props) => {
                     }}
                   />
                 )}
-              </StUserProfileImageBox>
+              </StmemberImageBox>
               <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
               <Input
                 size="large"
                 variant="default"
-                placeholder={userInfo.userName}
-                onChange={(event) => onChangeUpdateUserName(event)}
+                placeholder={memberInfo.memberName}
+                onChange={(event) => onChangeUpdateMemberName(event)}
               />
               <StUpdateUserProfileTitle>한 줄 소개</StUpdateUserProfileTitle>
               <Input
                 size="large"
                 variant="default"
-                placeholder={userInfo.userComment}
-                onChange={(event) => onChangeUpdateUserComment(event)}
+                placeholder={memberInfo.memberIntro}
+                onChange={(event) => onChangeUpdateMemberComment(event)}
               />
               <StButtonWrap>
                 <Button size="small" onClick={handleModal}>
@@ -242,7 +245,7 @@ const StUpdateUserProfileModal = styled.div`
   width: 100%;
 `;
 
-const StUserProfileImageBox = styled.label`
+const StmemberImageBox = styled.label`
   position: relative;
   display: flex;
   align-items: center;

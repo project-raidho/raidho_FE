@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: null,
   recentSearch: [],
+  darkMode: localStorage.getItem("bgMode") === "dark" ? true : false,
 }
 
 const searchSlice = createSlice({
@@ -35,10 +36,18 @@ const searchSlice = createSlice({
     },
     deleteRecentSearch: (state, action) => {
       state.recentSearch = [...state.recentSearch.filter((tag) => tag !== action.payload)];
+    },
+    getDarkMode: (state, action) => {
+      const initDarkMode = localStorage.getItem("bgMode");
+      initDarkMode === "dark" ? state.darkMode = true : state.darkMode = false;
+    },
+    updateDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+      state.darkMode === true ? localStorage.setItem("bgMode", "dark") : localStorage.setItem("bgMode", "light");
     }
   },
 });
 
-export const { getRecentSearch, addRecentSearch, deleteRecentSearch } = searchSlice.actions;
+export const { getRecentSearch, addRecentSearch, deleteRecentSearch, getDarkMode, updateDarkMode } = searchSlice.actions;
 export default searchSlice.reducer;
 
