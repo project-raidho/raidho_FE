@@ -140,7 +140,7 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "455px" : "58px")};
+  height: ${(props) => (props.isFocusSearch === true ? "500px" : "58px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
   border-radius: 20px 20px 10px 10px;

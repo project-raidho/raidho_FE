@@ -55,7 +55,7 @@ const StFigure = styled.figure`
   position: relative;
 
   margin: 0;
-  width: 300px;
+  width: 310px;
   margin-bottom: 15px;
   .img {
     width: 100%;

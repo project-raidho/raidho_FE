@@ -37,6 +37,6 @@ const StPostLisWrapp = styled.div`
 
 const StitemList = styled.div`
   margin-top: 20px;
-  column-width: 300px;
+  column-width: 310px;
   column-gap: 15px;
 `;
