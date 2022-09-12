@@ -15,7 +15,6 @@ const KakaoLogin = () => {
         `${URI}/login/oauth2/code/kakao?code=${KAKAO_CODE}`
       );
       console.log(res);
-
       localStorage.setItem("Authorization", res.headers.authorization);
       localStorage.setItem("refreshToken", res.headers.refreshtoken);
       localStorage.setItem("memberId", res.data.id);
