@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictNullChecks": false,
     "skipLibCheck": true,
     "lib": ["dom", "es2016", "dom.iterable", "esnext"],
     "allowJs": true,
