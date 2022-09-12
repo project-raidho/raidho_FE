@@ -220,7 +220,8 @@ const StSwitchButton = styled.label`
       props.checkDarkMode ? `url(${IconDark})` : `url(${IconLight})`};
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #fff;
+    background-color: ${(props) =>
+      props.checkDarkMode ? "var(--gray-color)" : "#ffffff"};
     -webkit-transition: 0.5s;
     transition: 0.4s;
     border-radius: 20px;
