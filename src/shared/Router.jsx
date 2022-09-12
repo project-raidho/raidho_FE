@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "../pages/MainPage";
+import PostDetailPage from "../pages/PostDetailPage";
 import MyProfilePage from "../pages/MyProfilePage";
 import CreatePostPage from "../pages/CreatePostPage";
 import UpdatePostPage from "../pages/UpdatePostPage";
@@ -16,6 +17,7 @@ const Routers = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/postDetail/:id" element={<PostDetailPage />} />
         <Route path="/myProfile" element={<MyProfilePage />} />
         <Route path="/createPost" element={<CreatePostPage />} />
         <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
