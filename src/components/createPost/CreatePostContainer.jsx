@@ -34,12 +34,10 @@ const CreatePostContainer = () => {
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
     setPostTags(tags);
   };
 
   const locationTags = (tags) => {
-    console.log("location", tags);
     setPostLocationTags(tags);
   };
 
@@ -48,28 +46,24 @@ const CreatePostContainer = () => {
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
-    for (let i = 0; i < postImages.length; i++) {
-      let file = new File([postImages[i]], `postImage${i}`);
+    postImages.forEach((file) => {
+      // let file = new File([postImages[i]], `postImage${i}`);
       formData.append("imgUrl", file);
-      console.log("postImages ====> ::: ", file);
-    }
-    const json = JSON.stringify(postContent);
-    const blob = new Blob([json], { type: "application/json" });
-    formData.append("content", blob);
+    });
+    // const json = JSON.stringify(postContent);
+    // const blob = new Blob([json], { type: "application/json" });
+    // formData.append("content", blob);
 
-    console.log("postContent ====> ::: ", blob);
     try {
       const postResponse = await axios.post(
         `http://15.164.166.87:8080/api/post`,
-        {
-          formData,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: null,
-          },
-        }
+        formData
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //     //     // Authorization: null,
+        //   },
+        // }
       );
       console.log("postResponse", postResponse.data);
     } catch (error) {

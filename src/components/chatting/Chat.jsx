@@ -1,23 +1,31 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // 리덕스 접근
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 // 이미지 컴포넌트
-import  Image  from '../../elements/Image';
+import Image from "../../elements/Image";
 
 // 현재 존재하는 채팅을 보여주는 컴포넌트
 const Chat = (props) => {
-  const { roomName, _onClick, roomId, roomImg, userName, userProfile, category } = props;
+  const {
+    roomName,
+    _onClick,
+    roomId,
+    roomImg,
+    userName,
+    userProfile,
+    category,
+  } = props;
   // 카테고리 2개까지 표시
   const categoryInfo = [];
   for (let i = 0; i < 2; i++) {
     if (category[i] === undefined) {
-      continue
+      continue;
     }
-    categoryInfo.push(category[i])
+    categoryInfo.push(category[i]);
   }
   // 사용자의 현재 방 id  가져오기
   const currentRoomId = useSelector((state) => state.chat.currentChat.roomId);
@@ -37,8 +45,7 @@ const Chat = (props) => {
           {userName} |
           <CategoryText>
             {categoryInfo.map((c, idx) => {
-              return ' ' + c + ' '
-
+              return " " + c + " ";
             })}
           </CategoryText>
         </ChatText>
@@ -48,18 +55,21 @@ const Chat = (props) => {
 };
 
 Chat.defaultProps = {
-  _onClick: () => { },
-  roomName: false
+  _onClick: () => {},
+  roomName: false,
 };
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
-  border-left: ${(props) => (props.selected ? `5px solid #F99750;` : 'none;')};
+  border: 1px solid;
+  border-left: ${(props) =>
+    props.selected ? `5px solid #F99750;` : "1px solid;"};
+
   padding: 5px;
   height: 15%;
   width: 100%;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   ${(props) => props.theme.border_box}
   margin: 0px 0px 20px 0px;
   cursor: pointer;
@@ -72,7 +82,7 @@ const Container = styled.div`
     justify-content: space-between;
     border-left: none;
     border-bottom: ${(props) =>
-    props.selected ? `5px solid #F99750;` : 'none;'};
+      props.selected ? `5px solid #F99750;` : "none;"};
   }
 `;
 const ChatColumn = styled.div`
@@ -111,14 +121,14 @@ const ChatText = styled.div`
 `;
 
 const CategoryText = styled.div`
-${(props) => props.theme.flex_row}
-font-size: 10px;
-align-items: center;
-margin-left: 5px;
-padding-top: 2px;
-@media ${(props) => props.theme.mobile} {
-  display: none;
-}
-`
+  ${(props) => props.theme.flex_row}
+  font-size: 10px;
+  align-items: center;
+  margin-left: 5px;
+  padding-top: 2px;
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
+`;
 
 export default Chat;

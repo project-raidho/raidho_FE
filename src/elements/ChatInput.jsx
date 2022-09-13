@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import  Grid  from "./Grid";
-
-
+import Grid from "./Grid";
 
 const ChatInput = (props) => {
   const {
@@ -18,7 +16,7 @@ const ChatInput = (props) => {
     MessageWrite,
     // loading,
   } = props;
-const loading= true;
+  const loading = true;
   if (multiLine) {
     return (
       <Grid>
@@ -50,37 +48,30 @@ const loading= true;
             }}
           ></ElMessageWrite>
         ) : (
-          <ElMessageWrite
-            value="메시지 전송중 ..."
-          >
-
-          </ElMessageWrite>
+          <ElMessageWrite value="메시지 전송중 ..."></ElMessageWrite>
         )}
-
       </React.Fragment>
-    )
+    );
   }
 
   return (
     <React.Fragment>
-      <Grid>
-        {label && <p margin="0px">{label}</p>}
-        {is_submit ? (
-          <ElInput
-            type={type}
-            placeholder={placeholder}
-            onChange={_onChange}
-            value={value}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                onSubmit(e);
-              }
-            }}
-          />
-        ) : (
-          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
-        )}
-      </Grid>
+      {label && <p margin="0px">{label}</p>}
+      {is_submit ? (
+        <ElInput
+          type={type}
+          placeholder={placeholder}
+          onChange={_onChange}
+          value={value}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onSubmit(e);
+            }
+          }}
+        />
+      ) : (
+        <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+      )}
     </React.Fragment>
   );
 };
@@ -93,19 +84,19 @@ ChatInput.defaultProps = {
   type: "text",
   value: "",
   is_submit: false,
-  onSubmit: () => { },
-  _onChange: () => { },
+  onSubmit: () => {},
+  _onChange: () => {},
 };
 
 const ElTextarea = styled.textarea`
-  border: 1px solid #212121;
+  border: none;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
 `;
 
 const ElInput = styled.input`
-  border: 1px solid #212121;
+  border: none;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
@@ -113,15 +104,15 @@ const ElInput = styled.input`
 
 // 메시지 입력 폼
 const ElMessageWrite = styled.input`
-  background-color: ${(props) => props.theme.main_color_thick};
+  /* background-color: ${(props) => props.theme.main_color_thick}; */
   border: none;
   width: 90%;
   margin-left: 10px;
   padding: 12px 4px;
   box-sizing: border-box;
-  color: whitesmoke;
-  font-size: 18px;
- 
-`
+  color: #1e1e1e;
+  font-size: 20px;
+  outline: none;
+`;
 
 export default ChatInput;

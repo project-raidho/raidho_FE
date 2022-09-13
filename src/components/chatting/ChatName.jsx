@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
 const ChatName = (props) => {
@@ -13,9 +13,11 @@ const ChatName = (props) => {
   //   }
   //   categoryInfo.push(category[i])
   // }
-  return <Container>
-    {/* {roomName}
-    {categoryInfo.map((c, idx) => {
+  return (
+    <Container>
+      바다여행
+      {/* {roomName} */}
+      {/* {categoryInfo.map((c, idx) => {
       return (
         <TagWrap
           key={idx}
@@ -25,9 +27,8 @@ const ChatName = (props) => {
 
       )
     })} */}
-
-
-  </Container>;
+    </Container>
+  );
 };
 
 const Container = styled.div`
@@ -39,8 +40,8 @@ const Container = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 10%;
-  background-color: ${(props) => props.theme.theme_gray};
-  ${(props) => props.theme.border_box};
+  /* background-color: ${(props) => props.theme.theme_gray}; */
+
   color: ${(props) => props.theme.font_color};
   padding: 20px;
   font-size: 26px;
