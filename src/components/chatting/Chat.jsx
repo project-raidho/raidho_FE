@@ -2,14 +2,13 @@ import React from "react";
 
 import styled from "styled-components";
 
-// 리덕스 접근
-import { useSelector } from "react-redux";
-
 // 이미지 컴포넌트
 import Image from "../../elements/Image";
+import { useParams } from "react-router-dom";
 
 // 현재 존재하는 채팅을 보여주는 컴포넌트
 const Chat = (props) => {
+  const { id } = useParams();
   const {
     roomName,
     _onClick,
@@ -27,12 +26,10 @@ const Chat = (props) => {
     }
     categoryInfo.push(category[i]);
   }
-  // 사용자의 현재 방 id  가져오기
-  const currentRoomId = useSelector((state) => state.chat.currentChat.roomId);
 
   let is_same = false;
   // 사용자의 현재 방 id와 채팅 리스트의 방 id가 같은 경우
-  if (currentRoomId === roomId) {
+  if (Number(id) === roomId) {
     is_same = true;
   }
   return (

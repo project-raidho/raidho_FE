@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
 
 import axios from "axios";
+import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
 
@@ -11,8 +12,11 @@ import RoomCloseDateBox from "./RoomclosedateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-
+// import chat, { chatActions } from "../../redux/modules/chat";
+// import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const CreateMeetingContatiner = () => {
+  const navigate = useNavigate();
   const [theme, setTheme] = useState("");
   const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
@@ -24,6 +28,27 @@ const CreateMeetingContatiner = () => {
     { startDate: "", endDate: "" },
   ]);
   const [departLocation, setDepartLocation] = useState();
+  // const dispatch = useDispatch();
+
+  // 방 생성하기
+  const onClickCreateRoom = async () => {
+    const roomData = {
+      chatRoomTitle: title,
+      people: people,
+      tags: tags,
+    };
+    try {
+      const res = await authInstance.post(`/api/chat/rooms`, roomData);
+      window.alert("채팅방이 생성되었습니다.");
+
+      navigate("/meetingList");
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+
+    // dispatch(chatActions.createRoom(roomData));
+  };
 
   const selectedLocationTags = (tags) => {
     setLocationTags(tags);
@@ -117,7 +142,14 @@ const CreateMeetingContatiner = () => {
       <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
 
-      <CreateButton size="small" variant="primary" onClick={postcreatemeeting}>
+      <CreateButton
+        size="small"
+        variant="primary"
+        onClick={() => {
+          postcreatemeeting();
+          onClickCreateRoom();
+        }}
+      >
         등록하기
       </CreateButton>
     </StContainer>
@@ -127,6 +159,7 @@ export default CreateMeetingContatiner;
 
 const StContainer = styled.div`
   width: 50%;
+  margin: 0 auto;
   p {
     font-size: 30px;
     margin-top: 50px;

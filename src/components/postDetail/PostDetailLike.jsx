@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HeartButton from "../main/HeartButton";
 // import axios from "axios";
 
-const PostDeailLike = ({ postDetail }) => {
+const PostDetailLike = ({ postDetail }) => {
   const initial = postDetail.heartCount;
   console.log(initial);
   const [count, setCount] = useState(0);
@@ -39,7 +39,7 @@ const PostDeailLike = ({ postDetail }) => {
   );
 };
 
-export default PostDeailLike;
+export default PostDetailLike;
 
 const StlikeWrapper = styled.div`
   display: flex;

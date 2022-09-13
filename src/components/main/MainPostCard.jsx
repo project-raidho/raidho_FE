@@ -3,7 +3,8 @@ import styled from "styled-components";
 import HeartButton from "./HeartButton";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { RiFileCopyLine } from "react-icons/ri";
+// import { RiFileCopyLine } from "react-icons/ri";
+import fileIcon from "../../assets/fileIcon.svg";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const MainPostCard = ({ post }) => {
         alt="img"
         onClick={() => navigate(`/postdetail/${post.id}`)}
       />
-      <RiFileCopyLine className="imagesicon" size="20" color="white" />
+      <div className="imagesicon" />
       <div className="userBox">
         <div className="profileBox">
           <img
@@ -65,9 +66,12 @@ const StFigure = styled.figure`
     cursor: pointer;
   }
   .imagesicon {
+    height: 22px;
+    width: 22px;
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
+    background-image: url(${fileIcon});
   }
   .likebutton {
     position: absolute;

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import PostDeailImage from "./postDetailImage";
-import PostDeailLike from "./PostDetailLike";
-import PostDeailUser from "./PostDetailUser";
-import { useNavigate } from "react-router-dom";
+import PostDetailImage from "./PostDetailImage";
+import PostDetailLike from "./PostDetailLike";
+import PostDetailUser from "./PostDetailUser";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 const PostDetailContainer = () => {
-  // const { id } = useParams();
+  const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   // const [postDetail, setPostDetail] = useState(
   //   {
@@ -95,9 +96,9 @@ const PostDetailContainer = () => {
         />
       )}
 
-      <PostDeailImage images={postDetail.postImgs} />
-      <PostDeailLike postDetail={postDetail} />
-      <PostDeailUser postDetail={postDetail} />
+      <PostDetailImage images={postDetail.postImgs} />
+      <PostDetailLike postDetail={postDetail} />
+      <PostDetailUser postDetail={postDetail} />
       <StContentBox>{postDetail.content}</StContentBox>
     </StDetailContainer>
   );
