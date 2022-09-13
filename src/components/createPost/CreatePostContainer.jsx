@@ -75,11 +75,8 @@ const CreatePostContainer = () => {
 
   return (
     <StCreatePostContainerWrap>
-      {/* <StCreatePostColumn> */}
       <StStepTitle>이미지 업로드 하기</StStepTitle>
       <CreatePostImage selectedPostImages={selectedPostImages} />
-      {/* </StCreatePostColumn>
-      <StCreatePostColumn> */}
       <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
       <CreatePostContent typedPostContent={typedPostContent} />
 
@@ -110,7 +107,6 @@ const CreatePostContainer = () => {
           등록
         </Button>
       </StButtonWrap>
-      {/* </StCreatePostColumn> */}
       <Potal>
         {modalOn && (
           <Modal onClose={handleModal}>
