@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
@@ -8,11 +7,10 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-// import { formDataInstance } from "../../shared/api";
+import { formDataInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
-  const URI = process.env.REACT_APP_BASE_URI;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -62,28 +60,13 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await axios.post(`${URI}/api/post`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const postResponse = await formDataInstance.post(`/api/post`, formData);
       console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
     }
   };
-
-  // ::: 64~75번째 줄 주석 후 아래 주석풀고 교체해서 되는지 실험해 볼것(위에 임포트도 주석 풀어야됨)
-  //   try {
-  //     const postResponse = await formDataInstance.post(`/api/post`, formData
-  //      );
-  //     console.log("postResponse ====>", postResponse.data);
-  //   } catch (error) {
-  //     console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
-  //     setModalOn(!modalOn);
-  //   }
-  // };
 
   return (
     <StCreatePostContainerWrap>
