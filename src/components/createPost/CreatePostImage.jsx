@@ -38,42 +38,9 @@ const CreatePostImage = ({ selectedPostImages }) => {
       : setFileRejectionsMessage(null);
   }, [fileRejections]);
 
-  // ::: 썸네일 이미지 출력하기
-  const thumbs = files.map((file, index) => (
-    <StThumb key={file.name} onClick={() => clickThumbImage(file, index)}>
-      <StThumbInner>
-        <img
-          src={file.preview}
-          onLoad={() => {
-            URL.revokeObjectURL(file.preview);
-          }}
-          alt={file.name}
-        />
-      </StThumbInner>
-    </StThumb>
-  ));
-
-  // ::: 썸네일 이미지 클릭시 편집 화면에 이미지 띄우기
-  const clickThumbImage = (file, index) => {
-    console.log(file, index);
-    setSelectedImage(URL.createObjectURL(file));
-    setSelectedImageIndex(index);
-  };
-
-  useEffect(() => {
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
   return (
     <StCreatePostImageWrap>
-      {files.length !== 0 ? (
-        <CreatePostImageCrop
-          files={files}
-          selectedImage={selectedImage}
-          selectedImageIndex={selectedImageIndex}
-          selectedPostImages={selectedPostImages}
-        />
-      ) : (
+      {files.length === 0 && (
         <StImageDropZone {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
           <p>
@@ -83,9 +50,19 @@ const CreatePostImage = ({ selectedPostImages }) => {
           </p>
         </StImageDropZone>
       )}
-
-      <StThumbsContainer>{thumbs}</StThumbsContainer>
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
+      <StPostImageCropWrap>
+        {files.length !== 0 && (
+          <CreatePostImageCrop
+            files={files}
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+            selectedImageIndex={selectedImageIndex}
+            setSelectedImageIndex={setSelectedImageIndex}
+            selectedPostImages={selectedPostImages}
+          />
+        )}
+      </StPostImageCropWrap>
     </StCreatePostImageWrap>
   );
 };
@@ -114,41 +91,6 @@ const StImageDropZone = styled.div`
   }
 `;
 
-const StThumb = styled.div`
-  display: inline-flex;
-  border-radius: 2px;
-  border: 1px solid #eaeaea;
-  margin-bottom: 8px;
-  margin-right: 8px;
-  width: 100px;
-  height: 100px;
-  padding: 4px;
-`;
-
-const StThumbInner = styled.div`
-  display: flex;
-  width: 100%;
-  min-width: 0px;
-  overflow: hidden;
-  background-color: var(--bg-color);
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
-
-const StThumbsContainer = styled.aside`
-  display: flex;
-  min-height: 100px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 16px;
-  background-color: var(--bgSub-color);
-`;
-
 const StAlertMessage = styled.p`
   line-height: 1.3;
   font-style: italic;
@@ -163,4 +105,9 @@ const StAlertMessage = styled.p`
     text-decoration: underline;
     padding-left: 10px;
   }
+`;
+
+const StPostImageCropWrap = styled.div`
+  width: 100%;
+  margin-bottom: 2rem;
 `;
