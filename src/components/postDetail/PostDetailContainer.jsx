@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import PostDetailImage from "./PostDetailImage";
+import PostDetailImage from "./PostDetailImg";
 import PostDetailLike from "./PostDetailLike";
 import PostDetailUser from "./PostDetailUser";
 import { useNavigate, useParams } from "react-router-dom";
