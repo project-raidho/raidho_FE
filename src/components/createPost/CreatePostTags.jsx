@@ -134,4 +134,5 @@ const StValidationMsg = styled.p`
   font-style: italic;
   color: ${(props) =>
     props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
+  margin-bottom: 1rem;
 `;

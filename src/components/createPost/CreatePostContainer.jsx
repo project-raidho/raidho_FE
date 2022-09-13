@@ -75,42 +75,42 @@ const CreatePostContainer = () => {
 
   return (
     <StCreatePostContainerWrap>
-      <StCreatePostColumn>
-        <StStepTitle>이미지 업로드 하기</StStepTitle>
-        <CreatePostImage selectedPostImages={selectedPostImages} />
-      </StCreatePostColumn>
-      <StCreatePostColumn>
-        <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
-        <CreatePostContent typedPostContent={typedPostContent} />
+      {/* <StCreatePostColumn> */}
+      <StStepTitle>이미지 업로드 하기</StStepTitle>
+      <CreatePostImage selectedPostImages={selectedPostImages} />
+      {/* </StCreatePostColumn>
+      <StCreatePostColumn> */}
+      <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
+      <CreatePostContent typedPostContent={typedPostContent} />
 
-        <StStepTitle>다녀온 곳 입력하기</StStepTitle>
-        <CreatePostTags
-          selectedTags={locationTags}
-          tags={[]}
-          tagMassage={"위치를 입력해주세요!"}
-        />
+      <StStepTitle>위치 입력하기</StStepTitle>
+      <CreatePostTags
+        selectedTags={locationTags}
+        tags={[]}
+        tagMassage={"위치를 입력해주세요!"}
+      />
 
-        <StStepTitle>태그 입력하기</StStepTitle>
-        <CreatePostTags
-          selectedTags={selectedTags}
-          tags={[]}
-          tagMassage={"태그를 입력해주세요!"}
-        />
-        <StButtonWrap>
-          <Button
-            size="small"
-            variant="gray"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            취소
-          </Button>
-          <Button size="small" onClick={onCreatePost}>
-            등록
-          </Button>
-        </StButtonWrap>
-      </StCreatePostColumn>
+      <StStepTitle>태그 입력하기</StStepTitle>
+      <CreatePostTags
+        selectedTags={selectedTags}
+        tags={[]}
+        tagMassage={"태그를 입력해주세요!"}
+      />
+      <StButtonWrap>
+        <Button
+          size="small"
+          variant="gray"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          취소
+        </Button>
+        <Button size="small" onClick={onCreatePost}>
+          등록
+        </Button>
+      </StButtonWrap>
+      {/* </StCreatePostColumn> */}
       <Potal>
         {modalOn && (
           <Modal onClose={handleModal}>
@@ -135,11 +135,10 @@ export default CreatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 
   @media (max-width: 1023px) {
-    flex-direction: column;
   }
   @media (max-width: 767px) {
   }
