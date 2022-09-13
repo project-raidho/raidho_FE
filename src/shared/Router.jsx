@@ -21,7 +21,8 @@ const Routers = () => {
         <Route path="/myProfile" element={<MyProfilePage />} />
         <Route path="/createPost" element={<CreatePostPage />} />
         <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
-        <Route path="/tag" element={<SearchTagPage />} />
+        <Route path="/post/:tagName" element={<SearchTagPage />} />
+        <Route path="/meeting/:tagName" element={<SearchTagPage />} />
         <Route path="/createMeeting" element={<CreateMeetingPage />} />
         <Route path="/meetingList" element={<MeetingListPage />} />
         <Route path="/chatting" element={<ChattingPage />} />
