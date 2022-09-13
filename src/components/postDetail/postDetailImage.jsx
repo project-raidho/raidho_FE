@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-const PostDeailImage = ({ images }) => {
+const PostDetailImage = ({ images }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,7 +19,7 @@ const PostDeailImage = ({ images }) => {
     </StyledSlide>
   );
 };
-export default PostDeailImage;
+export default PostDetailImage;
 
 const StyledSlide = styled(Slider)`
   .slick-slide {

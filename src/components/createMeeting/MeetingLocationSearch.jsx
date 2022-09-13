@@ -52,19 +52,19 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
   const postCodeStyle = {
     display: "block",
     position: "relative",
-    top: "0%",
+    top: "0",
     width: "600px",
     height: "400px",
     padding: "7px",
   };
 
   return (
-    <>
+    <SearchWrapp>
       <form className="inputForm" onSubmit={handleSubmit}>
-        <Input
+        <SearchInput
           variant="default"
           size="medium"
-          placeholder="주소를 입력하세요"
+          placeholder="도로명주소를 입력하세요"
           onChange={onChange}
           value={InputText}
         />
@@ -74,6 +74,7 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
         {isOpenPost && (
           <div>
             <DaumPostcode
+              className="postmodal"
               style={postCodeStyle}
               autoClose
               onComplete={onCompletePost}
@@ -82,12 +83,18 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
         )}
       </form>
       <Mapbox searchPlace={Place} />
-    </>
+    </SearchWrapp>
   );
 };
 
 export default MeetingLocationSearch;
 
+const SearchWrapp = styled.div``;
+
 const Mapbox = styled(KakaoMap)`
   margin-top: 10px;
+`;
+
+const SearchInput = styled(Input)`
+  width: 80%;
 `;

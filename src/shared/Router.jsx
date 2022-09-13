@@ -36,6 +36,7 @@ const Routers = () => {
           />
         ))}
         <Route path="/chatting" element={<ChattingPage />} />
+        <Route path="/chatting/:id" element={<ChattingPage />} />
         <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
         <Route path="/oauth/naver" element={<NaverLogin />} />
       </Routes>
