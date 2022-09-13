@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
@@ -8,11 +7,10 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-// import { formDataInstance } from "../../shared/api";
+import { formDataInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
-  const URI = process.env.REACT_APP_BASE_URI;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -62,11 +60,7 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await axios.post(`${URI}/api/post`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const postResponse = await formDataInstance.post(`/api/post`, formData);
       console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
@@ -74,35 +68,29 @@ const CreatePostContainer = () => {
     }
   };
 
-  // ::: 64~75번째 줄 주석 후 아래 주석풀고 교체해서 되는지 실험해 볼것(위에 임포트도 주석 풀어야됨)
-  //   try {
-  //     const postResponse = await formDataInstance.post(`/api/post`, formData
-  //      );
-  //     console.log("postResponse ====>", postResponse.data);
-  //   } catch (error) {
-  //     console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
-  //     setModalOn(!modalOn);
-  //   }
-  // };
-
   return (
     <StCreatePostContainerWrap>
-      {/* <StCreatePostColumn> */}
-      <StStepTitle>이미지 업로드 하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 1</strong>이미지 업로드 하기
+      </StStepTitle>
       <CreatePostImage selectedPostImages={selectedPostImages} />
-      {/* </StCreatePostColumn>
-      <StCreatePostColumn> */}
-      <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 2</strong>여행에서 경험한 내용 입력하기
+      </StStepTitle>
       <CreatePostContent typedPostContent={typedPostContent} />
 
-      <StStepTitle>위치 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 3</strong>위치 입력하기
+      </StStepTitle>
       <CreatePostTags
         selectedTags={locationTags}
         tags={[]}
         tagMassage={"위치를 입력해주세요!"}
       />
 
-      <StStepTitle>태그 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 4</strong>태그 입력하기
+      </StStepTitle>
       <CreatePostTags
         selectedTags={selectedTags}
         tags={[]}
@@ -122,7 +110,6 @@ const CreatePostContainer = () => {
           등록
         </Button>
       </StButtonWrap>
-      {/* </StCreatePostColumn> */}
       <Potal>
         {modalOn && (
           <Modal onClose={handleModal}>
@@ -159,9 +146,25 @@ const StCreatePostContainerWrap = styled.div`
 `;
 
 const StStepTitle = styled.h2`
-  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
   padding-top: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
 `;
 
 const StButtonWrap = styled.div`

@@ -13,7 +13,7 @@ const CreatePostContent = ({ typedPostContent }) => {
       <textarea
         onChange={onChangeContent}
         placeholder="경험을 소개해주세요!"
-        maxlength="250"
+        maxLength="250"
       />
       <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
     </StCreatePostContentWrap>
