@@ -6,9 +6,9 @@ const UpdatePostTags = ({ tags, selectedTags, tagMassage }) => {
   const [postTags, setPostTags] = useState(tags);
 
   // ::: 태그 삭제하기
-  const removeTags = (indexToRemove) => {
-    setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
-  };
+  // const removeTags = (indexToRemove) => {
+  //   setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
+  // };
 
   // ::: 태그 추가하기
   const addTags = (event) => {
