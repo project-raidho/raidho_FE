@@ -92,12 +92,18 @@ const CreatePostImageCrop = ({
     createCanvas();
     if (!canvasRef.current) return;
 
-    // ::: canvas를 blob 형태로 만들어서 이미지 업로드하기
-    canvasRef.current.toBlob(
-      (blob) => setUploadImages([blob, ...uploadImages]),
+    const imgBase64 = canvasRef.current.toDataURL(
       "image/jpeg",
-      0.95
+      "image/octet-stream"
     );
+    const decodImg = atob(imgBase64.split(",")[1]);
+
+    let array = [];
+    for (let i = 0; i < decodImg.length; i++) {
+      array.push(decodImg.charCodeAt(i));
+    }
+    const file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
+    setUploadImages([...uploadImages, file]);
   };
 
   // ::: 이미지 미리보기 편집할 때마다 확인 할 수 있게 설정

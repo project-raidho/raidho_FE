@@ -5,39 +5,50 @@ import styled from "styled-components";
 const MeetingListCard = ({ meeting }) => {
   return (
     <StMeetingListCardWrap>
-      <StMeetingCardRow className="flexBetweenLayout">
-        <p>
-          <Button size="small">#{meeting.meetingTheme}</Button>
-          <Button size="small">#{meeting.locationTag}</Button>
-        </p>
-        <Button size="small" variant="line">
-          {meeting.meetingStatus === 1 && <span>모집중</span>}
-          {meeting.meetingStatus === 2 && <span>모집완료</span>}
-          {meeting.meetingStatus === 3 && <span>여행완료</span>}
-        </Button>
-      </StMeetingCardRow>
-      <StMeetingCardRow>
-        <p className="memberImageBox">
-          <img src={meeting.memberImage} alt={meeting.memberName} />
-        </p>
-        <dl className="meetingInfo">
-          <dd>@{meeting.memberName}</dd>
-          <dt>{meeting.meetingTitle}</dt>
-          <dd>{meeting.meetingPeriod}</dd>
-          <dd>{meeting.meetingAddress}</dd>
-        </dl>
-      </StMeetingCardRow>
-      <StMeetingCardRow>
-        {meeting.meetingTags.map((tag, index) => (
-          <span key={tag + index}>#{tag}&nbsp;</span>
-        ))}
-      </StMeetingCardRow>
-      <StMeetingCardRow className="flexBetweenLayout">
-        <p>
-          참여중인 인원 | {meeting.meetingParticipant}/{meeting.meetingPeople}
-        </p>
-        <Button size="small">상세보기</Button>
-      </StMeetingCardRow>
+      <StMeetingCardUpDown>
+        <StMeetingCardRow className="flexBetweenLayout">
+          <p className="infoStatus">
+            {meeting.meetingStatus === 1 && (
+              <span>
+                모집중 D<b>-10</b>
+              </span>
+            )}
+            {meeting.meetingStatus === 2 && (
+              <span>
+                모집완료 D<b>-10</b>
+              </span>
+            )}
+            {meeting.meetingStatus === 3 && <span>여행완료</span>}
+          </p>
+          <p className="infoStatus">
+            모집인원 {meeting.meetingParticipant}/{meeting.meetingPeople}
+          </p>
+        </StMeetingCardRow>
+        <h3>{meeting.meetingTitle}</h3>
+        <p>{meeting.meetingPeriod}</p>
+        <p>{meeting.meetingAddress}</p>
+      </StMeetingCardUpDown>
+      <StMeetingCardUpDown>
+        <StMeetingCardRow>
+          {meeting.meetingTags.map((tag, index) => (
+            <span key={tag + index}>#{tag}&nbsp;</span>
+          ))}
+        </StMeetingCardRow>
+        <StMeetingCardRow>
+          <p className="memberImageBox">
+            <img src={meeting.memberImage} alt={meeting.memberName} />
+          </p>
+          <p className="memberNameBox">@{meeting.memberName}</p>
+        </StMeetingCardRow>
+        <StMeetingCardRow>
+          <Button size="tag" variant="gray">
+            {meeting.meetingTheme}
+          </Button>
+          <Button size="tag" variant="gray">
+            {meeting.locationTag}
+          </Button>
+        </StMeetingCardRow>
+      </StMeetingCardUpDown>
     </StMeetingListCardWrap>
   );
 };
@@ -45,18 +56,37 @@ const MeetingListCard = ({ meeting }) => {
 export default MeetingListCard;
 
 const StMeetingListCardWrap = styled.div`
-  min-width: 300px;
-  margin: 10px;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 340px;
+  height: 430px;
+  margin: 1rem;
+  padding: 1.7rem;
   background-color: var(--subBg-color);
   border: 1px solid var(--gray-color);
   border-radius: 20px;
+
+  h3 {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const StMeetingCardUpDown = styled.div`
+  width: 100%;
 `;
 
 const StMeetingCardRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   margin-bottom: 1rem;
 
@@ -74,10 +104,33 @@ const StMeetingCardRow = styled.div`
       margin-right: 0;
     }
   }
+  p {
+    font-size: 1.5rem;
+  }
+
+  & > span {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  .infoStatus {
+    font-size: 1.27rem;
+    color: var(--main-color);
+
+    & > span {
+      font-size: 1.27rem;
+      color: var(--main-color);
+
+      & > b {
+        font-size: 1.27rem;
+        color: var(--main-color);
+      }
+    }
+  }
 
   .memberImageBox {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 1rem;
     overflow: hidden;
@@ -87,14 +140,7 @@ const StMeetingCardRow = styled.div`
       object-fit: contain;
     }
   }
-
-  .meetingInfo {
-    dd,
-    dt {
-      margin-bottom: 0.5rem;
-    }
-    dt {
-      font-size: 1.5rem;
-    }
+  .memberNameBox {
+    font-size: 1.25rem;
   }
 `;
