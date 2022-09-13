@@ -19,5 +19,16 @@ const axiosAuthApi = (url, options) => {
   return instance;
 };
 
-export const defaultInstance = axiosApi(URI);
+const axiosFormDataApi = (url, options) => {
+  const token = localStorage.getItem("Authorization");
+  const instance = axios.create({
+    baseURL: url,
+    headers: { "Content-Type": "multipart/form-data", Authorization: token },
+    ...options,
+  });
+  return instance;
+};
+
+export const instance = axiosApi(URI);
 export const authInstance = axiosAuthApi(URI);
+export const formDataInstance = axiosFormDataApi(URI);

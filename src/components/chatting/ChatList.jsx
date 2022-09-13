@@ -6,8 +6,7 @@ import styled from "styled-components";
 import Chat from "./Chat";
 // import Popup from '../components/Popup';
 
-// 채팅 관련 함수들 가져오기
-import axios from "axios";
+import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 
 // 채팅 리스트 컴포넌트
@@ -50,8 +49,8 @@ const ChatList = (props) => {
   // ::: 채팅 리스트 가져오기
   const getChatList = async () => {
     try {
-      const res = await axios.get(`/api/chat/rooms`);
-      // dispatch(getChat(res.data));
+      const res = await authInstance.get(`/api/chat/rooms`);
+
       return setChatList(res.data);
     } catch (error) {
       console.log(error);

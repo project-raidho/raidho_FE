@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 // elements
 import Message from "./Message";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 // 리덕스 접근
 // import { useSelector } from 'react-redux';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { authInstance } from "../../shared/api";
 import styled from "styled-components";
 
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
@@ -11,7 +11,7 @@ const ChatName = () => {
   //채팅방 정보 단건조회
   const getChat = async (roomId) => {
     try {
-      const res = await axios.get(`/api/chat/rooms/${roomId}`);
+      const res = await authInstance.get(`/api/chat/rooms/${roomId}`);
       return setRoomName(res.data);
     } catch (error) {
       console.log(error);

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
 
 import axios from "axios";
+import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
 
@@ -37,10 +38,11 @@ const CreateMeetingContatiner = () => {
       tags: tags,
     };
     try {
-      const res = await axios.post(`/api/chat/rooms`, roomData);
+      const res = await authInstance.post(`/api/chat/rooms`, roomData);
       window.alert("채팅방이 생성되었습니다.");
-      // dispatch(getChatList());
+
       navigate("/meetingList");
+      return res;
     } catch (error) {
       console.log(error);
     }

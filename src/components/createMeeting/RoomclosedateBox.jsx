@@ -20,8 +20,7 @@ const RoomCloseDateBox = ({ setRoomCloseDate }) => {
       setInputdate(moment(date).format("YYYY-MM-DD"));
       setRoomCloseDate(moment(date).format("YYYY-MM-DD"));
       setShowCalendar(false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [date]
   );
   const inputonChangeHandler = (e) => {

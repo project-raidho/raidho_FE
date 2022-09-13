@@ -9,11 +9,10 @@ import ChatList from "./ChatList";
 import ChatName from "./ChatName";
 import NoRoom from "./NoRoom";
 
-import axios from "axios";
-
 // 소켓 통신
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
+import { authInstance } from "../../shared/api";
 
 // 채팅 방 컴포넌트
 const ChattingRoom = (props) => {
@@ -61,7 +60,7 @@ const ChattingRoom = (props) => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roomId]);
+  }, [id]);
 
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
@@ -157,7 +156,7 @@ const ChattingRoom = (props) => {
   // DB에 존재하는 채팅방 메시지들 가져오기
   const getMessageList = async (roomId) => {
     try {
-      const res = await axios.get(`/api/chat/rooms/${roomId}/messages`);
+      const res = await authInstance.get(`/api/chat/rooms/${roomId}/messages`);
 
       return setMessages(res.data);
     } catch (error) {
