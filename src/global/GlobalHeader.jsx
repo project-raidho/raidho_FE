@@ -65,7 +65,7 @@ const GlobalHeader = () => {
     }
   }, [dispatch, checkDarkMode]);
 
-  const darkOnOff = () => {
+  const darkOnOff = (event) => {
     if (
       document.getElementsByTagName("html")[0].classList.contains("darkMode")
     ) {
@@ -104,7 +104,7 @@ const GlobalHeader = () => {
               <input
                 type="checkbox"
                 onClick={darkOnOff}
-                checked={checkDarkMode && "checked"}
+                defaultChecked={checkDarkMode && "checked"}
               />
               <span className="onoffSwitch"></span>
             </StSwitchButton>

@@ -83,7 +83,7 @@ const PostDetailContainer = () => {
         <RiDeleteBin6Fill
           className="deleteButton"
           size="24"
-          onClick={deletePostDetail(postDetail.id)}
+          onClick={() => deletePostDetail(postDetail.id)}
         />
       )}
       {isMine && (
