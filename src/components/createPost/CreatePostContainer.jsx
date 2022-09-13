@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
+  const URI = process.env.REACT_APP_BASE_URI;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -24,68 +25,48 @@ const CreatePostContainer = () => {
   const [postTags, setPostTags] = useState([]);
   const [postLocationTags, setPostLocationTags] = useState([]);
 
-  // const selectedPostImages = (images) => {
-  //   console.log("selectedPostImages", images.target);
-  //   setPostImages(images);
-  // };
+  const selectedPostImages = (images) => {
+    console.log("selectedPostImages", images.target);
+    setPostImages(images);
+  };
   const typedPostContent = (text) => {
-    // console.log("typedPostContent", text);
+    console.log("typedPostContent", text);
     setpostContent(text);
   };
 
   const selectedTags = (tags) => {
-    // console.log(tags);
+    console.log(tags);
     setPostTags(tags);
   };
 
   const locationTags = (tags) => {
-    // console.log("location", tags);
+    console.log("location", tags);
     setPostLocationTags(tags);
   };
 
-  const handleImageUpload = (event) => {
-    setPostImages(event.target.files);
-  };
-
-  const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
-  // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
+    const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
 
-    for (let i = 0; i < postImages.length; i++) {
-      // let file = new File([postImages[i]], `postImage${i}`, {
-      //   type: "multipart/form-data",
-      // });
-      formData.append("imgUrl", postImages[i]);
-      // console.log("postImages ====> ::: ", file);
+    for (const image of postImages) {
+      formData.append("imgUrl", image, fileName);
     }
-    //const file = new File(postImages, "postImages");
-    // formData.append("imgUrl", file);
 
-    // formData.append("content", postContent);
-    // formData.append("tags", postTags);
-    // formData.append("locationTags", postLocationTags);
+    formData.append("content", postContent);
+    formData.append("tags", postTags);
+    formData.append("locationTags", postLocationTags);
 
     console.log(":: here postImages::");
-    // console.log(postImages);
-    // let file = new File(postImages, {
-    //   type: "multipart/form-data",
-    // });
-    // console.log("=======>", file);
+    console.log(postImages);
 
-    // formData.append("file", file);
-    console.log("formData=======>", formData);
-    // formData.append("file", postImages);
-    // console.log("postContent ====> ::: ", blob);
     try {
       const postResponse = await axios.post(`${URI}/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization: localStorage.getItem("Authorization"),
         },
       });
-      return postResponse;
+      console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
@@ -94,43 +75,42 @@ const CreatePostContainer = () => {
 
   return (
     <StCreatePostContainerWrap>
-      <StCreatePostColumn>
-        <StStepTitle>이미지 업로드 하기</StStepTitle>
-        <input type="file" onChange={handleImageUpload} multiple />
-        {/* <CreatePostImage selectedPostImages={selectedPostImages} /> */}
-      </StCreatePostColumn>
-      <StCreatePostColumn>
-        <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
-        <CreatePostContent typedPostContent={typedPostContent} />
+      {/* <StCreatePostColumn> */}
+      <StStepTitle>이미지 업로드 하기</StStepTitle>
+      <CreatePostImage selectedPostImages={selectedPostImages} />
+      {/* </StCreatePostColumn>
+      <StCreatePostColumn> */}
+      <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
+      <CreatePostContent typedPostContent={typedPostContent} />
 
-        <StStepTitle>다녀온 곳 입력하기</StStepTitle>
-        <CreatePostTags
-          selectedTags={locationTags}
-          tags={["서울"]}
-          tagMassage={"위치를 입력해주세요!"}
-        />
+      <StStepTitle>위치 입력하기</StStepTitle>
+      <CreatePostTags
+        selectedTags={locationTags}
+        tags={[]}
+        tagMassage={"위치를 입력해주세요!"}
+      />
 
-        <StStepTitle>태그 입력하기</StStepTitle>
-        <CreatePostTags
-          selectedTags={selectedTags}
-          tags={["자전거여행"]}
-          tagMassage={"태그를 입력해주세요!"}
-        />
-        <StButtonWrap>
-          <Button
-            size="small"
-            variant="gray"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            취소
-          </Button>
-          <Button size="small" onClick={onCreatePost}>
-            등록
-          </Button>
-        </StButtonWrap>
-      </StCreatePostColumn>
+      <StStepTitle>태그 입력하기</StStepTitle>
+      <CreatePostTags
+        selectedTags={selectedTags}
+        tags={[]}
+        tagMassage={"태그를 입력해주세요!"}
+      />
+      <StButtonWrap>
+        <Button
+          size="small"
+          variant="gray"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          취소
+        </Button>
+        <Button size="small" onClick={onCreatePost}>
+          등록
+        </Button>
+      </StButtonWrap>
+      {/* </StCreatePostColumn> */}
       <Potal>
         {modalOn && (
           <Modal onClose={handleModal}>
@@ -155,20 +135,15 @@ export default CreatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 
   @media (max-width: 1023px) {
-    flex-direction: column;
   }
   @media (max-width: 767px) {
   }
   @media (max-width: 639px) {
   }
-`;
-const StCreatePostColumn = styled.div`
-  width: 100%;
-  padding: 1rem;
 `;
 
 const StStepTitle = styled.h2`

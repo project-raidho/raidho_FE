@@ -12,6 +12,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 
 const PostDetailContainer = () => {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   // const [postDetail, setPostDetail] = useState(
   //   {

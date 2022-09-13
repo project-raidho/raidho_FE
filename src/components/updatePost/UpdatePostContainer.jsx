@@ -7,7 +7,8 @@ import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
-import PostDeailImage from "../postDetail/PostDetailImage";
+
+import PostDetailImage from "../postDetail/postDetailImage";
 import styled from "styled-components";
 
 const CreatePostContainer = () => {
@@ -106,7 +107,7 @@ const CreatePostContainer = () => {
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
-        {/* <PostDeailImage images={postDetail.postImgs} /> */}
+        <PostDetailImage images={postDetail.postImgs} />
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>

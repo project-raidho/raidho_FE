@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Button from "../../elements/Button";
+import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
 
@@ -28,9 +28,19 @@ const MeetingListContainer = () => {
       <h2>원하는 여행 지역을 선택해주세요!</h2>
       <StMeetingCategoryRow className="themeCategoryRow">
         {themeList.map((theme, index) => (
-          <Button size="medium" variant="gray" key={theme.themeName + index}>
-            {theme.themeName}
-          </Button>
+          <p
+            className="themeCategoryButton"
+            size="squareTheme"
+            variant="lineBlue"
+            key={theme.themeName + index}
+          >
+            <NavLink
+              to={`/meetingList/${theme.themePath}`}
+              activeClassName="active"
+            >
+              {theme.themeName}
+            </NavLink>
+          </p>
         ))}
       </StMeetingCategoryRow>
 
@@ -77,6 +87,35 @@ const StMeetingCategoryRow = styled.div`
   button {
     margin-right: 1rem;
     margin-bottom: 1rem;
+  }
+  .themeCategoryButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 55px;
+
+    border: 1px solid var(--title-color);
+    border-radius: 15px;
+    background-color: var(--bg-color);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      width: 100%;
+      height: 100%;
+      &.active {
+        background-color: var(--main-color);
+      }
+    }
   }
 
   label {

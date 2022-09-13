@@ -7,15 +7,8 @@ import Chat from "./Chat";
 // import Popup from '../components/Popup';
 
 // 채팅 관련 함수들 가져오기
-import { chatActions } from "../../redux/modules/chat";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-// select
-// import { Select } from '@class101/ui';
-
-// 카테고리 통신
-// import { chatAPI } from '../../shared/api';
 
 // 채팅 리스트 컴포넌트
 // 모바일, 데스크탑에 따라 위치가 달리지도록 한다
@@ -50,19 +43,20 @@ const ChatList = (props) => {
   ]);
   const navigate = useNavigate();
   useEffect(() => {
-    // getChatList();
+    getChatList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const getChatList = async () => {
-  //   try {
-  //     const res = await axios.get(`/api/chat/rooms`);
-  //     // dispatch(getChat(res.data));
-  //     return setChatList(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  // ::: 채팅 리스트 가져오기
+  const getChatList = async () => {
+    try {
+      const res = await axios.get(`/api/chat/rooms`);
+      // dispatch(getChat(res.data));
+      return setChatList(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // 조회할 태그(카테고리)
   // const [tag, setTag] = React.useState("");
