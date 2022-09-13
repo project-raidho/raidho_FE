@@ -66,14 +66,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
 
   return (
     <StCreatePostImageWrap>
-      {files.length !== 0 ? (
-        <CreatePostImageCrop
-          files={files}
-          selectedImage={selectedImage}
-          selectedImageIndex={selectedImageIndex}
-          selectedPostImages={selectedPostImages}
-        />
-      ) : (
+      {files.length === 0 && (
         <StImageDropZone {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
           <p>
@@ -83,9 +76,18 @@ const CreatePostImage = ({ selectedPostImages }) => {
           </p>
         </StImageDropZone>
       )}
-
-      <StThumbsContainer>{thumbs}</StThumbsContainer>
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
+      <StPostImageCropWrap>
+        <StThumbsContainer>{thumbs}</StThumbsContainer>
+        {files.length !== 0 && (
+          <CreatePostImageCrop
+            files={files}
+            selectedImage={selectedImage}
+            selectedImageIndex={selectedImageIndex}
+            selectedPostImages={selectedPostImages}
+          />
+        )}
+      </StPostImageCropWrap>
     </StCreatePostImageWrap>
   );
 };
@@ -113,6 +115,8 @@ const StImageDropZone = styled.div`
     line-height: 1.5;
   }
 `;
+
+const StPostImageCropWrap = styled.div``;
 
 const StThumb = styled.div`
   display: inline-flex;
@@ -142,8 +146,7 @@ const StThumbInner = styled.div`
 
 const StThumbsContainer = styled.aside`
   display: flex;
-  min-height: 100px;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 16px;
   background-color: var(--bgSub-color);

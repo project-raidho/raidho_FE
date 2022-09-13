@@ -75,19 +75,27 @@ const CreatePostContainer = () => {
 
   return (
     <StCreatePostContainerWrap>
-      <StStepTitle>이미지 업로드 하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 1</strong>이미지 업로드 하기
+      </StStepTitle>
       <CreatePostImage selectedPostImages={selectedPostImages} />
-      <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 2</strong>여행에서 경험한 내용 입력하기
+      </StStepTitle>
       <CreatePostContent typedPostContent={typedPostContent} />
 
-      <StStepTitle>위치 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 3</strong>위치 입력하기
+      </StStepTitle>
       <CreatePostTags
         selectedTags={locationTags}
         tags={[]}
         tagMassage={"위치를 입력해주세요!"}
       />
 
-      <StStepTitle>태그 입력하기</StStepTitle>
+      <StStepTitle>
+        <strong>STEP 4</strong>태그 입력하기
+      </StStepTitle>
       <CreatePostTags
         selectedTags={selectedTags}
         tags={[]}
@@ -143,9 +151,25 @@ const StCreatePostContainerWrap = styled.div`
 `;
 
 const StStepTitle = styled.h2`
-  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
   padding-top: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
 `;
 
 const StButtonWrap = styled.div`
