@@ -37,7 +37,7 @@ const SearchContainer = ({ isLogin }) => {
 
   // ::: 검색 상세보기 페이지 이동하기
   const goSearchDetail = (url) => {
-    navigate(`/tag?tag=${url}`, {
+    navigate(`/post/best?tag=${url}`, {
       state: {
         tagKeyword: url,
       },
@@ -91,7 +91,7 @@ const SearchContainer = ({ isLogin }) => {
             {recentSearchList.map((tag, index) => (
               <Button key={tag + index} size="tag" variant="line">
                 <Link
-                  to={`/tag?tag=${tag}`}
+                  to={`/post/best?tag=${tag}`}
                   onClick={() => setSearchInput(tag)}
                 >
                   {tag}
@@ -113,8 +113,7 @@ const SearchContainer = ({ isLogin }) => {
             {themeList.map((themeCard) => (
               <Link
                 key={themeCard.themeName}
-                // ::: 테마별 링크 연결 시켜야 함
-                to={`/tag?tag=${themeCard.themeName}`}
+                to={`/post/best?tag=${themeCard.themeName}`}
               >
                 <StTagCard bgImage={`url(${themeCard.themeImage})`}>
                   {themeCard.themeName}
@@ -141,7 +140,7 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "455px" : "58px")};
+  height: ${(props) => (props.isFocusSearch === true ? "500px" : "58px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
   border-radius: 20px 20px 10px 10px;
