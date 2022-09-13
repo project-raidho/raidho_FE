@@ -19,15 +19,15 @@ const CreatePostContainer = () => {
   };
 
   // ::: 입력된 데이터 취합하기
-  const [postImages, setPostImages] = useState([]);
+  const [postImages, setPostImages] = useState();
   const [postContent, setpostContent] = useState("");
   const [postTags, setPostTags] = useState([]);
   const [postLocationTags, setPostLocationTags] = useState([]);
 
-  const selectedPostImages = (images) => {
-    // console.log("selectedPostImages", images);
-    setPostImages(images);
-  };
+  // const selectedPostImages = (images) => {
+  //   console.log("selectedPostImages", images.target);
+  //   setPostImages(images);
+  // };
   const typedPostContent = (text) => {
     // console.log("typedPostContent", text);
     setpostContent(text);
@@ -43,16 +43,22 @@ const CreatePostContainer = () => {
     setPostLocationTags(tags);
   };
 
+  const handleImageUpload = (event) => {
+    setPostImages(event.target.files);
+  };
+
   // const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
-    // for (let i = 0; i < postImages.length; i++) {
-    //   let file = new File([postImages[i]], `postImage${i}`);
-    //   formData.append("imgUrl", file);
-    //   // console.log("postImages ====> ::: ", file);
-    // }
+    for (let i = 0; i < postImages.length; i++) {
+      // let file = new File([postImages[i]], `postImage${i}`, {
+      //   type: "multipart/form-data",
+      // });
+      formData.append("imgUrl", postImages[i]);
+      // console.log("postImages ====> ::: ", file);
+    }
     //const file = new File(postImages, "postImages");
     // formData.append("imgUrl", file);
 
@@ -61,13 +67,14 @@ const CreatePostContainer = () => {
     // formData.append("locationTags", postLocationTags);
 
     console.log(":: here postImages::");
-    console.log(postImages);
-    let file = new File(postImages, "test", {
-      type: "multipart/form-data",
-    });
+    // console.log(postImages);
+    // let file = new File(postImages, {
+    //   type: "multipart/form-data",
+    // });
+    // console.log("=======>", file);
 
-    console.log(":: file::", JSON.stringify(file));
-    formData.append("file", file);
+    // formData.append("file", file);
+    console.log("formData=======>", formData);
     // formData.append("file", postImages);
     // console.log("postContent ====> ::: ", blob);
     try {
@@ -92,7 +99,8 @@ const CreatePostContainer = () => {
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>이미지 업로드 하기</StStepTitle>
-        <CreatePostImage selectedPostImages={selectedPostImages} />
+        <input type="file" onChange={handleImageUpload} multiple />
+        {/* <CreatePostImage selectedPostImages={selectedPostImages} /> */}
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
