@@ -1,18 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // components
-import Chat from './Chat';
+import Chat from "./Chat";
 // import Popup from '../components/Popup';
 
 // 리덕스 접근
-import { 
+import {
   // useSelector,
-   useDispatch } from 'react-redux';
+  useDispatch,
+} from "react-redux";
 
 // 채팅 관련 함수들 가져오기
-import { chatActions } from '../../redux/modules/chat';
+import { chatActions } from "../../redux/modules/chat";
 
 // select
 // import { Select } from '@class101/ui';
@@ -28,30 +29,32 @@ const ChatList = (props) => {
   const dispatch = useDispatch();
   // 채팅 리스트 리덕스로부터 가져오기
   // const chat_list = useSelector((state) => state.chat.chatInfo);
-  const chat_list=[{
-    id: 1,
-    chatRoomName:"산골짜기여행",
-    createdAt:"8월 8일",
-    modifiedAt:"8월 8일",
-    chatRoomImg:"",
-    user: {
-      username: "상욱님",
-      profileUrl: ""
+  const chat_list = [
+    {
+      id: 1,
+      chatRoomName: "산골짜기여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "상욱님",
+        profileUrl: "",
+      },
+      category: "",
     },
-    category: ""
-  },
-   {
-    id: 2,
-    chatRoomName:"바닷가여행",
-    createdAt:"8월 8일",
-    modifiedAt:"8월 8일",
-    chatRoomImg:"",
-    user: {
-      username: "태훈님",
-      profileUrl: ""
+    {
+      id: 2,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
     },
-    category: ""
-  }]
+  ];
   // 조회할 태그(카테고리)
   // const [tag, setTag] = React.useState("");
 
@@ -91,7 +94,13 @@ const ChatList = (props) => {
     }
 
     dispatch(chatActions.clearMessages());
-    dispatch(chatActions.moveChat({ roomId: roomId, roomName: roomName, category: category }));
+    dispatch(
+      chatActions.moveChat({
+        roomId: roomId,
+        roomName: roomName,
+        category: category,
+      })
+    );
     // 해당 채팅방의 DB 가져오기
     dispatch(chatActions.getChatMessages());
     return;
@@ -99,9 +108,9 @@ const ChatList = (props) => {
 
   return (
     <Container>
-      <Title>Chat</Title>
-      <SelectWrap>
-        {/* <Select
+      <Title>채팅방 리스트</Title>
+      {/* <SelectWrap>
+        <Select
           value={tag}
           placeholder="채팅방 카테고리를 골라주세요"
           options={['전체조회', 'REACT', 'SPRING', 'RN', 'NODEJS']}
@@ -110,8 +119,8 @@ const ChatList = (props) => {
             marginBottom: '20px',
             width: '90%',
           }}
-        /> */}
-      </SelectWrap>
+        /> 
+      </SelectWrap> */}
       <ChatListWrap className="scroll">
         {/* 받아온 채팅 리스트 구현하기 */}
         {chat_list.map((info, idx) => {
@@ -142,12 +151,12 @@ const ChatList = (props) => {
 };
 
 const Container = styled.div`
-  ${(props) => props.theme.border_box};
-  justify-content: center;
-  background-color: ${(props) => props.theme.theme_gray};
-  
   width: 30%;
   height: 100%;
+  ${(props) => props.theme.border_box};
+  justify-content: center;
+  /* background-color: ${(props) => props.theme.theme_gray}; */
+
   position: relative;
   @media ${(props) => props.theme.mobile} {
     width: 100%;
@@ -172,11 +181,11 @@ const ChatListWrap = styled.div`
   width: 100%;
   height: 90%;
   overflow: auto;
-  padding: 80px 10px 0px 10px;
+  padding: 10px 10px 0px 10px;
   ${(props) => props.theme.flex_column};
   justify-content: flex-start;
   @media ${(props) => props.theme.mobile} {
-    hieght: 100%;
+    height: 100%;
     flex-direction: row;
     align-items: center;
     padding: 5px;
@@ -205,7 +214,7 @@ const ChatListWrap = styled.div`
 // `;
 
 const SelectWrap = styled.div`
-${(props) => props.theme.border_box};
+  ${(props) => props.theme.border_box};
   text-align: center;
   position: absolute;
   padding: 0px 10px;
@@ -219,6 +228,6 @@ ${(props) => props.theme.border_box};
     // left: 0;
     // top: 0;
   }
-`
+`;
 
 export default ChatList;

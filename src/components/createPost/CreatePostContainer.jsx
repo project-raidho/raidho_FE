@@ -52,6 +52,7 @@ const CreatePostContainer = () => {
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
+
     for (let i = 0; i < postImages.length; i++) {
       // let file = new File([postImages[i]], `postImage${i}`, {
       //   type: "multipart/form-data",

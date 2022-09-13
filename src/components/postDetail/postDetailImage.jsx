@@ -25,6 +25,12 @@ const StyledSlide = styled(Slider)`
   .slick-slide {
     display: inline-block;
   }
+  &:hover .slick-next {
+    opacity: 1;
+  }
+  &:hover .slick-prev {
+    opacity: 1;
+  }
   .slick-list {
     margin-top: 50px;
     width: 100%;
@@ -36,7 +42,7 @@ const StyledSlide = styled(Slider)`
   .slick-next {
     z-index: 9999;
     width: 50px !important;
-    opacity: 0.5;
+    opacity: 0;
   }
 
   .slick-prev {
@@ -51,15 +57,9 @@ const StyledSlide = styled(Slider)`
     font-size: 30px;
   }
 
-  .slick-prev:hover,
-  .slick-next:hover {
-    opacity: 1;
-  }
-
   .slick-prev:hover:before,
   .slick-next:hover:before {
     color: white;
-    /* opacity: 0.1; */
   }
 
   .slick-dots {

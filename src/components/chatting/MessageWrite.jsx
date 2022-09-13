@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-
+import React from "react";
+import styled from "styled-components";
 // elements
-import ChatInput from '../../elements/ChatInput';
+import ChatInput from "../../elements/ChatInput";
 
 // 아이콘
-// import { IoArrowUp } from 'react-icons/io5';
+import { IoSend } from "react-icons/io5";
 
 // 리덕스 접근
-import { 
+import {
   // useSelector,
-   useDispatch } from 'react-redux';
+  useDispatch,
+} from "react-redux";
 
 // 채팅 관련 함수들 가져오기
-import { chatActions } from '../../redux/modules/chat';
+import { chatActions } from "../../redux/modules/chat";
 
 // 메시지 입력 컴포넌트
 const MessageWrite = (props) => {
@@ -23,8 +23,8 @@ const MessageWrite = (props) => {
 
   const { sendMessage } = props;
 
-//   const loading = useSelector((state) => state.chat.loading);
-const loading=true;
+  //   const loading = useSelector((state) => state.chat.loading);
+  const loading = true;
 
   // 텍스트 기록 함수
   const handleMessageText = (e) => {
@@ -38,7 +38,6 @@ const loading=true;
     autoFocusRef.current?.focus();
   }, []);
 
-
   return (
     <Container>
       <ChatInput
@@ -47,56 +46,47 @@ const loading=true;
         _onChange={handleMessageText}
         onSubmit={() => {
           sendMessage();
-          setMessageText('');
+          setMessageText("");
         }}
         mref={autoFocusRef}
         loading={loading}
       />
 
       {/* 로딩중이면 보내기 막기 */}
-      {loading ? (
-        <IconWrap
+      {loading && (
+        <SendIcon
           onClick={() => {
             sendMessage();
-            setMessageText('');
+            setMessageText("");
           }}
-        >
-          {/* <IoArrowUp className="arrowicon"/> */}
-          <StSubmit>전송</StSubmit>
-        </IconWrap>
-      ) : null}
+        />
+      )}
     </Container>
   );
 };
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
-  background-color: ${(props) => props.theme.main_color_thick};
+  /* background-color: ${(props) => props.theme.main_color_thick}; */
   justify-content: flex-start;
   width: 100%;
-  height: 8%;
+  height: 10%;
   opacity: 0.5;
+ 
   @media ${(props) => props.theme.mobile} {
-    position:fixed;
+    position: fixed;
     width: 100%;
     left: 0;
     bottom: 0;
   }
 `;
 
-const IconWrap = styled.div`
+const SendIcon = styled(IoSend)`
   ${(props) => props.theme.flex_row};
-  color: whitesmoke;
   justify-content: center;
-  height: 100%;
   width: 5%;
-  font-size: 25px;
-  cursor: pointer;  
+  font-size: 20px;
+  cursor: pointer;
 `;
-
-const StSubmit= styled.div`
-  color: whitesmoke;
-`
-
 
 export default MessageWrite;
