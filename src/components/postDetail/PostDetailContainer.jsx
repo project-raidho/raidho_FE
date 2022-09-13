@@ -4,14 +4,14 @@ import styled from "styled-components";
 import PostDeailImage from "./postDetailImage";
 import PostDeailLike from "./PostDetailLike";
 import PostDeailUser from "./PostDetailUser";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 const PostDetailContainer = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const navigate = useNavigate();
   // const [postDetail, setPostDetail] = useState(
   //   {

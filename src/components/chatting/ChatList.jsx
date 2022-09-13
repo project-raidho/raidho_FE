@@ -213,21 +213,21 @@ const ChatListWrap = styled.div`
 //   }
 // `;
 
-const SelectWrap = styled.div`
-  ${(props) => props.theme.border_box};
-  text-align: center;
-  position: absolute;
-  padding: 0px 10px;
-  width: 100%;
-  background-color: ${(props) => props.theme.theme_gray};
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-    // ${(props) => props.theme.flex_row};
-    // width: 22%;
-    // height: 100%;
-    // left: 0;
-    // top: 0;
-  }
-`;
+// const SelectWrap = styled.div`
+//   ${(props) => props.theme.border_box};
+//   text-align: center;
+//   position: absolute;
+//   padding: 0px 10px;
+//   width: 100%;
+//   background-color: ${(props) => props.theme.theme_gray};
+//   @media ${(props) => props.theme.mobile} {
+//     display: none;
+//     // ${(props) => props.theme.flex_row};
+//     // width: 22%;
+//     // height: 100%;
+//     // left: 0;
+//     // top: 0;
+//   }
+// `;
 
 export default ChatList;
