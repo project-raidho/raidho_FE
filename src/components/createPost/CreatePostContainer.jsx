@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
+  const URI = process.env.REACT_APP_BASE_URI;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -43,9 +44,7 @@ const CreatePostContainer = () => {
     setPostLocationTags(tags);
   };
 
-  // const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
-  // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
     const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
@@ -62,15 +61,11 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await axios.post(
-        `http://15.164.166.87:8080/api/post`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const postResponse = await axios.post(`${URI}/api/post`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
@@ -91,14 +86,14 @@ const CreatePostContainer = () => {
         <StStepTitle>다녀온 곳 입력하기</StStepTitle>
         <CreatePostTags
           selectedTags={locationTags}
-          tags={["서울"]}
+          tags={[]}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 입력하기</StStepTitle>
         <CreatePostTags
           selectedTags={selectedTags}
-          tags={["자전거여행"]}
+          tags={[]}
           tagMassage={"태그를 입력해주세요!"}
         />
         <StButtonWrap>

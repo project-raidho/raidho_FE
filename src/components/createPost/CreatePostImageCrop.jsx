@@ -3,7 +3,6 @@ import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import axios from "axios";
 
 const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   return centerCrop(
@@ -104,10 +103,6 @@ const CreatePostImageCrop = ({
       array.push(decodImg.charCodeAt(i));
     }
     const file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
-    // const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
-    // let formData = new FormData();
-    // formData.append("imgUrl", file, fileName);
-
     setUploadImages([...uploadImages, file]);
   };
 
