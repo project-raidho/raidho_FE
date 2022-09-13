@@ -8,7 +8,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
-import PostDetailImage from "../postDetail/postDetailImage";
+import PostDetailImage from "../postDetail/PostDetailImage";
 import styled from "styled-components";
 
 const CreatePostContainer = () => {
