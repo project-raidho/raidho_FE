@@ -24,27 +24,23 @@ const CreatePostContainer = () => {
   const [postTags, setPostTags] = useState([]);
   const [postLocationTags, setPostLocationTags] = useState([]);
 
-  // const selectedPostImages = (images) => {
-  //   console.log("selectedPostImages", images.target);
-  //   setPostImages(images);
-  // };
+  const selectedPostImages = (images) => {
+    console.log("selectedPostImages", images.target);
+    setPostImages(images);
+  };
   const typedPostContent = (text) => {
-    // console.log("typedPostContent", text);
+    console.log("typedPostContent", text);
     setpostContent(text);
   };
 
   const selectedTags = (tags) => {
-    // console.log(tags);
+    console.log(tags);
     setPostTags(tags);
   };
 
   const locationTags = (tags) => {
-    // console.log("location", tags);
+    console.log("location", tags);
     setPostLocationTags(tags);
-  };
-
-  const handleImageUpload = (event) => {
-    setPostImages(event.target.files);
   };
 
   // const URI = process.env.REACT_APP_BASE_URI;
@@ -52,32 +48,19 @@ const CreatePostContainer = () => {
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
     const formData = new FormData();
+    const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
 
-    for (let i = 0; i < postImages.length; i++) {
-      // let file = new File([postImages[i]], `postImage${i}`, {
-      //   type: "multipart/form-data",
-      // });
-      formData.append("imgUrl", postImages[i]);
-      // console.log("postImages ====> ::: ", file);
+    for (const image of postImages) {
+      formData.append("imgUrl", image, fileName);
     }
-    //const file = new File(postImages, "postImages");
-    // formData.append("imgUrl", file);
 
-    // formData.append("content", postContent);
-    // formData.append("tags", postTags);
-    // formData.append("locationTags", postLocationTags);
+    formData.append("content", postContent);
+    formData.append("tags", postTags);
+    formData.append("locationTags", postLocationTags);
 
     console.log(":: here postImages::");
-    // console.log(postImages);
-    // let file = new File(postImages, {
-    //   type: "multipart/form-data",
-    // });
-    // console.log("=======>", file);
+    console.log(postImages);
 
-    // formData.append("file", file);
-    console.log("formData=======>", formData);
-    // formData.append("file", postImages);
-    // console.log("postContent ====> ::: ", blob);
     try {
       const postResponse = await axios.post(
         `http://15.164.166.87:8080/api/post`,
@@ -85,11 +68,10 @@ const CreatePostContainer = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            // Authorization: localStorage.getItem("Authorization"),
           },
         }
       );
-      console.log("postResponse", postResponse.data);
+      console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
@@ -100,8 +82,7 @@ const CreatePostContainer = () => {
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>이미지 업로드 하기</StStepTitle>
-        <input type="file" onChange={handleImageUpload} multiple />
-        {/* <CreatePostImage selectedPostImages={selectedPostImages} /> */}
+        <CreatePostImage selectedPostImages={selectedPostImages} />
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용 입력하기</StStepTitle>
