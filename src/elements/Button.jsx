@@ -33,6 +33,13 @@ const SIZES = {
     --button-padding: 0 16px;
     --button-radius: 0px;
   `,
+  squareTheme: css`
+    --button-font-size: 1.5rem;
+    --button-width: 250px;
+    --button-height: 56px;
+    --button-padding: 0 16px;
+    --button-radius: 15px;
+  `,
 };
 
 const VARIANTS = {
@@ -62,6 +69,13 @@ const VARIANTS = {
     --button-hover-bg-color: var(--bgSub-color);
     --button-hover-text-color: var(--title-color);
     --button-box-shadow: none;
+  `,
+  lineBlue: css`
+    --button-color: var(--title-color);
+    --button-bg-color: var(--bg-color);
+    --button-hover-bg-color: var(--main-color);
+    --button-border-color: var(--title-color);
+    --button-hover-text-color: var(--title-color);
   `,
 };
 
