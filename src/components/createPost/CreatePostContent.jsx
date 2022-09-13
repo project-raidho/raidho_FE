@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const CreatePostContent = ({ typedPostContent }) => {
-  const [ postContent, setPostContent ] = useState(null);
-
+  const [checkTextLength, setCheckTextLength] = useState(0);
   const onChangeContent = (event) => {
-    setPostContent(event.target.value);
-  }
-  typedPostContent(postContent);
+    typedPostContent(event.target.value);
+    setCheckTextLength(event.target.value.length);
+  };
 
-  return(
+  return (
     <StCreatePostContentWrap>
-      <textarea 
+      <textarea
         onChange={onChangeContent}
         placeholder="경험을 소개해주세요!"
+        maxlength="250"
       />
+      <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
     </StCreatePostContentWrap>
   );
 };
@@ -23,7 +24,7 @@ export default CreatePostContent;
 
 const StCreatePostContentWrap = styled.div`
   width: 100%;
- 
+
   textarea {
     width: 100%;
     height: 200px;
@@ -34,4 +35,11 @@ const StCreatePostContentWrap = styled.div`
     background-color: var(--subBg-color);
   }
 `;
-
+const StValidationMsg = styled.p`
+  font-size: 1.1rem;
+  font-weight: 300;
+  text-align: right;
+  font-style: italic;
+  color: var(--title-color);
+  margin-bottom: 1rem;
+`;

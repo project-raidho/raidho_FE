@@ -1,11 +1,16 @@
 import React from "react";
+import GlobalHeader from "../global/GlobalHeader";
+import GlobalLayout from "../global/GlobalLayout";
+import UpdatePostContainer from "../components/updatePost/UpdatePostContainer";
 import styled from "styled-components";
 
 const UpdatePostPage = () => {
-
-  return(
+  return (
     <StUpdatePostPageWrap>
-      UpdatePostPage
+      <GlobalHeader />
+      <GlobalLayout>
+        <UpdatePostContainer />
+      </GlobalLayout>
     </StUpdatePostPageWrap>
   );
 };
@@ -13,5 +18,7 @@ const UpdatePostPage = () => {
 export default UpdatePostPage;
 
 const StUpdatePostPageWrap = styled.div`
-  background-color: blue;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
 `;

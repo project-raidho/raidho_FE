@@ -1,94 +1,179 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import styled from "styled-components";
-import ThemeSelect from './ThemeSelect';
-import TripLocationSelect from './TripLocationSelect';
-import axios from 'axios';
-import Button from '../../elements/Button';
-import Calender from './Calender';
-import Input from '../../elements/Input';
-import CreatePostTags from '../createPost/CreatePostTags';
-import RoomCloseDateBox from './RoomclosedateBox';
+import ThemeSelect from "./ThemeSelect";
+
+import axios from "axios";
+import Button from "../../elements/Button";
+import TripPeriod from "./TripPeriod";
+
+import CreatePostTags from "../createPost/CreatePostTags";
+import RoomCloseDateBox from "./RoomclosedateBox";
+import MeetingLocationSearch from "./MeetingLocationSearch";
+import TripPeopleCount from "./TripPeopleCount";
+import TextField from "@mui/material/TextField";
 
 const CreateMeetingContatiner = () => {
-    const [theme, setTheme] = useState("");
-    const [tripLocation, setTripLocation] = useState([]);
-    const selectedTags = (tags) => {
-		console.log(tags);  
-	};
-    const [startDate, setStartDate ]=useState();
-    const [endDate, setEndDate ]=useState();
+  const [theme, setTheme] = useState("");
+  const [locationtags, setLocationTags] = useState([]);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [tags, setTags] = useState([]);
+  const [people, setPeople] = useState();
+  const [roomClosedate, setRoomCloseDate] = useState();
+  const [tripPeriod, setTripPeriod] = useState([
+    { startDate: "", endDate: "" },
+  ]);
+  const [departLocation, setDepartLocation] = useState();
 
+  const selectedLocationTags = (tags) => {
+    setLocationTags(tags);
+  };
 
-    const URI = process.env.REACT_APP_BASE_URI;
-    // const accesstoken = localStorage.getItem("Authorization");
-    // const refreshtoken = localStorage.getItem("RefreshToken");
+  const selectedTags = (tags) => {
+    setTags(tags);
+  };
 
-    // let config = {
-    //     headers: {
-    //         Authorization: accesstoken,
-    //         RefreshToken: refreshtoken,
-    //     },
-    // };
-    const data= {
-        theme: theme,
-        tripLocation: tripLocation,
-        tripperiod:[startDate, endDate],
-        
-    }
-    console.log(data);
-    const postcreatemeeting = async (id) => {
-        const res = await axios.post(`${URI}/detail/${id}`,
-            data,
-            // config
-        );
-        return res;
-    };
+  const URI = process.env.REACT_APP_BASE_URI;
+  // const accesstoken = localStorage.getItem("Authorization");
+  // const refreshtoken = localStorage.getItem("RefreshToken");
 
-    return (
-        <StContainer>
-            
-                <h1>테마</h1>
-              <ThemeSelect setTheme={setTheme} />
+  // let config = {
+  //     headers: {
+  //         Authorization: accesstoken,
+  //         RefreshToken: refreshtoken,
+  //     },
+  // };
+  const data = {
+    theme: theme,
+    locationtags: locationtags,
+    title: title,
+    desc: desc,
+    tripPeriod: tripPeriod,
+    tags: tags,
+    people: people,
+    roomClosedate: roomClosedate,
+    departLocation: departLocation,
+  };
+  console.log(data);
+  const postcreatemeeting = async (id) => {
+    const res = await axios.post(
+      `${URI}/detail/${id}`,
+      data
+      // config
+    );
+    return res;
+  };
 
-                <h1>여행장소</h1>
-            <TripLocationSelect setTripLocation={setTripLocation} />
-            <h1>제목</h1>
-            <Input variant="default" size="medium"/>
+  return (
+    <StContainer>
+      <p>step 1. 여행정보 입력</p>
+      <h1>대륙 선택</h1>
+      <ThemeSelect setTheme={setTheme} />
 
-            <h1>설명</h1>
-            <Input variant="default" size="square"/>
-
-            <h1>해시태그</h1>
-            <CreatePostTags
-          selectedTags={selectedTags} 
-          tags={['자전거여행']}
-          tagMassage={'태그를 입력해주세요!'} 
+      <h1>여행갈 나라/도시 입력</h1>
+      <StTags>
+        <CreatePostTags
+          className="tagbox"
+          selectedTags={selectedLocationTags}
+          tags={["예시)프랑스"]}
+          tagMassage={"여행할 도시나 나라를 입력해주세요!"}
         />
-            <h1>모집인원</h1>
-            <h1>모집마감일자</h1>
-            <RoomCloseDateBox/>
-            <h1>여행기간</h1>
-            <Calender startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
-            <h1>출발장소</h1>
+      </StTags>
+      <h1>여행기간</h1>
+      <TripPeriod setTripPeriod={setTripPeriod} />
+      <h1>여행희망인원</h1>
+      <TripPeopleCount setPeople={setPeople} />
+      <br />
+      <p>step 2. 모집글정보 입력</p>
+      <h1>모집글 제목</h1>
+      <StTitleBox
+        multiline
+        maxRows={4}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <h1>모집글 설명</h1>
+      <StDescBox
+        id="outlined-multiline-static"
+        multiline
+        rows={4}
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
+      />
 
-           <Button
-             size="small"
-             variant="primary"
-             onClick={postcreatemeeting}
-             >개설하기</Button>
-        </StContainer>
+      <h1>해시태그</h1>
+      <StTags>
+        <CreatePostTags
+          className="tagbox"
+          selectedTags={selectedTags}
+          tags={["예시)활동적"]}
+          tagMassage={"홍보하고 싶은 내용을 자유롭게 입력해주세요!"}
+        />
+      </StTags>
 
-    )   
-}
-export default CreateMeetingContatiner
+      <h1>모집마감일자</h1>
+      <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
 
-const StContainer=styled.div`
-    h1{
-        font-size:20px; 
-    }
-`
+      <h1>모집 후 모일 장소</h1>
+      <MeetingLocationSearch setDepartLocation={setDepartLocation} />
 
+      <CreateButton size="small" variant="primary" onClick={postcreatemeeting}>
+        등록하기
+      </CreateButton>
+    </StContainer>
+  );
+};
+export default CreateMeetingContatiner;
 
+const StContainer = styled.div`
+  width: 50%;
+  p {
+    font-size: 30px;
+    margin-top: 50px;
+  }
+  h1 {
+    font-size: 20px;
+    margin-top: 50px;
+  }
+`;
+const StTitleBox = styled(TextField)`
+  width: 100%;
+  height: 55px;
+
+  element.style {
+    height: 50px;
+  }
+  .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  }
+
+  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+    font-size: 1.5rem;
+    height: 55px;
+    padding: 5px;
+  }
+`;
+const StDescBox = styled(TextField)`
+  width: 100%;
+  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
+    font-size: 1.5rem;
+    padding: 5px;
+  }
+`;
+
+const StTags = styled.div`
+  .kkqTPl {
+    width: 50%;
+    height: 55px;
+    border-radius: 10px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid;
+  }
+`;
+
+const CreateButton = styled(Button)`
+  float: right;
+`;
 
 // const StCategorySelectBox = styled.div`
 /* display: flex; */

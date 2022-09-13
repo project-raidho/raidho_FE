@@ -71,16 +71,20 @@ const CreatePostImage = ({ selectedPostImages }) => {
           files={files}
           selectedImage={selectedImage}
           selectedImageIndex={selectedImageIndex}
+          selectedPostImages={selectedPostImages}
         />
       ) : (
         <StImageDropZone {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
-          <p>이미지를 드레그 또는 클릭해서 선택해주세요.</p>
+          <p>
+            해당 영역을 클릭하거나 이미지 파일을 드레그하여 업로드할 이미지를
+            선택해주세요. <br />
+            최대 5장까지 업로드 가능합니다.
+          </p>
         </StImageDropZone>
       )}
 
       <StThumbsContainer>{thumbs}</StThumbsContainer>
-
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
     </StCreatePostImageWrap>
   );
@@ -98,14 +102,15 @@ const StImageDropZone = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100px;
-  border: 1px dashed var(--gray-color);
-  border-radius: 20px;
+  height: 150px;
+  border: 1px solid var(--gray-color);
   background-color: var(--bg-color);
   cursor: pointer;
 
   p {
     text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.5;
   }
 `;
 
@@ -118,7 +123,6 @@ const StThumb = styled.div`
   width: 100px;
   height: 100px;
   padding: 4px;
-  border: 1px solid red;
 `;
 
 const StThumbInner = styled.div`

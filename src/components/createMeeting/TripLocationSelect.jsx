@@ -2,6 +2,13 @@
 
 import React, {useState} from "react";
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
 const TripLocationSelect = ({setTripLocation})=> {
    
         const area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
@@ -22,8 +29,8 @@ const TripLocationSelect = ({setTripLocation})=> {
           const area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
           const area16 = ["서귀포시","제주시","남제주군","북제주군"];
        
-        const[sido, setSico]=useState();
-        const [gu, setGu]=useState();
+        const[sido, setSico]=useState("");
+        const [gu, setGu]=useState("");
           const [optionlist, setOptionlist] = useState(["시/구/군선택"]);
           const sidohandleSelect = (e) => {
             setSico(e.target.value);
@@ -41,21 +48,44 @@ const TripLocationSelect = ({setTripLocation})=> {
 
     return (
         <div>
-             <select onChange={sidohandleSelect} value={sido}>
-          {area0.map((item) => (
-            <option value={item} key={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-             
-        <select name="gugun1" id="gugun1" value={gu} onChange={guhandleSelect} >
-        {optionlist.map((item) => (
-            <option value={item} key={item}>
-              {item}
-            </option>
-          ))}
-        </select>
+  <FormControl sx={{ m: 1, Width: 120 }}>
+        <Select
+          value={sido}
+          onChange={sidohandleSelect}
+          displayEmpty
+          inputProps={{ 'aria-label': 'Without label' }}
+
+        > 
+         <MenuItem value="">
+            <em>시/도 선택</em>
+          </MenuItem>
+        {area0.map((item, i) => (
+        <MenuItem value={item} key={i}>{item}</MenuItem>
+        ))}
+      </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, Width: 120 }}>
+      <Select
+          value={gu}
+          onChange={guhandleSelect}
+          displayEmpty
+          inputProps={{ 'aria-label': 'Without label' }}
+
+        > 
+         <MenuItem value="">
+            <em>시/구/군선택</em>
+          </MenuItem>
+        {optionlist.map((item, i) => (
+        <MenuItem value={item} key={i}>{item}</MenuItem>
+        ))}
+      </Select>
+
+
+
+</FormControl>
+      
+         
+  
         </div>
      
     )
