@@ -145,10 +145,6 @@ const StCreatePostContainerWrap = styled.div`
   @media (max-width: 639px) {
   }
 `;
-const StCreatePostColumn = styled.div`
-  width: 100%;
-  padding: 1rem;
-`;
 
 const StStepTitle = styled.h2`
   font-size: 1.5rem;
