@@ -1,7 +1,7 @@
-import { createReducer, createAction } from '@reduxjs/toolkit';
-
+import { createReducer, createAction } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 // api 가져오기
-import { chatAPI } from '../../shared/api';
+import { chatAPI } from "../../shared/api";
 
 export const initialState = {
   // 채팅 리스트를 받는 배열
@@ -26,29 +26,29 @@ export const initialState = {
 };
 
 // 채팅 리스트를 다루는 액션
-const getChat = createAction('chat/GETCHAT');
+const getChat = createAction("chat/GETCHAT");
 // 채팅방을 옮기는 액션
-const moveChat = createAction('chat/MOVECHAT');
+const moveChat = createAction("chat/MOVECHAT");
 // 채팅방의 대화 내용을 가져오기
-const getMessages = createAction('chat/GETMESSAGES');
+const getMessages = createAction("chat/GETMESSAGES");
 // 사용자가 입력한 메시지의 텍스트를 기록
-const writeMessage = createAction('chat/WRITEMESSAGE');
+const writeMessage = createAction("chat/WRITEMESSAGE");
 // 저장한 대화 내용을 없애기
-const clearMessages = createAction('chat/CLEARMESSAGES');
+const clearMessages = createAction("chat/CLEARMESSAGES");
 // DB의 채팅방의 대화 내용을 넣어놓기
-const setMessages = createAction('chat/SETMESSAGES');
+const setMessages = createAction("chat/SETMESSAGES");
 // 로딩을 다루는 액션
-const isLoading = createAction('chat/ISLOADING');
+const isLoading = createAction("chat/ISLOADING");
 // 로딩 완료 액션
-const isLoaded = createAction('chat/ISLOADED');
+const isLoaded = createAction("chat/ISLOADED");
 // 입장한 채팅방 정보를 없애기
-const clearCurrentChat = createAction('chat/CLEARCURRENTCHAT');
+const clearCurrentChat = createAction("chat/CLEARCURRENTCHAT");
 // 카테고리 설정
-const setCategory = createAction('chat/SETCATEGORY');
+const setCategory = createAction("chat/SETCATEGORY");
 // 카테고리 초기화
-const clearCategory = createAction('chat/CELARCATEGORY');
+const clearCategory = createAction("chat/CELARCATEGORY");
 // 카테고리 삭제
-const deleteCategory = createAction('chat/DELETECATEGORY');
+const deleteCategory = createAction("chat/DELETECATEGORY");
 
 const chat = createReducer(initialState, {
   [getChat]: (state, action) => {
@@ -68,7 +68,7 @@ const chat = createReducer(initialState, {
     state.messages = [];
   },
   [setMessages]: (state, action) => {
-    state.messages = action.payload
+    state.messages = action.payload;
   },
   [isLoading]: (state, action) => {
     state.loading = false;
@@ -87,22 +87,26 @@ const chat = createReducer(initialState, {
     state.selectedCategory = [];
   },
   [deleteCategory]: (state, action) => {
-    state.selectedCategory.splice(state.selectedCategory.indexOf(action.payload), 1);
-  }
+    state.selectedCategory.splice(
+      state.selectedCategory.indexOf(action.payload),
+      1
+    );
+  },
 });
 
-
-// const createRoom = (data, closePopup) => async (dispatch, getState, { history }) => {
-//   try {
-//     const res = await chatAPI.createRoom(data);
-//     window.alert('채팅방이 생성되었습니다.')
-//     dispatch(getChatList());
-//     closePopup();
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// };
+const createRoom =
+  (data, closePopup) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const navigate = useNavigate();
+      const res = await chatAPI.createRoom(data);
+      window.alert("채팅방이 생성되었습니다.");
+      dispatch(getChatList());
+      navigate("/meetingList");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 // 채팅방 목록 조회
 const getChatList = () => async (dispatch, getState) => {
@@ -122,15 +126,13 @@ const getChatMessages = () => async (dispatch, getState) => {
     const res = await chatAPI.getChatMessages(roomId);
     const chatMessagesArray = res.data.content;
     dispatch(setMessages(chatMessagesArray));
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
 
-
 export const chatActions = {
-  // createRoom,
+  createRoom,
   getChatList,
   moveChat,
   getMessages,
@@ -143,7 +145,7 @@ export const chatActions = {
   setCategory,
   clearCategory,
   getChat,
-  deleteCategory
+  deleteCategory,
 };
 
 export default chat;

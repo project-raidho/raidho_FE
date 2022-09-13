@@ -4,93 +4,14 @@ import styled from "styled-components";
 
 // elements
 import Message from "./Message";
-
+import axios from "axios";
+import { useParams } from "react-router-dom";
 // 리덕스 접근
 // import { useSelector } from 'react-redux';
 
 // 메시지 리스트 컴포넌트
-const MessageList = (props) => {
-  // const messages = useSelector((state) => state.chat.messages);
-  const messages = [
-    {
-      userId: 2,
-      message: "믿고 있을게요",
-      createdAt: "2022-09-05 18:15",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 1,
-      message: "믿지 마세요;;;",
-      createdAt: "2022-09-05 18:16",
-      sender: "경문",
-    },
-    {
-      userId: 2,
-      message: "믿어요 ㅎㅎ",
-      createdAt: "2022-09-05 18:17",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 2,
-      message: "믿고 있을게요",
-      createdAt: "2022-09-05 18:15",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 1,
-      message: "믿지 마세요;;;",
-      createdAt: "2022-09-05 18:16",
-      sender: "경문",
-    },
-    {
-      userId: 2,
-      message: "믿어요 ㅎㅎ",
-      createdAt: "2022-09-05 18:17",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 2,
-      message: "믿고 있을게요",
-      createdAt: "2022-09-05 18:15",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 1,
-      message: "믿지 마세요;;;",
-      createdAt: "2022-09-05 18:16",
-      sender: "경문",
-    },
-    {
-      userId: 2,
-      message: "믿어요 ㅎㅎ",
-      createdAt: "2022-09-05 18:17",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-  ];
+const MessageList = ({ messages }) => {
+  const { id } = useParams();
 
   // 스크롤 대상
   const messageEndRef = React.useRef(null);
@@ -103,9 +24,9 @@ const MessageList = (props) => {
   //   messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   // };
   // 렌더링시 이동
-  // React.useEffect(() => {
-  //   scrollTomBottom();
-  // }, [messages]);
+  React.useEffect(() => {
+    //   scrollTomBottom();
+  }, [messages, id]);
 
   return (
     <Container className="scroll" id="messagelist">

@@ -7,7 +7,7 @@ import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
-import PostDeailImage from "../postDetail/postDetailImage";
+import PostDeailImage from "../postDetail/PostDetailImage";
 import styled from "styled-components";
 
 const CreatePostContainer = () => {

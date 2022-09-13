@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -6,14 +6,10 @@ import styled from "styled-components";
 import Chat from "./Chat";
 // import Popup from '../components/Popup';
 
-// 리덕스 접근
-import {
-  // useSelector,
-  useDispatch,
-} from "react-redux";
-
 // 채팅 관련 함수들 가져오기
 import { chatActions } from "../../redux/modules/chat";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // select
 // import { Select } from '@class101/ui';
@@ -26,10 +22,7 @@ import { chatActions } from "../../redux/modules/chat";
 //  모바일 : 채팅 리스트를 상단의 원으로 표시
 //  데스크탑 : 채팅 리스트를 좌측에 리스트로 표시
 const ChatList = (props) => {
-  const dispatch = useDispatch();
-  // 채팅 리스트 리덕스로부터 가져오기
-  // const chat_list = useSelector((state) => state.chat.chatInfo);
-  const chat_list = [
+  const [chatList, setChatList] = useState([
     {
       id: 1,
       chatRoomName: "산골짜기여행",
@@ -54,7 +47,23 @@ const ChatList = (props) => {
       },
       category: "",
     },
-  ];
+  ]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    // getChatList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // const getChatList = async () => {
+  //   try {
+  //     const res = await axios.get(`/api/chat/rooms`);
+  //     // dispatch(getChat(res.data));
+  //     return setChatList(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   // 조회할 태그(카테고리)
   // const [tag, setTag] = React.useState("");
 
@@ -84,46 +93,25 @@ const ChatList = (props) => {
   //   console.log(tagChatList)
   //   dispatch(chatActions.getChat(tagChatList.data))
   // }
+
   // 채팅방 들어가기
-  const enterRoom = (roomId, roomName, category) => {
+  const enterRoom = (roomId) => {
     console.log(prevRoomId, roomId);
 
     // 입장한 채팅방을 다시 클릭하면 리턴
-    if (prevRoomId === roomId) {
-      return;
-    }
-
-    dispatch(chatActions.clearMessages());
-    dispatch(
-      chatActions.moveChat({
-        roomId: roomId,
-        roomName: roomName,
-        category: category,
-      })
-    );
-    // 해당 채팅방의 DB 가져오기
-    dispatch(chatActions.getChatMessages());
-    return;
+    // if (prevRoomId === roomId) {
+    //   return;
+    // }
+    navigate(`/chatting/${roomId}`);
   };
 
   return (
     <Container>
       <Title>채팅방 리스트</Title>
-      {/* <SelectWrap>
-        <Select
-          value={tag}
-          placeholder="채팅방 카테고리를 골라주세요"
-          options={['전체조회', 'REACT', 'SPRING', 'RN', 'NODEJS']}
-          onChange={(e) => { selectTag(e) }}
-          style={{
-            marginBottom: '20px',
-            width: '90%',
-          }}
-        /> 
-      </SelectWrap> */}
+
       <ChatListWrap className="scroll">
         {/* 받아온 채팅 리스트 구현하기 */}
-        {chat_list.map((info, idx) => {
+        {chatList.map((info, idx) => {
           return (
             <Chat
               key={idx}
@@ -212,22 +200,5 @@ const ChatListWrap = styled.div`
 //     top: 22vh;
 //   }
 // `;
-
-const SelectWrap = styled.div`
-  ${(props) => props.theme.border_box};
-  text-align: center;
-  position: absolute;
-  padding: 0px 10px;
-  width: 100%;
-  background-color: ${(props) => props.theme.theme_gray};
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-    // ${(props) => props.theme.flex_row};
-    // width: 22%;
-    // height: 100%;
-    // left: 0;
-    // top: 0;
-  }
-`;
 
 export default ChatList;

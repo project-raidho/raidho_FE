@@ -47,7 +47,7 @@ const CreatePostContainer = () => {
     setPostImages(event.target.files);
   };
 
-  // const URI = process.env.REACT_APP_BASE_URI;
+  const URI = process.env.REACT_APP_BASE_URI;
   // ::: 서버전송세팅
   // ::: 이미지, 내용 전송만 현재 가능(2022.09.10)
   const onCreatePost = async () => {
@@ -79,17 +79,13 @@ const CreatePostContainer = () => {
     // formData.append("file", postImages);
     // console.log("postContent ====> ::: ", blob);
     try {
-      const postResponse = await axios.post(
-        `http://15.164.166.87:8080/api/post`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            // Authorization: localStorage.getItem("Authorization"),
-          },
-        }
-      );
-      console.log("postResponse", postResponse.data);
+      const postResponse = await axios.post(`${URI}/api/post`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          // Authorization: localStorage.getItem("Authorization"),
+        },
+      });
+      return postResponse;
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);

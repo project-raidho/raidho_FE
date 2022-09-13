@@ -16,19 +16,17 @@ import {
 import { chatActions } from "../../redux/modules/chat";
 
 // 메시지 입력 컴포넌트
-const MessageWrite = (props) => {
+const MessageWrite = ({ sendMessage, setMessageInput }) => {
   const dispatch = useDispatch();
   // 메시지 텍스트 입력받기
   const [messageText, setMessageText] = React.useState();
 
-  const { sendMessage } = props;
-
-  //   const loading = useSelector((state) => state.chat.loading);
   const loading = true;
 
   // 텍스트 기록 함수
   const handleMessageText = (e) => {
     setMessageText(e.target.value);
+    setMessageInput(e.target.value);
     dispatch(chatActions.writeMessage(e.target.value));
   };
 
@@ -71,8 +69,7 @@ const Container = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 10%;
-  opacity: 0.5;
- 
+
   @media ${(props) => props.theme.mobile} {
     position: fixed;
     width: 100%;
