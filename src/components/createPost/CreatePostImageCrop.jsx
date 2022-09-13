@@ -57,7 +57,7 @@ const CreatePostImageCrop = ({
   const onImageLoad = (event) => {
     const { width, height } = event.currentTarget;
     setCrop(centerAspectCrop(width, height, aspect));
-    console.log(selectedImageIndex);
+    console.log("====>", selectedImageIndex);
   };
 
   // ::: 크롭 영역 canvas에 넣기
@@ -174,6 +174,14 @@ const CreatePostImageCrop = ({
           1 : 1
         </span>
       </StImageSizeButtonWrap>
+      <div className="guideRow">
+        <p className="guideText numberTwo">
+          <span>2</span>이미지를 원하시는 형태로 조절해주세요!
+        </p>
+        <p className="guideText numberThree">
+          <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요!
+        </p>
+      </div>
       <StPostImageCropWrap>
         <StThumbsContainer>{thumbs}</StThumbsContainer>
         <StPostImageCropColumn>
@@ -194,16 +202,20 @@ const CreatePostImageCrop = ({
         </StPostImageCropColumn>
         <StPostImageCropColumn>
           <StCanvasPreview ref={canvasRef} />
-
-          <p>
-            <Button
-              size="squareTheme"
-              variant="lineBlue"
-              onClick={onChangeCropImage}
-            >
-              저장하기
-            </Button>
-          </p>
+          <div className="postImageCropBottom">
+            <p className="guideText">
+              <span>4</span>편집이 완료되었다면, 저장하기 버튼을 눌러 주세요!!
+            </p>
+            <p className="saveButtonWrap">
+              <Button
+                size="squareTheme"
+                variant="lineBlue"
+                onClick={onChangeCropImage}
+              >
+                저장하기
+              </Button>
+            </p>
+          </div>
         </StPostImageCropColumn>
       </StPostImageCropWrap>
     </StCreatePostImageCrop>
@@ -218,6 +230,13 @@ const StCreatePostImageCrop = styled.div`
   width: 100%;
   height: 100%;
 
+  .guideRow {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
+
   .guideText {
     display: flex;
     flex-direction: row;
@@ -226,6 +245,14 @@ const StCreatePostImageCrop = styled.div`
     height: 30px;
     font-size: 1.3rem;
     margin-bottom: 1rem;
+
+    &.numberTwo {
+      width: calc(50% + 70px);
+    }
+
+    &.numberThree {
+      width: calc(50% - 70px);
+    }
 
     span {
       display: flex;
@@ -254,7 +281,7 @@ const StPostImageCropWrap = styled.div`
 const StPostImageCropColumn = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: calc(50% - 70px);
   height: 532px;
@@ -264,13 +291,26 @@ const StPostImageCropColumn = styled.div`
     border: 0px solid var(--gray-color);
   }
 
-  .originImage {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  .ReactCrop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .ReactCrop__child-wrapper {
+    max-height: 100%;
+    max-width: 100%;
   }
 
-  p {
+  .originImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: center;
+  }
+
+  .postImageCropBottom {
+    width: 100%;
+  }
+  .saveButtonWrap {
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -310,9 +350,8 @@ const StImageSizeButtonWrap = styled.div`
 const StCanvasPreview = styled.canvas`
   max-width: 100%;
   min-height: 0px;
-  max-height: 80%;
+  max-height: 420px;
   border: 1px solid var(--gray-color);
-  margin-top: 1rem;
 `;
 
 const StThumb = styled.div`

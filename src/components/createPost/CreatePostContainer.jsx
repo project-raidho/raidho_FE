@@ -136,6 +136,7 @@ const StCreatePostContainerWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 10rem;
 
   @media (max-width: 1023px) {
   }
@@ -162,6 +163,7 @@ const StStepTitle = styled.h2`
     color: #000;
     background-color: var(--gray-color);
     border-radius: 5px;
+    border: 1px solid #000;
     margin-right: 0.7rem;
     padding: 0.5rem 0.7rem;
   }
