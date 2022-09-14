@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { authInstance } from "../../shared/api";
+import React from "react"; // { useState, useEffect }
+// import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
-import { useEffect } from "react";
 
 const MeetingListContainer = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
