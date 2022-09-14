@@ -5,10 +5,11 @@ import PostDetailImage from "./PostDetailImg";
 import PostDetailLike from "./PostDetailLike";
 import PostDetailUser from "./PostDetailUser";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
+import { authInstance } from "../../shared/api";
 
 const PostDetailContainer = () => {
   const { id } = useParams();
@@ -57,16 +58,11 @@ const PostDetailContainer = () => {
   //   const res = await axios.get(`${URI}/detail/${id}`);
   //   return setPostDetail(res.data);
   // };
-  let config = {
-    headers: {
-      Authorization: localStorage.getItem("Authorization"),
-      RefreshToken: localStorage.getItem("RefreshToken"),
-    },
-  };
-  const URI = process.env.REACT_APP_BASE_URI;
+
   const deletePostDetail = async (postId) => {
-    const res = await axios.delete(`${URI}/items/cart/${postId}`, config);
+    const res = await authInstance.delete(`/items/${postId}`);
     console.log(res);
+    navigate("/");
     return postId;
   };
 
@@ -91,7 +87,7 @@ const PostDetailContainer = () => {
           className="editButton"
           size="24"
           onClick={() => {
-            navigate("/");
+            navigate(`/updatePost/${id}`);
           }}
         />
       )}
