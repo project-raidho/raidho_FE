@@ -11,5 +11,5 @@ const StGlobalLayoutWrap = styled.div`
   width: 100%;
   max-width: 1305px;
   margin: 0 auto;
-  padding-top: 150px;
+  padding-top: 120px;
 `;
