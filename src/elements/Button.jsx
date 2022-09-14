@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const SIZES = {
   small: css`
     --button-font-size: 1.2rem;
-    --button-padding: 5px 25px;
+    --button-padding: 0px 25px;
     --button-radius: 30px;
   `,
   medium: css`
@@ -98,7 +98,7 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   width: var(--button-width);
-  height: var(--button-height, 55px);
+  height: var(--button-height, 45px);
   font-size: var(--button-font-size, 1rem);
   padding: var(--button-padding, 5px 16px);
   border-radius: var(--button-radius, 30px);
