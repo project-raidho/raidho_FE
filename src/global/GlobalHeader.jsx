@@ -21,7 +21,7 @@ const GlobalHeader = () => {
 
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
-    localStorage.getItem("memberImage") === "null"
+    localStorage.getItem("memberImage") === null
       ? `${DefaultMemberImage}`
       : localStorage.getItem("memberImage");
 
