@@ -8,7 +8,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import { formDataInstance } from "../../shared/api";
+import { instance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
@@ -61,7 +61,13 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await formDataInstance.post(`/api/post`, formData);
+      const postResponse = await instance.post(`/api/post`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: localStorage.getItem("Authorization"),
+        },
+      });
+
       console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
