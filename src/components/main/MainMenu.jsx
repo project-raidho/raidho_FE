@@ -43,7 +43,7 @@ const MainMenu = () => {
     // console.log(res);
     // return setPostList(res.data.data.content);
 
-    const res = await instance.get(`/api/post`, {
+    const res = await instance.get(`/api/post/latest`, {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
       },
