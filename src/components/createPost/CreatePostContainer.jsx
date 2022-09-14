@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
@@ -7,7 +8,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import { formDataInstance } from "../../shared/api";
+// import { formDataInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
@@ -60,13 +61,28 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await formDataInstance.post(`/api/post`, formData);
+      const token = localStorage.getItem("Authorization");
+      const postResponse = await axios.post(
+        `https://wjsxogns.shop/api/post`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       console.log("postResponse ====>", postResponse.data);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
     }
   };
+
+  // try {
+  //   const postResponse = await formDataInstance.post(`/api/post`, formData);
+  //   console.log("postResponse ====>", postResponse.data);
+  // }
 
   return (
     <StCreatePostContainerWrap>
@@ -136,6 +152,7 @@ const StCreatePostContainerWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 10rem;
 
   @media (max-width: 1023px) {
   }
@@ -162,6 +179,7 @@ const StStepTitle = styled.h2`
     color: #000;
     background-color: var(--gray-color);
     border-radius: 5px;
+    border: 1px solid #000;
     margin-right: 0.7rem;
     padding: 0.5rem 0.7rem;
   }

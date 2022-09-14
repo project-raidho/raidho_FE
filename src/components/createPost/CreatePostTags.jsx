@@ -28,9 +28,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
         setTagValidationMsg("태그가 성공적으로 입력되었습니다.");
         setCheckAlert(false);
       } else {
-        setTagValidationMsg(
-          "중복된 값을 입력되어 기존에 입력된 값은 삭제되었습니다."
-        );
+        setTagValidationMsg("중복된 값이 입력되었습니다.");
         setCheckAlert(true);
       }
     }
