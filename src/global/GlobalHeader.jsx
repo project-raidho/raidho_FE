@@ -137,7 +137,7 @@ const GlobalHeader = () => {
                 <div className="rightMenu">
                   <Link to={"/chatting"}>
                     <img src={GoChattingIcon} alt="채팅하러 가기" />
-                    <span>5</span>
+                    {/* <span>5</span> */}
                   </Link>
                 </div>
                 <div
@@ -192,7 +192,6 @@ const StSwitchButton = styled.label`
   position: relative;
   width: 55px;
   height: 30px;
-  margin-left: 10px;
 
   input {
     opacity: 0;
@@ -268,7 +267,7 @@ const StHeaderRow = styled.div`
 const StRaidhoLogo = styled.h1`
   width: 195px;
   height: 50px;
-  padding-top: 0.6rem;
+  padding-top: 0.3rem;
 `;
 
 const StHeaderMidMenu = styled.div`
@@ -277,7 +276,7 @@ const StHeaderMidMenu = styled.div`
   align-items: center;
   justify-content: center;
   a {
-    margin-right: 0.5rem;
+    margin-right: 1.5rem;
     font-size: 1.5rem;
   }
   .selected {
@@ -294,11 +293,11 @@ const StHeaderRightMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  margin-left: 22px;
+  margin-left: 20px;
 
   .rightMenu {
     position: relative;
-    margin-right: 22px;
+    margin-right: 18px;
   }
 
   .userMenu {

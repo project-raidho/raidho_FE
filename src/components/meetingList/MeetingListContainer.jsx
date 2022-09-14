@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"; // { useState, useEffect }
+// import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
@@ -8,20 +9,56 @@ const MeetingListContainer = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
 
-  const meetingStatus = [
-    {
-      statusNum: 1,
-      statusText: "모집중",
-    },
-    {
-      statusNum: 2,
-      statusText: "모집완료",
-    },
-    {
-      statusNum: 3,
-      statusText: "여행완료",
-    },
-  ];
+  // ::: ===> 서버 테스트 세팅
+  // const [selectedTheme, setSelectedTheme] = useState(null);
+  // const [meetingList, setMeetingList] = useState([]);
+
+  // const meetingStatus = [
+  //   {
+  //     statusNum: 1,
+  //     statusText: "모집중",
+  //   },
+  //   {
+  //     statusNum: 2,
+  //     statusText: "모집완료",
+  //   },
+  //   {
+  //     statusNum: 3,
+  //     statusText: "여행완료",
+  //   },
+  // ];
+
+  // ::: ===> 서버테스트 세팅
+  // ::: 테마별 리스트 불러오기
+  // const onClickTheme = async (theme) => {
+  //   setSelectedTheme(theme);
+  //   try {
+  //     const responseTheme = await authInstance.get(
+  //       `/api/post/meetinglist/${selectedTheme}`
+  //     );
+  //     console.log(responseTheme);
+  //     return setMeetingList(responseTheme.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // console.log("현재 선택된 테마 ::: ===>", selectedTheme);
+
+  // ::: ===> 서버테스트 세팅
+  // ::: 전체 리스트 불러오기
+  // const getMeetingList = async () => {
+  //   try {
+  //     const responseMeeting = await authInstance.get(`/api/post/meetinglist`);
+  //     console.log(responseMeeting);
+  //     return setMeetingList(responseMeeting.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getMeetingList();
+  // }, []);
 
   return (
     <StMeetingListContainerWrap>
@@ -33,6 +70,7 @@ const MeetingListContainer = () => {
             size="squareTheme"
             variant="lineBlue"
             key={theme.themeName + index}
+            // onClick={() => onClickTheme(theme.themePath)}
           >
             <NavLink
               to={`/meetingList/${theme.themePath}`}
@@ -44,14 +82,14 @@ const MeetingListContainer = () => {
         ))}
       </StMeetingCategoryRow>
 
-      <StMeetingCategoryRow className="flexRightLayout">
+      {/* <StMeetingCategoryRow className="flexRightLayout">
         {meetingStatus.map((status) => (
           <label key={status.statusNum}>
             <input type="checkbox" value={status.statusNum} />
             <span>{status.statusText}</span>
           </label>
         ))}
-      </StMeetingCategoryRow>
+      </StMeetingCategoryRow> */}
 
       <StMeetingCardBox>
         {meetingList.map((meeting) => (
