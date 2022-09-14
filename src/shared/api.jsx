@@ -16,6 +16,17 @@ const axiosAuthApi = (url, options) => {
     headers: { Authorization: token },
     ...options,
   });
+
+  instance.interceptors.request.use(
+    (config) => {
+      config.headers["Authorization"] = localStorage.getItem("Authorization");
+      return config;
+    },
+    (err) => {
+      return Promise.reject(err);
+    }
+  );
+
   return instance;
 };
 

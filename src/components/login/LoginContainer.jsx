@@ -1,62 +1,67 @@
 // import KakaoOauth from "../../shared/KaKaoOauth";
-import FaceBookLogin from "./FacebookLogin";
+// import FaceBookLogin from "./FacebookLogin";
 import React from "react";
 import styled from "styled-components";
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+
 // import NaverLogin from "./NaverLogin";
 import RaidhoLogo from "../../assets/raidhoLogo.svg";
 import {
   KAKAO_AUTH_URL,
-  // GOOGLE_AUTH_URL,
+  GOOGLE_AUTH_URL,
   NAVER_AUTH_URL,
 } from "../../shared/SocialOAuth";
 
-const LoginModal = ({ onClose }) => {
-  const navigate=useNavigate();
-  const oAuthLoginHandler =(id, email)=> {
-    let request = {
-        oAuhId: id,
-        email,
-    }
-  const URI = process.env.REACT_APP_BASE_URI;
-  const res= axios.post(`${URI}/ouath/facebook`, request)
-  
-  localStorage.setItem("Authorization", res.headers.authorization);
-  navigate("/");
-}
+import kakao from "../../assets/kakao.svg";
+import naver from "../../assets/naver.svg";
+import google from "../../assets/google.svg";
 
-  return(
+const LoginModal = ({ onClose }) => {
+  // const navigate = useNavigate();
+  // const oAuthLoginHandler = (id, email) => {
+  //   let request = {
+  //     oAuhId: id,
+  //     email,
+  //   };
+  //   const URI = process.env.REACT_APP_BASE_URI;
+  //   const res = axios.post(`${URI}/ouath/facebook`, request);
+
+  //   localStorage.setItem("Authorization", res.headers.authorization);
+  //   navigate("/");
+  // };
+
+  return (
     <>
-    <Background onClick={onClose} />
+      <Background onClick={onClose} />
       <ModalContentBox>
-      <button  className="closeButton" onClick={onClose}>x</button>
-      <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
-      
-      
+        <button className="closeButton" onClick={onClose}>
+          x
+        </button>
+        <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
+
         <div className="contents">
-        <h1>
-        <Kakaobutton className="kaako" href={KAKAO_AUTH_URL}><img
-          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          alt="kakao"
-        /></Kakaobutton>
-        </h1>
-        <Naverbutton href={NAVER_AUTH_URL}>
-          <img
-            src={require("../../assets/naverlogo.png")}
-            alt="네이버로그인"
-          />
-          {/* <NaverLogin/> */}
-        </Naverbutton>
-        
-         <FaceBookLogin className="faceBookLogin" oAuthLoginHandler={oAuthLoginHandler}/>
-        
-        
+          <h1>
+            <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
+              <img src={kakao} alt="kakao" />
+            </SocialLoginbutton>
+          </h1>
+          <SocialLoginbutton href={NAVER_AUTH_URL}>
+            <img src={naver} alt="네이버로그인" />
+            {/* <NaverLogin/> */}
+          </SocialLoginbutton>
+          <SocialLoginbutton href={GOOGLE_AUTH_URL}>
+            <img src={google} alt="구글로그인" />
+          </SocialLoginbutton>
+
+          {/* <FaceBookLogin
+            className="faceBookLogin"
+            oAuthLoginHandler={oAuthLoginHandler}
+          /> */}
         </div>
       </ModalContentBox>
     </>
   );
-}
+};
 
 export default LoginModal;
 
@@ -76,33 +81,34 @@ const Background = styled.div`
 
 const ModalContentBox = styled.div`
   position: absolute;
-  height: 600px;
+  height: 500px;
   width: 480px;
   top: 50%;
   left: 50%;
-  margin-top: -300px;
+  margin-top: -230px;
   margin-left: -240px;
   background-color: var(--bg-color);
   border: 1px solid var(--title-color);
   z-index: 6;
   text-align: center;
   .closeButton {
-    position:absolute;
-        top:10px;
-        right:10px;
-        background-color: transparent;
-        border:none;
-        margin-top: 20px;
-        margin-right: 20px;
-        font-size: 18px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 18px;
     width: 20px;
     height: 20px;
     cursor: pointer;
-    }
+  }
 
-  .logoImg{
-    margin-top:100px;
-    margin-bottom: 50px;
+  .logoImg {
+    margin-top: 80px;
+    margin-bottom: 30px;
+    width: 300px;
   }
   .contents {
     justify-content: center;
@@ -111,41 +117,25 @@ const ModalContentBox = styled.div`
     padding: 20px;
     z-index: 3;
   }
-  .faceBookLogin{
+  .faceBookLogin {
     margin: auto;
-    
   }
 `;
 
-const Kakaobutton =styled.a`
-
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -.04em;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    color: #1c1c1c;
-    border: none;
-
- img {
-  width: 268px;
-  height: 100%;
- }
-`
-const Naverbutton = styled.a`
-  display: block;
-  margin: 20px auto;
-  width: 268px;
+const SocialLoginbutton = styled.a`
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 60px;
-  overflow: hidden;
-  border-radius: 5px;
+  color: #1c1c1c;
+  border: none;
+  margin-top: 20px;
   img {
-    height: 100%;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
   }
-
 `;

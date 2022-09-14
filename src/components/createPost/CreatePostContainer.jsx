@@ -8,7 +8,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import { instance } from "../../shared/api";
+import { authInstance, instance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const CreatePostContainer = () => {
       const postResponse = await instance.post(`/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: localStorage.getItem("Authorization"),
+          // Authorization: localStorage.getItem("Authorization"),
         },
       });
 
