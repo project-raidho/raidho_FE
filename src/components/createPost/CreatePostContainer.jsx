@@ -8,7 +8,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import { authInstance, instance } from "../../shared/api";
+import { authInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ const CreatePostContainer = () => {
     console.log(postImages);
 
     try {
-      const postResponse = await instance.post(`/api/post`, formData, {
+      const postResponse = await authInstance.post(`/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           // Authorization: localStorage.getItem("Authorization"),
