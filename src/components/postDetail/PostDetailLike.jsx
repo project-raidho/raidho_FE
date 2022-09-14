@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
@@ -10,7 +11,10 @@ const PostDetailLike = ({ postDetail }) => {
   console.log(postDetail.isHeartMine);
   const [like, setLike] = useState(postDetail.isHeartMine);
   console.log(like);
-
+  useEffect(() => {
+    setLike(postDetail.isHeartMine);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const toggleLike = async () => {
     if (!like) {
       setCount(count + 1);
