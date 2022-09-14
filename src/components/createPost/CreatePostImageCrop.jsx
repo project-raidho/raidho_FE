@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import Modal from "../../global/globalModal/Modal";
+import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
@@ -39,6 +41,13 @@ const CreatePostImageCrop = ({
   const [saveImagesIndex, setSaveImagesIndex] = useState([]);
   const [saveImageValidationMsg, setSaveImageTagValidationMsg] = useState("");
   const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+  const [alertMsg, setAlertMsg] = useState("");
+
+  // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
+  const [modalOn, setModalOn] = useState(false);
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
 
   const aspectButtonList = [
     {
@@ -121,7 +130,9 @@ const CreatePostImageCrop = ({
   // ::: 이미지 저장하기 버튼 클릭하기
   const onChangeCropImage = (event) => {
     if (saveButtonStatus === false) {
-      alert("이미 이미지 저장이 완료되었습니다.");
+      setAlertMsg("이미 이미지 저장이 완료되었습니다.");
+      setModalOn(true);
+      // alert("이미 이미지 저장이 완료되었습니다.");
       return;
     }
     createCanvas();
@@ -185,7 +196,8 @@ const CreatePostImageCrop = ({
       const { width, height } = imageRef.current;
       setCrop(centerAspectCrop(width, height, aspect));
     } else {
-      alert("이미 저장한 이미지입니다!");
+      setAlertMsg("이미 저장한 이미지입니다!");
+      setModalOn(true);
     }
   };
 
@@ -198,7 +210,8 @@ const CreatePostImageCrop = ({
     // ::: 이미지 저장이 완료되었는지 체크하기
     if (saveImagesIndex.length === files.length) {
       setSaveButtonStatus(false);
-      alert("이미지 업로드 하기가 완료되었습니다!");
+      setAlertMsg("이미지 업로드 하기가 완료되었습니다!");
+      setModalOn(true);
     }
   }, [saveImagesIndex, files]);
 
@@ -276,6 +289,26 @@ const CreatePostImageCrop = ({
           </div>
         </StPostImageCropColumn>
       </StPostImageCropWrap>
+
+      <Potal>
+        {modalOn && (
+          <Modal onClose={handleModal}>
+            <StModalContent>
+              <h4>아이콘</h4>
+              <p>{alertMsg}</p>
+              <StButtonWrap>
+                <Button
+                  size="square"
+                  variant="lineSquare"
+                  onClick={handleModal}
+                >
+                  확인
+                </Button>
+              </StButtonWrap>
+            </StModalContent>
+          </Modal>
+        )}
+      </Potal>
     </StCreatePostImageCrop>
   );
 };
@@ -475,4 +508,40 @@ const StValidationMsg = styled.p`
   font-style: italic;
   color: var(--main-color);
   margin-bottom: 1rem;
+`;
+
+const StModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+
+  h4 {
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+  }
+
+  p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.3rem;
+  }
+`;
+
+const StButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
 `;
