@@ -33,7 +33,7 @@ const MainPostCard = ({ post }) => {
         alt="img"
         onClick={() => navigate(`/postdetail/${post.id}`)}
       />
-      <div className="imagesicon" />
+      {post.isImages && <div className="imagesicon" />}
       <div className="userBox">
         <div className="profileBox">
           <img

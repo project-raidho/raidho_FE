@@ -12,36 +12,49 @@ import MeetingListPage from "../pages/MeetingListPage";
 import ChattingPage from "../pages/ChattingPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import NaverLogin from "../components/login/NaverLogin";
-
+import GlobalHeader from "../global/GlobalHeader";
+import GlobalLayout from "../global/GlobalLayout";
+import styled from "styled-components";
 const Routers = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/postDetail/:id" element={<PostDetailPage />} />
-        <Route path="/myProfile" element={<MyProfilePage />} />
-        <Route path="/createPost" element={<CreatePostPage />} />
-        <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
-        <Route path="/post/:tagName" element={<SearchTagPage />} />
-        <Route path="/meeting/:tagName" element={<SearchTagPage />} />
-        <Route path="/createMeeting" element={<CreateMeetingPage />} />
-        <Route path="/meetingList" element={<MeetingListPage />} />
-        {themeList.map((theme) => (
-          <Route
-            key={theme.themeName}
-            path={`/meetingList/${theme.themePath}`}
-            element={<MeetingListPage />}
-          />
-        ))}
-        <Route path="/chatting" element={<ChattingPage />} />
-        <Route path="/chatting/:id" element={<ChattingPage />} />
-        <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
-        <Route path="/oauth/naver" element={<NaverLogin />} />
-      </Routes>
+      <StRouterWrapp>
+        <GlobalHeader />
+        <GlobalLayout>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/postDetail/:id" element={<PostDetailPage />} />
+            <Route path="/myProfile" element={<MyProfilePage />} />
+            <Route path="/createPost" element={<CreatePostPage />} />
+            <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
+            <Route path="/post/:tagName" element={<SearchTagPage />} />
+            <Route path="/meeting/:tagName" element={<SearchTagPage />} />
+            <Route path="/createMeeting" element={<CreateMeetingPage />} />
+            <Route path="/meetingList" element={<MeetingListPage />} />
+            {themeList.map((theme) => (
+              <Route
+                key={theme.themeName}
+                path={`/meetingList/${theme.themePath}`}
+                element={<MeetingListPage />}
+              />
+            ))}
+            <Route path="/chatting" element={<ChattingPage />} />
+            <Route path="/chatting/:id" element={<ChattingPage />} />
+            <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
+            <Route path="/oauth/naver" element={<NaverLogin />} />
+          </Routes>
+        </GlobalLayout>
+      </StRouterWrapp>
     </BrowserRouter>
   );
 };
 
 export default Routers;
+
+const StRouterWrapp = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+`;

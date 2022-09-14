@@ -1,22 +1,10 @@
 // import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import MainPostCard from "./MainPostCard";
 
 const MainPostList = ({ postList }) => {
-  useEffect(() => {
-    // getbestimages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ::: 상세보기 열고 닫는 state
-  // const [detailopen, setDetailopen] = useState(false)
-  // const detailhandler = (id) => {
-  //   //getpostdetail(id)
-  //   setDetailopen(true)
-  // };
-
   return (
     <StPostLisWrapp>
       <StitemList>
@@ -24,7 +12,6 @@ const MainPostList = ({ postList }) => {
           <MainPostCard key={post.id} post={post} />
         ))}
       </StitemList>
-      {/* {detailopen && <PostDeailContainer postDetail={postDetail} setDetailopen={setDetailopen} />} */}
     </StPostLisWrapp>
   );
 };

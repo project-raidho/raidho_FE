@@ -91,7 +91,7 @@ const CreateMeetingContatiner = () => {
 
   return (
     <StContainer>
-      <p>step 1. 여행정보 입력</p>
+      <h2>step 1. 여행정보 입력</h2>
       <h1>대륙 선택</h1>
       <ThemeSelect setTheme={setTheme} />
 
@@ -109,7 +109,7 @@ const CreateMeetingContatiner = () => {
       <h1>여행희망인원</h1>
       <TripPeopleCount setPeople={setPeople} />
       <br />
-      <p>step 2. 모집글정보 입력</p>
+      <h2>step 2. 모집글정보 입력</h2>
       <h1>모집글 제목</h1>
       <StTitleBox
         multiline
@@ -160,7 +160,7 @@ export default CreateMeetingContatiner;
 const StContainer = styled.div`
   width: 50%;
   margin: 0 auto;
-  p {
+  h2 {
     font-size: 30px;
     margin-top: 50px;
   }

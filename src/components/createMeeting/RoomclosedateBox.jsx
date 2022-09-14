@@ -4,7 +4,7 @@ import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어
 import moment from "moment";
 import Input from "../../elements/Input";
 import styled from "styled-components";
-
+import { BsCalendar3 } from "react-icons/bs";
 const RoomCloseDateBox = ({ setRoomCloseDate }) => {
   const [showCalendar, setShowCalendar] = useState(false); // 캘린더 여는 토글
   const tomorrow = moment().add(1, "d").toDate(); // 내일 날짜 기본값지정을 위해
@@ -30,14 +30,18 @@ const RoomCloseDateBox = ({ setRoomCloseDate }) => {
 
   return (
     <StRoomCloseDateBoxContainer>
-      <Input
-        value={inputdate}
-        variant="default"
-        size="medium"
-        onFocus={() => setShowCalendar(true)}
-        // onBlur={()=>setShowCalendar(false)}
-        onChange={inputonChangeHandler}
-      />
+      <StInputbox>
+        <StDateInput
+          value={inputdate}
+          variant="default"
+          size="medium"
+          onFocus={() => setShowCalendar(true)}
+          // onBlur={()=>setShowCalendar(false)}
+          onChange={inputonChangeHandler}
+        />
+        <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
+      </StInputbox>
+
       {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
         <Calendar
           editableDateInputs={true}
@@ -55,6 +59,17 @@ const RoomCloseDateBox = ({ setRoomCloseDate }) => {
 
 export default RoomCloseDateBox;
 
-const StRoomCloseDateBoxContainer = styled.div`
-  display: flexbox;
+const StRoomCloseDateBoxContainer = styled.div``;
+
+const CalendarIcon = styled(BsCalendar3)`
+  font-size: 25px;
+  margin: auto 5px;
+  cursor: pointer;
+`;
+
+const StDateInput = styled(Input)`
+  width: 80%;
+`;
+const StInputbox = styled.div`
+  display: flex;
 `;

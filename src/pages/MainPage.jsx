@@ -1,27 +1,15 @@
 import React from "react";
-
 import styled from "styled-components";
-import GlobalHeader from "../global/GlobalHeader";
 import MainMenu from "../components/main/MainMenu";
-import GlobalLayout from "../global/GlobalLayout";
 
 const MainPage = () => {
- 
-  
   return (
-
     <StMainPageWrap>
-      <GlobalHeader />
-      <GlobalLayout>
-        <MainMenu/>
-      </GlobalLayout>
+      <MainMenu />
     </StMainPageWrap>
-  
   );
 };
 
 export default MainPage;
 
-const StMainPageWrap = styled.div`
-  background-color: var(--bg-color);
-`;
+const StMainPageWrap = styled.div``;
