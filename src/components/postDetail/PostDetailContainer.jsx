@@ -31,7 +31,7 @@ const PostDetailContainer = () => {
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
     memberName: "김경문",
   });
-  console.log(postDetail);
+  console.log(postDetail.id);
   // const [isMine, setIsMine] = useState(false);
   useEffect(() => {
     getpostdetail(id);
@@ -46,7 +46,7 @@ const PostDetailContainer = () => {
   const getpostdetail = async (id) => {
     const res = await authInstance.get(`/api/post/${id}`);
     console.log(res);
-    return setPostDetail(res.data.data);
+    return setPostDetail(res.data.data[0]);
   };
   // ::: 상세페이지 삭세 axios
   const deletePostDetail = async (id) => {
