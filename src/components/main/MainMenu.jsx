@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { authInstance, instance } from "../../shared/api";
+import { authInstance } from "../../shared/api";
 
 import MainPostList from "./MainPostList";
 import Button from "../../elements/Button";
@@ -65,11 +65,7 @@ const MainMenu = () => {
     // console.log(res);
     // return setPostList(res.data.data.content);
 
-    const res = await instance.get(`/api/post/latest`, {
-      headers: {
-        Authorization: localStorage.getItem("Authorization"),
-      },
-    });
+    const res = await authInstance.get(`/api/post/latest`);
 
     console.log(res);
     return setPostList(res.data.data.content);
