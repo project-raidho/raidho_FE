@@ -7,21 +7,22 @@ import styled from "styled-components";
 const MeetingListContainer = () => {
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
+  // const [selectedTheme, setSelectedTheme] = useState(null);
 
-  const meetingStatus = [
-    {
-      statusNum: 1,
-      statusText: "모집중",
-    },
-    {
-      statusNum: 2,
-      statusText: "모집완료",
-    },
-    {
-      statusNum: 3,
-      statusText: "여행완료",
-    },
-  ];
+  // const meetingStatus = [
+  //   {
+  //     statusNum: 1,
+  //     statusText: "모집중",
+  //   },
+  //   {
+  //     statusNum: 2,
+  //     statusText: "모집완료",
+  //   },
+  //   {
+  //     statusNum: 3,
+  //     statusText: "여행완료",
+  //   },
+  // ];
 
   return (
     <StMeetingListContainerWrap>
@@ -33,6 +34,7 @@ const MeetingListContainer = () => {
             size="squareTheme"
             variant="lineBlue"
             key={theme.themeName + index}
+            // onClick={() => onClickTheme(theme.themePath)}
           >
             <NavLink
               to={`/meetingList/${theme.themePath}`}
@@ -44,14 +46,14 @@ const MeetingListContainer = () => {
         ))}
       </StMeetingCategoryRow>
 
-      <StMeetingCategoryRow className="flexRightLayout">
+      {/* <StMeetingCategoryRow className="flexRightLayout">
         {meetingStatus.map((status) => (
           <label key={status.statusNum}>
             <input type="checkbox" value={status.statusNum} />
             <span>{status.statusText}</span>
           </label>
         ))}
-      </StMeetingCategoryRow>
+      </StMeetingCategoryRow> */}
 
       <StMeetingCardBox>
         {meetingList.map((meeting) => (
