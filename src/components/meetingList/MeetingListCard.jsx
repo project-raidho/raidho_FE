@@ -3,6 +3,35 @@ import Button from "../../elements/Button";
 import styled from "styled-components";
 
 const MeetingListCard = ({ meeting }) => {
+  // ::: 날짜 차이 계산하기
+  const dateCalculation = (day1, day2) => {
+    const dateStart = new Date(day1);
+    const dateEnd = new Date(day2);
+
+    const diffDate = dateStart.getTime() - dateEnd.getTime();
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24));
+  };
+
+  // ::: 모집날짜 몇 박 몇 일 계산하기
+  const tripPeriod = dateCalculation(
+    meeting.meetingPeriod[0],
+    meeting.meetingPeriod[1]
+  );
+
+  // ::: 오늘 날짜 계산하기
+  const todayCalculation = () => {
+    const originDate = new Date();
+    const year = originDate.getFullYear();
+    const month = originDate.getMonth() + 1;
+    const date = originDate.getDate();
+
+    return `${year}-${month}-${date}`;
+  };
+  const today = todayCalculation();
+
+  // ::: 디데이 계산하기
+  const dday = Math.floor(dateCalculation(today, meeting.roomClosedate));
+
   return (
     <StMeetingListCardWrap>
       <StMeetingCardUpDown>
@@ -10,7 +39,7 @@ const MeetingListCard = ({ meeting }) => {
           <p className="infoStatus">
             {meeting.meetingStatus === 1 && (
               <span>
-                모집중 D<b>-10</b>
+                모집중 D-<b>{dday}</b>
               </span>
             )}
             {meeting.meetingStatus === 2 && (
@@ -25,7 +54,16 @@ const MeetingListCard = ({ meeting }) => {
           </p>
         </StMeetingCardRow>
         <h3>{meeting.meetingTitle}</h3>
-        <p>{meeting.meetingPeriod}</p>
+        <p>
+          {tripPeriod === 0
+            ? `${tripPeriod + 1}일`
+            : `${tripPeriod}박 ${tripPeriod + 1}일`}
+          <span>{` (${meeting.meetingPeriod[0].split("-")[1]}/${
+            meeting.meetingPeriod[0].split("-")[2]
+          } - ${meeting.meetingPeriod[1].split("-")[1]}/${
+            meeting.meetingPeriod[1].split("-")[2]
+          })`}</span>
+        </p>
         <p>{meeting.meetingAddress}</p>
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
