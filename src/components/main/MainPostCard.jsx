@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import axios from "axios";
+import { authInstance } from "../../shared/api";
 import HeartButton from "./HeartButton";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,14 @@ const MainPostCard = ({ post }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const toggleLike = async (e) => {
-    //   const res = await axios.post(...) // [POST] 사용자가 좋아요를 누름 -> DB 갱신
+  const toggleLike = async () => {
+    if (!like) {
+      const res = await authInstance.post(`/api/postheart/${post.id}`);
+      console.log(res);
+    } else {
+      const res = await authInstance.delete(`/api/postheart/${post.id}`);
+      console.log(res);
+    }
     setLike(!like);
   };
 
@@ -29,7 +35,7 @@ const MainPostCard = ({ post }) => {
     <StFigure>
       <img
         className="img"
-        src={post.imgurl}
+        src={post.multipartFiles[0]}
         alt="img"
         onClick={() => navigate(`/postdetail/${post.id}`)}
       />
@@ -56,13 +62,13 @@ export default MainPostCard;
 const StFigure = styled.figure`
   display: inline-block;
   position: relative;
-
+  border: 1px solid var(--gray-color);
   margin: 0;
   width: 310px;
   margin-bottom: 15px;
   .img {
     width: 100%;
-
+    border: 1px solid var(--gray-color);
     cursor: pointer;
   }
   .imagesicon {

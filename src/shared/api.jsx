@@ -21,6 +21,7 @@ const axiosAuthApi = (url, options) => {
 
 const axiosFormDataApi = (url, options) => {
   const token = localStorage.getItem("Authorization");
+  console.log(token);
   const instance = axios.create({
     baseURL: url,
     headers: { "Content-Type": "multipart/form-data", Authorization: token },

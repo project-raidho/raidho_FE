@@ -5,6 +5,7 @@ import styled from "styled-components";
 import MainPostCard from "./MainPostCard";
 
 const MainPostList = ({ postList }) => {
+  console.log(postList);
   return (
     <StPostLisWrapp>
       <StitemList>

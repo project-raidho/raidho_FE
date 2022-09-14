@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
-
+// import { useForm } from "react-hook-form";
 import axios from "axios";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
@@ -15,7 +15,15 @@ import TextField from "@mui/material/TextField";
 // import chat, { chatActions } from "../../redux/modules/chat";
 // import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const CreateMeetingContatiner = () => {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { isSubmitting, isDirty, errors },
+  // } = useForm({ mode: "onChange" });
+
   const navigate = useNavigate();
   const [theme, setTheme] = useState("");
   const [locationtags, setLocationTags] = useState([]);
@@ -62,12 +70,6 @@ const CreateMeetingContatiner = () => {
   // const accesstoken = localStorage.getItem("Authorization");
   // const refreshtoken = localStorage.getItem("RefreshToken");
 
-  // let config = {
-  //     headers: {
-  //         Authorization: accesstoken,
-  //         RefreshToken: refreshtoken,
-  //     },
-  // };
   const data = {
     theme: theme,
     locationtags: locationtags,
@@ -141,17 +143,18 @@ const CreateMeetingContatiner = () => {
 
       <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
-
-      <CreateButton
-        size="small"
-        variant="primary"
-        onClick={() => {
-          postcreatemeeting();
-          onClickCreateRoom();
-        }}
-      >
-        등록하기
-      </CreateButton>
+      <StbottonBox>
+        <Button
+          size="small"
+          variant="primary"
+          onClick={() => {
+            postcreatemeeting();
+            onClickCreateRoom();
+          }}
+        >
+          등록하기
+        </Button>
+      </StbottonBox>
     </StContainer>
   );
 };
@@ -204,8 +207,8 @@ const StTags = styled.div`
   }
 `;
 
-const CreateButton = styled(Button)`
-  float: right;
+const StbottonBox = styled.div`
+  padding: 50px 10px;
 `;
 
 // const StCategorySelectBox = styled.div`
