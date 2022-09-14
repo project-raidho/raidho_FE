@@ -7,6 +7,7 @@ import HeartButton from "../main/HeartButton";
 const PostDetailLike = ({ isHeartMine, heartCount }) => {
   const { id } = useParams();
   const [count, setCount] = useState(0);
+  console.log(isHeartMine);
   const [like, setLike] = useState(isHeartMine);
   console.log(like);
 
