@@ -9,7 +9,7 @@ import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(post.isHeartMine);
 
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
@@ -64,10 +64,10 @@ export default MainPostCard;
 const StFigure = styled.figure`
   display: inline-block;
   position: relative;
-  border: 1px solid var(--gray-color);
+
   margin: 0;
   width: 310px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   .img {
     width: 100%;
     border: 1px solid var(--gray-color);
@@ -89,6 +89,7 @@ const StFigure = styled.figure`
   }
   .userBox {
     display: flex;
+    margin-top: 5px;
   }
   .profileBox {
     width: 30px;

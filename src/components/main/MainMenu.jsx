@@ -21,9 +21,31 @@ const MainMenu = () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
       ],
       heartCount: 100,
+      isHeartMine: true,
     },
     {
       id: 2,
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      memberName: "김경문",
+      isImages: false,
+      memberImage: null,
+      isHeartMine: false,
+    },
+    {
+      id: 3,
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      memberName: "김경문",
+      isImages: false,
+      memberImage: null,
+    },
+    {
+      id: 4,
       multipartFiles: [
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
@@ -36,7 +58,7 @@ const MainMenu = () => {
   const getBestPosts = async () => {
     const res = await authInstance.get(`/api/post/likelist`);
     console.log(res);
-    return setPostList(res.data);
+    return setPostList(res.data.data.content);
   };
   const getLatestPosts = async () => {
     // const res = await instance.get(`/api/post/latest`);
