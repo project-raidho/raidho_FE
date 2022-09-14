@@ -4,25 +4,14 @@ import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../main/HeartButton";
 
-const PostDetailLike = ({ postDetail }) => {
-  const initial = postDetail.heartCount;
+const PostDetailLike = ({ isHeartMine, heartCount }) => {
   const { id } = useParams();
-  console.log(initial);
   const [count, setCount] = useState(0);
-
-  const [like, setLike] = useState(false);
-
+  const [like, setLike] = useState(isHeartMine);
   console.log(like);
-  // const URI = process.env.REACT_APP_BASE_URI;
-  // let config = {
-  //     headers: {
-  //       Authorization: localStorage.getItem("Authorization"),
-  //       RefreshToken: localStorage.getItem("RefreshToken"),
-  //     },
-  //   };
 
   const toggleLike = async () => {
-    if (like === false) {
+    if (!like) {
       setCount(count + 1);
       await authInstance.post(`/api/postheart/${id}`);
     } else {
@@ -30,12 +19,10 @@ const PostDetailLike = ({ postDetail }) => {
       await authInstance.delete(`/api/postheart/${id}`);
     }
     return setLike(!like);
-
-    // [POST] 사용자가 좋아요를 누름 -> DB 갱신
   };
   return (
     <StlikeWrapper>
-      <StHeartCountBox>{postDetail.heartCount + count}</StHeartCountBox>
+      <StHeartCountBox>{heartCount + count}</StHeartCountBox>
       <HeartButton like={like} onClick={toggleLike} />
     </StlikeWrapper>
   );

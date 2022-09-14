@@ -15,55 +15,45 @@ const PostDetailContainer = () => {
   const { id } = useParams();
   console.log(id);
   const navigate = useNavigate();
-  // const [postDetail, setPostDetail] = useState(
-  //   {
-  //     id: 1,
-  //     content: "너무 멋져요~~",
-  //     postImgs: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"],
-  //     tags: ["#등산", "#한라산"],
-  //     locationTags: ["#경기", "#안양"],
-  //     heartCount: 100,
-  //     memberId: 1,
-  //     memberImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
-  //     memberName: "김경문",
-  //   }
-  // );
-  const postDetail = {
+  const [postDetail, setPostDetail] = useState({
     id: 1,
     content: "너무 멋져요~~",
-    postImgs: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+    multipartFiles: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
     ],
     tags: ["#등산", "#한라산"],
     locationTags: ["#경기", "#안양"],
     heartCount: 100,
+    isHeartMine: false,
+    isMine: true,
     memberId: 1,
     memberImage:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
     memberName: "김경문",
-  };
-  const [isMine, setIsMine] = useState(false);
+  });
+  console.log(postDetail);
+  // const [isMine, setIsMine] = useState(false);
   useEffect(() => {
-    const memberID = localStorage.getItem("memberId");
-    // getpostdetail(id);
-    if (postDetail.memberId === Number(memberID)) {
-      return setIsMine(true);
-    }
+    getpostdetail(id);
+    // const memberID = localStorage.getItem("memberId");
+
+    // if (postDetail.memberId === Number(memberID)) {
+    //   return setIsMine(true);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // ::: 상세보기 가져오는 axios
-  // const getpostdetail = async (id) => {
-  //   const res = await axios.get(`${URI}/detail/${id}`);
-  //   return setPostDetail(res.data);
-  // };
-
-  const deletePostDetail = async (postId) => {
-    const res = await authInstance.delete(`/items/${postId}`);
+  // ::: 상세페이지 조회 axios
+  const getpostdetail = async (id) => {
+    const res = await authInstance.get(`/api/post/${id}`);
     console.log(res);
-    navigate("/");
-    return postId;
+    return setPostDetail(res.data.data);
+  };
+  // ::: 상세페이지 삭세 axios
+  const deletePostDetail = async (id) => {
+    const res = await authInstance.delete(`/api/post/${id}`);
+    console.log(res);
+    navigate(-1);
+    return id;
   };
 
   return (
@@ -75,14 +65,14 @@ const PostDetailContainer = () => {
           navigate(-1);
         }}
       />
-      {isMine && (
+      {postDetail.isMine && (
         <RiDeleteBin6Fill
           className="deleteButton"
           size="24"
-          onClick={() => deletePostDetail(postDetail.id)}
+          onClick={() => deletePostDetail}
         />
       )}
-      {isMine && (
+      {postDetail.isMine && (
         <RiEdit2Fill
           className="editButton"
           size="24"
@@ -92,8 +82,11 @@ const PostDetailContainer = () => {
         />
       )}
 
-      <PostDetailImage images={postDetail.postImgs} />
-      <PostDetailLike postDetail={postDetail} />
+      <PostDetailImage images={postDetail.multipartFiles} />
+      <PostDetailLike
+        isHeartMine={postDetail.isHeartMine}
+        heartCount={postDetail.heartCount}
+      />
       <PostDetailUser postDetail={postDetail} />
       <StContentBox>{postDetail.content}</StContentBox>
     </StDetailContainer>
