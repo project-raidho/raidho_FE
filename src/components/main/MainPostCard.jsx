@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { instance } from "../../shared/api";
+import { authInstance } from "../../shared/api";
 import HeartButton from "./HeartButton";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,10 +27,10 @@ const MainPostCard = ({ post }) => {
 
   const toggleLike = async () => {
     if (!like) {
-      const res = await instance.post(`/api/postheart/${post.id}`);
+      const res = await authInstance.post(`/api/postheart/${post.id}`);
       console.log(res);
     } else {
-      const res = await instance.delete(`/api/postheart/${post.id}`);
+      const res = await authInstance.delete(`/api/postheart/${post.id}`);
       console.log(res);
     }
     setLike(!like);
