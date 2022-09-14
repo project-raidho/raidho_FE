@@ -1,14 +1,16 @@
 import styled from "styled-components";
+import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const PostDetailUser = ({ postDetail }) => {
+  const memberImage =
+    postDetail.memberImage === null
+      ? `${DefaultMemberImage}`
+      : `${postDetail.memberImage}`;
+
   return (
     <StUserWrapper>
       <div className="profileBox">
-        <img
-          className="profileImg"
-          src={postDetail.memberImage}
-          alt="프로필이미지"
-        />
+        <img className="profileImg" src={memberImage} alt="프로필이미지" />
       </div>
       <StProfileRightBox>
         <h2>{postDetail.memberName}</h2>

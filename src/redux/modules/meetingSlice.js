@@ -20,7 +20,8 @@ const initialState = {
       "meetingPeople": 5,
       "meetingParticipant": 1,
       "meetingStatus": 1, // 1 모집중, 2 모집완료, 3진행완료
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-10-01", "2022-10-05"],
+      "roomClosedate": "2022-09-30"
     },
     {
       "id": 2,
@@ -34,7 +35,8 @@ const initialState = {
       "meetingPeople": 3,
       "meetingParticipant": 1,
       "meetingStatus": 1,
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-09-15", "2022-09-19"],
+      "roomClosedate": "2022-09-05"
     },
     {
       "id": 3,
@@ -48,7 +50,8 @@ const initialState = {
       "meetingPeople": 5,
       "meetingParticipant": 1,
       "meetingStatus": 2, // 1 모집중, 2 모집완료, 3진행완료
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-10-02", "2022-10-02"],
+      "roomClosedate": "2022-09-30"
     },
     {
       "id": 4,
@@ -61,8 +64,9 @@ const initialState = {
       "meetingAddress": "경기도 용인시 구갈로0000",
       "meetingPeople": 3,
       "meetingParticipant": 1,
-      "meetingStatus": 3,
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingStatus": 1,
+      "meetingPeriod": ["2022-09-30", "2022-10-02"],
+      "roomClosedate": "2022-09-27"
     },
     {
       "id": 5,
@@ -76,7 +80,8 @@ const initialState = {
       "meetingPeople": 5,
       "meetingParticipant": 1,
       "meetingStatus": 1, // 1 모집중, 2 모집완료, 3진행완료
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-09-30", "2022-10-02"],
+      "roomClosedate": "2022-09-30"
     },
     {
       "id": 6,
@@ -90,7 +95,8 @@ const initialState = {
       "meetingPeople": 3,
       "meetingParticipant": 1,
       "meetingStatus": 1,
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-09-30", "2022-10-02"],
+      "roomClosedate": "2022-09-30"
     },
     {
       "id": 7,
@@ -104,7 +110,8 @@ const initialState = {
       "meetingPeople": 5,
       "meetingParticipant": 1,
       "meetingStatus": 2, // 1 모집중, 2 모집완료, 3진행완료
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-09-30", "2022-10-02"],
+      "roomClosedate": "2022-09-30"
     },
     {
       "id": 8,
@@ -118,7 +125,8 @@ const initialState = {
       "meetingPeople": 3,
       "meetingParticipant": 1,
       "meetingStatus": 3,
-      "meetingPeriod": "2022.09.30-2022.10.02"
+      "meetingPeriod": ["2022-09-30", "2022-10-02"],
+      "roomClosedate": "2022-09-30"
     },
 
   ],
