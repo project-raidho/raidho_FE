@@ -39,7 +39,16 @@ const MainMenu = () => {
     return setPostList(res.data);
   };
   const getLatestPosts = async () => {
-    const res = await instance.get(`/api/post/latest`);
+    // const res = await instance.get(`/api/post/latest`);
+    // console.log(res);
+    // return setPostList(res.data.data.content);
+
+    const res = await instance.get(`/api/post`, {
+      headers: {
+        Authorization: localStorage.getItem("Authorization"),
+      },
+    });
+
     console.log(res);
     return setPostList(res.data.data.content);
   };
