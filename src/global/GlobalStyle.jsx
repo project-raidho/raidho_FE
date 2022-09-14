@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --font-style: 'NEXON Lv2 Gothic';
-    --box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+    --box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.25);
   }
   .darkMode {
     --bg-color: #343434;
