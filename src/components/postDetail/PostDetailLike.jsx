@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { authInstance } from "../../shared/api";
 import HeartButton from "../main/HeartButton";
-// import axios from "axios";
 
 const PostDetailLike = ({ postDetail }) => {
   const initial = postDetail.heartCount;
+  const { id } = useParams();
   console.log(initial);
   const [count, setCount] = useState(0);
 
@@ -22,10 +24,10 @@ const PostDetailLike = ({ postDetail }) => {
   const toggleLike = async () => {
     if (like === false) {
       setCount(count + 1);
-      //  await axios.post(`${URI}/detail/like`, {like:true}, config)
+      await authInstance.post(`/api/postheart/${id}`);
     } else {
       setCount(count - 1);
-      // await axios.post(`${URI}/detail/like`, {like:false}, config)
+      await authInstance.delete(`/api/postheart/${id}`);
     }
     return setLike(!like);
 

@@ -14,13 +14,13 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
     setPlace(InputText);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setPlace(addressDetail);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setPlace(addressDetail);
+  // };
 
   // const [address, setAddress] = useState(''); // 주소
-  const [addressDetail, setAddressDetail] = useState(""); // 상세주소
+  // const [addressDetail, setAddressDetail] = useState(""); // 상세주소
   const [isOpenPost, setIsOpenPost] = useState(false);
   const onChangeOpenPost = () => {
     setIsOpenPost(!isOpenPost);
@@ -42,7 +42,7 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
     }
 
     // setAddress(data.zonecode);
-    setAddressDetail(fullAddr);
+    // setAddressDetail(fullAddr);
     setInputText(fullAddr);
     setPlace(fullAddr);
     setDepartLocation(fullAddr);
@@ -60,41 +60,46 @@ const MeetingLocationSearch = ({ setDepartLocation }) => {
 
   return (
     <SearchWrapp>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <SearchInput
-          variant="default"
-          size="medium"
-          placeholder="도로명주소를 입력하세요"
-          onChange={onChange}
-          value={InputText}
-        />
-        <Button onClick={onChangeOpenPost}>
-          {isOpenPost ? "검색창 닫기" : "주소검색"}
-        </Button>
-        {isOpenPost && (
-          <div>
-            <DaumPostcode
-              className="postmodal"
-              style={postCodeStyle}
-              autoClose
-              onComplete={onCompletePost}
-            />
-          </div>
-        )}
-      </form>
-      <Mapbox searchPlace={Place} />
+      {/* <form className="inputForm" onSubmit={handleSubmit}> */}
+
+      <Button onClick={onChangeOpenPost}>
+        {isOpenPost ? "검색창 닫기" : "주소검색"}
+      </Button>
+      {isOpenPost && (
+        <div>
+          <DaumPostcode
+            className="postmodal"
+            style={postCodeStyle}
+            autoClose
+            onComplete={onCompletePost}
+          />
+        </div>
+      )}
+      {/* </form> */}
+
+      <KakaoMap searchPlace={Place} />
+
+      <SearchInput
+        variant="default"
+        size="medium"
+        placeholder="도로명주소가 입력되는 창입니다."
+        onChange={onChange}
+        value={InputText}
+      />
     </SearchWrapp>
   );
 };
 
 export default MeetingLocationSearch;
 
-const SearchWrapp = styled.div``;
-
-const Mapbox = styled(KakaoMap)`
-  margin-top: 10px;
+const SearchWrapp = styled.div`
+  .postmodal {
+    margin: 10px auto;
+  }
 `;
 
 const SearchInput = styled(Input)`
+  display: block;
   width: 80%;
+  margin: 0 auto;
 `;

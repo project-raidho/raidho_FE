@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const URI = process.env.REACT_APP_BASE_URI;
-const token = localStorage.getItem("Authorization");
 
 // 단순 get요청으로 인증값이 필요없는 경우
 const axiosApi = (url, options) => {
@@ -21,10 +20,12 @@ const axiosAuthApi = (url, options) => {
 };
 
 const axiosFormDataApi = (url, options) => {
-  console.log(token);
   const instance = axios.create({
     baseURL: url,
-    headers: { "Content-Type": "multipart/form-data", Authorization: token },
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: localStorage.getItem("Authorization"),
+    },
     ...options,
   });
   return instance;

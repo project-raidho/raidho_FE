@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
-
+// import { useForm } from "react-hook-form";
 import axios from "axios";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
@@ -15,7 +15,15 @@ import TextField from "@mui/material/TextField";
 // import chat, { chatActions } from "../../redux/modules/chat";
 // import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const CreateMeetingContatiner = () => {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { isSubmitting, isDirty, errors },
+  // } = useForm({ mode: "onChange" });
+
   const navigate = useNavigate();
   const [theme, setTheme] = useState("");
   const [locationtags, setLocationTags] = useState([]);
@@ -62,12 +70,6 @@ const CreateMeetingContatiner = () => {
   // const accesstoken = localStorage.getItem("Authorization");
   // const refreshtoken = localStorage.getItem("RefreshToken");
 
-  // let config = {
-  //     headers: {
-  //         Authorization: accesstoken,
-  //         RefreshToken: refreshtoken,
-  //     },
-  // };
   const data = {
     theme: theme,
     locationtags: locationtags,
@@ -91,7 +93,7 @@ const CreateMeetingContatiner = () => {
 
   return (
     <StContainer>
-      <p>step 1. 여행정보 입력</p>
+      <h2>step 1. 여행정보 입력</h2>
       <h1>대륙 선택</h1>
       <ThemeSelect setTheme={setTheme} />
 
@@ -109,7 +111,7 @@ const CreateMeetingContatiner = () => {
       <h1>여행희망인원</h1>
       <TripPeopleCount setPeople={setPeople} />
       <br />
-      <p>step 2. 모집글정보 입력</p>
+      <h2>step 2. 모집글정보 입력</h2>
       <h1>모집글 제목</h1>
       <StTitleBox
         multiline
@@ -141,17 +143,18 @@ const CreateMeetingContatiner = () => {
 
       <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
-
-      <CreateButton
-        size="small"
-        variant="primary"
-        onClick={() => {
-          postcreatemeeting();
-          onClickCreateRoom();
-        }}
-      >
-        등록하기
-      </CreateButton>
+      <StbottonBox>
+        <Button
+          size="small"
+          variant="primary"
+          onClick={() => {
+            postcreatemeeting();
+            onClickCreateRoom();
+          }}
+        >
+          등록하기
+        </Button>
+      </StbottonBox>
     </StContainer>
   );
 };
@@ -160,7 +163,7 @@ export default CreateMeetingContatiner;
 const StContainer = styled.div`
   width: 50%;
   margin: 0 auto;
-  p {
+  h2 {
     font-size: 30px;
     margin-top: 50px;
   }
@@ -204,8 +207,8 @@ const StTags = styled.div`
   }
 `;
 
-const CreateButton = styled(Button)`
-  float: right;
+const StbottonBox = styled.div`
+  padding: 50px 10px;
 `;
 
 // const StCategorySelectBox = styled.div`
