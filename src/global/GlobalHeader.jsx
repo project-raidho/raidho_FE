@@ -21,7 +21,7 @@ const GlobalHeader = () => {
 
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
-    localStorage.getItem("memberImage") === "null"
+    localStorage.getItem("memberImage") === null
       ? `${DefaultMemberImage}`
       : localStorage.getItem("memberImage");
 
@@ -81,85 +81,90 @@ const GlobalHeader = () => {
     <StGlobalHeaderWrap>
       <StGlobalLayoutHeader>
         <StHeaderRow>
-          <StRaidhoLogo>
-            <Link to={"/"}>
-              <img src={RaidhoLogo} alt="RaidhoLogo" />
-            </Link>
-          </StRaidhoLogo>
-          <SearchContainer isLogin={isLogin} />
-          <StHeaderMidMenu>
-            <NavLink
-              to={`/`}
-              className={({ isActive }) => (isActive ? "selected" : "not")}
-            >
-              여행 후기
-            </NavLink>
-            <NavLink
-              to={`/meetingList`}
-              className={({ isActive }) => (isActive ? "selected" : "not")}
-            >
-              여행 친구 찾기
-            </NavLink>
-            <StSwitchButton checkDarkMode={checkDarkMode}>
-              <input
-                type="checkbox"
-                onClick={darkOnOff}
-                defaultChecked={checkDarkMode && "checked"}
-              />
-              <span className="onoffSwitch"></span>
-            </StSwitchButton>
-          </StHeaderMidMenu>
-          {isLogin ? (
-            <StHeaderRightMenu>
-              <div className="rightMenu">
-                <p
+          <div className="navWrap">
+            <StRaidhoLogo>
+              <Link to={"/"}>
+                <img src={RaidhoLogo} alt="RaidhoLogo" />
+              </Link>
+            </StRaidhoLogo>
+            <SearchContainer isLogin={isLogin} />
+          </div>
+          <div className="navWrap">
+            <StHeaderMidMenu>
+              <NavLink
+                to={`/`}
+                className={({ isActive }) => (isActive ? "selected" : "not")}
+              >
+                여행 후기
+              </NavLink>
+              <NavLink
+                to={`/meetingList`}
+                className={({ isActive }) => (isActive ? "selected" : "not")}
+              >
+                여행 친구 찾기
+              </NavLink>
+              <StSwitchButton checkDarkMode={checkDarkMode}>
+                <input
+                  type="checkbox"
+                  onClick={darkOnOff}
+                  defaultChecked={checkDarkMode && "checked"}
+                />
+                <span className="onoffSwitch"></span>
+              </StSwitchButton>
+            </StHeaderMidMenu>
+
+            {isLogin ? (
+              <StHeaderRightMenu>
+                <div className="rightMenu">
+                  <p
+                    onClick={() => {
+                      setIsToggle(false);
+                      setIsAddPostToggle(!isAddPostToggle);
+                    }}
+                  >
+                    <img src={AddPostIcon} alt="게시물 추가하러 가기" />
+                  </p>
+
+                  <StToggleBox isToggle={isAddPostToggle}>
+                    <li>
+                      <Link to={`/createPost`}>여행 후기 작성하기</Link>
+                    </li>
+                    <li>
+                      <Link to={`/createMeeting`}>모집글 작성하기</Link>
+                    </li>
+                  </StToggleBox>
+                </div>
+                <div className="rightMenu">
+                  <Link to={"/chatting"}>
+                    <img src={GoChattingIcon} alt="채팅하러 가기" />
+                    <span>5</span>
+                  </Link>
+                </div>
+                <div
+                  className="rightMenu userMenu"
                   onClick={() => {
-                    setIsToggle(false);
-                    setIsAddPostToggle(!isAddPostToggle);
+                    setIsAddPostToggle(false);
+                    setIsToggle(!isToggle);
                   }}
                 >
-                  <img src={AddPostIcon} alt="게시물 추가하러 가기" />
-                </p>
-
-                <StToggleBox isToggle={isAddPostToggle}>
+                  <img src={memberImage} alt="사용자 프로필 이미지" />
+                </div>
+                <StToggleBox isToggle={isToggle}>
                   <li>
-                    <Link to={`/createPost`}>여행 후기 작성하기</Link>
+                    <Link to={`/myProfile`}>마이페이지</Link>
                   </li>
-                  <li>
-                    <Link to={`/createMeeting`}>모집글 작성하기</Link>
-                  </li>
+                  <li onClick={onClickLogOut}>로그아웃</li>
                 </StToggleBox>
-              </div>
-              <div className="rightMenu">
-                <Link to={"/chatting"}>
-                  <img src={GoChattingIcon} alt="채팅하러 가기" />
-                  <span>5</span>
-                </Link>
-              </div>
-              <div
-                className="rightMenu userMenu"
-                onClick={() => {
-                  setIsAddPostToggle(false);
-                  setIsToggle(!isToggle);
-                }}
-              >
-                <img src={memberImage} alt="사용자 프로필 이미지" />
-              </div>
-              <StToggleBox isToggle={isToggle}>
-                <li>
-                  <Link to={`/myProfile`}>마이페이지</Link>
-                </li>
-                <li onClick={onClickLogOut}>로그아웃</li>
-              </StToggleBox>
-            </StHeaderRightMenu>
-          ) : (
-            <StHeaderRightMenu>
-              <Button size="small" variant="primary" onClick={handleModal}>
-                로그인
-              </Button>
-              <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
-            </StHeaderRightMenu>
-          )}
+              </StHeaderRightMenu>
+            ) : (
+              <StHeaderRightMenu>
+                <Button size="small" variant="primary" onClick={handleModal}>
+                  로그인
+                </Button>
+                <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
+              </StHeaderRightMenu>
+            )}
+          </div>
         </StHeaderRow>
       </StGlobalLayoutHeader>
     </StGlobalHeaderWrap>
@@ -175,11 +180,12 @@ const StGlobalHeaderWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 58px;
+  margin-bottom: 30px;
   background-color: var(--bg-color);
   /* transition: 1s; */
-  padding: 30px 0;
+  padding: 10px 0;
   z-index: 10;
+  box-shadow: var(--box-shadow);
 `;
 
 const StSwitchButton = styled.label`
@@ -240,8 +246,8 @@ const StSwitchButton = styled.label`
 `;
 
 const StGlobalLayoutHeader = styled.div`
-  width: 100%;
-  max-width: 1305px;
+  width: 96%;
+  /* max-width: 1305px; */
   margin: 0 auto;
 `;
 
@@ -250,11 +256,18 @@ const StHeaderRow = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .navWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const StRaidhoLogo = styled.h1`
-  width: 200px;
-  height: 55px;
+  width: 195px;
+  height: 50px;
   padding-top: 0.6rem;
 `;
 
@@ -281,15 +294,16 @@ const StHeaderRightMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  margin-left: 22px;
 
   .rightMenu {
     position: relative;
-    margin-right: 18px;
+    margin-right: 22px;
   }
 
   .userMenu {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border: 1px solid var(--gray-color);
     border-radius: 50%;
     background-color: var(--main-color);

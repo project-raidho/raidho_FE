@@ -1,14 +1,19 @@
 import styled from "styled-components";
-import { authInstance } from "../../shared/api";
+import { instance } from "../../shared/api";
 import HeartButton from "./HeartButton";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { RiFileCopyLine } from "react-icons/ri";
 import fileIcon from "../../assets/fileIcon.svg";
+import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
+
+  // ::: 유저 프로필 이미지 적용하기
+  const memberImage =
+    post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
 
   useEffect(() => {
     //   const fetchData = async () => {
@@ -22,10 +27,10 @@ const MainPostCard = ({ post }) => {
 
   const toggleLike = async () => {
     if (!like) {
-      const res = await authInstance.post(`/api/postheart/${post.id}`);
+      const res = await instance.post(`/api/postheart/${post.id}`);
       console.log(res);
     } else {
-      const res = await authInstance.delete(`/api/postheart/${post.id}`);
+      const res = await instance.delete(`/api/postheart/${post.id}`);
       console.log(res);
     }
     setLike(!like);
@@ -42,14 +47,11 @@ const MainPostCard = ({ post }) => {
       {post.isImages && <div className="imagesicon" />}
       <div className="userBox">
         <div className="profileBox">
-          <img
-            className="profileImg"
-            src={post.memberImage}
-            alt="프로필이미지"
-          />
+          <img className="profileImg" src={memberImage} alt="프로필 이미지" />
         </div>
         <h2>{post.memberName}</h2>
         <div className="likebutton">
+          <div>{post.heartCount}</div>
           <HeartButton like={like} onClick={toggleLike} />
         </div>
       </div>
@@ -80,6 +82,7 @@ const StFigure = styled.figure`
     background-image: url(${fileIcon});
   }
   .likebutton {
+    display: flex;
     position: absolute;
     bottom: 5px;
     right: 20px;

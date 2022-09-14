@@ -31,7 +31,7 @@ const ChatWrap = styled.div`
   justify-content: flex-start;
   ${(props) => props.theme.border_box};
   height: 80vh;
-  width: 95vw;
+  width: 100%;
   position: relative;
 `;
 
