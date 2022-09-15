@@ -10,7 +10,7 @@ import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
   const [like, setLike] = useState(post.isHeartMine);
-
+  const [count, setCount] = useState(0);
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
     post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
@@ -27,11 +27,11 @@ const MainPostCard = ({ post }) => {
 
   const toggleLike = async () => {
     if (!like) {
-      const res = await authInstance.post(`/api/postheart/${post.id}`);
-      console.log(res);
+      await authInstance.post(`/api/postheart/${post.id}`);
+      setCount(count + 1);
     } else {
-      const res = await authInstance.delete(`/api/postheart/${post.id}`);
-      console.log(res);
+      await authInstance.delete(`/api/postheart/${post.id}`);
+      setCount(count - 1);
     }
     setLike(!like);
   };
@@ -51,7 +51,7 @@ const MainPostCard = ({ post }) => {
         </div>
         <h2>{post.memberName}</h2>
         <div className="likebutton">
-          <div>{post.heartCount}</div>
+          <div>{post.heartCount + count}</div>
           <HeartButton like={like} onClick={toggleLike} />
         </div>
       </div>

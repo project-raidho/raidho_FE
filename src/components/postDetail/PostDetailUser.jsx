@@ -14,15 +14,12 @@ const PostDetailUser = ({ postDetail }) => {
       </div>
       <StProfileRightBox>
         <h2>{postDetail.memberName}</h2>
-        <div>2022년 9월 1일 게시</div>
+        <div>{postDetail.createdAt} 게시</div>
         <div className="tagList">
           {postDetail.tags.map((tag, i) => (
-            <div key={i}>태그: {tag}</div>
-          ))}
-        </div>
-        <div className="tagList">
-          {postDetail.locationTags.map((tag, i) => (
-            <div key={i}>위치태그: {tag}</div>
+            <div key={i} className="tag">
+              {tag}
+            </div>
           ))}
         </div>
       </StProfileRightBox>
@@ -49,6 +46,9 @@ const StUserWrapper = styled.div`
   .tagList {
     display: flex;
     gap: 10px;
+  }
+  .tag {
+    color: blue;
   }
 `;
 
