@@ -74,11 +74,10 @@ const CreateMeetingContatiner = () => {
 
   const data = {
     theme: theme,
-    locationtags: locationtags,
+    tags: tags,
     title: title,
     desc: desc,
     tripPeriod: tripPeriod,
-    tags: tags,
     people: people,
     roomClosedate: roomClosedate,
     departLocation: departLocation,
@@ -105,7 +104,7 @@ const CreateMeetingContatiner = () => {
           className="tagbox"
           selectedTags={selectedLocationTags}
           tags={["예시)프랑스"]}
-          tagMassage={"여행할 도시나 나라를 입력해주세요!"}
+          tagMassage={"엔터키를 치시면 입력됩니다."}
         />
       </StTags>
       <h1>여행기간</h1>
