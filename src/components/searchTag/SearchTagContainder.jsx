@@ -4,14 +4,44 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
 import MeetingListCard from "../meetingList/MeetingListCard";
+// import { authInstance } from "../../shared/api";
 
 const SearchTagContainer = () => {
   const location = useLocation();
 
   // ::: 추천 테마 리스트 전역에서 불러오기
   const themeList = useSelector((state) => state.themeSlice.themeList);
-  const postList = useSelector((state) => state.postSlice.postList);
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
+  const [postList, setPostList] = useState([
+    {
+      id: 1,
+      imgurl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      memberImage:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
+      memberName: "김경문",
+      isImages: true,
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      heartCount: 100,
+      isHeartMine: true,
+    },
+    {
+      id: 2,
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      memberName: "김경문",
+      isImages: false,
+      memberImage: null,
+      isHeartMine: false,
+    },
+  ]);
+  // ::: ===> 서버테스트 세팅
+  // const [meetingList, setMeetingList] = useState([]);
 
   console.log(postList);
 
@@ -27,13 +57,40 @@ const SearchTagContainer = () => {
     // ::: tagUri true이면 post get / false이면 meeting get
     setCheckUri(tagUri);
   };
-  console.log("===>", checkUri);
+  console.log("Post : True / Meeting : False ===>", checkUri);
+  console.log("tagName===>", tagName);
 
   // ::: uri 정보 가져오기
   useEffect(() => {
     const tagUri = location.pathname.includes("post");
     setCheckUri(tagUri);
   }, [location]);
+
+  // // ::: ===> 서버테스트 세팅
+  // // ::: 테그 상세 리스트 리스트 불러오기
+  // const getSearchTagList = async () => {
+  //   try {
+  //     if (checkUri) {
+  //       // ::: 포스트 게시글 가져오기
+  //       const responseTagPost = await authInstance.get(`/api/post/${tagName}`);
+  //       console.log(responseTagPost);
+  //       return setPostList(responseTagPost.data);
+  //     } else {
+  //       // ::: 미팅 게시글 가져오기
+  //       const responseTagMeeting = await authInstance.get(
+  //         `/api/meeting/${tagName}`
+  //       );
+  //       console.log(responseTagMeeting);
+  //       return setMeetingList(responseTagMeeting.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getSearchTagList();
+  // }, []);
   return (
     <StSearchTagContainerWrap>
       <h3>추천 여행 테마</h3>
