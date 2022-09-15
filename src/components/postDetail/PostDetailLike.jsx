@@ -14,22 +14,21 @@ const PostDetailLike = ({ postDetail }) => {
   useEffect(() => {
     setLike(postDetail.isHeartMine);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [postDetail]);
   const toggleLike = async () => {
     if (!like) {
       setCount(count + 1);
       await authInstance.post(`/api/postheart/${id}`);
-      setLike(true);
     } else {
       setCount(count - 1);
       await authInstance.delete(`/api/postheart/${id}`);
-      setLike(false);
     }
+    setLike(!like);
   };
   return (
     <StlikeWrapper>
       <StHeartCountBox>{postDetail.heartCount + count}</StHeartCountBox>
-      <HeartButton like={like} onClick={toggleLike} />
+      <HeartButton like={like} onClick={() => toggleLike()} />
     </StlikeWrapper>
   );
 };

@@ -22,7 +22,7 @@ const PostDetailContainer = () => {
     tags: [],
     locationTags: [],
     heartCount: 0,
-    isHeartMine: false,
+    isHeartMine: true,
     isMine: true,
     memberId: 1,
     memberImage: "",
@@ -45,14 +45,14 @@ const PostDetailContainer = () => {
     console.log(res);
     return setPostDetail(res.data.data[0]);
   };
-  // ::: 상세페이지 삭세 axios
-  const deletePostDetail = async (id) => {
+  // ::: 상세페이지 삭제 axios
+  const deletePostDetail = async () => {
     const res = await authInstance.delete(`/api/post/${id}`);
     console.log(res);
     navigate(-1);
     return id;
   };
-  console.log(postDetail.isHeartMine);
+  console.log(postDetail);
   return (
     <StDetailContainer>
       <IoArrowBackSharp
