@@ -149,7 +149,6 @@ const StSearchDetailBox = styled.div`
   box-shadow: ${(props) => props.isFocusSearch === true && "var(--box-shadow)"};
   background-color: var(--bg-color);
   overflow: hidden;
-  transition: 0.5s;
   z-index: 5;
 
   input {

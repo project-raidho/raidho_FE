@@ -12,7 +12,35 @@ const SearchTagContainer = () => {
   // ::: 추천 테마 리스트 전역에서 불러오기
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
-  const [postList, setPostList] = useState([
+  // const [postList, setPostList] = useState([
+  //   {
+  //     id: 1,
+  //     imgurl:
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+  //     memberImage:
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
+  //     memberName: "김경문",
+  //     isImages: true,
+  //     multipartFiles: [
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+  //     ],
+  //     heartCount: 100,
+  //     isHeartMine: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     multipartFiles: [
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+  //     ],
+  //     memberName: "김경문",
+  //     isImages: false,
+  //     memberImage: null,
+  //     isHeartMine: false,
+  //   },
+  // ]);
+  const postList = [
     {
       id: 1,
       imgurl:
@@ -39,7 +67,7 @@ const SearchTagContainer = () => {
       memberImage: null,
       isHeartMine: false,
     },
-  ]);
+  ];
   // ::: ===> 서버테스트 세팅
   // const [meetingList, setMeetingList] = useState([]);
 
@@ -110,7 +138,7 @@ const SearchTagContainer = () => {
         <li>
           <NavLink
             to={`/post/best?tag=${tagName}`}
-            activeClassName="selected"
+            className={checkUri ? "active" : ""}
             onClick={onClickCheckUri}
           >
             여행 후기
@@ -119,7 +147,7 @@ const SearchTagContainer = () => {
         <li>
           <NavLink
             to={`/meeting/chat?tag=${tagName}`}
-            activeClassName="selected"
+            className={checkUri ? "" : "active"}
             onClick={onClickCheckUri}
           >
             여행 친구 찾기
