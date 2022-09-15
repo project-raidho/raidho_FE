@@ -36,7 +36,9 @@ const CreateMeetingContatiner = () => {
     { startDate: "", endDate: "" },
   ]);
   const [departLocation, setDepartLocation] = useState();
-  // const dispatch = useDispatch();
+
+  //유효성 검사
+  // const [validState,setValidState] =useState();
 
   // 방 생성하기
   const onClickCreateRoom = async () => {
@@ -151,6 +153,7 @@ const CreateMeetingContatiner = () => {
             postcreatemeeting();
             onClickCreateRoom();
           }}
+          // disabled={validState ? false : true}
         >
           등록하기
         </Button>
