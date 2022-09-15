@@ -22,7 +22,7 @@ const SIZES = {
     --button-font-size: 1.2rem;
     --button-width: auto;
     --button-height: 33px;
-    --button-padding: 0 52px 0 32px;
+    --button-padding: 0 30px 0 10px;
     --button-margin-right: 25px;
     --button-radius: 25px;
   `,
