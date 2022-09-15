@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 const UpdatePostContent = ({ content, typedPostContent }) => {
-  console.log(content, "<=========");
   const [postContent, setPostContent] = useState(content);
+  console.log(postContent);
   const onChangeContent = (event) => {
     typedPostContent(event.target.value);
     setPostContent(event.target.value);
@@ -13,7 +13,7 @@ const UpdatePostContent = ({ content, typedPostContent }) => {
   useEffect(() => {
     setPostContent(content);
     // eslint-disable-next-line
-  }, []);
+  }, [content]);
   return (
     <StUpdatePostContentWrap>
       <textarea onChange={onChangeContent} value={postContent} />
