@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import UpdatePostContent from "./UpdatePostContent";
-import UpdatePostTags from "./UpdatePostTags";
+import CreatePostContent from "./UpdatePostContent";
+import CreatePostTags from "../../components/createPost/CreatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
-import PostDetailImage from "../postDetail/PostDetailImg";
+// import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
 
 const CreatePostContainer = () => {
-  const postDetail = useSelector((state) => state.postSlice.postList);
-  //const [postDetail, setPostDetail] = useState(postDetailList);
+  const [postDetail, setPostDetail] = useState({
+    id: "",
+    content: "",
+    multipartFiles: [],
+    tags: [],
+    locationTags: [],
+    heartCount: 0,
+    isHeartMine: false,
+    isMine: true,
+    memberId: 1,
+    memberImage: "",
+    memberName: "",
+  });
   // ::: 입력된 데이터 취합하기
-  const [postContent, setpostContent] = useState(postDetail.content);
-  const [postTags, setPostTags] = useState(postDetail.tags);
-  const [postLocationTags, setPostLocationTags] = useState(
-    postDetail.locationTags
-  );
+  const [postContent, setPostContent] = useState("");
+  const [postTags, setPostTags] = useState([]);
+  const [postLocationTags, setPostLocationTags] = useState([]);
 
   const navigate = useNavigate();
   const URI = process.env.REACT_APP_BASE_URI;
   const UserToken = localStorage.getItem("Authorization");
 
-  // ::: 게시글 아이디
+  // // ::: 게시글 아이디
   const postId = useParams().postId;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
@@ -36,7 +44,7 @@ const CreatePostContainer = () => {
 
   const typedPostContent = (text) => {
     console.log("typedPostContent", text);
-    setpostContent(text);
+    setPostContent(text);
   };
 
   const selectedTags = (tags) => {
@@ -52,17 +60,6 @@ const CreatePostContainer = () => {
   // ::: 서버전송세팅
   const onUpdatePost = async () => {
     const formData = new FormData();
-
-    // const jsonContent = JSON.stringify(postContent);
-    // const jsonTags = JSON.stringify(postTags);
-    // const jsonLocationTags = JSON.stringify(postLocationTags);
-
-    // const blobContent = new Blob([jsonContent], { type: "application/json" });
-    // const blobTags = new Blob([jsonTags], { type: "application/json" });
-    // const blobLocationTags = new Blob([jsonLocationTags], {
-    //   type: "application/json",
-    // });
-
     formData.append("content", postContent);
     formData.append("tags", postTags);
     formData.append("locationTags", postLocationTags);
@@ -81,52 +78,67 @@ const CreatePostContainer = () => {
         }
       );
       console.log("postResponse", postUpdateResponse.data);
+      navigate(-1);
     } catch (error) {
       console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
     }
   };
 
+  const getPostDetail = async () => {
+    try {
+      const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
+      console.log(responsePostDetail.data);
+      setPostDetail(responsePostDetail.data.data[0]);
+    } catch (error) {
+      console.log(
+        "게시글 수정 페이지 - 상세 게시글 조회 에러 안내 ::: ",
+        error
+      );
+    }
+  };
   // ::: 게시글 상세 내용 불러오기
   useEffect(() => {
-    // const getPostDetail = async () => {
-    //   try {
-    //     const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
-    //     console.log(responsePostDetail.data);
-    //     setPostDetail(responsePostDetail.data);
-    //   } catch (error) {
-    //     console.log(
-    //       "게시글 수정 페이지 - 상세 게시글 조회 에러 안내 ::: ",
-    //       error
-    //     );
-    //   }
-    // };
+    getPostDetail();
+
+    setPostContent(postDetail.content);
+    setPostTags(postDetail.tags);
+    setPostLocationTags(postDetail.locationTags);
+    // eslint-disable-next-line
   }, []);
+
+  console.log(postDetail);
+  console.log(postDetail.content);
+  console.log(postDetail.tags);
+  console.log(postDetail.locationTags);
+  console.log(postContent);
+  console.log(postTags);
+  console.log(postLocationTags);
 
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
-        <PostDetailImage images={postDetail.postImgs} />
+        {/* <PostDetailImg images={postDetail.multipartFiles} /> */}
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>
-        <UpdatePostContent
+        <CreatePostContent
           typedPostContent={typedPostContent}
           content={postDetail.content}
         />
 
         <StStepTitle>다녀온 곳 수정하기</StStepTitle>
-        <UpdatePostTags
+        <CreatePostTags
           selectedTags={selectedLocationTags}
-          tags={postDetail.locationTags}
+          tags={postLocationTags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 수정하기</StStepTitle>
-        <UpdatePostTags
+        <CreatePostTags
           selectedTags={selectedTags}
-          tags={postDetail.postTags}
+          tags={postTags}
           tagMassage={"태그를 입력해주세요!"}
         />
         <StButtonWrap>

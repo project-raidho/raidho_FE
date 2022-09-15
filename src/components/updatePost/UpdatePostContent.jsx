@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
-const UpdatePostContent = ({ typedPostContent }) => {
+const UpdatePostContent = ({ content, typedPostContent }) => {
+  console.log(content, "<=========");
+  const [postContent, setPostContent] = useState(content);
   const onChangeContent = (event) => {
     typedPostContent(event.target.value);
+    setPostContent(event.target.value);
   };
 
+  useEffect(() => {
+    setPostContent(content);
+    // eslint-disable-next-line
+  }, []);
   return (
     <StUpdatePostContentWrap>
-      <textarea onChange={onChangeContent} placeholder="경험을 소개해주세요!" />
+      <textarea onChange={onChangeContent} value={postContent} />
     </StUpdatePostContentWrap>
   );
 };
