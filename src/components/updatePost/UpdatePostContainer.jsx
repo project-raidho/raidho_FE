@@ -67,12 +67,9 @@ const CreatePostContainer = () => {
     try {
       const postUpdateResponse = await axios.put(
         `${URI}/api/post/${postId}`,
-        {
-          formData,
-        },
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
             Authorization: UserToken,
           },
         }
