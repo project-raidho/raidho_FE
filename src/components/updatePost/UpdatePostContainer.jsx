@@ -10,7 +10,7 @@ import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 
-const CreatePostContainer = () => {
+const UpdatePostContainer = () => {
   const [postDetail, setPostDetail] = useState({
     id: "",
     content: "",
@@ -25,9 +25,11 @@ const CreatePostContainer = () => {
     memberName: "",
   });
   // ::: 입력된 데이터 취합하기
-  const [postContent, setPostContent] = useState("");
-  const [postTags, setPostTags] = useState([]);
-  const [postLocationTags, setPostLocationTags] = useState([]);
+  const [postContent, setPostContent] = useState(postDetail.content);
+  const [postTags, setPostTags] = useState(postDetail.tags);
+  const [postLocationTags, setPostLocationTags] = useState(
+    postDetail.locationTags
+  );
 
   const navigate = useNavigate();
 
@@ -41,17 +43,14 @@ const CreatePostContainer = () => {
   };
 
   const typedPostContent = (text) => {
-    console.log("typedPostContent", text);
     setPostContent(text);
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
     setPostTags(tags);
   };
 
   const selectedLocationTags = (tags) => {
-    console.log("location", tags);
     setPostLocationTags(tags);
   };
 
@@ -64,7 +63,7 @@ const CreatePostContainer = () => {
     formData.append("locationTags", postLocationTags);
 
     try {
-      const postUpdateResponse = await authInstance.post(
+      const postUpdateResponse = await authInstance.put(
         `/api/post/${postId}`,
         formData
       );
@@ -91,13 +90,14 @@ const CreatePostContainer = () => {
   // ::: 게시글 상세 내용 불러오기
   useEffect(() => {
     getPostDetail(postId);
-
-    setPostContent(postDetail.content);
-    setPostTags(postDetail.tags);
-    setPostLocationTags(postDetail.locationTags);
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    setPostContent(postDetail.content);
+    setPostTags(postDetail.tags);
+    setPostLocationTags(postDetail.locationTags);
+  }, [postDetail]);
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -159,7 +159,7 @@ const CreatePostContainer = () => {
   );
 };
 
-export default CreatePostContainer;
+export default UpdatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
