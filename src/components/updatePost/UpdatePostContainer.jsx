@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import CreatePostContent from "./UpdatePostContent";
 import UpdatePostTags from "./UpdatePostTags";
@@ -7,6 +6,7 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
+import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 
@@ -54,6 +54,7 @@ const UpdatePostContainer = () => {
     setPostLocationTags(tags);
   };
 
+  console.log(postContent, postTags, postLocationTags, "<======");
   // ::: 서버전송세팅
   const onUpdatePost = async () => {
     const formData = new FormData();
@@ -74,9 +75,9 @@ const UpdatePostContainer = () => {
     }
   };
 
-  const getPostDetail = async () => {
+  const getPostDetail = async (postId) => {
     try {
-      const responsePostDetail = await axios.get(`/api/post/${postId}`);
+      const responsePostDetail = await authInstance.get(`/api/post/${postId}`);
       console.log(responsePostDetail.data);
       setPostDetail(responsePostDetail.data.data[0]);
     } catch (error) {
@@ -97,12 +98,11 @@ const UpdatePostContainer = () => {
     setPostTags(postDetail.tags);
     setPostLocationTags(postDetail.locationTags);
   }, [postDetail]);
-
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
-        {/* <PostDetailImg images={postDetail.multipartFiles} /> */}
+        <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>
@@ -114,14 +114,14 @@ const UpdatePostContainer = () => {
         <StStepTitle>다녀온 곳 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedLocationTags}
-          tags={postLocationTags}
+          tags={postDetail.locationTags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
-          tags={postTags}
+          tags={postDetail.tags}
           tagMassage={"태그를 입력해주세요!"}
         />
         <StButtonWrap>
@@ -163,7 +163,7 @@ export default UpdatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 
   @media (max-width: 1023px) {

@@ -22,10 +22,10 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   const addTags = (event) => {
     if (event.target.value !== "") {
       const checkDuplicateTag = postTags.filter(
-        (tag) => tag !== event.target.value
+        (tag) => tag !== `#${event.target.value}`
       );
-      setPostTags([...checkDuplicateTag, event.target.value]);
-      selectedTags([...checkDuplicateTag, event.target.value]);
+      setPostTags([...checkDuplicateTag, `#${event.target.value}`]);
+      selectedTags([...checkDuplicateTag, `#${event.target.value}`]);
       event.target.value = "";
 
       if (checkDuplicateTag.length === postTags.length) {

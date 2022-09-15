@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
@@ -23,12 +22,12 @@ const CreatePostContainer = () => {
   const [postImages, setPostImages] = useState();
   const [postContent, setpostContent] = useState("");
   const [postTags, setPostTags] = useState([]);
-  const [postLocationTags, setPostLocationTags] = useState([]);
 
   const selectedPostImages = (images) => {
     console.log("selectedPostImages", images.target);
     setPostImages(images);
   };
+
   const typedPostContent = (text) => {
     console.log("typedPostContent", text);
     setpostContent(text);
@@ -37,11 +36,6 @@ const CreatePostContainer = () => {
   const selectedTags = (tags) => {
     console.log(tags);
     setPostTags(tags);
-  };
-
-  const locationTags = (tags) => {
-    console.log("location", tags);
-    setPostLocationTags(tags);
   };
 
   // ::: 서버전송세팅
@@ -55,45 +49,21 @@ const CreatePostContainer = () => {
 
     formData.append("content", postContent);
     formData.append("tags", postTags);
-    formData.append("locationTags", postLocationTags);
-
-    console.log(":: here postImages::");
-    console.log(postImages);
 
     try {
       const postResponse = await authInstance.post(`/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization: localStorage.getItem("Authorization"),
         },
       });
 
       console.log("postResponse ====>", postResponse.data);
+      navigate(`/`);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
     }
   };
-
-  // try {
-  //   const postResponse = await formDataInstance.post(`/api/post`, formData);
-  //   console.log("postResponse ====>", postResponse.data);
-  // }
-
-  // try {
-  //   const token = localStorage.getItem("Authorization");
-  //   const postResponse = await axios.post(
-  //     `https://wjsxogns.shop/api/post`,
-  //     formData,
-  //     {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: token,
-  //       },
-  //     }
-  //   );
-  //   console.log("postResponse ====>", postResponse.data);
-  // }
 
   return (
     <StCreatePostContainerWrap>
@@ -105,23 +75,13 @@ const CreatePostContainer = () => {
         <strong>STEP 2</strong>여행에서 경험한 내용 입력하기
       </StStepTitle>
       <CreatePostContent typedPostContent={typedPostContent} />
-
       <StStepTitle>
-        <strong>STEP 3</strong>위치 입력하기
-      </StStepTitle>
-      <CreatePostTags
-        selectedTags={locationTags}
-        tags={[]}
-        tagMassage={"위치를 입력해주세요!"}
-      />
-
-      <StStepTitle>
-        <strong>STEP 4</strong>태그 입력하기
+        <strong>STEP 3</strong>태그 입력하기
       </StStepTitle>
       <CreatePostTags
         selectedTags={selectedTags}
         tags={[]}
-        tagMassage={"태그를 입력해주세요!"}
+        tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
       />
       <StButtonWrap>
         <Button
