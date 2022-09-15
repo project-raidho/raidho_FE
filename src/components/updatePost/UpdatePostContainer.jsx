@@ -114,14 +114,14 @@ const UpdatePostContainer = () => {
         <StStepTitle>다녀온 곳 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedLocationTags}
-          tags={postDetail.tags}
+          tags={postDetail.locationTags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 수정하기</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
-          tags={postDetail.locationTags}
+          tags={postDetail.tags}
           tagMassage={"태그를 입력해주세요!"}
         />
         <StButtonWrap>
