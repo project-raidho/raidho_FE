@@ -50,6 +50,7 @@ const SearchContainer = ({ isLogin }) => {
       if (searchInput === "") {
         return false;
       }
+      setIsFocusSearch(false);
       dispatch(addRecentSearch(searchInput));
       dispatch(getRecentSearch());
 
@@ -58,9 +59,19 @@ const SearchContainer = ({ isLogin }) => {
     }
   };
 
+  const onFocusSearch = () => {
+    setIsFocusSearch(true);
+  };
+
+  const onBlurSearch = () => {
+    setIsFocusSearch(false);
+  };
+
   // ::: 최근검색기록 삭제하기
   const onClickDeleteRecentSearch = (tag) => {
+    setIsFocusSearch(true);
     dispatch(deleteRecentSearch(tag));
+    setIsFocusSearch(true);
   };
 
   // ::: 처음 들어왔을 때 데이터 불러오기
@@ -75,12 +86,8 @@ const SearchContainer = ({ isLogin }) => {
         <Input
           size="large"
           variant="search"
-          onFocus={() => {
-            setIsFocusSearch(true);
-          }}
-          onBlur={() => {
-            setIsFocusSearch(false);
-          }}
+          onFocus={onFocusSearch}
+          onBlur={onBlurSearch}
           onChange={onChangeSearchContent}
           onKeyPress={onKeyPressSearchEnter}
           value={searchInput}
@@ -114,6 +121,7 @@ const SearchContainer = ({ isLogin }) => {
               <Link
                 key={themeCard.themeName}
                 to={`/post/best?tag=${themeCard.themeName}`}
+                onClick={() => setSearchInput(themeCard.themeName)}
               >
                 <StTagCard bgImage={`url(${themeCard.themeImage})`}>
                   {themeCard.themeName}
@@ -145,16 +153,20 @@ const StSearchDetailBox = styled.div`
   height: ${(props) => (props.isFocusSearch === true ? "500px" : "58px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
-  border-radius: 20px 20px 10px 10px;
-  box-shadow: ${(props) => props.isFocusSearch === true && "var(--box-shadow)"};
+  border-radius: 20px 20px 20px 20px;
+  /* box-shadow: ${(props) =>
+    props.isFocusSearch === true && "var(--box-shadow)"}; */
   background-color: var(--bg-color);
   overflow: hidden;
   z-index: 5;
+  transition: 0.5s;
 
   input {
     border: ${(props) => props.isFocusSearch === true && "none"};
-    box-shadow: ${(props) =>
-      props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
+    /* box-shadow: ${(props) =>
+      props.isFocusSearch === true
+        ? "none"
+        : "0px 4px 5px rgba(0, 0, 0, 0.1)"}; */
   }
 `;
 
@@ -174,6 +186,17 @@ const StSearchDetailRow = styled.div`
   button {
     position: relative;
     margin-bottom: 15px;
+
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 1.2rem;
+      padding: 0 20px;
+    }
   }
 
   .tagCloseIcon {
