@@ -9,50 +9,14 @@ const MainMenu = () => {
   const [best, setBest] = useState(false);
   const [postList, setPostList] = useState([
     {
-      id: 1,
-      imgurl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      memberImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
-      memberName: "김경문",
+      id: 0,
+      imgurl: "",
+      memberImage: "",
+      memberName: "",
       isImages: true,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
+      multipartFiles: [],
       heartCount: 100,
       isHeartMine: true,
-    },
-    {
-      id: 2,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
-      memberName: "김경문",
-      isImages: false,
-      memberImage: null,
-      isHeartMine: false,
-    },
-    {
-      id: 3,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
-      memberName: "김경문",
-      isImages: false,
-      memberImage: null,
-    },
-    {
-      id: 4,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
-      memberName: "김경문",
-      isImages: false,
-      memberImage: null,
     },
   ]);
   const getBestPosts = async () => {
