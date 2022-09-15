@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
@@ -95,19 +95,6 @@ const SearchTagContainer = () => {
   }, [location]);
   return (
     <StSearchTagContainerWrap>
-      <h3>추천 여행 테마</h3>
-      <StTagCardWrap>
-        {themeList.map((themeCard) => (
-          <Link
-            key={themeCard.themeName}
-            to={`/post/best?tag=${themeCard.themeName}`}
-          >
-            <StTagCard bgImage={`url(${themeCard.themeImage})`}>
-              {themeCard.themeName}
-            </StTagCard>
-          </Link>
-        ))}
-      </StTagCardWrap>
       <StTagCategoryWrap>
         <li>
           <NavLink
@@ -129,11 +116,35 @@ const SearchTagContainer = () => {
         </li>
       </StTagCategoryWrap>
       <StTagContentWrap checkUri={checkUri}>
-        {checkUri
-          ? postList.map((post) => <MainPostCard key={post.id} post={post} />)
-          : meetingList.map((meeting) => (
-              <MeetingListCard key={meeting.id} meeting={meeting} />
-            ))}
+        {checkUri &&
+          postList.map((post) => <MainPostCard key={post.id} post={post} />)}
+        <StMeetingListWrap>
+          <StMeetingCategoryRow className="themeCategoryRow">
+            {!checkUri &&
+              themeList.map((theme, index) => (
+                <p
+                  className="themeCategoryButton"
+                  size="squareTheme"
+                  variant="lineBlue"
+                  key={theme.themeName + index}
+                  // onClick={() => onClickTheme(theme.themePath)}
+                >
+                  <NavLink
+                    to={`/meeting/${theme.themePath}/chat?tag=${tagName}`}
+                    activeClassName="active"
+                  >
+                    {theme.themeName}
+                  </NavLink>
+                </p>
+              ))}
+          </StMeetingCategoryRow>
+          <StMeetingCardBox>
+            {!checkUri &&
+              meetingList.map((meeting) => (
+                <MeetingListCard key={meeting.id} meeting={meeting} />
+              ))}
+          </StMeetingCardBox>
+        </StMeetingListWrap>
       </StTagContentWrap>
     </StSearchTagContainerWrap>
   );
@@ -142,6 +153,9 @@ const SearchTagContainer = () => {
 export default SearchTagContainer;
 
 const StSearchTagContainerWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   h3 {
     font-size: 1.5rem;
     margin: 15px 0;
@@ -149,44 +163,44 @@ const StSearchTagContainerWrap = styled.div`
   }
 `;
 
-const StTagCardWrap = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 18px;
-  @media (max-width: 767px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
+// const StTagCardWrap = styled.ul`
+//   display: grid;
+//   grid-template-columns: repeat(6, 1fr);
+//   gap: 18px;
+//   @media (max-width: 767px) {
+//     grid-template-columns: repeat(3, 1fr);
+//   }
+// `;
 
-const StTagCard = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 95px;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 15px;
-  background-image: linear-gradient(
-      0deg,
-      rgba(71, 71, 71, 0.57),
-      rgba(71, 71, 71, 0.57)
-    ),
-    ${(props) => props.bgImage && props.bgImage};
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
+// const StTagCard = styled.li`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   height: 95px;
+//   color: #ffffff;
+//   font-size: 1.5rem;
+//   font-weight: 700;
+//   text-align: center;
+//   border-radius: 15px;
+//   background-image: linear-gradient(
+//       0deg,
+//       rgba(71, 71, 71, 0.57),
+//       rgba(71, 71, 71, 0.57)
+//     ),
+//     ${(props) => props.bgImage && props.bgImage};
+//   background-size: cover;
+//   background-position: center;
+//   cursor: pointer;
 
-  &:hover {
-    background-image: linear-gradient(
-        0deg,
-        rgba(71, 71, 71, 0.7),
-        rgba(71, 71, 71, 0.7)
-      ),
-      ${(props) => props.bgImage && props.bgImage};
-  }
-`;
+//   &:hover {
+//     background-image: linear-gradient(
+//         0deg,
+//         rgba(71, 71, 71, 0.7),
+//         rgba(71, 71, 71, 0.7)
+//       ),
+//       ${(props) => props.bgImage && props.bgImage};
+//   }
+// `;
 
 const StTagCategoryWrap = styled.ul`
   display: flex;
@@ -229,7 +243,81 @@ const StTagContentWrap = styled.div`
           column-gap: 15px;
         `
       : css`
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          /* display: grid;
+          grid-template-columns: repeat(3, 1fr); */
         `}
+`;
+
+const StMeetingListWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const StMeetingCategoryRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 1rem 0 0;
+  margin-bottom: 1rem;
+  &.flexRightLayout {
+    justify-content: flex-end;
+  }
+  button {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+  .themeCategoryButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 55px;
+
+    border: 1px solid var(--title-color);
+    border-radius: 15px;
+    background-color: var(--bg-color);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      width: 100%;
+      height: 100%;
+      &.active {
+        background-color: var(--main-color);
+      }
+    }
+  }
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 1rem;
+  }
+`;
+
+const StMeetingCardBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 5rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
