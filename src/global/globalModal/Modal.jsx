@@ -2,18 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const Modal = ({ onClose, children }) => {
-
-  return(
+  return (
     <>
-    <Background onClick={onClose} />
+      <Background onClick={onClose} />
       <ModalContentBox>
-        <div className="contents">
-          {children}
-        </div>
+        <div className="contents">{children}</div>
       </ModalContentBox>
     </>
   );
-}
+};
 
 export default Modal;
 
@@ -28,7 +25,7 @@ const Background = styled.div`
   top: 0;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: 11;
 `;
 
 const ModalContentBox = styled.div`
@@ -41,7 +38,7 @@ const ModalContentBox = styled.div`
   margin-left: -240px;
   background-color: var(--bg-color);
   border: 1px solid var(--title-color);
-  z-index: 6;
+  z-index: 12;
   text-align: center;
 
   .contents {
