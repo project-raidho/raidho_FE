@@ -12,8 +12,7 @@ const UpdatePostContent = ({ content, typedPostContent }) => {
 
   useEffect(() => {
     setPostContent(content);
-    // eslint-disable-next-line
-  }, []);
+  }, [content]);
   return (
     <StUpdatePostContentWrap>
       <textarea onChange={onChangeContent} value={postContent} />

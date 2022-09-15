@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import CreatePostContent from "./UpdatePostContent";
-import CreatePostTags from "../../components/createPost/CreatePostTags";
+import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
-// import PostDetailImg from "../postDetail/PostDetailImg";
+import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
+import { authInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const [postDetail, setPostDetail] = useState({
@@ -30,8 +30,6 @@ const CreatePostContainer = () => {
   const [postLocationTags, setPostLocationTags] = useState([]);
 
   const navigate = useNavigate();
-  const URI = process.env.REACT_APP_BASE_URI;
-  const UserToken = localStorage.getItem("Authorization");
 
   // // ::: 게시글 아이디
   const postId = useParams().postId;
@@ -57,6 +55,7 @@ const CreatePostContainer = () => {
     setPostLocationTags(tags);
   };
 
+  console.log(postContent, postTags, postLocationTags, "<======");
   // ::: 서버전송세팅
   const onUpdatePost = async () => {
     const formData = new FormData();
@@ -65,17 +64,9 @@ const CreatePostContainer = () => {
     formData.append("locationTags", postLocationTags);
 
     try {
-      const postUpdateResponse = await axios.put(
-        `${URI}/api/post/${postId}`,
-        {
-          formData,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: UserToken,
-          },
-        }
+      const postUpdateResponse = await authInstance.post(
+        `/api/post/${postId}`,
+        formData
       );
       console.log("postResponse", postUpdateResponse.data);
       navigate(-1);
@@ -85,9 +76,9 @@ const CreatePostContainer = () => {
     }
   };
 
-  const getPostDetail = async () => {
+  const getPostDetail = async (postId) => {
     try {
-      const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
+      const responsePostDetail = await authInstance.get(`/api/post/${postId}`);
       console.log(responsePostDetail.data);
       setPostDetail(responsePostDetail.data.data[0]);
     } catch (error) {
@@ -99,7 +90,7 @@ const CreatePostContainer = () => {
   };
   // ::: 게시글 상세 내용 불러오기
   useEffect(() => {
-    getPostDetail();
+    getPostDetail(postId);
 
     setPostContent(postDetail.content);
     setPostTags(postDetail.tags);
@@ -107,19 +98,11 @@ const CreatePostContainer = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(postDetail);
-  console.log(postDetail.content);
-  console.log(postDetail.tags);
-  console.log(postDetail.locationTags);
-  console.log(postContent);
-  console.log(postTags);
-  console.log(postLocationTags);
-
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
-        {/* <PostDetailImg images={postDetail.multipartFiles} /> */}
+        <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>
@@ -129,16 +112,16 @@ const CreatePostContainer = () => {
         />
 
         <StStepTitle>다녀온 곳 수정하기</StStepTitle>
-        <CreatePostTags
+        <UpdatePostTags
           selectedTags={selectedLocationTags}
-          tags={postLocationTags}
+          tags={postDetail.tags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 수정하기</StStepTitle>
-        <CreatePostTags
+        <UpdatePostTags
           selectedTags={selectedTags}
-          tags={postTags}
+          tags={postDetail.locationTags}
           tagMassage={"태그를 입력해주세요!"}
         />
         <StButtonWrap>
@@ -180,7 +163,7 @@ export default CreatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
 
   @media (max-width: 1023px) {
