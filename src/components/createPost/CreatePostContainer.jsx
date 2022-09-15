@@ -64,11 +64,11 @@ const CreatePostContainer = () => {
       const postResponse = await authInstance.post(`/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          // Authorization: localStorage.getItem("Authorization"),
         },
       });
 
       console.log("postResponse ====>", postResponse.data);
+      navigate(`/`);
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
