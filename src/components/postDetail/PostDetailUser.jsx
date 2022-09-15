@@ -17,12 +17,12 @@ const PostDetailUser = ({ postDetail }) => {
         <div>2022년 9월 1일 게시</div>
         <div className="tagList">
           {postDetail.tags.map((tag, i) => (
-            <div key={i}>{tag}</div>
+            <div key={i}>태그: {tag}</div>
           ))}
         </div>
         <div className="tagList">
           {postDetail.locationTags.map((tag, i) => (
-            <div key={i}>{tag}</div>
+            <div key={i}>위치태그: {tag}</div>
           ))}
         </div>
       </StProfileRightBox>
