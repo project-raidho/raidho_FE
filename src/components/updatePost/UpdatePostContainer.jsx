@@ -7,11 +7,10 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
-import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 
-const CreatePostContainer = () => {
+const UpdatePostContainer = () => {
   const [postDetail, setPostDetail] = useState({
     id: "",
     content: "",
@@ -26,13 +25,13 @@ const CreatePostContainer = () => {
     memberName: "",
   });
   // ::: 입력된 데이터 취합하기
-  const [postContent, setPostContent] = useState("");
-  const [postTags, setPostTags] = useState([]);
-  const [postLocationTags, setPostLocationTags] = useState([]);
+  const [postContent, setPostContent] = useState(postDetail.content);
+  const [postTags, setPostTags] = useState(postDetail.tags);
+  const [postLocationTags, setPostLocationTags] = useState(
+    postDetail.locationTags
+  );
 
   const navigate = useNavigate();
-  const URI = process.env.REACT_APP_BASE_URI;
-  const UserToken = localStorage.getItem("Authorization");
 
   // // ::: 게시글 아이디
   const postId = useParams().postId;
@@ -44,17 +43,14 @@ const CreatePostContainer = () => {
   };
 
   const typedPostContent = (text) => {
-    console.log("typedPostContent", text);
     setPostContent(text);
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
     setPostTags(tags);
   };
 
   const selectedLocationTags = (tags) => {
-    console.log("location", tags);
     setPostLocationTags(tags);
   };
 
@@ -66,15 +62,9 @@ const CreatePostContainer = () => {
     formData.append("locationTags", postLocationTags);
 
     try {
-      const postUpdateResponse = await axios.put(
-        `${URI}/api/post/${postId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: UserToken,
-          },
-        }
+      const postUpdateResponse = await authInstance.put(
+        `/api/post/${postId}`,
+        formData
       );
       console.log("postResponse", postUpdateResponse.data);
       navigate(-1);
@@ -86,7 +76,7 @@ const CreatePostContainer = () => {
 
   const getPostDetail = async () => {
     try {
-      const responsePostDetail = await axios.get(`${URI}/api/post/${postId}`);
+      const responsePostDetail = await axios.get(`/api/post/${postId}`);
       console.log(responsePostDetail.data);
       setPostDetail(responsePostDetail.data.data[0]);
     } catch (error) {
@@ -98,21 +88,15 @@ const CreatePostContainer = () => {
   };
   // ::: 게시글 상세 내용 불러오기
   useEffect(() => {
-    getPostDetail();
-
-    setPostContent(postDetail.content);
-    setPostTags(postDetail.tags);
-    setPostLocationTags(postDetail.locationTags);
+    getPostDetail(postId);
     // eslint-disable-next-line
   }, []);
 
-  console.log(postDetail);
-  console.log(postDetail.content);
-  console.log(postDetail.tags);
-  console.log(postDetail.locationTags);
-  console.log(postContent);
-  console.log(postTags);
-  console.log(postLocationTags);
+  useEffect(() => {
+    setPostContent(postDetail.content);
+    setPostTags(postDetail.tags);
+    setPostLocationTags(postDetail.locationTags);
+  }, [postDetail]);
 
   return (
     <StCreatePostContainerWrap>
@@ -128,14 +112,14 @@ const CreatePostContainer = () => {
         />
 
         <StStepTitle>다녀온 곳 수정하기</StStepTitle>
-        <CreatePostTags
+        <UpdatePostTags
           selectedTags={selectedLocationTags}
           tags={postLocationTags}
           tagMassage={"위치를 입력해주세요!"}
         />
 
         <StStepTitle>태그 수정하기</StStepTitle>
-        <CreatePostTags
+        <UpdatePostTags
           selectedTags={selectedTags}
           tags={postTags}
           tagMassage={"태그를 입력해주세요!"}
@@ -175,7 +159,7 @@ const CreatePostContainer = () => {
   );
 };
 
-export default CreatePostContainer;
+export default UpdatePostContainer;
 
 const StCreatePostContainerWrap = styled.div`
   display: flex;
