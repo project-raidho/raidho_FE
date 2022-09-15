@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import CreatePostContent from "./UpdatePostContent";
-import CreatePostTags from "../../components/createPost/CreatePostTags";
+import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 
-// import PostDetailImg from "../postDetail/PostDetailImg";
+import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
+import { authInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const [postDetail, setPostDetail] = useState({

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../elements/Input";
 import styled from "styled-components";
 
-const UpdatePostTags = ({ tags, selectedTags, tagMassage }) => {
-  useEffect(() => {
-    setPostTags(tags);
-    // eslint-disable-next-line
-  }, [tags]);
-  const [postTags, setPostTags] = useState(tags);
+const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
+  const [postTags, setPostTags] = useState([]);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
+
+  useEffect(() => {
+    setPostTags(tags);
+  }, [tags]);
 
   // ::: 태그 삭제하기
   const removeTags = (indexToRemove) => {
@@ -64,7 +64,7 @@ const UpdatePostTags = ({ tags, selectedTags, tagMassage }) => {
   );
 };
 
-export default UpdatePostTags;
+export default CreatePostTags;
 
 const StCreatePostTagsWrap = styled.div`
   display: flex;
