@@ -6,7 +6,7 @@ import MainPostList from "./MainPostList";
 import Button from "../../elements/Button";
 
 const MainMenu = () => {
-  const [best, setBest] = useState(true);
+  const [best, setBest] = useState(false);
   const [postList, setPostList] = useState([
     {
       id: 1,
@@ -61,17 +61,13 @@ const MainMenu = () => {
     return setPostList(res.data.data.content);
   };
   const getLatestPosts = async () => {
-    // const res = await instance.get(`/api/post/latest`);
-    // console.log(res);
-    // return setPostList(res.data.data.content);
-
     const res = await authInstance.get(`/api/post/latest`);
 
     console.log(res);
     return setPostList(res.data.data.content);
   };
   useEffect(() => {
-    getBestPosts();
+    getLatestPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -88,17 +84,17 @@ const MainMenu = () => {
       <StMenuset>
         <Button
           size="medium"
-          variant={best ? "primary" : "gray"}
-          onClick={besthandler}
-        >
-          BEST
-        </Button>
-        <Button
-          size="medium"
           variant={best ? "gray" : "primary"}
           onClick={latesthandler}
         >
           실시간
+        </Button>
+        <Button
+          size="medium"
+          variant={best ? "primary" : "gray"}
+          onClick={besthandler}
+        >
+          추천순
         </Button>
       </StMenuset>
       <MainPostList postList={postList} />
