@@ -8,7 +8,7 @@ import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
 
 import CreatePostTags from "../createPost/CreatePostTags";
-import RoomCloseDateBox from "./RoomclosedateBox";
+import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
@@ -29,7 +29,7 @@ const CreateMeetingContatiner = () => {
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
   const [people, setPeople] = useState();
-  const [roomClosedate, setRoomCloseDate] = useState();
+  const [roomCloseDate, setRoomCloseDate] = useState();
   const [tripPeriod, setTripPeriod] = useState([
     { startDate: "", endDate: "" },
   ]);
@@ -78,7 +78,7 @@ const CreateMeetingContatiner = () => {
     tripPeriod: tripPeriod,
 
     people: people,
-    roomClosedate: roomClosedate,
+    roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
   console.log(data);

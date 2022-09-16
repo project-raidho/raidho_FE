@@ -6,7 +6,7 @@ import { authInstance } from "../../shared/api";
 
 import TripPeriod from "./TripPeriod";
 import CreatePostTags from "../createPost/CreatePostTags";
-import RoomCloseDateBox from "./RoomclosedateBox";
+import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
@@ -105,15 +105,15 @@ const UpdateMeetingContainer = () => {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   setTitle(meetingDetail.title);
-  //   setDesc(meetingDetail.desc);
-  //   setTags(meetingDetail.tags);
-  //   setPeople(meetingDetail.people);
-  //   setRoomCloseDate(meetingDetail.roomCloseDate);
-  //   setTripPeriod(meetingDetail.tripPeriod);
-  //   setDepartLocation(meetingDetail.departLocation);
-  // }, [meetingDetail]);
+  useEffect(() => {
+    setTitle(meetingDetail.title);
+    setDesc(meetingDetail.desc);
+    setTags(meetingDetail.tags);
+    setPeople(meetingDetail.people);
+    setRoomCloseDate(meetingDetail.roomCloseDate);
+    setTripPeriod(meetingDetail.tripPeriod);
+    setDepartLocation(meetingDetail.departLocation);
+  }, [meetingDetail]);
 
   return (
     <StCreatePostContainerWrap>
