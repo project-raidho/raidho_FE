@@ -40,6 +40,13 @@ const Routers = () => {
                 element={<MeetingListPage />}
               />
             ))}
+            {themeList.map((theme) => (
+              <Route
+                key={theme.themeName}
+                path={`/meeting/${theme.themePath}/:tagName`}
+                element={<SearchTagPage />}
+              />
+            ))}
             <Route path="/chatting" element={<ChattingPage />} />
             <Route path="/chatting/:id" element={<ChattingPage />} />
             <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
