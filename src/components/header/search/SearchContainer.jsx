@@ -143,9 +143,10 @@ export default SearchContainer;
 
 const StSearchContainerWrap = styled.div`
   position: relative;
+  display: block;
   width: ${(props) => (props.isLogin === true ? "55%" : "54%")};
   height: 50px;
-  min-width: 600px;
+  min-width: 700px;
   /* margin-left: 30px; */
 `;
 
