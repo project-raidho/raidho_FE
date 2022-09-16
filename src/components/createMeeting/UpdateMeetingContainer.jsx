@@ -27,8 +27,8 @@ const UpdateMeetingContainer = () => {
     title: "내가 가는 이길이",
     desc: "어디로 가는지",
     tripPeriod: { startDate: "2022-09-18", endDate: "2022-09-20" },
-    people: "3",
-    roomClosedate: "2022-10-10",
+    people: 3,
+    roomCloseDate: "2022-10-10",
     departLocation: "경기도 안양시 만안구",
   });
 
@@ -38,8 +38,9 @@ const UpdateMeetingContainer = () => {
   const [desc, setDesc] = useState(meetingDetail.desc);
   const [tags, setTags] = useState(meetingDetail.tags);
   const [people, setPeople] = useState(meetingDetail.people);
+  console.log(meetingDetail.people);
   const [roomClosedate, setRoomCloseDate] = useState(
-    meetingDetail.roomClosedate
+    meetingDetail.roomCloseDate
   );
   const [tripPeriod, setTripPeriod] = useState(meetingDetail.tripPeriod);
   const [departLocation, setDepartLocation] = useState(
@@ -100,19 +101,19 @@ const UpdateMeetingContainer = () => {
 
   // ::: 모집글 상세 내용 불러오기
   useEffect(() => {
-    getMeetingDetail(meetingId);
+    getMeetingDetail();
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    setTitle(meetingDetail.title);
-    setDesc(meetingDetail.desc);
-    setTags(meetingDetail.tags);
-    setPeople(meetingDetail.people);
-    setRoomCloseDate(meetingDetail.roomCloseDate);
-    setTripPeriod(meetingDetail.tripPeriod);
-    setDepartLocation(meetingDetail.departLocation);
-  }, [meetingDetail]);
+  // useEffect(() => {
+  //   setTitle(meetingDetail.title);
+  //   setDesc(meetingDetail.desc);
+  //   setTags(meetingDetail.tags);
+  //   setPeople(meetingDetail.people);
+  //   setRoomCloseDate(meetingDetail.roomCloseDate);
+  //   setTripPeriod(meetingDetail.tripPeriod);
+  //   setDepartLocation(meetingDetail.departLocation);
+  // }, [meetingDetail]);
 
   return (
     <StCreatePostContainerWrap>
@@ -133,7 +134,7 @@ const UpdateMeetingContainer = () => {
         <h1>여행기간</h1>
         <TripPeriod setTripPeriod={setTripPeriod} />
         <h1>여행희망인원</h1>
-        <TripPeopleCount setPeople={setPeople} />
+        <TripPeopleCount people={people} setPeople={setPeople} />
         <br />
         <h2>step 2. 모집글정보 입력</h2>
         <h1>모집글 제목</h1>

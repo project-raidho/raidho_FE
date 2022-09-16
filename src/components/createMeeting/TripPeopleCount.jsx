@@ -4,9 +4,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const TripPeopleCount = ({ setPeople }) => {
-  const countList = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const [count, setCount] = useState();
+const TripPeopleCount = ({ people, setPeople }) => {
+  const countList = [2, 3, 4, 5];
+  console.log(people);
+  const index = countList.indexOf(people);
+  const NewCountList = countList.slice(index);
+  console.log(NewCountList);
+  const [count, setCount] = useState(people);
+  console.log(count);
 
   const countonChange = (e) => {
     setCount(e.target.value);
@@ -24,7 +29,7 @@ const TripPeopleCount = ({ setPeople }) => {
           <MenuItem value="">
             <em>인원 선택</em>
           </MenuItem>
-          {countList.map((item, i) => (
+          {NewCountList.map((item, i) => (
             <MenuItem value={item} key={i}>
               {item}
             </MenuItem>

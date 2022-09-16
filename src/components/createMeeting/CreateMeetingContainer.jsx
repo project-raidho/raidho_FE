@@ -109,7 +109,7 @@ const CreateMeetingContatiner = () => {
       <h1>여행기간</h1>
       <TripPeriod setTripPeriod={setTripPeriod} />
       <h1>여행희망인원</h1>
-      <TripPeopleCount setPeople={setPeople} />
+      <TripPeopleCount people={2} setPeople={setPeople} />
       <br />
       <h2>step 2. 모집글정보 입력</h2>
       <h1>모집글 제목</h1>
