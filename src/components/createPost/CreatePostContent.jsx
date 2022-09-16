@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const CreatePostContent = ({ typedPostContent }) => {
+const CreatePostContent = ({ typedPostContent, placeholderText }) => {
   const [checkTextLength, setCheckTextLength] = useState(0);
   const onChangeContent = (event) => {
     typedPostContent(event.target.value);
@@ -12,7 +12,7 @@ const CreatePostContent = ({ typedPostContent }) => {
     <StCreatePostContentWrap>
       <textarea
         onChange={onChangeContent}
-        placeholder="경험을 소개해주세요!"
+        placeholder={placeholderText}
         maxLength="250"
       />
       <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
