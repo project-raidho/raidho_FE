@@ -19,7 +19,7 @@ const PostDetailContainer = () => {
     id: "",
     content: "",
     multipartFiles: [],
-    tags: [],
+    tags: ["#한국", "#다리"],
     locationTags: [],
     heartCount: 0,
     isHeartMine: true,

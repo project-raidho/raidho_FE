@@ -37,9 +37,13 @@ const MainPostCard = ({ post }) => {
         setModalOn(!modalOn);
       }
     } else {
-      await authInstance.delete(`/api/postheart/${post.id}`);
-      setCount(count - 1);
-      setLike(!like);
+      try {
+        await authInstance.delete(`/api/postheart/${post.id}`);
+        setCount(count - 1);
+        setLike(!like);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
     }
   };
 
