@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../elements/Button";
 import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
+import { authInstance } from "../../shared/api";
 
 const MeetingListCard = ({ meeting }) => {
   // ::: 날짜 차이 계산하기
@@ -29,6 +30,15 @@ const MeetingListCard = ({ meeting }) => {
 
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
+
+  const onDeleteMeeting = async (meetingId) => {
+    try {
+      const response = await authInstance.delete(`/api/meeting/${meetingId}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <StMeetingListCardWrap>
@@ -63,6 +73,7 @@ const MeetingListCard = ({ meeting }) => {
           })`}</span>
         </p>
         <p>{meeting.departLocation}</p>
+        <p className="desc">{meeting.desc}</p>
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
         <StMeetingCardRow>
@@ -83,10 +94,19 @@ const MeetingListCard = ({ meeting }) => {
           </p>
           <p className="memberNameBox">@{meeting.memberName}</p>
         </StMeetingCardRow>
-        <StMeetingCardRow>
+        <StMeetingCardRow className="flexBetweenLayout">
           <Button size="tag" variant="gray">
             {meeting.themeCategory}
           </Button>
+          <div>
+            {meeting.isMine && <Button variant="gray">수정하기</Button>}
+            <Button
+              variant="primary"
+              onClick={meeting.isMine && `${() => onDeleteMeeting(meeting.id)}`}
+            >
+              {meeting.isMine ? "삭제하기" : "침여하기"}
+            </Button>
+          </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
     </StMeetingListCardWrap>
@@ -100,7 +120,7 @@ const StMeetingListCardWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-width: 340px;
-  height: 430px;
+  height: 500px;
   margin: 1rem;
   padding: 1.7rem;
   background-color: var(--subBg-color);
@@ -121,6 +141,11 @@ const StMeetingListCardWrap = styled.div`
 
 const StMeetingCardUpDown = styled.div`
   width: 100%;
+
+  .desc {
+    padding-top: 1rem;
+    font-size: 1.3rem;
+  }
 `;
 
 const StMeetingCardRow = styled.div`
