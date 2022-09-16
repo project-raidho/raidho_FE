@@ -1,43 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { authInstance } from "../../shared/api";
 import styled from "styled-components";
 
 const MyPostList = ({ isMore }) => {
-
-  console.log(isMore);
-
-  // ::: 내 글 목록 데이터 샘플 
-  const myPosts = [
+  // ::: 전체 게시글 불러오기
+  const [postList, setPostList] = useState([
     {
       id: 1,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU"
-    },
-    {
-      id: 2,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTUyJZAKnMKvY9z06Qm1jUAK3THBjrHqwaww&usqp=CAU"
-    },
-    {
-      id: 3,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnq-U57cbWEIFs5g7iIf1t6CzLXQC1JL2s3g&usqp=CAU"
-    },
-    {
-      id: 4,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU"
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      memberName: "김경문",
+      isImages: false,
+      memberImage: null,
+      isHeartMine: false,
+      isMine: true,
     },
     {
       id: 5,
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC2knmb8t5SUvbiz2Y0hVD1aqSXzcqeb1Y0g&usqp=CAU"
+      multipartFiles: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
+      ],
+      memberName: "김경문",
+      isImages: false,
+      memberImage: null,
+      isHeartMine: false,
+      isMine: true,
     },
-  ];
+  ]);
 
-  return(
+  const getPostList = async () => {
+    try {
+      const responsePostList = await authInstance.get(`/api/post/latest`);
+      console.log(responsePostList);
+      return setPostList(responsePostList.data.data.content);
+    } catch (error) {
+      console.log("전체 게시글 불러오기 오류 :::", error);
+    }
+  };
+  useEffect(() => {
+    getPostList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
     <StMyPostListWrap isMore={isMore}>
-      {
-        myPosts.map((post) => (
-          <StPostCard key={post.id}>
-            <img src={post.imageUrl} alt={post.id} />
-          </StPostCard>
-        ))
-      }
+      {postList.map(
+        (post) =>
+          post.isMine && (
+            <StPostCard key={post.id}>
+              <Link to={`/postDetail/${post.id}`}>
+                <img src={post.multipartFiles[0]} alt={post.id} />
+              </Link>
+            </StPostCard>
+          )
+      )}
     </StMyPostListWrap>
   );
 };
@@ -48,7 +68,7 @@ const StMyPostListWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  height: ${props => props.isMore === true ? "auto" : "400px"};
+  height: ${(props) => (props.isMore === true ? "auto" : "400px")};
   background-color: var(--bg-color);
   overflow: hidden;
 `;
@@ -56,7 +76,7 @@ const StMyPostListWrap = styled.div`
 const StPostCard = styled.div`
   width: 300px;
   height: 400px;
-  
+
   img {
     width: 100%;
     height: 100%;
