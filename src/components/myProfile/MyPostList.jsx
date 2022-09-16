@@ -34,7 +34,7 @@ const MyPostList = ({ isMore }) => {
 
   const getPostList = async () => {
     try {
-      const responsePostList = await authInstance.get(`/api/post/latest`);
+      const responsePostList = await authInstance.get(`/api/post/mypost`);
       console.log(responsePostList);
       return setPostList(responsePostList.data.data.content);
     } catch (error) {
@@ -48,16 +48,13 @@ const MyPostList = ({ isMore }) => {
 
   return (
     <StMyPostListWrap isMore={isMore}>
-      {postList.map(
-        (post) =>
-          post.isMine && (
-            <StPostCard key={post.id}>
-              <Link to={`/postDetail/${post.id}`}>
-                <img src={post.multipartFiles[0]} alt={post.id} />
-              </Link>
-            </StPostCard>
-          )
-      )}
+      {postList.map((post) => (
+        <StPostCard key={post.id}>
+          <Link to={`/postDetail/${post.id}`}>
+            <img src={post.multipartFiles[0]} alt={post.id} />
+          </Link>
+        </StPostCard>
+      ))}
     </StMyPostListWrap>
   );
 };

@@ -37,6 +37,7 @@ const MyProfileContainer = () => {
 export default MyProfileContainer;
 
 const StMyProfileContainerWrap = styled.div`
+  padding-bottom: 5rem;
   background-color: var(--bg-color);
 `;
 
