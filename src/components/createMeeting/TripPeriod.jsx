@@ -12,7 +12,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import Input from "../../elements/Input";
 import { BsCalendar3 } from "react-icons/bs";
-const TripPeriod = ({ setTripPeriod }) => {
+const TripPeriod = ({ setStartDate, setEndDate }) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -29,10 +29,8 @@ const TripPeriod = ({ setTripPeriod }) => {
     setState([item.selection]);
     setStart(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
     setEnd(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
-    setTripPeriod({
-      startDate: moment([item.selection][0].startDate).format("YYYY-MM-DD"),
-      endDate: moment([item.selection][0].endDate).format("YYYY-MM-DD"),
-    });
+    setStartDate(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
+    setEndDate(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
   };
   const startinputonChangeHandler = (e) => {
     setStart(e.target.value);
