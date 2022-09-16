@@ -5,22 +5,23 @@ import GlobalStyle from "./global/GlobalStyle";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+// import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import theme from "./shared/theme";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <ReactQueryDevtools initialIsOpen={true} />
-        <App />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>
+      {/* <QueryClientProvider client={queryClient}> */}
+      {/* <ReactQueryDevtools initialIsOpen={true} /> */}
+      <App />
+      {/* </QueryClientProvider> */}
+    </ThemeProvider>
+    1d
   </Provider>
 );
 reportWebVitals();
