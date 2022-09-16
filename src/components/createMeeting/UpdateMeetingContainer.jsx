@@ -39,24 +39,25 @@ const UpdateMeetingContainer = () => {
   const [tags, setTags] = useState(meetingDetail.tags);
   const [people, setPeople] = useState(meetingDetail.people);
   console.log(meetingDetail.people);
-  const [roomClosedate, setRoomCloseDate] = useState(
+  const [roomCloseDate, setRoomCloseDate] = useState(
     meetingDetail.roomCloseDate
   );
+  console.log(roomCloseDate);
   const [tripPeriod, setTripPeriod] = useState(meetingDetail.tripPeriod);
   const [departLocation, setDepartLocation] = useState(
     meetingDetail.departLocation
   );
-
-  const data = {
-    theme: theme,
-    tags: tags,
-    title: title,
-    desc: desc,
-    tripPeriod: tripPeriod,
-    people: people,
-    roomClosedate: roomClosedate,
-    departLocation: departLocation,
-  };
+  console.log(departLocation);
+  // const data = {
+  //   theme: theme,
+  //   tags: tags,
+  //   title: title,
+  //   desc: desc,
+  //   tripPeriod: tripPeriod,
+  //   people: people,
+  //   roomClosedate: roomClosedate,
+  //   departLocation: departLocation,
+  // };
 
   // ::: 수정데이터 서버에 전송
   const onUpdateMeeting = async () => {
@@ -221,11 +222,11 @@ const StCreatePostColumn = styled.div`
   padding: 1rem;
 `;
 
-const StStepTitle = styled.h2`
-  font-size: 1.5rem;
-  padding-top: 1.2rem;
-  margin-bottom: 1rem;
-`;
+// const StStepTitle = styled.h2`
+//   font-size: 1.5rem;
+//   padding-top: 1.2rem;
+//   margin-bottom: 1rem;
+// `;
 
 const StButtonWrap = styled.div`
   display: flex;

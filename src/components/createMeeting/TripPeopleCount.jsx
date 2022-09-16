@@ -18,8 +18,8 @@ const TripPeopleCount = ({ people, setPeople }) => {
     setPeople(e.target.value);
   };
   return (
-    <StPeopleWrapp>
-      <FormControl sx={{ m: 1, Width: 120 }}>
+    <StSelectBox>
+      <FormControl sx={{ m: 1, Width: 120 }} className="select">
         <Select
           value={count}
           onChange={countonChange}
@@ -36,17 +36,21 @@ const TripPeopleCount = ({ people, setPeople }) => {
           ))}
         </Select>
       </FormControl>
+
       <People>명</People>
-    </StPeopleWrapp>
+    </StSelectBox>
   );
 };
 export default TripPeopleCount;
 
-const StPeopleWrapp = styled.div`
-  display: flex;
-`;
-
 const People = styled.div`
   margin: auto 5px;
   font-size: 20px;
+`;
+
+const StSelectBox = styled.div`
+  display: flex;
+  .select {
+    margin: 0;
+  }
 `;

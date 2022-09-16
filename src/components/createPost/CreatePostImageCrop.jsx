@@ -417,9 +417,9 @@ const StImageSizeButtonWrap = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 200px;
-    height: 55px;
-    font-size: 1.5rem;
+    width: 150px;
+    height: 45px;
+    font-size: 1.4rem;
     line-height: 1;
     margin-right: 10px;
     border: 1px solid #000;

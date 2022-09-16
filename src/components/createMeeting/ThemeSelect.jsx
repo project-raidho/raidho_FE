@@ -47,7 +47,7 @@ const StThemeSelectBox = styled.div`
 const StButton = styled(Button)`
   margin-right: 20px;
   font-size: 13px;
-  width: 300px;
+  /* width: 300px; */
   /* background-image:URL(${(props) => props.themeImage}); 
     background-size: cover; */
 `;
