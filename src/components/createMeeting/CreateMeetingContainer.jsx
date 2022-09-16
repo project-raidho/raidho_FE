@@ -12,8 +12,6 @@ import RoomCloseDateBox from "./RoomclosedateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-// import chat, { chatActions } from "../../redux/modules/chat";
-// import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CreateMeetingContatiner = () => {
@@ -129,16 +127,6 @@ const CreateMeetingContatiner = () => {
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
       />
-
-      <h1>해시태그</h1>
-      <StTags>
-        <CreatePostTags
-          className="tagbox"
-          selectedTags={selectedTags}
-          tags={["예시)활동적"]}
-          tagMassage={"홍보하고 싶은 내용을 자유롭게 입력해주세요!"}
-        />
-      </StTags>
 
       <h1>모집마감일자</h1>
       <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
