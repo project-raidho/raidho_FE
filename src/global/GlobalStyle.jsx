@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
-
+  
   :root {
     --bg-color: #ffffff;
     --bgSub-color: #ffffff;
@@ -28,6 +28,9 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #ffffff;
     --text-color: #ffffff;
     --box-shadow: 4px 0px 5px rgba(255, 255, 255, 0.2);
+  }
+  body {
+    background-color: var(--bg-color);
   }
   * {
     font-family: var(--font-style);
