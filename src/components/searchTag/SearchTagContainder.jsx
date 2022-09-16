@@ -14,29 +14,13 @@ const SearchTagContainer = () => {
   const meetingList = useSelector((state) => state.meetingSlice.meetingList);
   const [postList, setPostList] = useState([
     {
-      id: 1,
-      imgurl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      memberImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSInE9w_wk9gHxSLJ44RL2NoVHnIDjXNPEgbw&usqp=CAU",
-      memberName: "김경문",
-      isImages: true,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
-      heartCount: 100,
-      isHeartMine: true,
-    },
-    {
-      id: 2,
-      multipartFiles: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsYeU_xa0PN9zgmYzlkTMVGKJ4ulAGevTa9A&usqp=CAU",
-      ],
-      memberName: "김경문",
-      isImages: false,
+      id: 0,
+      imgurl: null,
       memberImage: null,
+      memberName: "",
+      isImages: false,
+      multipartFiles: [],
+      heartCount: 0,
       isHeartMine: false,
     },
   ]);

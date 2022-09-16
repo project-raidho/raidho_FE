@@ -34,9 +34,13 @@ const PostDetailLike = ({ postDetail }) => {
         setModalOn(!modalOn);
       }
     } else {
-      await authInstance.delete(`/api/postheart/${id}`);
-      setLike(!like);
-      setCount(count - 1);
+      try {
+        await authInstance.delete(`/api/postheart/${id}`);
+        setLike(!like);
+        setCount(count - 1);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
     }
   };
   return (

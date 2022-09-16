@@ -1,12 +1,23 @@
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
+import { useNavigate } from "react-router-dom";
 
 const PostDetailUser = ({ postDetail }) => {
+  const navigate = useNavigate();
   const memberImage =
     postDetail.memberImage === null
       ? `${DefaultMemberImage}`
       : `${postDetail.memberImage}`;
 
+  const onClickTagHandler = (tag) => {
+    const sliceTag = tag.substr(1);
+    console.log(sliceTag);
+    navigate(`/post/best?tag=${sliceTag}`, {
+      state: {
+        tagKeyword: sliceTag,
+      },
+    });
+  };
   return (
     <StUserWrapper>
       <div className="profileBox">
@@ -17,7 +28,7 @@ const PostDetailUser = ({ postDetail }) => {
         <div>{postDetail.createdAt} 게시</div>
         <div className="tagList">
           {postDetail.tags.map((tag, i) => (
-            <div key={i} className="tag">
+            <div key={i} className="tag" onClick={() => onClickTagHandler(tag)}>
               {tag}
             </div>
           ))}
@@ -48,7 +59,8 @@ const StUserWrapper = styled.div`
     gap: 10px;
   }
   .tag {
-    color: blue;
+    color: var(--main-color);
+    cursor: pointer;
   }
 `;
 
