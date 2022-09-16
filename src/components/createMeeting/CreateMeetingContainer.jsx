@@ -27,7 +27,7 @@ const CreateMeetingContatiner = () => {
   // const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [tags, setTags] = useState([]);
+  const [MeetingTags, setMeetingTags] = useState([]);
   const [people, setPeople] = useState();
   const [roomCloseDate, setRoomCloseDate] = useState();
   const [tripPeriod, setTripPeriod] = useState([
@@ -43,7 +43,7 @@ const CreateMeetingContatiner = () => {
     const roomData = {
       chatRoomTitle: title,
       people: people,
-      tags: tags,
+      tags: MeetingTags,
     };
     try {
       const res = await authInstance.post(`/api/chat/rooms`, roomData);
@@ -62,8 +62,8 @@ const CreateMeetingContatiner = () => {
   //   setLocationTags(tags);
   // };
 
-  const selectedTags = (tags) => {
-    setTags(tags);
+  const selectedMeetingTags = (tags) => {
+    setMeetingTags(tags);
   };
 
   const URI = process.env.REACT_APP_BASE_URI;
@@ -72,11 +72,10 @@ const CreateMeetingContatiner = () => {
 
   const data = {
     theme: theme,
-    tags: tags,
+    MeetingTags: MeetingTags,
     title: title,
     desc: desc,
     tripPeriod: tripPeriod,
-
     people: people,
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
@@ -101,7 +100,7 @@ const CreateMeetingContatiner = () => {
       <StTags>
         <CreatePostTags
           className="tagbox"
-          selectedTags={selectedTags}
+          selectedTags={selectedMeetingTags}
           tags={["예시)프랑스"]}
           tagMassage={"엔터키를 치시면 입력됩니다."}
         />
