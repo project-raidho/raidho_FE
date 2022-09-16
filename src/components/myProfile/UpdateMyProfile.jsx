@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import imageCompression from "browser-image-compression";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
@@ -7,10 +7,12 @@ import Potal from "../../global/globalModal/Potal";
 import Modal from "../../global/globalModal/Modal";
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
+import { authInstance } from "../../shared/api";
 
 const UpdateMyProfile = (props) => {
   // ::: 유저 정보 가져오기
   const memberInfo = {
+    memberId: localStorage.getItem("memberId"),
     memberName: localStorage.getItem("memberName"),
     memberImage:
       localStorage.getItem("memberImage") === "null"
@@ -20,7 +22,9 @@ const UpdateMyProfile = (props) => {
   };
 
   const [selectedMemberImage, setSelectedMemberImage] = useState(null);
-  const [compressedImageFile, setCompressedImageFile] = useState(null);
+  const [compressedImageFile, setCompressedImageFile] = useState(
+    memberInfo.memberImage
+  );
   const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
@@ -31,9 +35,9 @@ const UpdateMyProfile = (props) => {
 
     // ::: 유저가 입력한 값 초기화 시키기
     setSelectedMemberImage(null);
-    setCompressedImageFile(null);
+    setCompressedImageFile(memberInfo.memberImage);
     setUpdateNickname(memberInfo.memberName);
-    setUpdateNickname(memberInfo.memberIntro);
+    setUpdateComment(memberInfo.memberIntro);
   };
 
   // ::: 이미지 리사이징(Resizing)
@@ -76,33 +80,23 @@ const UpdateMyProfile = (props) => {
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
-    // :: 서버 주소
-    const URI = process.env.REACT_APP_BASE_URI;
-    const USER = {
-      AUTHORIZATION: localStorage.getItem("Authorization"),
-    };
     // :: image file formData 형식 변환
-    const form = new FormData();
-    form.append("file", compressedImageFile);
+    const formData = new FormData();
+    formData.append("memberImage", compressedImageFile);
+    formData.append("memberName", updateNickname);
+    formData.append("memberIntro", updateComment);
+    formData.append("memberId", memberInfo.memberId);
 
     try {
-      const profileResponse = await axios.put(
-        `${URI}/member/update`,
-        {
-          memberImage: form,
-          memberName: updateNickname,
-          memberComment: updateComment,
+      const profileResponse = await authInstance.put(`/api/mypage`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: USER.AUTHORIZATION,
-          },
-        }
-      );
+      });
 
       console.log(profileResponse);
     } catch (error) {
+      alert(`프로필 수정에 오류가 났습니다. ${error}`);
       console.log(error);
     }
   };
@@ -125,48 +119,65 @@ const UpdateMyProfile = (props) => {
         {modalOn && (
           <Modal onClose={handleModal}>
             <StUpdateUserProfileModal>
-              <StUpdateUserProfileTitle>프로필 이미지</StUpdateUserProfileTitle>
-              <StmemberImageBox
-                userImageProfile={`url(${memberInfo.memberImage})`}
-              >
-                <span className="changeImageMessage">사진변경</span>
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  onChange={onChangePostImageFile}
-                  accept="image/jpg, image/jpeg, image/png"
+              <StUpdateProfileTop>
+                <StUpdateProfileRow>
+                  <StMemberImageBox
+                    userImageProfile={`url(${memberInfo.memberImage})`}
+                  >
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={onChangePostImageFile}
+                      accept="image/jpg, image/jpeg, image/png"
+                    />
+                    {selectedMemberImage ? (
+                      <img
+                        src={selectedMemberImage}
+                        alt="preview"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      <span className="changeImageMessage">사진 변경</span>
+                    )}
+                  </StMemberImageBox>
+                  <StMemberNicknameBox>
+                    <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
+                    <Input
+                      size="large"
+                      variant="default"
+                      value={updateNickname}
+                      placeholder={memberInfo.memberName}
+                      onChange={(event) => onChangeUpdateMemberName(event)}
+                    />
+                  </StMemberNicknameBox>
+                </StUpdateProfileRow>
+
+                <StUpdateUserProfileTitle>한 줄 소개</StUpdateUserProfileTitle>
+                <Input
+                  size="large"
+                  variant="default"
+                  placeholder={memberInfo.memberIntro}
+                  onChange={(event) => onChangeUpdateMemberComment(event)}
+                  value={updateComment}
                 />
-                {selectedMemberImage && (
-                  <img
-                    src={selectedMemberImage}
-                    alt="preview"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-              </StmemberImageBox>
-              <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
-              <Input
-                size="large"
-                variant="default"
-                placeholder={memberInfo.memberName}
-                onChange={(event) => onChangeUpdateMemberName(event)}
-              />
-              <StUpdateUserProfileTitle>한 줄 소개</StUpdateUserProfileTitle>
-              <Input
-                size="large"
-                variant="default"
-                placeholder={memberInfo.memberIntro}
-                onChange={(event) => onChangeUpdateMemberComment(event)}
-              />
+              </StUpdateProfileTop>
               <StButtonWrap>
-                <Button size="small" onClick={handleModal}>
+                <Button
+                  size="square"
+                  variant="lineSquare"
+                  onClick={handleModal}
+                >
                   취소
                 </Button>
-                <Button size="small" onClick={onCompleteUpdateProfile}>
+                <Button
+                  size="square"
+                  variant="lineSquare"
+                  onClick={onCompleteUpdateProfile}
+                >
                   수정
                 </Button>
               </StButtonWrap>
@@ -226,13 +237,18 @@ const StMyProfileBox = styled.div`
   }
 `;
 
+const StUpdateProfileTop = styled.div``;
 const StButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 30px;
+
+  button {
+    margin-left: 1rem;
+  }
 `;
 
 const StUpdateUserProfileTitle = styled.h2`
@@ -242,29 +258,48 @@ const StUpdateUserProfileTitle = styled.h2`
 `;
 
 const StUpdateUserProfileModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  height: 90%;
 `;
 
-const StmemberImageBox = styled.label`
+const StUpdateProfileRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 2rem;
+`;
+
+const StMemberImageBox = styled.label`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-image: linear-gradient(
       0deg,
-      rgba(71, 71, 71, 0.57),
-      rgba(71, 71, 71, 0.57)
+      rgba(71, 71, 71, 0.8),
+      rgba(71, 71, 71, 0.8)
     ),
     ${(props) => props.userImageProfile && props.userImageProfile};
   background-size: cover;
   background-position: center;
   border-radius: 50%;
+  margin-right: 20px;
   overflow: hidden;
 
   .changeImageMessage {
-    position: absolute;
-    z-index: -1;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
   }
+`;
+
+const StMemberNicknameBox = styled.div`
+  width: calc(100% - 170px);
 `;
