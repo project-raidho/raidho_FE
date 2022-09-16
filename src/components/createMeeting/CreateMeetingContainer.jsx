@@ -11,9 +11,28 @@ import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-// import { useNavigate } from "react-router-dom";
+import CreatePostContent from "../createPost/CreatePostContent";
+import { useNavigate } from "react-router-dom";
+
+//리액트 쿼리
+import { useQuery } from "react-query";
 
 const CreateMeetingContatiner = () => {
+  const navigate = useNavigate();
+
+  const postcreatemeeting = async () => {
+    const res = await authInstance.post(`/api/meeting`, data);
+    console.log(res);
+    navigate("/meetingList");
+    return res;
+  };
+
+  const meeting_query = useQuery("meetingList", postcreatemeeting, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   // const {
   //   register,
   //   handleSubmit,
@@ -21,7 +40,6 @@ const CreateMeetingContatiner = () => {
   //   formState: { isSubmitting, isDirty, errors },
   // } = useForm({ mode: "onChange" });
 
-  // const navigate = useNavigate();
   const [theme, setTheme] = useState("");
   // const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
@@ -61,6 +79,10 @@ const CreateMeetingContatiner = () => {
   const selectedMeetingTags = (tags) => {
     setMeetingTags(tags);
   };
+  const typedMeetingContent = (text) => {
+    console.log("typedPostContent", text);
+    setDesc(text);
+  };
 
   const data = {
     themeCategory: theme,
@@ -74,15 +96,13 @@ const CreateMeetingContatiner = () => {
     departLocation: departLocation,
   };
   console.log(data);
-  const postcreatemeeting = async () => {
-    const res = await authInstance.post(`/api/meeting`, data);
-    console.log(res);
-    return res;
-  };
 
   return (
     <StContainer>
-      <h2>step 1. 여행정보 입력</h2>
+      <StStepTitle>
+        <strong>STEP 1</strong>여행정보 입력
+      </StStepTitle>
+
       <h1>대륙 선택</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
 
@@ -100,7 +120,9 @@ const CreateMeetingContatiner = () => {
       <h1>여행희망인원</h1>
       <TripPeopleCount people={2} setPeople={setPeople} />
       <br />
-      <h2>step 2. 모집글정보 입력</h2>
+      <StStepTitle>
+        <strong>STEP 2</strong>모집글정보 입력
+      </StStepTitle>
       <h1>모집글 제목</h1>
       <StTitleBox
         multiline
@@ -109,12 +131,9 @@ const CreateMeetingContatiner = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <h1>모집글 설명</h1>
-      <StDescBox
-        id="outlined-multiline-static"
-        multiline
-        rows={4}
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
+      <CreatePostContent
+        typedPostContent={typedMeetingContent}
+        placeholderText={"모집글 설명을 써주세요."}
       />
 
       <h1>모집마감일자</h1>
@@ -154,26 +173,46 @@ const StContainer = styled.div`
     margin-bottom: 13px;
   }
 `;
+
+const StStepTitle = styled.h2`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
+  padding-top: 1.2rem;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
+`;
 const StTitleBox = styled(TextField)`
   width: 100%;
-  height: 55px;
 
   element.style {
-    height: 50px;
+    height: 55px;
   }
-  .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    height: 53px;
+    font-size: 1.2rem;
+    border: 1px solid var(--gray-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--subBg-color);
   }
-
   .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
     font-size: 1.5rem;
     height: 55px;
-    padding: 5px;
-  }
-`;
-const StDescBox = styled(TextField)`
-  width: 100%;
-  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
-    font-size: 1.5rem;
     padding: 5px;
   }
 `;

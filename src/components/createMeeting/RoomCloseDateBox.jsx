@@ -5,11 +5,11 @@ import moment from "moment";
 import Input from "../../elements/Input";
 import styled from "styled-components";
 import { BsCalendar3 } from "react-icons/bs";
-const RoomCloseDateBox = ({ setRoomCloseDate }) => {
+const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
   const [showCalendar, setShowCalendar] = useState(false); // 캘린더 여는 토글
   const tomorrow = moment().add(1, "d").toDate(); // 내일 날짜 기본값지정을 위해
   const [date, setDate] = useState(tomorrow); // date 를 선언하고 기본값을 내일날짜로 지정
-  const [inputdate, setInputdate] = useState("");
+  const [inputdate, setInputdate] = useState(roomCloseDate);
   const onChangeDate = useCallback(
     (date) => {
       // date 변경값을 받아오는 함수
