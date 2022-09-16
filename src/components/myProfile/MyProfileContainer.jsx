@@ -4,39 +4,32 @@ import MyPostList from "./MyPostList";
 import styled from "styled-components";
 
 const MyProfileContainer = () => {
-
   // ::: 게시글 더보기 기능 구현
-  const [ isMore, setIsMore ] = useState(false);
+  const [isMore, setIsMore] = useState(false);
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
-  }
+  };
 
-  return(
+  return (
     <StMyProfileContainerWrap>
       <StMyProfileTitleRow>
         <h3>프로필</h3>
-        <span className="bgMiddleLine"/>
+        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <UpdateMyProfile />
 
       <StMyProfileTitleRow isMore={isMore}>
         <h3>내가 쓴 글</h3>
-        <p 
-          onClick={onClickMorePost}
-        >
-          더보기
-        </p>
-        <span className="bgMiddleLine"/>
+        <p onClick={onClickMorePost}>더보기</p>
+        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
-      <MyPostList 
-        isMore={isMore} 
-      />
+      <MyPostList isMore={isMore} />
 
-      <StMyProfileTitleRow>
+      {/* <StMyProfileTitleRow>
         <h3>계정 / 보안</h3>
-        <span className="bgMiddleLine"/>
-      </StMyProfileTitleRow>
+        <span className="bgMiddleLine" />
+      </StMyProfileTitleRow> */}
     </StMyProfileContainerWrap>
   );
 };
@@ -44,6 +37,7 @@ const MyProfileContainer = () => {
 export default MyProfileContainer;
 
 const StMyProfileContainerWrap = styled.div`
+  padding-bottom: 5rem;
   background-color: var(--bg-color);
 `;
 

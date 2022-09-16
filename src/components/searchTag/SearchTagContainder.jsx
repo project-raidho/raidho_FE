@@ -115,7 +115,7 @@ const SearchTagContainer = () => {
                 >
                   <NavLink
                     to={`/meeting/${theme.themePath}/chat?tag=${tagName}`}
-                    activeClassName="active"
+                    className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     {theme.themeName}
                   </NavLink>

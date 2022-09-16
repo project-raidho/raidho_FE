@@ -35,6 +35,12 @@ const GlobalHeader = () => {
   // ::: 게시글 추가 메뉴 확인하기
   const [isAddPostToggle, setIsAddPostToggle] = useState(false);
 
+  // ::: 메뉴 토글 닫기
+  const onCloseToggle = () => {
+    setIsToggle(false);
+    setIsAddPostToggle(false);
+  };
+
   // ::: 모달 여부 확인하기
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
@@ -49,6 +55,7 @@ const GlobalHeader = () => {
     localStorage.removeItem("memberIntro");
 
     setIsLogin(false);
+    onCloseToggle();
     navigate("/");
   };
 
@@ -79,6 +86,11 @@ const GlobalHeader = () => {
 
   return (
     <StGlobalHeaderWrap>
+      <StToggleBackground
+        isToggle={isToggle}
+        isAddPostToggle={isAddPostToggle}
+        onClick={onCloseToggle}
+      />
       <StGlobalLayoutHeader>
         <StHeaderRow>
           <div className="navWrap">
@@ -127,10 +139,14 @@ const GlobalHeader = () => {
 
                   <StToggleBox isToggle={isAddPostToggle}>
                     <li>
-                      <Link to={`/createPost`}>여행 후기 작성하기</Link>
+                      <Link to={`/createPost`} onClick={onCloseToggle}>
+                        여행 후기 작성하기
+                      </Link>
                     </li>
                     <li>
-                      <Link to={`/createMeeting`}>모집글 작성하기</Link>
+                      <Link to={`/createMeeting`} onClick={onCloseToggle}>
+                        모집글 작성하기
+                      </Link>
                     </li>
                   </StToggleBox>
                 </div>
@@ -151,7 +167,9 @@ const GlobalHeader = () => {
                 </div>
                 <StToggleBox isToggle={isToggle}>
                   <li>
-                    <Link to={`/myProfile`}>마이페이지</Link>
+                    <Link to={`/myProfile`} onClick={onCloseToggle}>
+                      마이페이지
+                    </Link>
                   </li>
                   <li onClick={onClickLogOut}>로그아웃</li>
                 </StToggleBox>
@@ -375,4 +393,16 @@ const StToggleBox = styled.ul`
   li:last-child {
     border-bottom: none;
   }
+`;
+
+const StToggleBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: ${(props) =>
+    props.isToggle || props.isAddPostToggle ? "block" : "none"};
+  width: 100%;
+  height: 100vh;
+  z-index: 6;
+  background-color: rgba(255, 255, 255, 0);
 `;
