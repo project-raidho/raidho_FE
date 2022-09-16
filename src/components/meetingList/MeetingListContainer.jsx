@@ -20,7 +20,7 @@ const MeetingListContainer = () => {
     try {
       const responseMeeting = await authInstance.get(`/api/meeting`);
       console.log(responseMeeting);
-      return setMeetingList(responseMeeting.data);
+      return setMeetingList(responseMeeting.data.data.content);
     } catch (error) {
       console.log(error);
     }
