@@ -1,11 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+// import axios from "axios";
 import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
+// import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
 
+// const getMeetingList = () => {
+//   return axios.get(`https://wjsxogns.shop/api/meeting`);
+// };
+
 const MeetingListContainer = () => {
+  // const meetingAllListQuery = useQuery("meetingList", getMeetingList, {
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  // });
+
+  // console.log(meetingAllListQuery);
+  // console.log(meetingAllListQuery.data);
   const themeList = useSelector((state) => state.themeSlice.themeList);
 
   // ::: ===> 서버 테스트 세팅
@@ -16,15 +30,6 @@ const MeetingListContainer = () => {
 
   // ::: ===> 서버테스트 세팅
   // ::: 전체 리스트 불러오기
-  const getMeetingList = async () => {
-    try {
-      const responseMeeting = await authInstance.get(`/api/meeting`);
-      console.log(responseMeeting);
-      return setMeetingList(responseMeeting.data.data.content);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   // ::: ===> 서버테스트 세팅
   // ::: 테마별 리스트 불러오기
@@ -33,7 +38,18 @@ const MeetingListContainer = () => {
     try {
       const responseTheme = await authInstance.get(`/api/meeting/${theme}`);
       console.log(responseTheme);
-      return setMeetingList(responseTheme.data);
+      return setMeetingList(responseTheme.data.data.content);
+      // return responseTheme.data.data.content;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getMeetingList = async () => {
+    try {
+      const response = await authInstance.get(`/api/meeting`);
+      console.log(response);
+      return setMeetingList(response.data.data.content);
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +58,10 @@ const MeetingListContainer = () => {
   useEffect(() => {
     getMeetingList();
   }, []);
+
+  // if (meetingAllListQuery.isLoading) {
+  //   return null;
+  // }
 
   return (
     <StMeetingListContainerWrap>
