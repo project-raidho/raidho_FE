@@ -21,8 +21,10 @@ const SearchContainer = ({ isLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ::: 추천 테마 리스트 전역에서 불러오기
-  const themeList = useSelector((state) => state.themeSlice.themeList);
+  // ::: 추천 태그 리스트 전역에서 불러오기
+  const recommendTagList = useSelector(
+    (state) => state.themeSlice.recommendTagList
+  );
 
   // ::: 검색창 focus 여부 확인하기
   const [isFocusSearch, setIsFocusSearch] = useState(false);
@@ -77,7 +79,9 @@ const SearchContainer = ({ isLogin }) => {
   // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
     dispatch(getRecentSearch());
-    location.state !== null && setSearchInput(location.state.tagKeyword);
+    location.state !== null
+      ? setSearchInput(location.state.tagKeyword)
+      : setSearchInput("");
   }, [dispatch, location.state]);
 
   return (
@@ -92,7 +96,7 @@ const SearchContainer = ({ isLogin }) => {
           onKeyPress={onKeyPressSearchEnter}
           value={searchInput}
         />
-        <StSearchDetailList>
+        <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
@@ -115,16 +119,16 @@ const SearchContainer = ({ isLogin }) => {
             ))}
           </StSearchDetailRow>
 
-          <h3>추천 테마</h3>
+          <h3>추천 검색어</h3>
           <StTagCardWrap>
-            {themeList.map((themeCard) => (
+            {recommendTagList.map((tagCard) => (
               <Link
-                key={themeCard.themeName}
-                to={`/post/best?tag=${themeCard.themeName}`}
-                onClick={() => setSearchInput(themeCard.themeName)}
+                key={tagCard.recommendTagName}
+                to={`/post/best?tag=${tagCard.recommendTagName}`}
+                onClick={() => setSearchInput(tagCard.recommendTagName)}
               >
-                <StTagCard bgImage={`url(${themeCard.themeImage})`}>
-                  {themeCard.themeName}
+                <StTagCard bgImage={`url(${tagCard.recommendTagImage})`}>
+                  {tagCard.recommendTagName}
                 </StTagCard>
               </Link>
             ))}
@@ -150,12 +154,11 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "500px" : "58px")};
+  height: ${(props) => (props.isFocusSearch === true ? "500px" : "50px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
   border-radius: 20px 20px 20px 20px;
-  /* box-shadow: ${(props) =>
-    props.isFocusSearch === true && "var(--box-shadow)"}; */
+  box-shadow: ${(props) => props.isFocusSearch === true && "var(--box-shadow)"};
   background-color: var(--bg-color);
   overflow: hidden;
   z-index: 5;
@@ -163,17 +166,19 @@ const StSearchDetailBox = styled.div`
 
   input {
     border: ${(props) => props.isFocusSearch === true && "none"};
-    /* box-shadow: ${(props) =>
-      props.isFocusSearch === true
-        ? "none"
-        : "0px 4px 5px rgba(0, 0, 0, 0.1)"}; */
+    box-shadow: ${(props) =>
+      props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
+
+    transition: 0.5s;
   }
 `;
 
 const StSearchDetailList = styled.div`
   width: calc(100% - 3rem);
-  border-top: 1px solid var(--gray-color);
-  margin: 1rem auto;
+  border-top: ${(props) =>
+    props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
+  margin: 0.8rem auto;
+  transition: 0.5s;
 
   h3 {
     font-size: 1.5rem;
