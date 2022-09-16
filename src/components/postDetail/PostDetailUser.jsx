@@ -59,7 +59,7 @@ const StUserWrapper = styled.div`
     gap: 10px;
   }
   .tag {
-    color: blue;
+    color: var(--main-color);
     cursor: pointer;
   }
 `;

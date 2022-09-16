@@ -95,7 +95,7 @@ const CreateMeetingContatiner = () => {
     <StContainer>
       <h2>step 1. 여행정보 입력</h2>
       <h1>대륙 선택</h1>
-      <ThemeSelect setTheme={setTheme} />
+      <ThemeSelect theme={""} setTheme={setTheme} />
 
       <h1>여행갈 나라/도시 입력</h1>
       <StTags>
