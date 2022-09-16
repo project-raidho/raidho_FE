@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
 import MeetingListCard from "../meetingList/MeetingListCard";
-import { instance } from "../../shared/api";
+import { authInstance } from "../../shared/api";
 
 const SearchTagContainer = () => {
   const location = useLocation();
@@ -54,7 +54,7 @@ const SearchTagContainer = () => {
     console.log("====>tag", tagName);
     try {
       // ::: 포스트 게시글 가져오기
-      const responseTagPost = await instance.get(`/api/search/${tagName}`);
+      const responseTagPost = await authInstance.get(`/api/search/${tagName}`);
       console.log(responseTagPost);
       return setPostList(responseTagPost.data.data.content);
 
