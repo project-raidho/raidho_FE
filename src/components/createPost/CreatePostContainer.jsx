@@ -74,7 +74,10 @@ const CreatePostContainer = () => {
       <StStepTitle>
         <strong>STEP 2</strong>여행에서 경험한 내용 입력하기
       </StStepTitle>
-      <CreatePostContent typedPostContent={typedPostContent} />
+      <CreatePostContent
+        typedPostContent={typedPostContent}
+        placeholderText={"경험을 소개해주세요!"}
+      />
       <StStepTitle>
         <strong>STEP 3</strong>태그 입력하기
       </StStepTitle>

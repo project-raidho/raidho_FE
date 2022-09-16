@@ -5,8 +5,8 @@ import Input from "../../elements/Input";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
-const MeetingLocationSearch = ({ setDepartLocation }) => {
-  const [InputText, setInputText] = useState("");
+const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
+  const [InputText, setInputText] = useState(departLocation);
   const [Place, setPlace] = useState("");
 
   const onChange = (e) => {
