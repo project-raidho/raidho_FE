@@ -42,7 +42,11 @@ const PostDetailLike = ({ postDetail }) => {
   return (
     <StlikeWrapper>
       <StHeartCountBox>{postDetail.heartCount + count}</StHeartCountBox>
-      <HeartButton like={like} onClick={() => toggleLike()} />
+      <HeartButton
+        like={like}
+        onClick={() => toggleLike()}
+        className="iconHeart"
+      />
 
       <Potal>
         {modalOn && (
@@ -72,6 +76,7 @@ const StlikeWrapper = styled.div`
 `;
 const StHeartCountBox = styled.div`
   margin-right: 10px;
+  font-size: 1.3rem;
 `;
 
 const StButtonWrap = styled.div`

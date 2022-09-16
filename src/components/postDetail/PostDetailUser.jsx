@@ -55,9 +55,10 @@ const StUserWrapper = styled.div`
 const StProfileRightBox = styled.div`
   display: grid;
   margin-left: 20px;
-  grid-row-gap: 10px;
+  grid-row-gap: 3px;
 
   h2 {
     font-size: 1.5rem;
+    margin-bottom: 6px;
   }
 `;

@@ -275,7 +275,7 @@ const StHeaderRow = styled.div`
   justify-content: space-between;
 
   .navWrap {
-    display: flex;
+    display: contents;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

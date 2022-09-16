@@ -145,7 +145,7 @@ const StStepTitle = styled.h2`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     line-height: 1;
     color: #000;
     background-color: var(--gray-color);

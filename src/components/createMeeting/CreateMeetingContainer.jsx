@@ -164,7 +164,7 @@ const CreateMeetingContatiner = () => {
 export default CreateMeetingContatiner;
 
 const StContainer = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
   h2 {
     font-size: 30px;
@@ -173,6 +173,7 @@ const StContainer = styled.div`
   h1 {
     font-size: 20px;
     margin-top: 50px;
+    margin-bottom: 13px;
   }
 `;
 const StTitleBox = styled(TextField)`
