@@ -21,7 +21,6 @@ root.render(
       <App />
       {/* </QueryClientProvider> */}
     </ThemeProvider>
-    1d
   </Provider>
 );
 reportWebVitals();
