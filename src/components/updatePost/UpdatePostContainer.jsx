@@ -27,9 +27,6 @@ const UpdatePostContainer = () => {
   // ::: 입력된 데이터 취합하기
   const [postContent, setPostContent] = useState(postDetail.content);
   const [postTags, setPostTags] = useState(postDetail.tags);
-  const [postLocationTags, setPostLocationTags] = useState(
-    postDetail.locationTags
-  );
 
   const navigate = useNavigate();
 
@@ -50,17 +47,12 @@ const UpdatePostContainer = () => {
     setPostTags(tags);
   };
 
-  const selectedLocationTags = (tags) => {
-    setPostLocationTags(tags);
-  };
-
-  console.log(postContent, postTags, postLocationTags, "<======");
+  console.log(postContent, postTags, "<======");
   // ::: 서버전송세팅
   const onUpdatePost = async () => {
     const formData = new FormData();
     formData.append("content", postContent);
     formData.append("tags", postTags);
-    formData.append("locationTags", postLocationTags);
 
     try {
       const postUpdateResponse = await authInstance.put(
@@ -96,7 +88,6 @@ const UpdatePostContainer = () => {
   useEffect(() => {
     setPostContent(postDetail.content);
     setPostTags(postDetail.tags);
-    setPostLocationTags(postDetail.locationTags);
   }, [postDetail]);
   return (
     <StCreatePostContainerWrap>
@@ -105,24 +96,17 @@ const UpdatePostContainer = () => {
         <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
-        <StStepTitle>여행에서 경험한 내용을 수정하기</StStepTitle>
+        <StStepTitle>여행에서 경험한 내용</StStepTitle>
         <CreatePostContent
           typedPostContent={typedPostContent}
           content={postDetail.content}
         />
 
-        <StStepTitle>다녀온 곳 수정하기</StStepTitle>
-        <UpdatePostTags
-          selectedTags={selectedLocationTags}
-          tags={postDetail.locationTags}
-          tagMassage={"위치를 입력해주세요!"}
-        />
-
-        <StStepTitle>태그 수정하기</StStepTitle>
+        <StStepTitle>태그</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
           tags={postDetail.tags}
-          tagMassage={"태그를 입력해주세요!"}
+          tagMassage={"엔터키를 치시면 입력됩니다."}
         />
         <StButtonWrap>
           <Button

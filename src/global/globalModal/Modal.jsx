@@ -30,12 +30,12 @@ const Background = styled.div`
 
 const ModalContentBox = styled.div`
   position: absolute;
-  height: 500px;
-  width: 480px;
+  height: 440px;
+  width: 600px;
   top: 50%;
   left: 50%;
-  margin-top: -250px;
-  margin-left: -240px;
+  margin-top: -220px;
+  margin-left: -300px;
   background-color: var(--bg-color);
   border: 1px solid var(--title-color);
   z-index: 12;

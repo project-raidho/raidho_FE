@@ -263,7 +263,7 @@ const StSwitchButton = styled.label`
 `;
 
 const StGlobalLayoutHeader = styled.div`
-  width: 96%;
+  width: 93%;
   /* max-width: 1305px; */
   margin: 0 auto;
 `;
@@ -275,7 +275,7 @@ const StHeaderRow = styled.div`
   justify-content: space-between;
 
   .navWrap {
-    display: contents;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -289,6 +289,7 @@ const StRaidhoLogo = styled.h1`
   justify-content: center;
   width: 150px;
   height: 100%;
+  margin-right: 1rem;
   a {
     display: block;
     width: 100%;

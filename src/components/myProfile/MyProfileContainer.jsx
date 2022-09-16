@@ -19,9 +19,9 @@ const MyProfileContainer = () => {
       </StMyProfileTitleRow>
       <UpdateMyProfile />
 
-      <StMyProfileTitleRow isMore={isMore}>
+      <StMyProfileTitleRow>
         <h3>내가 쓴 글</h3>
-        <p onClick={onClickMorePost}>더보기</p>
+        {/* <p onClick={onClickMorePost}>더보기</p> */}
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <MyPostList isMore={isMore} />
@@ -30,6 +30,10 @@ const MyProfileContainer = () => {
         <h3>계정 / 보안</h3>
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow> */}
+      <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
+        <p onClick={onClickMorePost}>더보기</p>
+        <span className="bgMiddleLine" />
+      </StMyProfileTitleRow>
     </StMyProfileContainerWrap>
   );
 };
@@ -50,6 +54,10 @@ const StMyProfileTitleRow = styled.div`
   width: 100%;
   height: 45px;
   margin: 25px 0;
+
+  &.buttonMore {
+    justify-content: center;
+  }
 
   h3 {
     font-size: 2rem;
@@ -75,7 +83,7 @@ const StMyProfileTitleRow = styled.div`
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);
-    padding-left: 25px;
+    padding: 0 25px;
     background-color: var(--bg-color);
     z-index: 2;
     transition: 0.2ms;

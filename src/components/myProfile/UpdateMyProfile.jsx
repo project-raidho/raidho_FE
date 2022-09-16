@@ -264,6 +264,7 @@ const StUpdateUserProfileModal = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 90%;
+  padding: 1rem 3rem 1rem 1rem;
 `;
 
 const StUpdateProfileRow = styled.div`
