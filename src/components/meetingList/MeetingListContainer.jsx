@@ -74,7 +74,7 @@ const MeetingListContainer = () => {
           >
             <NavLink
               to={`/meetingList/${theme.themePath}`}
-              activeClassName="active"
+              className={({ isActive }) => (isActive ? "active" : "")}
             >
               {theme.themeName}
             </NavLink>
