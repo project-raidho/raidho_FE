@@ -14,7 +14,7 @@ const PostDetailImg = ({ images }) => {
   return (
     <StyledSlide {...settings}>
       {images.map((img, index) => (
-        <img key={index} src={img} alt="stay slide" />
+        <img className="slideImage" key={index} src={img} alt="stay slide" />
       ))}
     </StyledSlide>
   );
@@ -22,6 +22,19 @@ const PostDetailImg = ({ images }) => {
 export default PostDetailImg;
 
 const StyledSlide = styled(Slider)`
+  max-width: 100%;
+  max-height: 700px;
+  text-align: center;
+  margin-bottom: 10px;
+
+  .slideImage {
+    display: block;
+    width: auto !important;
+    max-width: 100%;
+    height: 100% !important;
+    margin: 0 auto !important;
+  }
+
   .slick-slide {
     display: inline-block;
   }
@@ -43,6 +56,8 @@ const StyledSlide = styled(Slider)`
     z-index: 9999;
     width: 50px !important;
     opacity: 0;
+
+    /* background-color: var(--title-color); */
   }
 
   .slick-prev {
@@ -59,7 +74,8 @@ const StyledSlide = styled(Slider)`
 
   .slick-prev:hover:before,
   .slick-next:hover:before {
-    color: white;
+    /* color: white; */
+    color: var(--title-color);
   }
 
   .slick-dots {

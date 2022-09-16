@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 // import { RiFileCopyLine } from "react-icons/ri";
 import fileIcon from "../../assets/fileIcon.svg";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
+import Modal from "../../global/globalModal/Modal";
+import Potal from "../../global/globalModal/Potal";
+import Button from "../../elements/Button";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -15,25 +18,33 @@ const MainPostCard = ({ post }) => {
   const memberImage =
     post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
 
+  const [modalOn, setModalOn] = useState(false);
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
   useEffect(() => {
-    //   const fetchData = async () => {
-    //     const URI = process.env.REACT_APP_BASE_URI
-    //     const res = await axios.get(`${URI}/post`)
-    //     if (res.data.type === 'liked') setLike(true)
-    //   }
-    //   fetchData()
+    setLike(post.isHeartMine);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [post]);
 
   const toggleLike = async () => {
     if (!like) {
-      await authInstance.post(`/api/postheart/${post.id}`);
-      setCount(count + 1);
+      try {
+        await authInstance.post(`/api/postheart/${post.id}`);
+        setCount(count + 1);
+        setLike(!like);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
     } else {
-      await authInstance.delete(`/api/postheart/${post.id}`);
-      setCount(count - 1);
+      try {
+        await authInstance.delete(`/api/postheart/${post.id}`);
+        setCount(count - 1);
+        setLike(!like);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
     }
-    setLike(!like);
   };
 
   return (
@@ -51,10 +62,27 @@ const MainPostCard = ({ post }) => {
         </div>
         <h2>{post.memberName}</h2>
         <div className="likebutton">
-          <div>{post.heartCount + count}</div>
+          <div className="likeNum">{post.heartCount + count}</div>
           <HeartButton like={like} onClick={toggleLike} />
         </div>
       </div>
+
+      <Potal>
+        {modalOn && (
+          <Modal onClose={handleModal}>
+            <StErrorMessage>
+              죄송합니다. <br />
+              로그인 후 좋아요 버튼을 누를수 있습니다. <br />
+              로그인 후 시도해 주세요.
+            </StErrorMessage>
+            <StButtonWrap>
+              <Button size="medium" onClick={handleModal}>
+                닫기
+              </Button>
+            </StButtonWrap>
+          </Modal>
+        )}
+      </Potal>
     </StFigure>
   );
 };
@@ -85,7 +113,16 @@ const StFigure = styled.figure`
     display: flex;
     position: absolute;
     bottom: 5px;
-    right: 20px;
+    right: 10px;
+
+    .likeNum {
+      display: none;
+      margin-right: 5px;
+    }
+
+    &:hover .likeNum {
+      display: block;
+    }
   }
   .userBox {
     display: flex;
@@ -103,6 +140,26 @@ const StFigure = styled.figure`
     object-fit: cover;
   }
   h2 {
+    font-size: 1.2rem;
     margin: auto 10px;
   }
+`;
+
+const StButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+
+  button {
+    margin-left: 10px;
+  }
+`;
+
+const StErrorMessage = styled.div`
+  width: 100%;
+  height: 150px;
+  font-size: 1.2rem;
+  line-height: 1.5;
 `;

@@ -8,12 +8,10 @@ import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
 
 import CreatePostTags from "../createPost/CreatePostTags";
-import RoomCloseDateBox from "./RoomclosedateBox";
+import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-// import chat, { chatActions } from "../../redux/modules/chat";
-// import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CreateMeetingContatiner = () => {
@@ -29,9 +27,9 @@ const CreateMeetingContatiner = () => {
   // const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [tags, setTags] = useState([]);
+  const [MeetingTags, setMeetingTags] = useState([]);
   const [people, setPeople] = useState();
-  const [roomClosedate, setRoomCloseDate] = useState();
+  const [roomCloseDate, setRoomCloseDate] = useState();
   const [tripPeriod, setTripPeriod] = useState([
     { startDate: "", endDate: "" },
   ]);
@@ -45,7 +43,7 @@ const CreateMeetingContatiner = () => {
     const roomData = {
       chatRoomTitle: title,
       people: people,
-      tags: tags,
+      tags: MeetingTags,
     };
     try {
       const res = await authInstance.post(`/api/chat/rooms`, roomData);
@@ -64,8 +62,8 @@ const CreateMeetingContatiner = () => {
   //   setLocationTags(tags);
   // };
 
-  const selectedTags = (tags) => {
-    setTags(tags);
+  const selectedMeetingTags = (tags) => {
+    setMeetingTags(tags);
   };
 
   const URI = process.env.REACT_APP_BASE_URI;
@@ -74,13 +72,12 @@ const CreateMeetingContatiner = () => {
 
   const data = {
     theme: theme,
-    tags: tags,
+    MeetingTags: MeetingTags,
     title: title,
     desc: desc,
     tripPeriod: tripPeriod,
-
     people: people,
-    roomClosedate: roomClosedate,
+    roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
   console.log(data);
@@ -97,13 +94,13 @@ const CreateMeetingContatiner = () => {
     <StContainer>
       <h2>step 1. 여행정보 입력</h2>
       <h1>대륙 선택</h1>
-      <ThemeSelect setTheme={setTheme} />
+      <ThemeSelect theme={""} setTheme={setTheme} />
 
       <h1>여행갈 나라/도시 입력</h1>
       <StTags>
         <CreatePostTags
           className="tagbox"
-          selectedTags={selectedTags}
+          selectedTags={selectedMeetingTags}
           tags={["예시)프랑스"]}
           tagMassage={"엔터키를 치시면 입력됩니다."}
         />
@@ -111,7 +108,7 @@ const CreateMeetingContatiner = () => {
       <h1>여행기간</h1>
       <TripPeriod setTripPeriod={setTripPeriod} />
       <h1>여행희망인원</h1>
-      <TripPeopleCount setPeople={setPeople} />
+      <TripPeopleCount people={2} setPeople={setPeople} />
       <br />
       <h2>step 2. 모집글정보 입력</h2>
       <h1>모집글 제목</h1>
@@ -129,16 +126,6 @@ const CreateMeetingContatiner = () => {
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
       />
-
-      <h1>해시태그</h1>
-      <StTags>
-        <CreatePostTags
-          className="tagbox"
-          selectedTags={selectedTags}
-          tags={["예시)활동적"]}
-          tagMassage={"홍보하고 싶은 내용을 자유롭게 입력해주세요!"}
-        />
-      </StTags>
 
       <h1>모집마감일자</h1>
       <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
@@ -164,8 +151,9 @@ const CreateMeetingContatiner = () => {
 export default CreateMeetingContatiner;
 
 const StContainer = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
+  padding-bottom: 50px;
   h2 {
     font-size: 30px;
     margin-top: 50px;
@@ -173,6 +161,7 @@ const StContainer = styled.div`
   h1 {
     font-size: 20px;
     margin-top: 50px;
+    margin-bottom: 13px;
   }
 `;
 const StTitleBox = styled(TextField)`
@@ -211,7 +200,8 @@ const StTags = styled.div`
 `;
 
 const StbottonBox = styled.div`
-  padding: 50px 10px;
+  /* padding: 50px 10px; */
+  float: right;
 `;
 
 // const StCategorySelectBox = styled.div`

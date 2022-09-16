@@ -7,7 +7,7 @@ const SIZES = {
     --button-radius: 30px;
   `,
   medium: css`
-    --button-font-size: 1.2rem;
+    --button-font-size: 1.5rem;
     --button-width: 220px;
     --button-height: 50px;
     --button-radius: 25px;
@@ -35,8 +35,8 @@ const SIZES = {
   `,
   squareTheme: css`
     --button-font-size: 1.5rem;
-    --button-width: 250px;
-    --button-height: 56px;
+    --button-width: 180px;
+    --button-height: 50px;
     --button-padding: 0 16px;
     --button-radius: 15px;
   `,

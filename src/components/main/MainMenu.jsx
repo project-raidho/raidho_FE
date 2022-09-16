@@ -13,10 +13,10 @@ const MainMenu = () => {
       imgurl: "",
       memberImage: "",
       memberName: "",
-      isImages: true,
+      isImages: false,
       multipartFiles: [],
-      heartCount: 100,
-      isHeartMine: true,
+      heartCount: 0,
+      isHeartMine: false,
     },
   ]);
   const getBestPosts = async () => {

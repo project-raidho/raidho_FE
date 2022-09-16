@@ -3,23 +3,14 @@ import styled from "styled-components";
 import Button from "../../elements/Button";
 import { useSelector } from "react-redux";
 
-const ThemeSelect = ({ setTheme }) => {
-  let [btnActive, setBtnActive] = useState("");
+const ThemeSelect = ({ theme, setTheme }) => {
+  let [btnActive, setBtnActive] = useState(theme);
 
   const themeList = useSelector((state) => state.themeSlice.themeList);
-  //   const themeList = [
-  //     "국내",
-  //     "유럽",
-  //     "아시아",
-  //     "아메리카",
-  //     "아프리카",
-  //     "오세아니아",
-  //   ];
+
   const toggleActive = (e) => {
     setTheme(e.target.value);
-    setBtnActive((prev) => {
-      return e.target.value;
-    });
+    setBtnActive(e.target.value);
   };
 
   return (
@@ -33,6 +24,7 @@ const ThemeSelect = ({ setTheme }) => {
             key={index}
             onClick={toggleActive}
             themeImage={theme.themeImage}
+            className="themeName"
           >
             {theme.themeName}
           </StButton>
@@ -51,12 +43,16 @@ const StThemeSelectBox = styled.div`
   justify-items: center;
   align-items: center;
   list-style: none;
+
+  .themeName {
+    font-size: 18px;
+  }
 `;
 
 const StButton = styled(Button)`
   margin-right: 20px;
   font-size: 13px;
-  width: 300px;
+  /* width: 300px; */
   /* background-image:URL(${(props) => props.themeImage}); 
     background-size: cover; */
 `;
