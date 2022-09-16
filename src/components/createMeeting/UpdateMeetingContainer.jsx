@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  // useEffect
+} from "react";
 import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
 // import { useForm } from "react-hook-form";
@@ -14,8 +17,25 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { useQuery } from "react-query";
 const UpdateMeetingContainer = () => {
+  // :::  모집글 단건 조회
+  const getMeetingDetail = async () => {
+    try {
+      const res = await authInstance.get(`/api/post/${meetingId}`);
+      console.log(res.data);
+      setMeetintDetail(res.data.data[0]);
+    } catch (error) {
+      console.log("모집글 단건조회 에러", error);
+    }
+  };
+  //첫번째 파라미터: 퀴리 키, 두번재 파라미터, axios 함수, 세번째 파라미터: 옵션
+  const meeting_query = useQuery("meetingList", getMeetingDetail, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   const navigate = useNavigate();
   // // ::: 게시글 아이디
   const { meetingId } = useParams();
@@ -23,10 +43,11 @@ const UpdateMeetingContainer = () => {
   //서버에서 받아온 데이터
   const [meetingDetail, setMeetintDetail] = useState({
     theme: "국내",
-    tags: ["#여긴", "#한국"],
+    meetingTags: ["#여긴", "#한국"],
     title: "내가 가는 이길이",
     desc: "어디로 가는지",
-    tripPeriod: { startDate: "2022-09-18", endDate: "2022-09-20" },
+    startDate: "2022-09-18",
+    endDate: "2022-09-20",
     people: 3,
     roomCloseDate: "2022-10-10",
     departLocation: "경기도 안양시 만안구",
@@ -36,41 +57,35 @@ const UpdateMeetingContainer = () => {
   const [theme, setTheme] = useState(meetingDetail.theme);
   const [title, setTitle] = useState(meetingDetail.title);
   const [desc, setDesc] = useState(meetingDetail.desc);
-  const [tags, setTags] = useState(meetingDetail.tags);
+  const [meetingTags, setMeetingTags] = useState(meetingDetail.meetingTags);
   const [people, setPeople] = useState(meetingDetail.people);
   console.log(meetingDetail.people);
   const [roomCloseDate, setRoomCloseDate] = useState(
     meetingDetail.roomCloseDate
   );
   console.log(roomCloseDate);
-  const [tripPeriod, setTripPeriod] = useState(meetingDetail.tripPeriod);
+  const [startDate, setStartDate] = useState(meetingDetail.startDate);
+  const [endDate, setEndDate] = useState(meetingDetail.endDate);
   const [departLocation, setDepartLocation] = useState(
     meetingDetail.departLocation
   );
   console.log(departLocation);
-  // const data = {
-  //   theme: theme,
-  //   tags: tags,
-  //   title: title,
-  //   desc: desc,
-  //   tripPeriod: tripPeriod,
-  //   people: people,
-  //   roomClosedate: roomClosedate,
-  //   departLocation: departLocation,
-  // };
+  const data = {
+    theme: theme,
+    meetingTags: meetingTags,
+    title: title,
+    desc: desc,
+    startDate: startDate,
+    endDate: endDate,
+    people: people,
+    roomCloseDate: roomCloseDate,
+    departLocation: departLocation,
+  };
 
   // ::: 수정데이터 서버에 전송
   const onUpdateMeeting = async () => {
-    const formData = new FormData();
-    formData.append("theme", theme);
-    formData.append("tags", tags);
-    formData.append("title", title);
-    formData.append("desc", desc);
-    formData.append("tripPeriod", tripPeriod);
-    formData.append("people", people);
-
     try {
-      const res = await authInstance.put(`/api/meeting/${meetingId}`, formData);
+      const res = await authInstance.put(`/api/meeting/${meetingId}`, data);
       console.log("postResponse", res.data);
       navigate(-1);
     } catch (error) {
@@ -85,41 +100,35 @@ const UpdateMeetingContainer = () => {
     setModalOn(!modalOn);
   };
 
-  const selectedTags = (tags) => {
-    setTags(tags);
-  };
-
-  // :::  모집글 단건 조회
-  const getMeetingDetail = async () => {
-    try {
-      const res = await authInstance.get(`/api/post/${meetingId}`);
-      console.log(res.data);
-      setMeetintDetail(res.data.data[0]);
-    } catch (error) {
-      console.log("모집글 단건조회 에러", error);
-    }
+  const selectedMeetingTags = (tags) => {
+    setMeetingTags(tags);
   };
 
   // ::: 모집글 상세 내용 불러오기
-  useEffect(() => {
-    getMeetingDetail();
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getMeetingDetail();
+  //   // eslint-disable-next-line
+  // }, []);
 
-  useEffect(() => {
-    setTitle(meetingDetail.title);
-    setDesc(meetingDetail.desc);
-    setTags(meetingDetail.tags);
-    setPeople(meetingDetail.people);
-    setRoomCloseDate(meetingDetail.roomCloseDate);
-    setTripPeriod(meetingDetail.tripPeriod);
-    setDepartLocation(meetingDetail.departLocation);
-  }, [meetingDetail]);
-
+  // useEffect(() => {
+  //   setTitle(meetingDetail.title);
+  //   setDesc(meetingDetail.desc);
+  //   setMeetingTags(meetingDetail.meetingTags);
+  //   setPeople(meetingDetail.people);
+  //   setRoomCloseDate(meetingDetail.roomCloseDate);
+  //   setStartDate(meetingDetail.startDate);
+  //   setEndDate(meetingDetail.endDate);
+  //   setDepartLocation(meetingDetail.departLocation);
+  // }, [meetingDetail]);
+  if (meeting_query.isLoading) {
+    return null;
+  }
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
-        <h2>step 1. 여행정보 입력</h2>
+        <StStepTitle>
+          <strong>STEP 1</strong>여행정보 입력
+        </StStepTitle>
         <h1>대륙 선택</h1>
         <ThemeSelect theme={theme} setTheme={setTheme} />
 
@@ -127,17 +136,24 @@ const UpdateMeetingContainer = () => {
         <StTags>
           <CreatePostTags
             className="tagbox"
-            selectedTags={selectedTags}
-            tags={tags}
+            selectedTags={selectedMeetingTags}
+            tags={meetingTags}
             tagMassage={"엔터키를 치시면 입력됩니다."}
           />
         </StTags>
         <h1>여행기간</h1>
-        <TripPeriod setTripPeriod={setTripPeriod} />
+        <TripPeriod
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
         <h1>여행희망인원</h1>
         <TripPeopleCount people={people} setPeople={setPeople} />
         <br />
-        <h2>step 2. 모집글정보 입력</h2>
+        <StStepTitle>
+          <strong>STEP 2</strong>모집글정보 입력
+        </StStepTitle>
         <h1>모집글 제목</h1>
         <StTitleBox
           multiline
@@ -155,10 +171,16 @@ const UpdateMeetingContainer = () => {
         />
 
         <h1>모집마감일자</h1>
-        <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
+        <RoomCloseDateBox
+          roomCloseDate={roomCloseDate}
+          setRoomCloseDate={setRoomCloseDate}
+        />
 
         <h1>모집 후 모일 장소</h1>
-        <MeetingLocationSearch setDepartLocation={setDepartLocation} />
+        <MeetingLocationSearch
+          departLocation={departLocation}
+          setDepartLocation={setDepartLocation}
+        />
         <StButtonWrap>
           <Button
             size="small"
@@ -279,5 +301,28 @@ const StTags = styled.div`
     border: 1px solid #a0a0a0;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid;
+  }
+`;
+
+const StStepTitle = styled.h2`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
+  padding-top: 1.2rem;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
   }
 `;
