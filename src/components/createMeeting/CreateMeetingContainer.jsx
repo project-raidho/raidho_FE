@@ -153,6 +153,7 @@ export default CreateMeetingContatiner;
 const StContainer = styled.div`
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 50px;
   h2 {
     font-size: 30px;
     margin-top: 50px;
@@ -199,7 +200,8 @@ const StTags = styled.div`
 `;
 
 const StbottonBox = styled.div`
-  padding: 50px 10px;
+  /* padding: 50px 10px; */
+  float: right;
 `;
 
 // const StCategorySelectBox = styled.div`

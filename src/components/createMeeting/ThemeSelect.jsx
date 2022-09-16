@@ -24,6 +24,7 @@ const ThemeSelect = ({ theme, setTheme }) => {
             key={index}
             onClick={toggleActive}
             themeImage={theme.themeImage}
+            className="themeName"
           >
             {theme.themeName}
           </StButton>
@@ -42,6 +43,10 @@ const StThemeSelectBox = styled.div`
   justify-items: center;
   align-items: center;
   list-style: none;
+
+  .themeName {
+    font-size: 18px;
+  }
 `;
 
 const StButton = styled(Button)`
