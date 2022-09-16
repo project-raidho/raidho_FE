@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../elements/Button";
+import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 
 const MeetingListCard = ({ meeting }) => {
@@ -47,7 +48,7 @@ const MeetingListCard = ({ meeting }) => {
             {meeting.meetingStatus === 3 && <span>여행완료</span>}
           </p>
           <p className="infoStatus">
-            모집인원 {meeting.meetingParticipant}/{meeting.meetingPeople}
+            모집인원 {meeting.meetingParticipant}/{meeting.people}
           </p>
         </StMeetingCardRow>
         <h3>{meeting.title}</h3>
@@ -66,12 +67,19 @@ const MeetingListCard = ({ meeting }) => {
       <StMeetingCardUpDown>
         <StMeetingCardRow>
           {meeting.meetingTags.map((tag, index) => (
-            <span key={tag + index}>#{tag}&nbsp;</span>
+            <span key={tag + index}>{tag}&nbsp;</span>
           ))}
         </StMeetingCardRow>
         <StMeetingCardRow>
           <p className="memberImageBox">
-            <img src={meeting.memberImage} alt={meeting.memberName} />
+            <img
+              src={
+                meeting.memberImage === null
+                  ? DefaultProfileImage
+                  : meeting.memberImage
+              }
+              alt={meeting.memberName}
+            />
           </p>
           <p className="memberNameBox">@{meeting.memberName}</p>
         </StMeetingCardRow>
