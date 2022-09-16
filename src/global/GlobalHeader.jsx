@@ -150,7 +150,7 @@ const GlobalHeader = () => {
                     </li>
                   </StToggleBox>
                 </div>
-                <div className="rightMenu">
+                <div className="rightMenu chattingMenu">
                   <Link to={"/chatting"}>
                     <img src={GoChattingIcon} alt="채팅하러 가기" />
                     {/* <span>5</span> */}
@@ -275,7 +275,7 @@ const StHeaderRow = styled.div`
   justify-content: space-between;
 
   .navWrap {
-    display: flex;
+    display: contents;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -283,9 +283,21 @@ const StHeaderRow = styled.div`
 `;
 
 const StRaidhoLogo = styled.h1`
-  width: 195px;
-  height: 50px;
-  padding-top: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 100%;
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 const StHeaderMidMenu = styled.div`
@@ -316,11 +328,34 @@ const StHeaderRightMenu = styled.div`
   .rightMenu {
     position: relative;
     margin-right: 18px;
+
+    p {
+      width: 35px;
+      height: 35px;
+
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  .chattingMenu {
+    width: 37px;
+    padding-top: 3px;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      width: 100%;
+    }
   }
 
   .userMenu {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--gray-color);
     border-radius: 50%;
     background-color: var(--main-color);

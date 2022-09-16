@@ -90,14 +90,13 @@ const PostDetailContainer = () => {
 export default PostDetailContainer;
 
 const StDetailContainer = styled.div`
-  margin: 20px auto;
+  margin: 20px auto 0 auto;
 
   width: 800px;
-  height: 1200px;
   border: 1px solid;
   border-radius: 20px;
   padding: 20px 50px;
-  box-shadow: var(--box-shadow);
+  /* box-shadow: var(--box-shadow); */
 
   .backButton {
     background-color: transparent;
@@ -124,4 +123,8 @@ const StDetailContainer = styled.div`
 const StContentBox = styled.div`
   margin-top: 20px;
   width: 100%;
+  height: 100px;
+  line-height: 1.5;
+  font-size: 1.5rem;
+  padding-bottom: 20px;
 `;

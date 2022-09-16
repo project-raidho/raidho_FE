@@ -51,7 +51,7 @@ const MainPostCard = ({ post }) => {
         </div>
         <h2>{post.memberName}</h2>
         <div className="likebutton">
-          <div>{post.heartCount + count}</div>
+          <div className="likeNum">{post.heartCount + count}</div>
           <HeartButton like={like} onClick={toggleLike} />
         </div>
       </div>
@@ -85,7 +85,16 @@ const StFigure = styled.figure`
     display: flex;
     position: absolute;
     bottom: 5px;
-    right: 20px;
+    right: 10px;
+
+    .likeNum {
+      display: none;
+      margin-right: 5px;
+    }
+
+    &:hover .likeNum {
+      display: block;
+    }
   }
   .userBox {
     display: flex;
@@ -103,6 +112,7 @@ const StFigure = styled.figure`
     object-fit: cover;
   }
   h2 {
+    font-size: 1.2rem;
     margin: auto 10px;
   }
 `;
