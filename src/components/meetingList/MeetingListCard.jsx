@@ -13,10 +13,7 @@ const MeetingListCard = ({ meeting }) => {
   };
 
   // ::: 모집날짜 몇 박 몇 일 계산하기
-  const tripPeriod = dateCalculation(
-    meeting.meetingPeriod[0],
-    meeting.meetingPeriod[1]
-  );
+  const tripPeriod = dateCalculation(meeting.startDate, meeting.endDate);
 
   // ::: 오늘 날짜 계산하기
   const todayCalculation = () => {
@@ -30,7 +27,7 @@ const MeetingListCard = ({ meeting }) => {
   const today = todayCalculation();
 
   // ::: 디데이 계산하기
-  const dday = Math.floor(dateCalculation(today, meeting.roomClosedate));
+  const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
 
   return (
     <StMeetingListCardWrap>
@@ -53,18 +50,18 @@ const MeetingListCard = ({ meeting }) => {
             모집인원 {meeting.meetingParticipant}/{meeting.meetingPeople}
           </p>
         </StMeetingCardRow>
-        <h3>{meeting.meetingTitle}</h3>
+        <h3>{meeting.title}</h3>
         <p>
           {tripPeriod === 0
             ? `${tripPeriod + 1}일`
             : `${tripPeriod}박 ${tripPeriod + 1}일`}
-          <span>{` (${meeting.meetingPeriod[0].split("-")[1]}/${
-            meeting.meetingPeriod[0].split("-")[2]
-          } - ${meeting.meetingPeriod[1].split("-")[1]}/${
-            meeting.meetingPeriod[1].split("-")[2]
+          <span>{` (${meeting.startDate.split("-")[1]}/${
+            meeting.startDate.split("-")[2]
+          } - ${meeting.endDate.split("-")[1]}/${
+            meeting.endDate.split("-")[2]
           })`}</span>
         </p>
-        <p>{meeting.meetingAddress}</p>
+        <p>{meeting.departLocation}</p>
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
         <StMeetingCardRow>
@@ -80,10 +77,7 @@ const MeetingListCard = ({ meeting }) => {
         </StMeetingCardRow>
         <StMeetingCardRow>
           <Button size="tag" variant="gray">
-            {meeting.meetingTheme}
-          </Button>
-          <Button size="tag" variant="gray">
-            {meeting.locationTag}
+            {meeting.themeCategory}
           </Button>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
