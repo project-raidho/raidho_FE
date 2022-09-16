@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
 // import { useForm } from "react-hook-form";
-import axios from "axios";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
@@ -12,7 +11,7 @@ import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const CreateMeetingContatiner = () => {
   // const {
@@ -22,41 +21,38 @@ const CreateMeetingContatiner = () => {
   //   formState: { isSubmitting, isDirty, errors },
   // } = useForm({ mode: "onChange" });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [theme, setTheme] = useState("");
   // const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [MeetingTags, setMeetingTags] = useState([]);
+  const [meetingTags, setMeetingTags] = useState([]);
   const [people, setPeople] = useState();
   const [roomCloseDate, setRoomCloseDate] = useState();
-  const [tripPeriod, setTripPeriod] = useState([
-    { startDate: "", endDate: "" },
-  ]);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [departLocation, setDepartLocation] = useState();
 
   //유효성 검사
   // const [validState,setValidState] =useState();
 
   // 방 생성하기
-  const onClickCreateRoom = async () => {
-    const roomData = {
-      chatRoomTitle: title,
-      people: people,
-      tags: MeetingTags,
-    };
-    try {
-      const res = await authInstance.post(`/api/chat/rooms`, roomData);
-      window.alert("채팅방이 생성되었습니다.");
+  // const onClickCreateRoom = async () => {
+  //   const roomData = {
+  //     chatRoomTitle: title,
+  //     people: people,
+  //     tags: MeetingTags,
+  //   };
+  //   try {
+  //     const res = await authInstance.post(`/api/chat/rooms`, roomData);
+  //     window.alert("채팅방이 생성되었습니다.");
 
-      navigate("/meetingList");
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
-
-    // dispatch(chatActions.createRoom(roomData));
-  };
+  //     navigate("/meetingList");
+  //     return res;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const selectedLocationTags = (tags) => {
   //   setLocationTags(tags);
@@ -66,27 +62,21 @@ const CreateMeetingContatiner = () => {
     setMeetingTags(tags);
   };
 
-  const URI = process.env.REACT_APP_BASE_URI;
-  // const accesstoken = localStorage.getItem("Authorization");
-  // const refreshtoken = localStorage.getItem("RefreshToken");
-
   const data = {
-    theme: theme,
-    MeetingTags: MeetingTags,
+    themeCategory: theme,
+    meetingTags: meetingTags,
     title: title,
     desc: desc,
-    tripPeriod: tripPeriod,
+    startDate: startDate,
+    endDate: endDate,
     people: people,
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
   console.log(data);
-  const postcreatemeeting = async (id) => {
-    const res = await axios.post(
-      `${URI}/detail/${id}`,
-      data
-      // config
-    );
+  const postcreatemeeting = async () => {
+    const res = await authInstance.post(`/api/meeting`, data);
+    console.log(res);
     return res;
   };
 
@@ -106,7 +96,7 @@ const CreateMeetingContatiner = () => {
         />
       </StTags>
       <h1>여행기간</h1>
-      <TripPeriod setTripPeriod={setTripPeriod} />
+      <TripPeriod setStartDate={setStartDate} setEndDate={setEndDate} />
       <h1>여행희망인원</h1>
       <TripPeopleCount people={2} setPeople={setPeople} />
       <br />
@@ -138,7 +128,7 @@ const CreateMeetingContatiner = () => {
           variant="primary"
           onClick={() => {
             postcreatemeeting();
-            onClickCreateRoom();
+            // onClickCreateRoom();
           }}
           // disabled={validState ? false : true}
         >
