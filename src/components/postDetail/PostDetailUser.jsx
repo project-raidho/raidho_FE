@@ -56,4 +56,8 @@ const StProfileRightBox = styled.div`
   display: grid;
   margin-left: 20px;
   grid-row-gap: 10px;
+
+  h2 {
+    font-size: 1.5rem;
+  }
 `;

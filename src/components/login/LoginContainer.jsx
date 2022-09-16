@@ -108,7 +108,7 @@ const ModalContentBox = styled.div`
   .logoImg {
     margin-top: 80px;
     margin-bottom: 30px;
-    width: 300px;
+    width: 200px;
   }
   .contents {
     justify-content: center;
