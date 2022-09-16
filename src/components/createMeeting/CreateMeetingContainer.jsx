@@ -26,7 +26,7 @@ const CreateMeetingContatiner = () => {
 
   const navigate = useNavigate();
   const [theme, setTheme] = useState("");
-  const [locationtags, setLocationTags] = useState([]);
+  // const [locationtags, setLocationTags] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [tags, setTags] = useState([]);
@@ -60,9 +60,9 @@ const CreateMeetingContatiner = () => {
     // dispatch(chatActions.createRoom(roomData));
   };
 
-  const selectedLocationTags = (tags) => {
-    setLocationTags(tags);
-  };
+  // const selectedLocationTags = (tags) => {
+  //   setLocationTags(tags);
+  // };
 
   const selectedTags = (tags) => {
     setTags(tags);
@@ -74,11 +74,11 @@ const CreateMeetingContatiner = () => {
 
   const data = {
     theme: theme,
-    locationtags: locationtags,
+    tags: tags,
     title: title,
     desc: desc,
     tripPeriod: tripPeriod,
-    tags: tags,
+
     people: people,
     roomClosedate: roomClosedate,
     departLocation: departLocation,
@@ -103,9 +103,9 @@ const CreateMeetingContatiner = () => {
       <StTags>
         <CreatePostTags
           className="tagbox"
-          selectedTags={selectedLocationTags}
+          selectedTags={selectedTags}
           tags={["예시)프랑스"]}
-          tagMassage={"여행할 도시나 나라를 입력해주세요!"}
+          tagMassage={"엔터키를 치시면 입력됩니다."}
         />
       </StTags>
       <h1>여행기간</h1>
