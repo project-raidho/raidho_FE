@@ -3,23 +3,14 @@ import styled from "styled-components";
 import Button from "../../elements/Button";
 import { useSelector } from "react-redux";
 
-const ThemeSelect = ({ setTheme }) => {
-  let [btnActive, setBtnActive] = useState("");
+const ThemeSelect = ({ theme, setTheme }) => {
+  let [btnActive, setBtnActive] = useState(theme);
 
   const themeList = useSelector((state) => state.themeSlice.themeList);
-  //   const themeList = [
-  //     "국내",
-  //     "유럽",
-  //     "아시아",
-  //     "아메리카",
-  //     "아프리카",
-  //     "오세아니아",
-  //   ];
+
   const toggleActive = (e) => {
     setTheme(e.target.value);
-    setBtnActive((prev) => {
-      return e.target.value;
-    });
+    setBtnActive(e.target.value);
   };
 
   return (
