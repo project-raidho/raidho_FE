@@ -100,12 +100,22 @@ const MeetingListCard = ({ meeting }) => {
           </Button>
           <div>
             {meeting.isMine && <Button variant="gray">수정하기</Button>}
-            <Button
-              variant="primary"
-              onClick={meeting.isMine && `${() => onDeleteMeeting(meeting.id)}`}
-            >
-              {meeting.isMine ? "삭제하기" : "침여하기"}
-            </Button>
+            {meeting.isMine && (
+              <Button
+                variant="primary"
+                onClick={() => onDeleteMeeting(meeting.id)}
+              >
+                삭제하기
+              </Button>
+            )}
+            {!meeting.isMine && (
+              <Button
+                variant="primary"
+                onClick={() => onDeleteMeeting(meeting.id)}
+              >
+                참여하기
+              </Button>
+            )}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
