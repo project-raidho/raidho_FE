@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
-import HeartButton from "./HeartButton";
-import React, { useState, useEffect } from "react";
+import HeartButton from "../../elements/HeartButton";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { RiFileCopyLine } from "react-icons/ri";
 import fileIcon from "../../assets/fileIcon.svg";
@@ -9,11 +9,36 @@ import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
+import { useMutation, useQueryClient } from "react-query";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
-  const [like, setLike] = useState(post.isHeartMine);
-  const [count, setCount] = useState(0);
+  // ::: 좋아요, 좋아요 취소 axios
+  const changeLike = async () => {
+    if (!post.isHeartMine) {
+      try {
+        await authInstance.post(`/api/postheart/${post.id}`);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
+    } else {
+      try {
+        await authInstance.delete(`/api/postheart/${post.id}`);
+      } catch (e) {
+        setModalOn(!modalOn);
+      }
+    }
+  };
+
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+  // 좋아요 성공시 postList 무효화
+  const { mutate } = useMutation(changeLike, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("postList");
+    },
+  });
+
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
     post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
@@ -22,31 +47,6 @@ const MainPostCard = ({ post }) => {
   const handleModal = () => {
     setModalOn(!modalOn);
   };
-  useEffect(() => {
-    setLike(post.isHeartMine);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post]);
-
-  const toggleLike = async () => {
-    if (!like) {
-      try {
-        await authInstance.post(`/api/postheart/${post.id}`);
-        setCount(count + 1);
-        setLike(!like);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
-    } else {
-      try {
-        await authInstance.delete(`/api/postheart/${post.id}`);
-        setCount(count - 1);
-        setLike(!like);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
-    }
-  };
-
   return (
     <StFigure>
       <img
@@ -62,8 +62,8 @@ const MainPostCard = ({ post }) => {
         </div>
         <h2>{post.memberName}</h2>
         <div className="likebutton">
-          <div className="likeNum">{post.heartCount + count}</div>
-          <HeartButton like={like} onClick={toggleLike} />
+          <div className="likeNum">{post.heartCount}</div>
+          <HeartButton like={post.isHeartMine} onClick={mutate} />
         </div>
       </div>
 
