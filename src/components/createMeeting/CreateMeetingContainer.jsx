@@ -14,8 +14,8 @@ import TextField from "@mui/material/TextField";
 import CreatePostContent from "../createPost/CreatePostContent";
 import { useNavigate } from "react-router-dom";
 
-//리액트 쿼리
-import { useQuery } from "react-query";
+// //리액트 쿼리
+// import { useQuery } from "react-query";
 
 const CreateMeetingContatiner = () => {
   const navigate = useNavigate();
@@ -27,11 +27,7 @@ const CreateMeetingContatiner = () => {
     return res;
   };
 
-  const meeting_query = useQuery("meetingList", postcreatemeeting, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+
 
   // const {
   //   register,

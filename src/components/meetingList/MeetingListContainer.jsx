@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
 
-// const getMeetingList = () => {
-//   return axios.get(`https://wjsxogns.shop/api/meeting`);
-// };
+const getMeetingList = () => {
+  return axios.get(`https://wjsxogns.shop/api/meeting`);
+};
 
 const MeetingListContainer = () => {
-  // const meetingAllListQuery = useQuery("meetingList", getMeetingList, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  // });
+  const meetingAllListQuery = useQuery("meetingList", getMeetingList, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
 
   // console.log(meetingAllListQuery);
   // console.log(meetingAllListQuery.data);
