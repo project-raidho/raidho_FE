@@ -2,46 +2,8 @@
 
 ## 프로젝트 소개
 
-- 📌 여행하고 싶은 사람들이 이용하는 공간으로, 함께 여행하고 싶은 사람을 모집하고, 경험을 공유하는 웹 서비스
-- 📌 자전거, 오토바이 등 같은 취미를 가지고 있는 사람을 구하기 어려운 여행을 쉽게 모집할 수 있도록 도와주는 서비스
-
----
-
-## 개발 진행상황 체크
-
-| 완료 여부 | 페이지              | 기능                                                           | 서버 연결 여부 |
-| :-------: | ------------------- | -------------------------------------------------------------- | :------------: |
-|  &#9744;  | 로그인              | 카카오로그인, 로그아웃                                         |    &#9744;     |
-|  &#9744;  | 마이페이지          | 유저정보수정, 유저 작성한 게시글 조회                          |    &#9744;     |
-|  &#9744;  | 여행후기 리스트     | 실시간&추천순 필터기능, 메소리니 레이아웃, 좋아요, 무한스크롤  |    &#9744;     |
-|  &#9744;  | 여행후기 등록       | 이미지 편집 및 등록, 태그 등록, 태그 삭제, 태그 중복방지       |    &#9744;     |
-|  &#9744;  | 여행후기 상세       | 여행후기 삭제                                                  |    &#9744;     |
-|  &#9744;  | 여행후기 수정       | 여행후기 수정                                                  |    &#9744;     |
-|  &#9744;  | 여행친구찾기 리스트 | 여행친구 찾기 조회                                             |    &#9744;     |
-|  &#9744;  | 여행친구찾기 등록   | 달력, 카카오맵 주소검색, 태그                                  |    &#9744;     |
-|  &#9744;  | 여행친구찾기 상세   | 여행친구찾기 삭제                                              |    &#9744;     |
-|  &#9744;  | 여행친구찾기 수정   | 여행친구찾기 수정                                              |    &#9744;     |
-|  &#9744;  | 검색 조회           | 최근검색기록 조회\*삭제, 실시간 검색                           |    &#9744;     |
-|  &#9744;  | 검색 상세 리스트    | 여행후기 및 여행친구찾기에 관한 해당 태그에 관련한 게시글 조회 |    &#9744;     |
-|  &#9744;  | 채팅                | 채팅 참여, 나가기, 실시간 대화                                 |    &#9744;     |
-
-- 체크박스 작성방법 : 완료시 `&#9745;` / 미완료시 `&#9744;`
-
----
-
-## 기술정보
-
-<p>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
-  <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=Create React App&logoColor=black">
-  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
-  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
-  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
-  <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
-  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
-  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
-  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
-</p>
+- 📌 여행을 뜻하는 라이도(라디오가 아닙니다😢)
+- 📌 여행하고 싶은 사람들, 여행을 좋아하는 사람들이 이용하는 공간으로, 함께 여행하고 싶은 사람을 모집하고, 여행 경험을 공유하는 웹 커뮤니티 서비스
 
 ---
 
@@ -55,6 +17,47 @@
 | BE·Spring        | 김성호 | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
 | BE·Spring        | 전태훈 | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
 | UX/UI            | 강예진 |                                                          | ENFP |
+
+---
+
+## 개발 진행상황 체크
+
+| 완료 여부 | 페이지              | 기능                                                                                            | 서버 연결 여부 |
+| :-------: | ------------------- | ----------------------------------------------------------------------------------------------- | :------------: |
+|  &#9744;  | 로그인              | ✅ 카카오로그인<br /> &#9744; 로그아웃                                                          |       ✅       |
+|  &#9744;  | 마이페이지          | &#9744; 유저정보수정 <br/> ✅ 유저 작성한 게시글 조회                                           |    &#9744;     |
+|  &#9744;  | 여행후기 리스트     | ✅ 실시간, 추천순 필터기능 <br /> ✅ 메소리니 레이아웃<br /> ✅ 좋아요<br /> &#9744; 무한스크롤 |       ✅       |
+|    ✅     | 여행후기 등록       | ✅ 이미지 편집 및 등록 <br /> ✅ 태그 등록, 태그 삭제, 태그 중복방지                            |       ✅       |
+|    ✅     | 여행후기 상세       | ✅ 여행후기 삭제                                                                                |       ✅       |
+|    ✅     | 여행후기 수정       | ✅ 여행후기 수정                                                                                |       ✅       |
+|  &#9744;  | 여행친구찾기 리스트 | ✅ 여행친구 찾기 조회 <br/> &#9744; 무한스크롤                                                  |       ✅       |
+|    ✅     | 여행친구찾기 등록   | ✅ 달력 <br/> ✅ 카카오맵 주소검색, 태그                                                        |       ✅       |
+|    ✅     | 여행친구찾기 상세   | ✅ 여행친구찾기 삭제                                                                            |       ✅       |
+|  &#9744;  | 여행친구찾기 수정   | &#9744; 여행친구찾기 수정                                                                       |    &#9744;     |
+|    ✅     | 검색 조회           | ✅ 최근검색기록 조회, 삭제                                                                      |       ✅       |
+|  &#9744;  | 검색 상세 리스트    | ✅ 여행후기 태그 조회 <br> &#9744; 여행친구찾기 태그 조회                                       |    &#9744;     |
+|  &#9744;  | 채팅                | &#9744; 채팅 참여, 나가기 <br> &#9744; 실시간 대화                                              |    &#9744;     |
+
+- 체크박스 작성방법 : 완료시 `✅` / 미완료시 `&#9744;`
+
+---
+
+## 기술정보
+
+<p>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
+  <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=Create React App&logoColor=black">
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+  <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=white">
+  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
+  <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
+  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
+</p>
 
 ---
 
@@ -77,9 +80,10 @@
 
 |          기술           | 사용 이유                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | :---------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     **Typescript**      | - 타입스크립트 사용 고려 <br> - 개발 시 타입을 지정해서 (깨끗한 코드) 코드를 보다 읽기 쉽게 만들어주고 코드를 작성하는 중에 에러를 발견할 수 있고 에러에 대한 대응을 빠르게 해주어 개발자의 실수를 줄여줄 수 있다는 점에서 사용고려 중 :: 추석 연휴기간에 도전해보고 진행이 어렵다고 판단되면 뒤로 미룰 예정                                                                                                                                                                            |
+|     **Typescript**      | - 개발 시 타입을 지정해서 (깨끗한 코드) 코드를 보다 읽기 쉽게 만들어주고 코드를 작성하는 중에 에러를 발견할 수 있고 에러에 대한 대응을 빠르게 해주어 개발자의 실수를 줄여줄 수 있다는 점에 도입하기로 결정                                                                                                                                                                                                                                                                              |
 |    **redux-toolkit**    | - 컨포넌트 내에서 상태관리 함에 있어서 페이지 이동 하면서 데이터를 유지하기 어려워 전역으로 데이터 저장하는 방법으로 리덕스 툴킷을 선택 <br> -리덕스 툴킷은 리덕스보다 action을 정의하지 않고 작성할 수 있어 코드가 간결해지고 immer부분이 내장되어 있어 편하게 사용할 수 있기에 선택하게 됨 <br> - 또한 비동기를 수월하게 할 수 있는 thunk도 함께 사용할 수 있어서 선택하게 됨                                                                                                         |
-|        **axios**        | - API를 연동하기 위해서 fetch나 axios 등으로 활용할 수 있는데 axios를 사용하게 된 이유는 자동으로 JSON 데이터 형식으로 변환이 가능하고 XSRF의 보호를 받는다는 점에서 fetch대신 axios를 선택함 <br> - 또한 data가 object 형식이 포함되고, 사용하는 법도 편리하여 사용하게 됨                                                                                                                                                                                                             |
+|     **react-query**     | - 게시글을 삭제했을 때 화면에 실시간으로 반영되지 않아 도입을 고려하게 됨 <br> - 화면 전환할 때마다 서버데이터를 가져오기 때문에 useEffect와 useState의 사용을 줄일 수 있고 실시간 반영이 가능해서 선택하게 됨 <br> - 무한스크롤 구현이 서비스 특성상 필요한데, 이용해서 구현이 가능해서 사용하기로 결정함                                                                                                                                                                              |
+|   **axios(instance)**   | - API를 연동하기 위해서 fetch나 axios 등으로 활용할 수 있는데 axios를 사용하게 된 이유는 자동으로 JSON 데이터 형식으로 변환이 가능하고 XSRF의 보호를 받는다는 점에서 fetch대신 axios를 선택함 <br> - 또한 data가 object 형식이 포함되고, 사용하는 법도 편리하여 사용하게 됨 <br> - axios 사용을 할 때마다 URL과 token을 중복사용하게 되어 인스턴스화 시켜서 사용하는 것으로 수정함                                                                                                      |
 |   **react-dropzone**    | - [이미지 drop 업로드] 이미지 업로드 시 기본 파일 선택으로 업로드 하는 것 뿐아니라 해당 영역에 파일을 가져다 두면 바로 업로드 되게 하는 편의성을 주고 싶어서 사용 <br> - 해당 패키지의 경우 현재 버전이 14.2.2으로로 주기적으로 업데이트 되는 부분이 확인 되고, 이미지 드롭 업로드 위주의 기능만 있어서 이 패키지를 사용하게 됨                                                                                                                                                         |
 |  **react-image-crop**   | - [이미지 crop 기능] 사용자가 이미지를 업로드 하고 원하는 부분만 업로드 할 수 있도록 편집기능을 추가하고자 사용함 <br> - 해당 패키지의 경우 간단한 이미지 편집 기능만 들어있고, 패키지 사이즈가 77KB로 다른 패키지와 비교해서 가볍다고 생각했기에 사용 <br> - 패키지를 사용함에 있어서도 문서화 및 예제가 잘 나와있어서 선택하게 됨                                                                                                                                                     |
 |  **react-date-range**   | - 여행 기간을 입력할 수 있고 인풋과 함께 사용가능하고 다양한 레이아웃으로 커스터마이징도 가능해서 선택                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -87,6 +91,7 @@
 |   **카카오 지도 api**   | - 카카오 로그인을 구현해놔서 카카오 앱 키가 있기때문에 재사용 할수 있다는 점에서 이 api를 선택                                                                                                                                                                                                                                                                                                                                                                                          |
 |    **stomp, sockjs**    | - 백엔드가 spring이기 때문에 spring과 양방향 통신을 통해 채팅 기능을 구현하고자 stomp와 sockjs를 선택                                                                                                                                                                                                                                                                                                                                                                                   |
 |   **gitHub Actions**    | - 프로젝트를 개발함에 있어 실제 배포후 환경에서 오류가 많이 발생한다는 점을 이전 프로젝트에서 느껴볼 수 있었음 ⇒ CI/CD가 필요하다고 느껴 프로젝트 초기부터 세팅해서 진행하기로 함 <br> - vercel, jenkis 등 ci/cd 종류가 여러개 있지만, gitHub Actions를 사용한 이유는 github에 올리면 바로바로 배포 내용을 확인할 수 있다는 점이 가장 큼 <br> - 사전에 세팅만 잘 해두면 해당 브랜치만 올려도 배포가 된다는 점, 그리고 github내에서 작업하는 거라 프로젝트 관리가 용이하다는 점에서 선택 |
+|  **styled-components**  | - 프로젝트를 개발할 때 CSS In JS 방식을 활용해서 생산적으로 개발을 진행하기 위해 도입함 <br> - 동적 스타일링이 더욱 편리하고 현재까지 소규모의 프로젝트 이기에 빠르게 작성하고 빠르게 테스트 하는 것이 중요하다고 판단했기에 도입하게 됨                                                                                                                                                                                                                                                |
 
 ---
 
@@ -109,7 +114,7 @@
 |      2022.09.09       | - 모집방개설 페이지 날짜 형식 및 테마 변환 <br> - 모집방 리스트 페이지 작업 완료 <br> - 헤더 메뉴 추가 및 토글 이벤트 추가, 스크롤 이벤트 오류 수정 <br> - 여행후기 등록 페이지 이미지 업로드 형식(blob) 변환 <br> - 타입스크립트 변환 도전으로 공부 <br> - 유저 프로필 수정하기 이미지 리사이징 및 서버통신 세팅 완료 |
 |      2022.09.10       | - 작업파일 타입스크립트 변환                                                                                                                                                                                                                                                                                           |
 |      2022.09.11       | - 작업파일 타입스크립트 변환                                                                                                                                                                                                                                                                                           |
-| 2022.09.12-2022.09.17 | - 게시글 CRUD, 모집글 CRUD, 검색 서버 연동 및 기타 에러처리                                                                                                                                                                                                                                                            |
+| 2022.09.12-2022.09.17 | - 게시글 CRUD, 모집글 CRUD, 검색 서버 연동 및 기타 <br /> - react-query 변환 에러처리                                                                                                                                                                                                                                  |
 
 ---
 
