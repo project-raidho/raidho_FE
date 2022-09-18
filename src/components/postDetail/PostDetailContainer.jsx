@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import PostDetailImage from "./PostDetailImg";
@@ -10,49 +10,43 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { authInstance } from "../../shared/api";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+
+// ::: 상세페이지 조회 axios
+const getPostDetail = async ({ queryKey }) => {
+  return await authInstance.get(`/api/post/${queryKey[1]}`);
+};
+
+// ::: 상세페이지 삭제 axios
+const deletePostDetail = async (id) => {
+  return await authInstance.delete(`/api/post/${id}`);
+};
 
 const PostDetailContainer = () => {
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
-  const [postDetail, setPostDetail] = useState({
-    id: "",
-    content: "",
-    multipartFiles: [],
-    tags: ["#한국", "#다리"],
-    locationTags: [],
-    heartCount: 0,
-    isHeartMine: true,
-    isMine: true,
-    memberId: 1,
-    memberImage: "",
-    memberName: "",
-  });
-  console.log(postDetail.id);
-  // const [isMine, setIsMine] = useState(false);
-  useEffect(() => {
-    getpostdetail(id);
-    // const memberID = localStorage.getItem("memberId");
 
-    // if (postDetail.memberId === Number(memberID)) {
-    //   return setIsMine(true);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // ::: 상세페이지 조회 axios
-  const getpostdetail = async (id) => {
-    const res = await authInstance.get(`/api/post/${id}`);
-    console.log(res);
-    return setPostDetail(res.data.data[0]);
-  };
-  // ::: 상세페이지 삭제 axios
-  const deletePostDetail = async () => {
-    const res = await authInstance.delete(`/api/post/${id}`);
-    console.log(res);
-    navigate(-1);
-    return id;
-  };
-  console.log(postDetail);
+  const postDetailQuery = useQuery(["postDetail", id], getPostDetail, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    //fresh 타임 늘리는 옵션
+    // staleTime: 10000
+  });
+
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+  const { mutate } = useMutation(deletePostDetail, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("postList");
+      navigate(-1);
+    },
+  });
+
+  if (postDetailQuery.isLoading) {
+    return null;
+  }
+  const postDetail = postDetailQuery.data.data.data[0];
   return (
     <StDetailContainer>
       <IoArrowBackSharp
@@ -66,7 +60,7 @@ const PostDetailContainer = () => {
         <RiDeleteBin6Fill
           className="deleteButton"
           size="24"
-          onClick={deletePostDetail}
+          onClick={() => mutate(id)}
         />
       )}
       {postDetail.isMine && (

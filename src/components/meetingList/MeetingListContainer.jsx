@@ -1,67 +1,39 @@
-import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import React, { useState } from "react";
 import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import MeetingListCard from "./MeetingListCard";
 import styled from "styled-components";
-
-// const getMeetingList = () => {
-//   return axios.get(`https://wjsxogns.shop/api/meeting`);
-// };
+//::: 모집글 카테고리별 조회 axios
+const getMeetingList = ({ queryKey }) => {
+  return authInstance.get(`/api/meeting/${queryKey[1]}`);
+};
 
 const MeetingListContainer = () => {
-  // const meetingAllListQuery = useQuery("meetingList", getMeetingList, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  // });
+  // 서버에서 전체카테고리 나오면 초기값 전체로 바꿔야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const [selectedTheme, setSelectedTheme] = useState("국내");
 
-  // console.log(meetingAllListQuery);
-  // console.log(meetingAllListQuery.data);
+  const meetingAllListQuery = useQuery(
+    ["meetingList", selectedTheme],
+    getMeetingList,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
   const themeList = useSelector((state) => state.themeSlice.themeList);
 
-  // ::: ===> 서버 테스트 세팅
-  const [selectedTheme, setSelectedTheme] = useState(null);
-  const [meetingList, setMeetingList] = useState([]);
-
-  console.log("현재 선택된 테마 ::: ===>", selectedTheme);
-
-  // ::: ===> 서버테스트 세팅
-  // ::: 전체 리스트 불러오기
-
-  // ::: ===> 서버테스트 세팅
-  // ::: 테마별 리스트 불러오기
+  // ::: 현재테마 바꾸는 함수
   const onClickTheme = async (theme) => {
     setSelectedTheme(theme);
-    try {
-      const responseTheme = await authInstance.get(`/api/meeting/${theme}`);
-      console.log(responseTheme);
-      return setMeetingList(responseTheme.data.data.content);
-      // return responseTheme.data.data.content;
-    } catch (error) {
-      console.log(error);
-    }
   };
 
-  const getMeetingList = async () => {
-    try {
-      const response = await authInstance.get(`/api/meeting`);
-      console.log(response);
-      return setMeetingList(response.data.data.content);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getMeetingList();
-  }, []);
-
-  // if (meetingAllListQuery.isLoading) {
-  //   return null;
-  // }
+  if (meetingAllListQuery.isLoading) {
+    return null;
+  }
 
   return (
     <StMeetingListContainerWrap>
@@ -95,7 +67,7 @@ const MeetingListContainer = () => {
       </StMeetingCategoryRow> */}
 
       <StMeetingCardBox>
-        {meetingList.map((meeting) => (
+        {meetingAllListQuery.data.data.data.content.map((meeting) => (
           <MeetingListCard key={meeting.id} meeting={meeting} />
         ))}
       </StMeetingCardBox>
