@@ -54,6 +54,7 @@ const MainPostCard = ({ post }) => {
         src={post.multipartFiles[0]}
         alt="img"
         onClick={() => navigate(`/postdetail/${post.id}`)}
+        loading="lazy"
       />
       {post.isImages && <div className="imagesicon" />}
       <div className="userBox">

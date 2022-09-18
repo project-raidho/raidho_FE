@@ -42,7 +42,7 @@ const MyPostList = ({ isMore }) => {
       {postList.map((post) => (
         <StPostCard key={post.id}>
           <Link to={`/postDetail/${post.id}`}>
-            <img src={post.multipartFiles[0]} alt={post.id} />
+            <img src={post.multipartFiles[0]} alt={post.id} loading="lazy" />
           </Link>
         </StPostCard>
       ))}
