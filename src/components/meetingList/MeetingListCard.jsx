@@ -2,9 +2,26 @@ import React from "react";
 import Button from "../../elements/Button";
 import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 
+const onDeleteMeeting = async (meetingId) => {
+  try {
+    await authInstance.delete(`/api/meeting/${meetingId}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const MeetingListCard = ({ meeting }) => {
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+  const { mutate } = useMutation(onDeleteMeeting, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("meetingList");
+    },
+  });
+
   // ::: 날짜 차이 계산하기
   const dateCalculation = (day1, day2) => {
     const dateStart = new Date(day1);
@@ -31,14 +48,14 @@ const MeetingListCard = ({ meeting }) => {
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
 
-  const onDeleteMeeting = async (meetingId) => {
-    try {
-      const response = await authInstance.delete(`/api/meeting/${meetingId}`);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const onDeleteMeeting = async (meetingId) => {
+  //   try {
+  //     const response = await authInstance.delete(`/api/meeting/${meetingId}`);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <StMeetingListCardWrap>
@@ -101,17 +118,16 @@ const MeetingListCard = ({ meeting }) => {
           <div>
             {meeting.isMine && <Button variant="gray">수정하기</Button>}
             {meeting.isMine && (
-              <Button
-                variant="primary"
-                onClick={() => onDeleteMeeting(meeting.id)}
-              >
+              <Button variant="primary" onClick={() => mutate(meeting.id)}>
                 삭제하기
               </Button>
             )}
             {!meeting.isMine && (
               <Button
                 variant="primary"
-                onClick={() => onDeleteMeeting(meeting.id)}
+                // onClick={() =>
+                //   onDeleteMeeting(meeting.id)
+                // }
               >
                 참여하기
               </Button>

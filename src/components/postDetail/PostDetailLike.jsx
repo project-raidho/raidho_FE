@@ -1,54 +1,50 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
-import HeartButton from "../main/HeartButton";
+import HeartButton from "../../elements/HeartButton";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
+import { useMutation, useQueryClient } from "react-query";
 
 const PostDetailLike = ({ postDetail }) => {
   const { id } = useParams();
-  const [count, setCount] = useState(0);
-  console.log(postDetail.isHeartMine);
-  const [like, setLike] = useState(postDetail.isHeartMine);
-  console.log(like);
-
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
   };
-
-  useEffect(() => {
-    setLike(postDetail.isHeartMine);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postDetail]);
   const toggleLike = async () => {
-    if (!like) {
+    if (!postDetail.isHeartMine) {
       try {
         await authInstance.post(`/api/postheart/${id}`);
-        setLike(!like);
-        setCount(count + 1);
       } catch (e) {
         setModalOn(!modalOn);
       }
     } else {
       try {
         await authInstance.delete(`/api/postheart/${id}`);
-        setLike(!like);
-        setCount(count - 1);
       } catch (e) {
         setModalOn(!modalOn);
       }
     }
   };
+
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+  const { mutate } = useMutation(toggleLike, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("postDetail");
+      queryClient.invalidateQueries("postList");
+    },
+  });
+
   return (
     <StlikeWrapper>
-      <StHeartCountBox>{postDetail.heartCount + count}</StHeartCountBox>
+      <StHeartCountBox>{postDetail.heartCount}</StHeartCountBox>
       <HeartButton
-        like={like}
-        onClick={() => toggleLike()}
+        like={postDetail.isHeartMine}
+        onClick={mutate}
         className="iconHeart"
       />
 
