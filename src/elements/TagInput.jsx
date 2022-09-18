@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../../elements/Input";
+import Input from "./Input";
 import styled from "styled-components";
 
 const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {

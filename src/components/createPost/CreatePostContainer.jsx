@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
-import CreatePostTags from "./CreatePostTags";
+import TagInput from "../../elements/TagInput";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
@@ -81,7 +81,7 @@ const CreatePostContainer = () => {
       <StStepTitle>
         <strong>STEP 3</strong>태그 입력하기
       </StStepTitle>
-      <CreatePostTags
+      <TagInput
         selectedTags={selectedTags}
         tags={[]}
         tagMassage={"엔터키를 치시면 태그가 입력됩니다."}

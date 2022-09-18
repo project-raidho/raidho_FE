@@ -48,15 +48,6 @@ const MeetingListCard = ({ meeting }) => {
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
 
-  // const onDeleteMeeting = async (meetingId) => {
-  //   try {
-  //     const response = await authInstance.delete(`/api/meeting/${meetingId}`);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <StMeetingListCardWrap>
       <StMeetingCardUpDown>
