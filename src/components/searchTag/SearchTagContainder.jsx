@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
-import MeetingListCard from "../meetingList/MeetingListCard";
+// import MeetingListCard from "../meetingList/MeetingListCard";
 import { authInstance } from "../../shared/api";
 
 const SearchTagContainer = () => {
@@ -11,7 +11,7 @@ const SearchTagContainer = () => {
 
   // ::: 추천 테마 리스트 전역에서 불러오기
   const themeList = useSelector((state) => state.themeSlice.themeList);
-  const meetingList = useSelector((state) => state.meetingSlice.meetingList);
+  // const meetingList = useSelector((state) => state.meetingSlice.meetingList);
   const [postList, setPostList] = useState([
     {
       id: 0,
@@ -122,12 +122,12 @@ const SearchTagContainer = () => {
                 </p>
               ))}
           </StMeetingCategoryRow>
-          <StMeetingCardBox>
+          {/* <StMeetingCardBox>
             {!checkUri &&
               meetingList.map((meeting) => (
                 <MeetingListCard key={meeting.id} meeting={meeting} />
               ))}
-          </StMeetingCardBox>
+          </StMeetingCardBox> */}
         </StMeetingListWrap>
       </StTagContentWrap>
     </StSearchTagContainerWrap>
@@ -292,16 +292,16 @@ const StMeetingCategoryRow = styled.div`
   }
 `;
 
-const StMeetingCardBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 5rem;
+// const StMeetingCardBox = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   padding-bottom: 5rem;
 
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+//   @media (max-width: 1000px) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
 
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-`;
+//   @media (max-width: 600px) {
+//     grid-template-columns: repeat(1, 1fr);
+//   }
+// `;
