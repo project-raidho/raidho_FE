@@ -6,7 +6,7 @@ import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
 
-import CreatePostTags from "../createPost/CreatePostTags";
+import TagInput from "../../elements/TagInput";
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
@@ -108,7 +108,7 @@ const CreateMeetingContatiner = () => {
 
       <h1>여행갈 나라/도시 입력</h1>
       <StTags>
-        <CreatePostTags
+        <TagInput
           className="tagbox"
           selectedTags={selectedMeetingTags}
           tags={["예시)프랑스"]}

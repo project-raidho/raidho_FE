@@ -6,6 +6,12 @@ const initialState = {
   error: null,
   themeList: [
     {
+      themeName: "전체",
+      themeImage:
+        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dHJhdmVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      themePath: "all"
+    },
+    {
       themeName: "국내",
       themeImage:
         "https://images.unsplash.com/photo-1616738227115-954748f35c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -42,8 +48,6 @@ const initialState = {
       themePath: "africa"
     },
   ],
-
-  locationList: ["전국", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"],
 
   recommendTagList: [
     {

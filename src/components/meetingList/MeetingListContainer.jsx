@@ -11,8 +11,7 @@ const getMeetingList = ({ queryKey }) => {
 };
 
 const MeetingListContainer = () => {
-  // 서버에서 전체카테고리 나오면 초기값 전체로 바꿔야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  const [selectedTheme, setSelectedTheme] = useState("국내");
+  const [selectedTheme, setSelectedTheme] = useState("");
 
   const meetingAllListQuery = useQuery(
     ["meetingList", selectedTheme],
@@ -28,6 +27,9 @@ const MeetingListContainer = () => {
 
   // ::: 현재테마 바꾸는 함수
   const onClickTheme = async (theme) => {
+    if (theme === "전체") {
+      return setSelectedTheme("");
+    }
     setSelectedTheme(theme);
   };
 
@@ -56,15 +58,6 @@ const MeetingListContainer = () => {
           </p>
         ))}
       </StMeetingCategoryRow>
-
-      {/* <StMeetingCategoryRow className="flexRightLayout">
-        {meetingStatus.map((status) => (
-          <label key={status.statusNum}>
-            <input type="checkbox" value={status.statusNum} />
-            <span>{status.statusText}</span>
-          </label>
-        ))}
-      </StMeetingCategoryRow> */}
 
       <StMeetingCardBox>
         {meetingAllListQuery.data.data.data.content.map((meeting) => (
