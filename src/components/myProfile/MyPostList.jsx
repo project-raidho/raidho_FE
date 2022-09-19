@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { authInstance } from "../../shared/api";
 import styled from "styled-components";
+import fileIcon from "../../assets/fileIcon.svg";
 
 const MyPostList = ({ isMore }) => {
   // ::: 전체 게시글 불러오기
@@ -42,6 +43,7 @@ const MyPostList = ({ isMore }) => {
       {postList.map((post) => (
         <StPostCard key={post.id}>
           <Link to={`/postDetail/${post.id}`}>
+            {post.isImages && <div className="imagesIcon" />}
             <img src={post.multipartFiles[0]} alt={post.id} loading="lazy" />
           </Link>
         </StPostCard>
@@ -59,11 +61,31 @@ const StMyPostListWrap = styled.div`
   height: ${(props) => (props.isMore === true ? "auto" : "400px")};
   background-color: var(--bg-color);
   overflow: hidden;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 639px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const StPostCard = styled.div`
-  width: 300px;
+  position: relative;
+  width: 100%;
   height: 400px;
+
+  .imagesIcon {
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    background-image: url(${fileIcon});
+  }
 
   img {
     width: 100%;

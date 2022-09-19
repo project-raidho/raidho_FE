@@ -198,6 +198,16 @@ const StUpdateMyProfileWrap = styled.div`
   justify-content: space-between;
   height: 120px;
   background-color: var(--bg-color);
+
+  @media (max-width: 639px) {
+    height: 150px;
+    align-items: flex-start;
+    flex-direction: column;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
 `;
 
 const StMyProfileBox = styled.div`

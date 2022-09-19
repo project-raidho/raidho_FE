@@ -25,11 +25,6 @@ const MyProfileContainer = () => {
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <MyPostList isMore={isMore} />
-
-      {/* <StMyProfileTitleRow>
-        <h3>계정 / 보안</h3>
-        <span className="bgMiddleLine" />
-      </StMyProfileTitleRow> */}
       <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
         <p onClick={onClickMorePost}>더보기</p>
         <span className="bgMiddleLine" />

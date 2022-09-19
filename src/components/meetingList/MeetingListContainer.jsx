@@ -39,7 +39,6 @@ const MeetingListContainer = () => {
 
   return (
     <StMeetingListContainerWrap>
-      <h2>원하는 여행 지역을 선택해주세요!</h2>
       <StMeetingCategoryRow className="themeCategoryRow">
         {themeList.map((theme, index) => (
           <p
@@ -131,6 +130,18 @@ const StMeetingCategoryRow = styled.div`
     justify-content: flex-start;
     margin-left: 1rem;
   }
+
+  @media (max-width: 1023px) {
+  }
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    .themeCategoryButton {
+      width: auto;
+    }
+  }
+  @media (max-width: 639px) {
+  }
 `;
 
 const StMeetingCardBox = styled.div`
@@ -138,11 +149,13 @@ const StMeetingCardBox = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding-bottom: 5rem;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1023px) {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 639px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
