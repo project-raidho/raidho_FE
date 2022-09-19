@@ -137,7 +137,7 @@ const StMeetingListCardWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 340px;
+  min-width: 300px;
   height: 500px;
   margin: 1rem;
   padding: 1.7rem;

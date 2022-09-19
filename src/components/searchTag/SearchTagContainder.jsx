@@ -305,6 +305,14 @@ const StMeetingCategoryRow = styled.div`
     justify-content: flex-start;
     margin-left: 1rem;
   }
+
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    .themeCategoryButton {
+      width: auto;
+    }
+  }
 `;
 
 // const StMeetingCardBox = styled.div`

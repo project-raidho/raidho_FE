@@ -25,7 +25,7 @@ const UpdateMyProfile = (props) => {
   const [compressedImageFile, setCompressedImageFile] = useState(
     memberInfo.memberImage
   );
-  const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
+  // const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
@@ -36,7 +36,7 @@ const UpdateMyProfile = (props) => {
     // ::: 유저가 입력한 값 초기화 시키기
     setSelectedMemberImage(null);
     setCompressedImageFile(memberInfo.memberImage);
-    setUpdateNickname(memberInfo.memberName);
+    // setUpdateNickname(memberInfo.memberName);
     setUpdateComment(memberInfo.memberIntro);
   };
 
@@ -67,15 +67,11 @@ const UpdateMyProfile = (props) => {
     }
   };
 
-  const onChangeUpdateMemberName = (event) => {
-    setUpdateNickname(event.target.value);
-  };
   const onChangeUpdateMemberComment = (event) => {
     setUpdateComment(event.target.value);
   };
 
   console.log("compressedImageFile", compressedImageFile);
-  console.log("updateNickname", updateNickname);
   console.log("updateComment", updateComment);
 
   // ::: 수정 정보 서버에 전달하기
@@ -83,7 +79,6 @@ const UpdateMyProfile = (props) => {
     // :: image file formData 형식 변환
     const formData = new FormData();
     formData.append("memberImage", compressedImageFile);
-    formData.append("memberName", updateNickname);
     formData.append("memberIntro", updateComment);
     formData.append("memberId", memberInfo.memberId);
 
@@ -107,7 +102,7 @@ const UpdateMyProfile = (props) => {
           <img src={memberInfo.memberImage} alt={memberInfo.memberName} />
         </p>
         <dl>
-          <dt>{memberInfo.memberName}</dt>
+          <dt>@{memberInfo.memberName}</dt>
           <dd>{memberInfo.memberIntro}</dd>
         </dl>
       </StMyProfileBox>
@@ -145,14 +140,8 @@ const UpdateMyProfile = (props) => {
                     )}
                   </StMemberImageBox>
                   <StMemberNicknameBox>
-                    <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
-                    <Input
-                      size="large"
-                      variant="default"
-                      value={updateNickname}
-                      placeholder={memberInfo.memberName}
-                      onChange={(event) => onChangeUpdateMemberName(event)}
-                    />
+                    {/* <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle> */}
+                    <p>@{memberInfo.memberName}</p>
                   </StMemberNicknameBox>
                 </StUpdateProfileRow>
 
@@ -198,6 +187,17 @@ const StUpdateMyProfileWrap = styled.div`
   justify-content: space-between;
   height: 120px;
   background-color: var(--bg-color);
+
+  @media (max-width: 639px) {
+    height: 150px;
+    align-items: flex-start;
+    flex-direction: column;
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  }
 `;
 
 const StMyProfileBox = styled.div`
@@ -265,6 +265,10 @@ const StUpdateUserProfileModal = styled.div`
   width: 100%;
   height: 90%;
   padding: 1rem 3rem 1rem 1rem;
+
+  @media (max-width: 639px) {
+    padding: 0;
+  }
 `;
 
 const StUpdateProfileRow = styled.div`
@@ -299,8 +303,21 @@ const StMemberImageBox = styled.label`
     font-size: 1.2rem;
     letter-spacing: 1px;
   }
+  @media (max-width: 639px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const StMemberNicknameBox = styled.div`
-  width: calc(100% - 170px);
+  width: 200px;
+
+  p {
+    width: 100%;
+    font-size: 1.7rem;
+    text-align: left;
+  }
+  @media (max-width: 639px) {
+    width: 180px;
+  }
 `;

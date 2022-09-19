@@ -146,15 +146,25 @@ const StSearchContainerWrap = styled.div`
   display: block;
   width: ${(props) => (props.isLogin === true ? "55%" : "54%")};
   height: 50px;
-  min-width: 700px;
-  /* margin-left: 30px; */
+  min-width: 620px;
+
+  @media (max-width: 1023px) {
+    min-width: 420px;
+  }
+  @media (max-width: 767px) {
+    min-width: 310px;
+  }
+  @media (max-width: 639px) {
+    min-width: 280px;
+    width: calc(95vw - 70px);
+  }
 `;
 
 const StSearchDetailBox = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  /* width: 100%; */
   height: ${(props) => (props.isFocusSearch === true ? "500px" : "50px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
@@ -169,8 +179,15 @@ const StSearchDetailBox = styled.div`
     border: ${(props) => props.isFocusSearch === true && "none"};
     box-shadow: ${(props) =>
       props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
-
     transition: 0.5s;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+    height: ${(props) => (props.isFocusSearch === true ? "630px" : "50px")};
+  }
+  @media (max-width: 639px) {
+    width: 100%;
+    height: ${(props) => (props.isFocusSearch === true ? "550px" : "50px")};
   }
 `;
 
@@ -226,6 +243,14 @@ const StTagCardWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 639px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 `;
 
 const StTagCard = styled.p`
@@ -255,5 +280,13 @@ const StTagCard = styled.p`
         rgba(71, 71, 71, 0.7)
       ),
       ${(props) => props.bgImage && props.bgImage};
+  }
+  @media (max-width: 767px) {
+    height: 65px;
+    font-size: 1.3rem;
+  }
+  @media (max-width: 639px) {
+    height: 60px;
+    font-size: 1.2rem;
   }
 `;
