@@ -143,6 +143,7 @@ const CreateMeetingContatiner = () => {
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
       <StbottonBox>
         <Button
+          className="createButton"
           size="small"
           variant="primary"
           onClick={() => {
@@ -160,7 +161,7 @@ const CreateMeetingContatiner = () => {
 export default CreateMeetingContatiner;
 
 const StContainer = styled.div`
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   padding-bottom: 50px;
   h2 {
@@ -229,7 +230,7 @@ const StTags = styled.div`
 `;
 
 const StbottonBox = styled.div`
-  /* padding: 50px 10px; */
+  margin: 20px;
   float: right;
 `;
 

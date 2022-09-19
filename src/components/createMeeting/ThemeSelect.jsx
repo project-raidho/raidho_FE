@@ -44,8 +44,16 @@ const StThemeSelectBox = styled.div`
   align-items: center;
   list-style: none;
 
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    .themeName {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+  }
   .themeName {
-    font-size: 18px;
+    font-size: 15px;
   }
 `;
 
