@@ -52,7 +52,7 @@ const VARIANTS = {
     --button-color: #1e1e1e;
     --button-bg-color: #cfcfcf;
     --button-hover-bg-color: var(--bg-color);
-    --button-border-color: var(--gray-color);
+    --button-border-color: var(--title-color);
     --button-hover-text-color: var(--gray-color);
   `,
   line: css`

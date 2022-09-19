@@ -106,7 +106,7 @@ const StFigure = styled.figure`
     height: 22px;
     width: 22px;
     position: absolute;
-    top: 10px;
+    top: 13px;
     right: 10px;
     background-image: url(${fileIcon});
   }
