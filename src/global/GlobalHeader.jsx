@@ -110,7 +110,7 @@ const GlobalHeader = () => {
                 여행 후기
               </NavLink>
               <NavLink
-                to={`/meetingList`}
+                to={`/meetingList/all`}
                 className={({ isActive }) => (isActive ? "selected" : "not")}
               >
                 여행 친구 찾기

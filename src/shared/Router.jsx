@@ -38,7 +38,7 @@ const Routers = () => {
               path="/updateMeeting/:meetingId"
               element={<UpdateMeetingPage />}
             />
-            <Route path="/meetingList" element={<MeetingListPage />} />
+            {/* <Route path="/meetingList" element={<MeetingListPage />} /> */}
             {themeList.map((theme) => (
               <Route
                 key={theme.themeName}

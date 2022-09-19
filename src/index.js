@@ -17,10 +17,12 @@ root.render(
     <GlobalStyle />
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
         <App />
       </QueryClientProvider>
     </ThemeProvider>
   </Provider>
 );
-reportWebVitals();
+
+// ::: web-vitals 확인하기 ::: google analytics 연동해서 마케팅에 활용하면 좋을 것 같음.
+reportWebVitals(console.log);

@@ -54,6 +54,7 @@ const MainPostCard = ({ post }) => {
         src={post.multipartFiles[0]}
         alt="img"
         onClick={() => navigate(`/postdetail/${post.id}`)}
+        loading="lazy"
       />
       {post.isImages && <div className="imagesicon" />}
       <div className="userBox">
@@ -94,7 +95,7 @@ const StFigure = styled.figure`
   position: relative;
 
   margin: 0;
-  width: 310px;
+  width: 100%;
   margin-bottom: 20px;
   .img {
     width: 100%;
