@@ -92,17 +92,23 @@ const UpdatePostContainer = () => {
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
-        <StStepTitle>수정하실 게시글의 이미지를 확인하기</StStepTitle>
+        <StStepTitle>
+          <strong>STEP 1</strong> 이미지 확인
+        </StStepTitle>
         <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
-        <StStepTitle>여행에서 경험한 내용</StStepTitle>
+        <StStepTitle>
+          <strong>STEP 2</strong> 여행에서 경험한 내용
+        </StStepTitle>
         <CreatePostContent
           typedPostContent={typedPostContent}
           content={postDetail.content}
         />
 
-        <StStepTitle>태그</StStepTitle>
+        <StStepTitle>
+          <strong>STEP 3</strong> 태그
+        </StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
           tags={postDetail.tags}
@@ -164,9 +170,26 @@ const StCreatePostColumn = styled.div`
 `;
 
 const StStepTitle = styled.h2`
-  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
   padding-top: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
 `;
 
 const StButtonWrap = styled.div`

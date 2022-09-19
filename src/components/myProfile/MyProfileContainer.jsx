@@ -1,14 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
 import styled from "styled-components";
+import Button from "../../elements/Button";
 
 const MyProfileContainer = () => {
+  const navigate = useNavigate();
   // ::: 게시글 더보기 기능 구현
   const [isMore, setIsMore] = useState(false);
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
+  };
+
+  // ::: 로그아웃 하기
+  const onClickLogOut = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("memberImage");
+    localStorage.removeItem("memberName");
+    localStorage.removeItem("memberIntro");
+
+    navigate("/");
   };
 
   return (
@@ -21,7 +34,6 @@ const MyProfileContainer = () => {
 
       <StMyProfileTitleRow>
         <h3>내가 쓴 글</h3>
-        {/* <p onClick={onClickMorePost}>더보기</p> */}
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <MyPostList isMore={isMore} />
@@ -29,6 +41,14 @@ const MyProfileContainer = () => {
         <p onClick={onClickMorePost}>더보기</p>
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
+      <Button
+        className="buttonLogOutInMyProfile"
+        size="squareTheme"
+        variant="lineBlue"
+        onClick={onClickLogOut}
+      >
+        로그아웃
+      </Button>
     </StMyProfileContainerWrap>
   );
 };
@@ -38,6 +58,13 @@ export default MyProfileContainer;
 const StMyProfileContainerWrap = styled.div`
   padding-bottom: 5rem;
   background-color: var(--bg-color);
+
+  .buttonLogOutInMyProfile {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
 `;
 
 const StMyProfileTitleRow = styled.div`

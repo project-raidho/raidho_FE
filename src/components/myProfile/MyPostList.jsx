@@ -66,10 +66,12 @@ const StMyPostListWrap = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
   @media (max-width: 767px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
   }
   @media (max-width: 639px) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 `;
 
@@ -91,5 +93,12 @@ const StPostCard = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    height: 200px;
+  }
+  @media (max-width: 639px) {
+    height: 200px;
   }
 `;

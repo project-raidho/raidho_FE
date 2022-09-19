@@ -206,6 +206,7 @@ const StUpdateMyProfileWrap = styled.div`
 
     button {
       margin-top: 1rem;
+      padding: 0.5rem 1rem;
     }
   }
 `;

@@ -72,7 +72,7 @@ const CreatePostContainer = () => {
       </StStepTitle>
       <CreatePostImage selectedPostImages={selectedPostImages} />
       <StStepTitle>
-        <strong>STEP 2</strong>경험한 내용
+        <strong>STEP 2</strong>여행에서 경험한 내용
       </StStepTitle>
       <CreatePostContent
         typedPostContent={typedPostContent}
@@ -127,13 +127,6 @@ const StCreatePostContainerWrap = styled.div`
   flex-direction: column;
   width: 100%;
   padding-bottom: 10rem;
-
-  @media (max-width: 1023px) {
-  }
-  @media (max-width: 767px) {
-  }
-  @media (max-width: 639px) {
-  }
 `;
 
 const StStepTitle = styled.h2`
