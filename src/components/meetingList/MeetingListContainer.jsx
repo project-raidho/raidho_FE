@@ -131,16 +131,12 @@ const StMeetingCategoryRow = styled.div`
     margin-left: 1rem;
   }
 
-  @media (max-width: 1023px) {
-  }
   @media (max-width: 767px) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     .themeCategoryButton {
       width: auto;
     }
-  }
-  @media (max-width: 639px) {
   }
 `;
 

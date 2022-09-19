@@ -68,18 +68,18 @@ const CreatePostContainer = () => {
   return (
     <StCreatePostContainerWrap>
       <StStepTitle>
-        <strong>STEP 1</strong>이미지 업로드 하기
+        <strong>STEP 1</strong>이미지 업로드
       </StStepTitle>
       <CreatePostImage selectedPostImages={selectedPostImages} />
       <StStepTitle>
-        <strong>STEP 2</strong>여행에서 경험한 내용 입력하기
+        <strong>STEP 2</strong>경험한 내용
       </StStepTitle>
       <CreatePostContent
         typedPostContent={typedPostContent}
-        placeholderText={"경험을 소개해주세요!"}
+        placeholderText={"경험을 소개해주세요."}
       />
       <StStepTitle>
-        <strong>STEP 3</strong>태그 입력하기
+        <strong>STEP 3</strong>태그
       </StStepTitle>
       <TagInput
         selectedTags={selectedTags}
@@ -88,7 +88,7 @@ const CreatePostContainer = () => {
       />
       <StButtonWrap>
         <Button
-          size="small"
+          size="squareTheme"
           variant="gray"
           onClick={() => {
             navigate(-1);
@@ -96,7 +96,7 @@ const CreatePostContainer = () => {
         >
           취소
         </Button>
-        <Button size="small" onClick={onCreatePost}>
+        <Button size="squareTheme" variant="lineBlue" onClick={onCreatePost}>
           등록
         </Button>
       </StButtonWrap>
