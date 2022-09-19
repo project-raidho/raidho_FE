@@ -311,6 +311,9 @@ const StMeetingCategoryRow = styled.div`
     grid-template-columns: repeat(4, 1fr);
     .themeCategoryButton {
       width: auto;
+      a {
+        font-size: 1.2rem;
+      }
     }
   }
 `;
