@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// elements
-import ChatInput from "../../elements/ChatInput";
+import MessageInput from "./MessageInput";
 
 // 아이콘
 import { IoSend } from "react-icons/io5";
@@ -38,7 +37,7 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
 
   return (
     <Container>
-      <ChatInput
+      <MessageInput
         MessageWrite
         value={messageText}
         _onChange={handleMessageText}
@@ -65,7 +64,7 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
-  /* background-color: ${(props) => props.theme.main_color_thick}; */
+  background-color: #fff;
   justify-content: flex-start;
   width: 100%;
   height: 10%;

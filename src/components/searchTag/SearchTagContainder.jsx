@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
 // import MeetingListCard from "../meetingList/MeetingListCard";
 import { authInstance } from "../../shared/api";
+import { useQuery } from "react-query";
 
 const SearchTagContainer = () => {
   const location = useLocation();
@@ -12,18 +13,18 @@ const SearchTagContainer = () => {
   // ::: 추천 테마 리스트 전역에서 불러오기
   const themeList = useSelector((state) => state.themeSlice.themeList);
   // const meetingList = useSelector((state) => state.meetingSlice.meetingList);
-  const [postList, setPostList] = useState([
-    {
-      id: 0,
-      imgurl: null,
-      memberImage: null,
-      memberName: "",
-      isImages: false,
-      multipartFiles: [],
-      heartCount: 0,
-      isHeartMine: false,
-    },
-  ]);
+  // const [postList, setPostList] = useState([
+  //   {
+  //     id: 0,
+  //     imgurl: null,
+  //     memberImage: null,
+  //     memberName: "",
+  //     isImages: false,
+  //     multipartFiles: [],
+  //     heartCount: 0,
+  //     isHeartMine: false,
+  //   },
+  // ]);
 
   // ::: ===> 서버테스트 세팅
   // const [meetingList, setMeetingList] = useState([]);
@@ -35,7 +36,7 @@ const SearchTagContainer = () => {
 
   // ::: 검색 uri 상태 확인
   const [checkUri, setCheckUri] = useState(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
-
+  console.log(checkUri);
   const onClickCheckUri = () => {
     // ::: tagUri true이면 post get / false이면 meeting get
     setCheckUri(tagUri);
@@ -54,29 +55,41 @@ const SearchTagContainer = () => {
     console.log("====>tag", tagName);
     try {
       // ::: 포스트 게시글 가져오기
-      const responseTagPost = await authInstance.get(`/api/search/${tagName}`);
-      console.log(responseTagPost);
-      return setPostList(responseTagPost.data.data.content);
 
-      // if (checkUri) {
-      // ::: 포스트 게시글 가져오기
-      // } else {
-      //   // ::: 미팅 게시글 가져오기
-      //   // const responseTagMeeting = await authInstance.get(
-      //   //   `/api/meeting/${tagName}`
-      //   // );
-      //   // console.log(responseTagMeeting);
-      //   // return setMeetingList(responseTagMeeting.data);
-      // }
+      if (checkUri) {
+        // ::: 포스트 게시글 가져오기
+        return await authInstance.get(`/api/search/${tagName}`);
+      } else {
+        // ::: 미팅 게시글 가져오기
+        // const responseTagMeeting =
+        // return await authInstance.get(`/api/meeting/${tagName}`);
+        // console.log(responseTagMeeting);
+        // return setMeetingList(responseTagMeeting.data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getSearchTagList();
-    // eslint-disable-next-line
-  }, [location]);
+  // useEffect(() => {
+  //   getSearchTagList();
+  //   // eslint-disable-next-line
+  // }, [location]);
+
+  const tagPostListQuery = useQuery(
+    ["tagPostList", tagName],
+    getSearchTagList,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
+  if (tagPostListQuery.isLoading) {
+    return null;
+  }
+
   return (
     <StSearchTagContainerWrap>
       <StTagCategoryWrap>
@@ -101,7 +114,9 @@ const SearchTagContainer = () => {
       </StTagCategoryWrap>
       <StTagContentWrap checkUri={checkUri}>
         {checkUri &&
-          postList.map((post) => <MainPostCard key={post.id} post={post} />)}
+          tagPostListQuery.data.data.data.content.map((post) => (
+            <MainPostCard key={post.id} post={post} />
+          ))}
         <StMeetingListWrap>
           <StMeetingCategoryRow className="themeCategoryRow">
             {!checkUri &&
@@ -124,7 +139,7 @@ const SearchTagContainer = () => {
           </StMeetingCategoryRow>
           {/* <StMeetingCardBox>
             {!checkUri &&
-              meetingList.map((meeting) => (
+              tagPostListQuery.data.data.data.content.map((meeting) => (
                 <MeetingListCard key={meeting.id} meeting={meeting} />
               ))}
           </StMeetingCardBox> */}

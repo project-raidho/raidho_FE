@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 
+// ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
   try {
     await authInstance.delete(`/api/meeting/${meetingId}`);

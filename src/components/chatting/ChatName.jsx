@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
 const ChatName = () => {
-  const [roomName, setRoomName] = useState();
+  const [roomName, setRoomName] = useState("프랑스여행");
   const { id } = useParams();
   console.log(id);
   //채팅방 정보 단건조회
