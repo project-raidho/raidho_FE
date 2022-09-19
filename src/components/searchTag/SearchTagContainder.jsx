@@ -3,27 +3,28 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
-import MeetingListCard from "../meetingList/MeetingListCard";
+// import MeetingListCard from "../meetingList/MeetingListCard";
 import { authInstance } from "../../shared/api";
+import { useQuery } from "react-query";
 
 const SearchTagContainer = () => {
   const location = useLocation();
 
   // ::: 추천 테마 리스트 전역에서 불러오기
   const themeList = useSelector((state) => state.themeSlice.themeList);
-  const meetingList = useSelector((state) => state.meetingSlice.meetingList);
-  const [postList, setPostList] = useState([
-    {
-      id: 0,
-      imgurl: null,
-      memberImage: null,
-      memberName: "",
-      isImages: false,
-      multipartFiles: [],
-      heartCount: 0,
-      isHeartMine: false,
-    },
-  ]);
+  // const meetingList = useSelector((state) => state.meetingSlice.meetingList);
+  // const [postList, setPostList] = useState([
+  //   {
+  //     id: 0,
+  //     imgurl: null,
+  //     memberImage: null,
+  //     memberName: "",
+  //     isImages: false,
+  //     multipartFiles: [],
+  //     heartCount: 0,
+  //     isHeartMine: false,
+  //   },
+  // ]);
 
   // ::: ===> 서버테스트 세팅
   // const [meetingList, setMeetingList] = useState([]);
@@ -35,7 +36,7 @@ const SearchTagContainer = () => {
 
   // ::: 검색 uri 상태 확인
   const [checkUri, setCheckUri] = useState(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
-
+  console.log(checkUri);
   const onClickCheckUri = () => {
     // ::: tagUri true이면 post get / false이면 meeting get
     setCheckUri(tagUri);
@@ -54,29 +55,41 @@ const SearchTagContainer = () => {
     console.log("====>tag", tagName);
     try {
       // ::: 포스트 게시글 가져오기
-      const responseTagPost = await authInstance.get(`/api/search/${tagName}`);
-      console.log(responseTagPost);
-      return setPostList(responseTagPost.data.data.content);
 
-      // if (checkUri) {
-      // ::: 포스트 게시글 가져오기
-      // } else {
-      //   // ::: 미팅 게시글 가져오기
-      //   // const responseTagMeeting = await authInstance.get(
-      //   //   `/api/meeting/${tagName}`
-      //   // );
-      //   // console.log(responseTagMeeting);
-      //   // return setMeetingList(responseTagMeeting.data);
-      // }
+      if (checkUri) {
+        // ::: 포스트 게시글 가져오기
+        return await authInstance.get(`/api/search/${tagName}`);
+      } else {
+        // ::: 미팅 게시글 가져오기
+        // const responseTagMeeting =
+        // return await authInstance.get(`/api/meeting/${tagName}`);
+        // console.log(responseTagMeeting);
+        // return setMeetingList(responseTagMeeting.data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getSearchTagList();
-    // eslint-disable-next-line
-  }, [location]);
+  // useEffect(() => {
+  //   getSearchTagList();
+  //   // eslint-disable-next-line
+  // }, [location]);
+
+  const tagPostListQuery = useQuery(
+    ["tagPostList", tagName],
+    getSearchTagList,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
+  if (tagPostListQuery.isLoading) {
+    return null;
+  }
+
   return (
     <StSearchTagContainerWrap>
       <StTagCategoryWrap>
@@ -101,7 +114,9 @@ const SearchTagContainer = () => {
       </StTagCategoryWrap>
       <StTagContentWrap checkUri={checkUri}>
         {checkUri &&
-          postList.map((post) => <MainPostCard key={post.id} post={post} />)}
+          tagPostListQuery.data.data.data.content.map((post) => (
+            <MainPostCard key={post.id} post={post} />
+          ))}
         <StMeetingListWrap>
           <StMeetingCategoryRow className="themeCategoryRow">
             {!checkUri &&
@@ -122,12 +137,12 @@ const SearchTagContainer = () => {
                 </p>
               ))}
           </StMeetingCategoryRow>
-          <StMeetingCardBox>
+          {/* <StMeetingCardBox>
             {!checkUri &&
-              meetingList.map((meeting) => (
+              tagPostListQuery.data.data.data.content.map((meeting) => (
                 <MeetingListCard key={meeting.id} meeting={meeting} />
               ))}
-          </StMeetingCardBox>
+          </StMeetingCardBox> */}
         </StMeetingListWrap>
       </StTagContentWrap>
     </StSearchTagContainerWrap>
@@ -290,18 +305,26 @@ const StMeetingCategoryRow = styled.div`
     justify-content: flex-start;
     margin-left: 1rem;
   }
-`;
 
-const StMeetingCardBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding-bottom: 5rem;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    .themeCategoryButton {
+      width: auto;
+    }
   }
 `;
+
+// const StMeetingCardBox = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   padding-bottom: 5rem;
+
+//   @media (max-width: 1000px) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+//   @media (max-width: 600px) {
+//     grid-template-columns: repeat(1, 1fr);
+//   }
+// `;

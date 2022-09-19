@@ -33,6 +33,10 @@ const ChatWrap = styled.div`
   height: 80vh;
   width: 100%;
   position: relative;
+
+  /* @media (max-width: 639px) {
+    padding: 0px;
+  } */
 `;
 
 export default Chatting;

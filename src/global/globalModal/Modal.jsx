@@ -50,4 +50,21 @@ const ModalContentBox = styled.div`
     height: 100%;
     padding: 20px;
   }
+
+  @media (max-width: 1023px) {
+  }
+  @media (max-width: 767px) {
+  }
+  @media (max-width: 639px) {
+    width: 90vw;
+    height: 50vh;
+    top: 5vh;
+    left: 5vw;
+    margin-top: 0;
+    margin-left: 0;
+
+    .contents {
+      padding: 1vh;
+    }
+  }
 `;

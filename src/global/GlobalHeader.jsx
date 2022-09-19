@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { getDarkMode, updateDarkMode } from "../redux/modules/searchSlice";
 import { useSelector, useDispatch } from "react-redux";
-import Button from "../elements/Button";
 import Potal from "../global/globalModal/Potal";
 import LoginModal from "../components/login/LoginContainer";
 import SearchContainer from "../components/header/search/SearchContainer";
@@ -13,6 +12,9 @@ import GoChattingIcon from "../assets/goChatting.svg";
 import DefaultMemberImage from "../assets/defaultProfileImage.svg";
 import IconLight from "../assets/iconLightMode.svg";
 import IconDark from "../assets/iconDarkMode.svg";
+import { MdRateReview } from "react-icons/md";
+import { MdTravelExplore } from "react-icons/md";
+import { IoMdLogIn } from "react-icons/io";
 
 const GlobalHeader = () => {
   const navigate = useNavigate();
@@ -101,88 +103,94 @@ const GlobalHeader = () => {
             </StRaidhoLogo>
             <SearchContainer isLogin={isLogin} />
           </div>
-          <div className="navWrap">
-            <StHeaderMidMenu>
-              <NavLink
-                to={`/`}
-                className={({ isActive }) => (isActive ? "selected" : "not")}
-              >
-                여행 후기
-              </NavLink>
-              <NavLink
-                to={`/meetingList`}
-                className={({ isActive }) => (isActive ? "selected" : "not")}
-              >
-                여행 친구 찾기
-              </NavLink>
-              <StSwitchButton checkDarkMode={checkDarkMode}>
-                <input
-                  type="checkbox"
-                  onClick={darkOnOff}
-                  defaultChecked={checkDarkMode && "checked"}
-                />
-                <span className="onoffSwitch"></span>
-              </StSwitchButton>
-            </StHeaderMidMenu>
+          <StDesktopRightMenu>
+            <div className="navWrap mobileFiexdBottom">
+              <StHeaderMidMenu>
+                <NavLink
+                  to={`/`}
+                  className={({ isActive }) => (isActive ? "selected" : "not")}
+                >
+                  <MdRateReview />
+                </NavLink>
+                <NavLink
+                  to={`/meetingList/all`}
+                  className={({ isActive }) => (isActive ? "selected" : "not")}
+                >
+                  <MdTravelExplore />
+                </NavLink>
+              </StHeaderMidMenu>
 
-            {isLogin ? (
-              <StHeaderRightMenu>
-                <div className="rightMenu">
-                  <p
+              {isLogin ? (
+                <StHeaderRightMenu>
+                  <div className="rightMenu">
+                    <p
+                      onClick={() => {
+                        setIsToggle(false);
+                        setIsAddPostToggle(!isAddPostToggle);
+                      }}
+                    >
+                      <img src={AddPostIcon} alt="게시물 추가하러 가기" />
+                    </p>
+
+                    <StToggleBox isToggle={isAddPostToggle}>
+                      <li>
+                        <Link to={`/createPost`} onClick={onCloseToggle}>
+                          여행 후기 작성하기
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={`/createMeeting`} onClick={onCloseToggle}>
+                          모집글 작성하기
+                        </Link>
+                      </li>
+                    </StToggleBox>
+                  </div>
+                  <div className="rightMenu chattingMenu">
+                    <Link to={"/chatting"}>
+                      <img src={GoChattingIcon} alt="채팅하러 가기" />
+                      {/* <span>5</span> */}
+                    </Link>
+                  </div>
+                  <div
+                    className="rightMenu userMenu"
                     onClick={() => {
-                      setIsToggle(false);
-                      setIsAddPostToggle(!isAddPostToggle);
+                      setIsAddPostToggle(false);
+                      setIsToggle(!isToggle);
                     }}
                   >
-                    <img src={AddPostIcon} alt="게시물 추가하러 가기" />
-                  </p>
-
-                  <StToggleBox isToggle={isAddPostToggle}>
+                    <strong>
+                      <img src={memberImage} alt="사용자 프로필 이미지" />
+                    </strong>
+                  </div>
+                  <StToggleBox isToggle={isToggle}>
                     <li>
-                      <Link to={`/createPost`} onClick={onCloseToggle}>
-                        여행 후기 작성하기
+                      <Link to={`/myProfile`} onClick={onCloseToggle}>
+                        마이페이지
                       </Link>
                     </li>
-                    <li>
-                      <Link to={`/createMeeting`} onClick={onCloseToggle}>
-                        모집글 작성하기
-                      </Link>
-                    </li>
+                    <li onClick={onClickLogOut}>로그아웃</li>
                   </StToggleBox>
-                </div>
-                <div className="rightMenu chattingMenu">
-                  <Link to={"/chatting"}>
-                    <img src={GoChattingIcon} alt="채팅하러 가기" />
-                    {/* <span>5</span> */}
-                  </Link>
-                </div>
-                <div
-                  className="rightMenu userMenu"
-                  onClick={() => {
-                    setIsAddPostToggle(false);
-                    setIsToggle(!isToggle);
-                  }}
-                >
-                  <img src={memberImage} alt="사용자 프로필 이미지" />
-                </div>
-                <StToggleBox isToggle={isToggle}>
-                  <li>
-                    <Link to={`/myProfile`} onClick={onCloseToggle}>
-                      마이페이지
-                    </Link>
-                  </li>
-                  <li onClick={onClickLogOut}>로그아웃</li>
-                </StToggleBox>
-              </StHeaderRightMenu>
-            ) : (
-              <StHeaderRightMenu>
-                <Button size="small" variant="primary" onClick={handleModal}>
-                  로그인
-                </Button>
-                <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
-              </StHeaderRightMenu>
-            )}
-          </div>
+                </StHeaderRightMenu>
+              ) : (
+                <StHeaderRightMenu>
+                  <p className="buttonLogIn" onClick={handleModal}>
+                    <IoMdLogIn />
+                  </p>
+                  <Potal>
+                    {modalOn && <LoginModal onClose={handleModal} />}
+                  </Potal>
+                </StHeaderRightMenu>
+              )}
+            </div>
+            <StSwitchButton checkDarkMode={checkDarkMode}>
+              <input
+                type="checkbox"
+                onClick={darkOnOff}
+                defaultChecked={checkDarkMode && "checked"}
+              />
+              <span className="onoffSwitch"></span>
+            </StSwitchButton>
+          </StDesktopRightMenu>
         </StHeaderRow>
       </StGlobalLayoutHeader>
     </StGlobalHeaderWrap>
@@ -200,12 +208,18 @@ const StGlobalHeaderWrap = styled.div`
   width: 100%;
   margin-bottom: 30px;
   background-color: var(--bg-color);
-  /* transition: 1s; */
   padding: 10px 0;
   z-index: 10;
   box-shadow: var(--box-shadow);
 `;
 
+const StDesktopRightMenu = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
 const StSwitchButton = styled.label`
   position: relative;
   width: 55px;
@@ -263,8 +277,7 @@ const StSwitchButton = styled.label`
 `;
 
 const StGlobalLayoutHeader = styled.div`
-  width: 93%;
-  /* max-width: 1305px; */
+  width: 95%;
   margin: 0 auto;
 `;
 
@@ -279,6 +292,20 @@ const StHeaderRow = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  @media (max-width: 639px) {
+    .mobileFiexdBottom {
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      background-color: var(--bg-color);
+      padding: 0 1rem;
+    }
   }
 `;
 
@@ -299,6 +326,12 @@ const StRaidhoLogo = styled.h1`
       width: 100%;
     }
   }
+  @media (max-width: 767px) {
+    width: 110px;
+  }
+  @media (max-width: 639px) {
+    display: none;
+  }
 `;
 
 const StHeaderMidMenu = styled.div`
@@ -306,14 +339,49 @@ const StHeaderMidMenu = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100px;
   a {
-    margin-right: 1.5rem;
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+  }
+  svg {
+    display: block;
+    width: 34px;
+    height: 34px;
+
+    path {
+      color: var(--gray-color);
+    }
   }
   .selected {
-    border-bottom: 2px solid var(--title-color);
+    svg {
+      path {
+        color: var(--title-color);
+      }
+    }
   }
   .not {
+  }
+  @media (max-width: 1023px) {
+    width: 12vw;
+    a {
+      width: 6vw;
+    }
+  }
+  @media (max-width: 639px) {
+    width: 38vw;
+    height: 100%;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0rem;
+      width: 19vw;
+      height: 100%;
+    }
   }
 `;
 
@@ -324,50 +392,62 @@ const StHeaderRightMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  margin-left: 20px;
 
   .rightMenu {
     position: relative;
-    margin-right: 18px;
+    width: 50px;
 
     p {
-      width: 35px;
-      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
 
       img {
         display: block;
-        width: 100%;
+        width: 35px;
+        height: 35px;
       }
     }
   }
 
   .chattingMenu {
-    width: 37px;
-    padding-top: 3px;
+    width: 50px;
     a {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 100%;
     }
     img {
-      width: 100%;
+      width: 37px;
+      height: 37px;
     }
   }
 
   .userMenu {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--gray-color);
-    border-radius: 50%;
-    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+    border-radius: 0;
     margin-right: 0;
-    overflow: hidden;
-    cursor: pointer;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    strong {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
@@ -382,7 +462,91 @@ const StHeaderRightMenu = styled.div`
     line-height: 22px;
     border-radius: 50%;
     background-color: var(--main-color);
-    margin-left: 10px;
+  }
+
+  .buttonLogIn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+    svg {
+      width: 36px;
+      height: 36px;
+      path {
+        color: var(--gray-color);
+      }
+    }
+  }
+  @media (max-width: 1023px) {
+    .rightMenu {
+      width: 6vw;
+    }
+    .buttonLogIn {
+      width: 6vw;
+    }
+  }
+
+  @media (max-width: 639px) {
+    margin: 0;
+    .rightMenu {
+      position: static;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 19vw;
+      height: 100%;
+      margin: 0;
+      p {
+        width: 32px;
+        height: 32px;
+      }
+      &.chattingMenu {
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+
+          img {
+            width: 37px;
+            height: 37px;
+          }
+        }
+      }
+      &.userMenu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+
+        strong {
+          display: flex;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--gray-color);
+          overflow: hidden;
+        }
+      }
+    }
+    .buttonLogIn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 19vw;
+      height: 100%;
+
+      svg {
+        width: 36px;
+        height: 36px;
+
+        path {
+          color: var(--gray-color);
+        }
+      }
+    }
   }
 `;
 
@@ -393,7 +557,8 @@ const StToggleBox = styled.ul`
   align-items: center;
   justify-content: space-between;
   right: 0px;
-  top: 70px;
+  /* top: 70px; */
+  bottom: -130px;
   width: 150px;
   height: ${(props) => (props.isToggle === true ? "100px" : "0px")};
   border: ${(props) =>
@@ -402,7 +567,7 @@ const StToggleBox = styled.ul`
   padding: ${(props) => (props.isToggle === true ? "0.5rem 1rem" : "0px")};
   margin-right: -50px;
   overflow: hidden;
-  transition: 0.3s;
+  /* transition: 0.3s; */
   z-index: 10;
 
   li {
@@ -428,6 +593,24 @@ const StToggleBox = styled.ul`
 
   li:last-child {
     border-bottom: none;
+  }
+
+  @media (max-width: 639px) {
+    position: fixed;
+
+    width: 100%;
+    height: ${(props) => (props.isToggle === true ? "15vh" : "0px")};
+    left: 0;
+    right: 0;
+    top: none;
+    bottom: 60px !important;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top: 1px solid var(--gray-color);
+    border-left: 1px solid var(--gray-color);
+    border-right: 1px solid var(--gray-color);
+    border-bottom: 0px solid var(--gray-color);
+    transition: 0.3s;
   }
 `;
 

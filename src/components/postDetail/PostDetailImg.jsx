@@ -42,7 +42,7 @@ const StyledSlide = styled(Slider)`
     opacity: 1;
   }
   .slick-list {
-    margin-top: 50px;
+    margin-top: 0px;
     width: 100%;
     z-index: 3;
     overflow: hidden;

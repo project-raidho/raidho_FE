@@ -59,14 +59,13 @@ Chat.defaultProps = {
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
-  border: 1px solid;
-  border-left: ${(props) =>
-    props.selected ? `5px solid #F99750;` : "1px solid;"};
+
+  border-left: ${(props) => (props.selected ? `5px solid #7188FF;` : "none;")};
 
   padding: 5px;
   height: 15%;
   width: 100%;
-  /* background-color: whitesmoke; */
+  background-color: whitesmoke;
   ${(props) => props.theme.border_box}
   margin: 0px 0px 20px 0px;
   cursor: pointer;
@@ -79,7 +78,7 @@ const Container = styled.div`
     justify-content: space-between;
     border-left: none;
     border-bottom: ${(props) =>
-      props.selected ? `5px solid #F99750;` : "none;"};
+      props.selected ? `5px solid #7188FF;` : "none;"};
   }
 `;
 const ChatColumn = styled.div`

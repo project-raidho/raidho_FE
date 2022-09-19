@@ -248,7 +248,7 @@ const CreatePostImageCrop = ({
         <p className="guideText numberTwo">
           <span>2</span>이미지를 원하시는 형태로 조절해주세요!
         </p>
-        <p className="guideText numberThree">
+        <p className="guideText numberThree viewDesktop">
           <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요!
         </p>
       </div>
@@ -271,6 +271,9 @@ const CreatePostImageCrop = ({
           </ReactCrop>
         </StPostImageCropColumn>
         <StPostImageCropColumn>
+          <p className="guideText viewMobile">
+            <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요!
+          </p>
           <StCanvasPreview ref={canvasRef} />
           <div className="postImageCropBottom">
             <p className="guideText">
@@ -359,6 +362,23 @@ const StCreatePostImageCrop = styled.div`
       border-radius: 50%;
     }
   }
+  .viewMobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .viewMobile {
+      display: flex;
+    }
+    .viewDesktop {
+      display: none;
+    }
+    .guideText {
+      &.numberTwo {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const StPostImageCropWrap = styled.div`
@@ -367,6 +387,14 @@ const StPostImageCropWrap = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
+
+  @media (max-width: 1023px) {
+  }
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+  @media (max-width: 639px) {
+  }
 `;
 
 const StPostImageCropColumn = styled.div`
@@ -400,6 +428,11 @@ const StPostImageCropColumn = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 100%;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+    margin: 1rem 0;
   }
 `;
 
@@ -440,6 +473,11 @@ const StCanvasPreview = styled.canvas`
   min-height: 0px;
   max-height: 420px;
   border: 1px solid var(--gray-color);
+
+  @media (max-width: 767px) {
+    max-height: 300px;
+    margin-bottom: 1rem;
+  }
 `;
 
 const StThumb = styled.div`
@@ -477,6 +515,10 @@ const StThumb = styled.div`
     border-radius: 50%;
     border: 1px solid #000;
   }
+
+  @media (max-width: 767px) {
+    margin-right: 8px;
+  }
 `;
 
 const StThumbInner = styled.div`
@@ -500,6 +542,10 @@ const StThumbsContainer = styled.aside`
   flex-direction: column;
   flex-wrap: wrap;
   background-color: var(--bgSub-color);
+
+  @media (max-width: 767px) {
+    flex-direction: row;
+  }
 `;
 
 const StValidationMsg = styled.p`
