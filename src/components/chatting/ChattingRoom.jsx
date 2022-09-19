@@ -38,6 +38,54 @@ const ChattingRoom = (props) => {
       createdAt: "2022-09-05 18:16",
       sender: "경문",
     },
+    {
+      userId: 2,
+      message: "믿고 있을게요",
+      createdAt: "2022-09-05 18:15",
+      user: {
+        username: "유진님",
+        profileUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
+      },
+    },
+    {
+      userId: 1,
+      message: "믿지 마세요;;;",
+      createdAt: "2022-09-05 18:16",
+      sender: "경문",
+    },
+    {
+      userId: 2,
+      message: "믿고 있을게요",
+      createdAt: "2022-09-05 18:15",
+      user: {
+        username: "유진님",
+        profileUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
+      },
+    },
+    {
+      userId: 1,
+      message: "믿지 마세요;;;",
+      createdAt: "2022-09-05 18:16",
+      sender: "경문",
+    },
+    {
+      userId: 2,
+      message: "믿고 있을게요",
+      createdAt: "2022-09-05 18:15",
+      user: {
+        username: "유진님",
+        profileUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
+      },
+    },
+    {
+      userId: 1,
+      message: "믿지 마세요;;;",
+      createdAt: "2022-09-05 18:16",
+      sender: "경문",
+    },
   ]);
 
   // 소켓 통신 객체
@@ -205,6 +253,7 @@ const ChatWrap = styled.div`
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     height: 85%;
+    border: none;
   }
 `;
 

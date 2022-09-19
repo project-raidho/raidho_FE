@@ -49,8 +49,8 @@ const Container = styled.div`
   overflow: auto;
 
   @media ${(props) => props.theme.mobile} {
-    height: 90%;
-    padding: 30px 10px 90px 10px;
+    height: 100%;
+    padding: 30px 10px 80px 10px;
   }
 `;
 

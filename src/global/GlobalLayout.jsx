@@ -15,16 +15,11 @@ const StGlobalLayoutWrap = styled.div`
 
   @media (max-width: 1023px) {
     max-width: 1023px;
-    padding: 0 1rem;
-    background-color: red;
-    padding-top: 150px;
   }
   @media (max-width: 767px) {
     max-width: 767px;
-    background-color: orange;
   }
   @media (max-width: 639px) {
     max-width: 639px;
-    background-color: yellow;
   }
 `;

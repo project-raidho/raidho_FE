@@ -39,6 +39,90 @@ const ChatList = (props) => {
       },
       category: "",
     },
+    {
+      id: 3,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 4,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 5,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 6,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 7,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 8,
+      chatRoomName: "바닷가여행",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
+    {
+      id: 9,
+      chatRoomName: "바닷가여행시작자아아아아아아",
+      createdAt: "8월 8일",
+      modifiedAt: "8월 8일",
+      chatRoomImg: "",
+      user: {
+        username: "태훈님",
+        profileUrl: "",
+      },
+      category: "",
+    },
   ]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -162,14 +246,13 @@ const ChatListWrap = styled.div`
   width: 100%;
   height: 90%;
   overflow: auto;
-  padding: 10px 10px 0px 10px;
+  padding-top: 10px;
   ${(props) => props.theme.flex_column};
   justify-content: flex-start;
   @media ${(props) => props.theme.mobile} {
     height: 100%;
     flex-direction: row;
     align-items: center;
-    padding: 5px;
   }
 `;
 

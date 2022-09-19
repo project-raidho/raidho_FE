@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Grid from "./Grid";
+import Grid from "../../elements/Grid";
 
-const ChatInput = (props) => {
+const MessageInput = (props) => {
   const {
     label,
     placeholder,
@@ -21,12 +21,12 @@ const ChatInput = (props) => {
     return (
       <Grid>
         {label && <p margin="0px">{label}</p>}
-        <ElTextarea
+        <StTextarea
           rows={13}
           value={value}
           placeholder={placeholder}
           onChange={_onChange}
-        ></ElTextarea>
+        ></StTextarea>
       </Grid>
     );
   }
@@ -36,7 +36,7 @@ const ChatInput = (props) => {
     return (
       <React.Fragment>
         {loading ? (
-          <ElMessageWrite
+          <StMessageWrite
             value={value}
             type={type}
             placeholder={placeholder}
@@ -46,9 +46,9 @@ const ChatInput = (props) => {
                 onSubmit(e);
               }
             }}
-          ></ElMessageWrite>
+          ></StMessageWrite>
         ) : (
-          <ElMessageWrite value="메시지 전송중 ..."></ElMessageWrite>
+          <StMessageWrite value="메시지 전송중 ..."></StMessageWrite>
         )}
       </React.Fragment>
     );
@@ -58,7 +58,7 @@ const ChatInput = (props) => {
     <React.Fragment>
       {label && <p margin="0px">{label}</p>}
       {is_submit ? (
-        <ElInput
+        <StInput
           type={type}
           placeholder={placeholder}
           onChange={_onChange}
@@ -70,13 +70,13 @@ const ChatInput = (props) => {
           }}
         />
       ) : (
-        <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+        <StInput type={type} placeholder={placeholder} onChange={_onChange} />
       )}
     </React.Fragment>
   );
 };
 
-ChatInput.defaultProps = {
+MessageInput.defaultProps = {
   MessageWrite: false,
   multiLine: false,
   label: false,
@@ -88,14 +88,16 @@ ChatInput.defaultProps = {
   _onChange: () => {},
 };
 
-const ElTextarea = styled.textarea`
+export default MessageInput;
+
+const StTextarea = styled.textarea`
   border: none;
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
 `;
 
-const ElInput = styled.input`
+const StInput = styled.input`
   border: none;
   width: 100%;
   padding: 12px 4px;
@@ -103,7 +105,7 @@ const ElInput = styled.input`
 `;
 
 // 메시지 입력 폼
-const ElMessageWrite = styled.input`
+const StMessageWrite = styled.input`
   /* background-color: ${(props) => props.theme.main_color_thick}; */
   border: none;
   width: 90%;
@@ -114,5 +116,3 @@ const ElMessageWrite = styled.input`
   font-size: 20px;
   outline: none;
 `;
-
-export default ChatInput;
