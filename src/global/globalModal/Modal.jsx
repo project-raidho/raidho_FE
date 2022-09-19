@@ -57,14 +57,14 @@ const ModalContentBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 90vw;
-    height: 90vh;
+    height: 50vh;
     top: 5vh;
     left: 5vw;
     margin-top: 0;
     margin-left: 0;
 
     .contents {
-      padding-top: 20vh;
+      padding: 1vh;
     }
   }
 `;
