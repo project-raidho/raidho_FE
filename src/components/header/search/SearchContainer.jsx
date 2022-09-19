@@ -237,6 +237,13 @@ const StSearchDetailRow = styled.div`
     background: var(--bg-color);
     cursor: pointer;
   }
+  @media (max-width: 767px) {
+    button {
+      a {
+        font-size: 1.1rem;
+      }
+    }
+  }
 `;
 
 const StTagCardWrap = styled.div`
@@ -283,10 +290,10 @@ const StTagCard = styled.p`
   }
   @media (max-width: 767px) {
     height: 65px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
   @media (max-width: 639px) {
     height: 60px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `;
