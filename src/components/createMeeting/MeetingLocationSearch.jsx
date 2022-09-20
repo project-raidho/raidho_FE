@@ -49,14 +49,14 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
     setIsOpenPost(false);
   };
 
-  const postCodeStyle = {
-    display: "block",
-    position: "relative",
-    top: "0",
-    width: "600px",
-    height: "400px",
-    padding: "7px",
-  };
+  // const postCodeStyle = {
+  //   display: "block",
+  //   position: "relative",
+  //   top: "0",
+  //   width: "600px",
+  //   height: "400px",
+  //   padding: "7px",
+  // };
 
   return (
     <SearchWrapp>
@@ -69,7 +69,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
         <div>
           <DaumPostcode
             className="postmodal"
-            style={postCodeStyle}
+            // style={postCodeStyle}
             autoClose
             onComplete={onCompletePost}
           />
@@ -81,7 +81,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
       <SearchInput
         variant="default"
-        size="medium"
+        size="large"
         placeholder="도로명주소가 입력되는 창입니다."
         onChange={onChange}
         value={InputText}
@@ -95,11 +95,23 @@ export default MeetingLocationSearch;
 const SearchWrapp = styled.div`
   .postmodal {
     margin: 10px auto;
+    display: block;
+    position: relative;
+    top: 0;
+    width: 600px;
+    height: 400px;
+    padding: 7px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    .postmodal {
+      width: 300px;
+    }
   }
 `;
 
 const SearchInput = styled(Input)`
   display: block;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 `;

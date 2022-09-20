@@ -73,7 +73,7 @@ const Container = styled.div`
     position: fixed;
     width: 100%;
     left: 0;
-    bottom: 0;
+    bottom: 60px;
   }
 `;
 
