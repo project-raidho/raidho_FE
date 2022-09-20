@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import { useInfiniteQuery } from "react-query";
@@ -20,7 +20,6 @@ const getPostList = async (state, pageParam) => {
 };
 
 const MainPostList = ({ state }) => {
-  const [changeState, setChangeState] = useState(state);
   const { ref, inView } = useInView();
   const { data, status, fetchNextPage, isFetchingNextPage, error } =
     useInfiniteQuery(
@@ -39,31 +38,22 @@ const MainPostList = ({ state }) => {
     if (inView) fetchNextPage();
   }, [inView]);
 
-  useEffect(() => {
-    console.log("===>상태가 변경되었습니다", state);
-    setChangeState(state);
-    getPostList(state, 0);
-  }, [state]);
+  console.log("1====>", data);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
-
-  console.log(data.pages);
-
   return (
     <StPostLisWrapp>
-      {changeState === "latest" && (
-        <StitemList>
-          {data?.pages.map((page, index) => (
-            <Fragment key={index}>
-              {page.content.map((post) => (
-                <MainPostCard key={post.id} post={post} />
-              ))}
-            </Fragment>
-          ))}
-          {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
-        </StitemList>
-      )}
+      <StitemList>
+        {data?.pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.content.map((post) => (
+              <MainPostCard key={post.id} post={post} />
+            ))}
+          </Fragment>
+        ))}
+        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
+      </StitemList>
     </StPostLisWrapp>
   );
 };
