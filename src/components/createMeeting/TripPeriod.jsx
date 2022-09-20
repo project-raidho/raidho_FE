@@ -12,6 +12,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import Input from "../../elements/Input";
 import { BsCalendar3 } from "react-icons/bs";
+import { useEffect } from "react";
 const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
   const [state, setState] = useState([
     {
@@ -20,9 +21,10 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
       key: "selection",
     },
   ]);
+  const today = moment().add(0, "d").toDate();
   const [showCalendar, setShowCalendar] = useState(false);
-  const [start, setStart] = useState(startDate);
-  const [end, setEnd] = useState(endDate);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   // setInputdate(moment(date).format('YYYY-MM-DD'))
 
   const onChangeHandler = (item) => {
@@ -33,33 +35,46 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
     setEndDate(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
   };
   const startinputonChangeHandler = (e) => {
+    setStartDate(e.target.value);
     setStart(e.target.value);
   };
 
   const endinputonChangeHandler = (e) => {
+    setEndDate(e.target.value);
     setEnd(e.target.value);
   };
+  useEffect(() => {
+    setStart(startDate);
+    setEnd(endDate);
+    // eslint-disable-next-line
+  }, [startDate, endDate]);
 
   return (
     <CalenderContainer>
       <InputBox>
-        <Input
-          value={start}
-          placeholder="ex) 2022-01-01"
-          onFocus={() => setShowCalendar(true)}
-          variant="default"
-          size="medium"
-          onChange={startinputonChangeHandler}
-        />
-        <Wave>~</Wave>
-        <Input
-          value={end}
-          placeholder="ex) 2022-01-02"
-          onFocus={() => setShowCalendar(true)}
-          variant="default"
-          size="medium"
-          onChange={endinputonChangeHandler}
-        />
+        <div>
+          <p>시작일</p>
+          <Input
+            value={start}
+            placeholder="ex)2022-00-00"
+            onFocus={() => setShowCalendar(true)}
+            variant="default"
+            size="large"
+            onChange={startinputonChangeHandler}
+          />
+        </div>
+        <div>
+          <p>종료일</p>
+          <Input
+            value={end}
+            placeholder="ex)2022-00-00"
+            onFocus={() => setShowCalendar(true)}
+            variant="default"
+            size="large"
+            onChange={endinputonChangeHandler}
+          />
+        </div>
+
         <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
       </InputBox>
 
@@ -67,10 +82,11 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
         <DateRange
           showPreview={false}
           locale={ko}
+          minDate={today}
           onChange={(item) => onChangeHandler(item)}
           moveRangeOnFirstSelection={false}
           ranges={state}
-          months={2}
+          months={1}
           direction="horizontal"
           dateDisplayFormat={"yyyy/MMM/d일"} // 날짜 포맷값
           showDateDisplay={false}
@@ -83,13 +99,28 @@ export default TripPeriod;
 
 const CalenderContainer = styled.div`
   /* display: flex; */
+  width: 100%;
+
+  @media ${(props) => props.theme.mobile} {
+    .rdrMonth {
+      width: 300px;
+    }
+  }
 `;
 const InputBox = styled.div`
   display: flex;
-`;
-const Wave = styled.div`
-  margin: auto 5px;
-  font-size: 25px;
+  flex-direction: row;
+  div {
+    margin: 10px;
+  }
+  p {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const CalendarIcon = styled(BsCalendar3)`

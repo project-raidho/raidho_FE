@@ -38,19 +38,18 @@ const KakaoMap = ({ searchPlace }) => {
     });
   }, [searchPlace]);
 
-  return (
-    <StKakaoMapWrapp
-      id="myMap"
-      style={{
-        width: "500px",
-        height: "500px",
-      }}
-    ></StKakaoMapWrapp>
-  );
+  return <StKakaoMapWrapp id="myMap"></StKakaoMapWrapp>;
 };
 
 export default KakaoMap;
 
 const StKakaoMapWrapp = styled.div`
   margin: 20px auto;
+  width: 500px;
+  height: 500px;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 300px;
+    height: 300px;
+  }
 `;

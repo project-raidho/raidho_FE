@@ -34,7 +34,7 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
         <StDateInput
           value={inputdate}
           variant="default"
-          size="medium"
+          size="large"
           onFocus={() => setShowCalendar(true)}
           // onBlur={()=>setShowCalendar(false)}
           onChange={inputonChangeHandler}
@@ -44,6 +44,7 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
 
       {showCalendar && ( // 클릭 등으로 토글상태 값이 true 이 되면 달력이 보여진다
         <Calendar
+          className="calendar"
           editableDateInputs={true}
           locale={ko} // 한국어 달력
           months={1} // 1달치 달력만 디스플레이
@@ -59,7 +60,15 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
 
 export default RoomCloseDateBox;
 
-const StRoomCloseDateBoxContainer = styled.div``;
+const StRoomCloseDateBoxContainer = styled.div`
+  .calendar {
+    @media ${(props) => props.theme.mobile} {
+      .rdrMonth {
+        width: 300px;
+      }
+    }
+  }
+`;
 
 const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
