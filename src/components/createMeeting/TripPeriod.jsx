@@ -21,6 +21,7 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
       key: "selection",
     },
   ]);
+  const today = moment().add(0, "d").toDate();
   const [showCalendar, setShowCalendar] = useState(false);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -39,6 +40,7 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
   };
 
   const endinputonChangeHandler = (e) => {
+    setEndDate(e.target.value);
     setEnd(e.target.value);
   };
   useEffect(() => {
@@ -50,23 +52,29 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
   return (
     <CalenderContainer>
       <InputBox>
-        <Input
-          value={start}
-          placeholder="ex) 2022-01-01"
-          onFocus={() => setShowCalendar(true)}
-          variant="default"
-          size="medium"
-          onChange={startinputonChangeHandler}
-        />
-        <Wave>~</Wave>
-        <Input
-          value={end}
-          placeholder="ex) 2022-01-02"
-          onFocus={() => setShowCalendar(true)}
-          variant="default"
-          size="medium"
-          onChange={endinputonChangeHandler}
-        />
+        <div>
+          <p>시작일</p>
+          <Input
+            value={start}
+            placeholder="ex)2022-00-00"
+            onFocus={() => setShowCalendar(true)}
+            variant="default"
+            size="large"
+            onChange={startinputonChangeHandler}
+          />
+        </div>
+        <div>
+          <p>종료일</p>
+          <Input
+            value={end}
+            placeholder="ex)2022-00-00"
+            onFocus={() => setShowCalendar(true)}
+            variant="default"
+            size="large"
+            onChange={endinputonChangeHandler}
+          />
+        </div>
+
         <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
       </InputBox>
 
@@ -74,10 +82,11 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
         <DateRange
           showPreview={false}
           locale={ko}
+          minDate={today}
           onChange={(item) => onChangeHandler(item)}
           moveRangeOnFirstSelection={false}
           ranges={state}
-          months={2}
+          months={1}
           direction="horizontal"
           dateDisplayFormat={"yyyy/MMM/d일"} // 날짜 포맷값
           showDateDisplay={false}
@@ -90,13 +99,28 @@ export default TripPeriod;
 
 const CalenderContainer = styled.div`
   /* display: flex; */
+  width: 100%;
+
+  @media ${(props) => props.theme.mobile} {
+    .rdrMonth {
+      width: 300px;
+    }
+  }
 `;
 const InputBox = styled.div`
   display: flex;
-`;
-const Wave = styled.div`
-  margin: auto 5px;
-  font-size: 25px;
+  flex-direction: row;
+  div {
+    margin: 10px;
+  }
+  p {
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const CalendarIcon = styled(BsCalendar3)`

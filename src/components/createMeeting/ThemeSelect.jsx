@@ -51,14 +51,15 @@ const StThemeSelectBox = styled.div`
 
   @media (max-width: 767px) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     .themeName {
-      width: 100px;
+      width: 90px;
       margin-bottom: 15px;
     }
   }
   .themeName {
-    font-size: 15px;
+    font-size: 12px;
+    font-weight: 800;
   }
 `;
 

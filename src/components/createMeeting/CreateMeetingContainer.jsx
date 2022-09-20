@@ -15,63 +15,99 @@ import CreatePostContent from "../createPost/CreatePostContent";
 import { useNavigate } from "react-router-dom";
 
 //리액트 쿼리
-// import { useQuery } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 const CreateMeetingContatiner = () => {
-  const navigate = useNavigate();
+  const [theme, setTheme] = useState("");
+  const [meetingTags, setMeetingTags] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [people, setPeople] = useState();
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [roomCloseDate, setRoomCloseDate] = useState("");
+  const [departLocation, setDepartLocation] = useState("");
 
+  const [tagValidationMsg, setTagValidationMsg] = useState("");
+  // const [meetingTagErrorMsg, setMeetingTagErrorMsg] = useState("");
+  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
+
+  const data = {
+    themeCategory: theme,
+    meetingTags: meetingTags,
+    title: title,
+    desc: desc,
+    startDate: startDate,
+    endDate: endDate,
+    people: people,
+    roomCloseDate: roomCloseDate,
+    departLocation: departLocation,
+  };
+
+  const navigate = useNavigate();
   const postcreatemeeting = async () => {
-    if (isValidInput === false) {
-      return setTagValidationMsg("빈칸을 모두 입력해주세요");
+    if (theme.length < 1) {
+      return setTagValidationMsg("대륙을 선택해주세요");
+    } else if (meetingTags.length < 1) {
+      return setTagValidationMsg("나라/도시를 입력해주세요");
+    } else if (startDate.length < 1) {
+      return setTagValidationMsg("여행시작일을 선택해주세요");
+    } else if (isValidDateFormat(startDate) === false) {
+      setPeriodErrorMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      return setTagValidationMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+    } else if (endDate.length < 1) {
+      return setTagValidationMsg("여행종료일을 선택해주세요");
+    } else if (isValidDateFormat(endDate) === false) {
+      setPeriodErrorMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      return setTagValidationMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+    } else if (String(people).length < 1) {
+      return setTagValidationMsg("여행희망인원을 선택해주세요");
+    } else if (title.length < 1) {
+      return setTagValidationMsg("모집글 제목을 입력해주세요");
+    } else if (desc.length < 1) {
+      return setTagValidationMsg("모집글 설명을 입력해주세요");
+    } else if (roomCloseDate.length < 1) {
+      return setTagValidationMsg("모집마감일자를 선택해주세요");
+    } else if (departLocation.length < 1) {
+      return setTagValidationMsg("모집 후 모일 장소를 선택해주세요");
     } else if (isValidDate === false) {
       return setTagValidationMsg("날짜 형식이 잘못되었습니다");
     } else {
       const res = await authInstance.post(`/api/meeting`, data);
       console.log(res);
-      navigate("/meetingList");
+      navigate("/meetingList/all");
       return res;
     }
   };
 
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+
+  const { mutate } = useMutation(postcreatemeeting, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("meetingList");
+    },
+  });
   // const meeting_query = useQuery("meetingList", postcreatemeeting, {
   //   onSuccess: (data) => {
   //     console.log(data);
   //   },
   // });
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { isSubmitting, isDirty, errors },
-  // } = useForm({ mode: "onChange" });
-
-  const [theme, setTheme] = useState("");
-  // const [locationtags, setLocationTags] = useState([]);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [meetingTags, setMeetingTags] = useState([]);
-  const [people, setPeople] = useState();
-  const [roomCloseDate, setRoomCloseDate] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [departLocation, setDepartLocation] = useState("");
-
-  const [tagValidationMsg, setTagValidationMsg] = useState("");
   // const [checkAlert, setCheckAlert] = useState(true);
   //유효성 검사
   // const [validState,setValidState] =useState();
   // 모든 input의 value가 1자 이상이 되어야 한다
-  const isValidInput =
-    theme.length >= 1 &&
-    title.length >= 1 &&
-    desc.length >= 1 &&
-    meetingTags.length >= 1 &&
-    String(people).length >= 1 &&
-    roomCloseDate.length >= 1 &&
-    startDate.length >= 1 &&
-    endDate.length >= 1 &&
-    departLocation.length >= 1;
+  // const isValidInput =
+  //   theme.length >= 1 &&
+  //   title.length >= 1 &&
+  //   desc.length >= 1 &&
+  //   meetingTags.length >= 1 &&
+  //   String(people).length >= 1 &&
+  //   roomCloseDate.length >= 1 &&
+  //   startDate.length >= 1 &&
+  //   endDate.length >= 1 &&
+  //   departLocation.length >= 1;
   console.log(
     theme.length,
     title.length,
@@ -93,10 +129,10 @@ const CreateMeetingContatiner = () => {
   //날짜 유효성 검사
   function isValidDateFormat(date) {
     // 자릿수검사
-    if (date.length != 10) return false;
+    if (date.length !== 10) return false;
 
     // 특수문자 제거
-    let regex = /(\.)|(\-)|(\/)/g;
+    let regex = /(\.)|(-)|(\/)/g;
     date = date.replace(regex, "");
     //	 |: 또는 역할
     // . 이거나 - 이거나 / 조건인 정규식
@@ -153,17 +189,6 @@ const CreateMeetingContatiner = () => {
     setDesc(text);
   };
 
-  const data = {
-    themeCategory: theme,
-    meetingTags: meetingTags,
-    title: title,
-    desc: desc,
-    startDate: startDate,
-    endDate: endDate,
-    people: people,
-    roomCloseDate: roomCloseDate,
-    departLocation: departLocation,
-  };
   console.log(data);
 
   return (
@@ -181,11 +206,19 @@ const CreateMeetingContatiner = () => {
           className="tagbox"
           selectedTags={selectedMeetingTags}
           tags={[]}
-          tagMassage={"엔터키를 치시면 입력됩니다."}
+          tagMassage={
+            meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
+          }
         />
+        {/* <StValidationMsg>{meetingTagErrorMsg}</StValidationMsg> */}
       </StTags>
       <h1>여행기간</h1>
-      <TripPeriod setStartDate={setStartDate} setEndDate={setEndDate} />
+      <TripPeriod
+        className="periodBox"
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
+      <StValidationMsg>{periodErrorMsg}</StValidationMsg>
       <h1>여행희망인원</h1>
       <TripPeopleCount people={2} setPeople={setPeople} />
       <br />
@@ -215,10 +248,10 @@ const CreateMeetingContatiner = () => {
           className="createButton"
           size="small"
           variant="primary"
-          onClick={() => {
-            postcreatemeeting();
+          onClick={
+            mutate
             // onClickCreateRoom();
-          }}
+          }
           // disabled={validState ? false : true}
         >
           등록하기
@@ -252,7 +285,9 @@ const StStepTitle = styled.h2`
   font-size: 1.7rem;
   padding-top: 1.2rem;
   margin-bottom: 1.5rem;
-
+  @media ${(props) => props.theme.mobile} {
+    font-size: 1rem;
+  }
   strong {
     display: flex;
     align-items: center;
@@ -290,7 +325,7 @@ const StTitleBox = styled(TextField)`
 
 const StTags = styled.div`
   .kkqTPl {
-    width: 50%;
+    width: 90%;
     height: 55px;
     border-radius: 10px;
     border: 1px solid #a0a0a0;
@@ -316,4 +351,5 @@ const StValidationMsg = styled.p`
   font-style: italic;
   color: var(--red-color);
   margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
