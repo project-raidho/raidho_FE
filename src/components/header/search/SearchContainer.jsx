@@ -157,6 +157,7 @@ const StSearchContainerWrap = styled.div`
   @media (max-width: 639px) {
     min-width: 280px;
     width: calc(95vw - 70px);
+    height: 36px;
   }
 `;
 
@@ -209,6 +210,12 @@ const StSearchDetailList = styled.div`
     margin: 15px 0;
     color: var(--title-color);
   }
+
+  @media (max-width: 639px) {
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
 `;
 
 const StSearchDetailRow = styled.div`
@@ -247,6 +254,22 @@ const StSearchDetailRow = styled.div`
     button {
       a {
         font-size: 1.1rem;
+      }
+    }
+  }
+  @media (max-width: 639px) {
+    button {
+      height: 28px;
+      padding: 0 10px 0 5px;
+      a {
+        font-size: 0.95rem;
+      }
+      span.tagCloseIcon {
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        font-size: 1rem;
+        top: 6px;
       }
     }
   }

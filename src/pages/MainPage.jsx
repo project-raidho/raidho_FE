@@ -88,4 +88,14 @@ const StMainNav = styled.div`
       background-color: var(--main-color);
     }
   }
+  @media (max-width: 639px) {
+    top: 57px;
+    p {
+      width: 100px;
+      height: 30px;
+      a {
+        font-size: 1rem;
+      }
+    }
+  }
 `;
