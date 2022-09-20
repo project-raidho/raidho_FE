@@ -1,32 +1,49 @@
-// import axios from "axios";
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
-import { useQuery } from "react-query";
+// import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
-// import { useInView } from "react-intersection-observer";
+import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
 
-const getPostList = async ({ queryKey }) => {
-  return authInstance.get(`/api/post/${queryKey[1]}`);
-  // const data = res.data.content;
-  // const pageData = res.data.totalPages;
-  // const total = res.data.totalElements;
-  // // return {
-  //   data,
-  //   nextPage: pageParam + 1,
-  //   pageData,
-  //   total,
-  // };
+const getPostList = async (state, page) => {
+  console.log(state);
+  console.log(page);
+  const response = await authInstance.get(`/api/post/${state}?page=${page}`);
+  console.log("===>", response.data.data);
+
+  const { content, last, number } = response.data.data;
+  return { content, nextPage: number + 1, last };
 };
 
 const MainPostList = ({ state }) => {
-  const postListQuery = useQuery(["postList", state], getPostList, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    //fresh 타임 늘리는 옵션
-    // staleTime: 10000
-  });
+  const { ref, inView } = useInView();
+  const { data, status, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+    "postLists",
+    ({ pageParam = 0 }) => getPostList(state, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        return !lastPage.last ? lastPage.nextPage : undefined;
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView, fetchNextPage]);
+
+  if (status === "loading") return <Loading />;
+  if (status === "error") return <Error />;
+  console.log(data.pages);
+  // const postListQuery = useQuery(["postList", state], getPostList, {
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  //   //fresh 타임 늘리는 옵션
+  //   // staleTime: 10000
+  // });
   //   console.log(postListQuery);
 
   //   const { ref, inView } = useInView();
@@ -54,16 +71,21 @@ const MainPostList = ({ state }) => {
   //     }
   //   );
 
-  if (postListQuery.isLoading) {
-    return null;
-  }
+  // if (postListQuery.isLoading) {
+  //   return null;
+  // }
 
   return (
     <StPostLisWrapp>
       <StitemList>
-        {postListQuery.data.data.data.content.map((post) => (
-          <MainPostCard key={post.id} post={post} />
+        {data?.pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.content.map((post) => (
+              <MainPostCard key={post.id} post={post} />
+            ))}
+          </Fragment>
         ))}
+        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       </StitemList>
     </StPostLisWrapp>
   );
