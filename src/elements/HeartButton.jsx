@@ -10,7 +10,7 @@ const HeartButton = ({ like, onClick }) => {
 export default HeartButton;
 
 const Heart = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   cursor: pointer;
 `;
