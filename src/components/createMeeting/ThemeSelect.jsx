@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../elements/Button";
-import { useSelector } from "react-redux";
 
 const ThemeSelect = ({ theme, setTheme }) => {
   let [btnActive, setBtnActive] = useState(theme);
 
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-
+  const themeList = [
+    "국내",
+    "유럽",
+    "아메리카",
+    "아시아",
+    "오세아니아",
+    "아프리카",
+  ];
   const toggleActive = (e) => {
     setTheme(e.target.value);
     setBtnActive(e.target.value);
@@ -18,15 +23,15 @@ const ThemeSelect = ({ theme, setTheme }) => {
       {themeList.map((theme, index) => {
         return (
           <StButton
-            value={theme.themeName}
+            value={theme}
             size="large"
-            variant={theme.themeName === btnActive ? "primary" : "gray"}
+            variant={theme === btnActive ? "primary" : "gray"}
             key={index}
             onClick={toggleActive}
-            themeImage={theme.themeImage}
+            themeImage={theme}
             className="themeName"
           >
-            {theme.themeName}
+            {theme}
           </StButton>
         );
       })}
@@ -44,8 +49,17 @@ const StThemeSelectBox = styled.div`
   align-items: center;
   list-style: none;
 
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .themeName {
+      width: 90px;
+      margin-bottom: 15px;
+    }
+  }
   .themeName {
-    font-size: 18px;
+    font-size: 12px;
+    font-weight: 800;
   }
 `;
 

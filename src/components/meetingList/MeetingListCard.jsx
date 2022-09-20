@@ -4,6 +4,7 @@ import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
+import { useNavigate } from "react-router-dom";
 
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
@@ -15,6 +16,7 @@ const onDeleteMeeting = async (meetingId) => {
 };
 
 const MeetingListCard = ({ meeting }) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
   const { mutate } = useMutation(onDeleteMeeting, {
@@ -108,7 +110,16 @@ const MeetingListCard = ({ meeting }) => {
             {meeting.themeCategory}
           </Button>
           <div>
-            {meeting.isMine && <Button variant="gray">수정하기</Button>}
+            {meeting.isMine && (
+              <Button
+                variant="gray"
+                onClick={() => {
+                  navigate(`/updateMeeting/${meeting.id}`);
+                }}
+              >
+                수정하기
+              </Button>
+            )}
             {meeting.isMine && (
               <Button variant="primary" onClick={() => mutate(meeting.id)}>
                 삭제하기
@@ -118,7 +129,6 @@ const MeetingListCard = ({ meeting }) => {
               <Button
                 variant="primary"
                 // onClick={() =>
-                //   onDeleteMeeting(meeting.id)
                 // }
               >
                 참여하기
