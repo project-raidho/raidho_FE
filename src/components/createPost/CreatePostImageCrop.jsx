@@ -260,6 +260,7 @@ const CreatePostImageCrop = ({
             onChange={(crop) => setCrop(crop)}
             onComplete={(crop) => setCompletedCrop(crop)}
             aspect={aspect}
+            maxWidth="1080"
           >
             <img
               className="originImage"
