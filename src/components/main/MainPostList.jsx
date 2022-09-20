@@ -1,20 +1,16 @@
 import React, { Fragment, useEffect } from "react";
-import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
+import styled from "styled-components";
 
 const getPostList = async (state, pageParam) => {
-  console.log(state);
-  console.log(pageParam);
   const response = await authInstance.get(
     `/api/post/${state}?page=${pageParam}`
   );
-  console.log("===>", response.data.data);
-
   const { content, last, number } = response.data.data;
   return { content, nextPage: number + 1, last };
 };
@@ -36,9 +32,9 @@ const MainPostList = ({ state }) => {
 
   useEffect(() => {
     if (inView) fetchNextPage();
-  }, [inView]);
+  }, [inView, fetchNextPage]);
 
-  console.log("1====>", data);
+  console.log("====> mainPostList :: data ", data);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
