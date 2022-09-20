@@ -99,7 +99,7 @@ const StFigure = styled.figure`
   margin-bottom: 20px;
   .img {
     width: 100%;
-    border: 1px solid var(--gray-color);
+    /* border: 1px solid var(--gray-color); */
     cursor: pointer;
   }
   .imagesicon {
@@ -128,6 +128,7 @@ const StFigure = styled.figure`
   .userBox {
     display: flex;
     margin-top: 5px;
+    margin-left: 10px;
   }
   .profileBox {
     width: 30px;

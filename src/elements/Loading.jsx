@@ -17,7 +17,7 @@ const StLoadingWrap = styled.p`
   align-items: center;
   justify-content: center;
   width: 50%;
-  height: 40px;
+  height: 80px;
   margin: 10px auto;
 
   svg {
@@ -36,6 +36,12 @@ const StLoadingWrap = styled.p`
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+  @media (max-width: 639px) {
+    svg {
+      width: 30px;
+      height: 30px;
     }
   }
 `;

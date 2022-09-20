@@ -43,8 +43,6 @@ const MeetingListContainer = () => {
         {themeList.map((theme, index) => (
           <p
             className="themeCategoryButton"
-            size="squareTheme"
-            variant="lineBlue"
             key={theme.themeName + index}
             onClick={() => onClickTheme(theme.themeName)}
           >
@@ -89,10 +87,6 @@ const StMeetingCategoryRow = styled.div`
   &.flexRightLayout {
     justify-content: flex-end;
   }
-  button {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-  }
   .themeCategoryButton {
     display: flex;
     flex-direction: row;
@@ -121,14 +115,6 @@ const StMeetingCategoryRow = styled.div`
         background-color: var(--main-color);
       }
     }
-  }
-
-  label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 1rem;
   }
 
   @media (max-width: 767px) {

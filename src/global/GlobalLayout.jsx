@@ -23,7 +23,6 @@ const StGlobalLayoutWrap = styled.div`
   }
   @media (max-width: 639px) {
     max-width: 639px;
-    padding-top: 70px;
-    padding-bottom: 80px;
+    padding: 90px 0 80px;
   }
 `;
