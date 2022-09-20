@@ -21,10 +21,16 @@ const CreateMeetingContatiner = () => {
   const navigate = useNavigate();
 
   const postcreatemeeting = async () => {
-    const res = await authInstance.post(`/api/meeting`, data);
-    console.log(res);
-    navigate("/meetingList");
-    return res;
+    if (isValidInput === false) {
+      return setTagValidationMsg("빈칸을 모두 입력해주세요");
+    } else if (isValidDate === false) {
+      return setTagValidationMsg("날짜 형식이 잘못되었습니다");
+    } else {
+      const res = await authInstance.post(`/api/meeting`, data);
+      console.log(res);
+      navigate("/meetingList");
+      return res;
+    }
   };
 
   // const meeting_query = useQuery("meetingList", postcreatemeeting, {
@@ -46,13 +52,76 @@ const CreateMeetingContatiner = () => {
   const [desc, setDesc] = useState("");
   const [meetingTags, setMeetingTags] = useState([]);
   const [people, setPeople] = useState();
-  const [roomCloseDate, setRoomCloseDate] = useState();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [departLocation, setDepartLocation] = useState();
+  const [roomCloseDate, setRoomCloseDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [departLocation, setDepartLocation] = useState("");
 
+  const [tagValidationMsg, setTagValidationMsg] = useState("");
+  // const [checkAlert, setCheckAlert] = useState(true);
   //유효성 검사
   // const [validState,setValidState] =useState();
+  // 모든 input의 value가 1자 이상이 되어야 한다
+  const isValidInput =
+    theme.length >= 1 &&
+    title.length >= 1 &&
+    desc.length >= 1 &&
+    meetingTags.length >= 1 &&
+    String(people).length >= 1 &&
+    roomCloseDate.length >= 1 &&
+    startDate.length >= 1 &&
+    endDate.length >= 1 &&
+    departLocation.length >= 1;
+  console.log(
+    theme.length,
+    title.length,
+    desc.length,
+    meetingTags.length,
+    String(people).length
+  );
+  console.log(
+    roomCloseDate.length,
+    startDate.length,
+    endDate.length,
+    departLocation.length
+  );
+  const isValidDate =
+    isValidDateFormat(endDate) &&
+    isValidDateFormat(startDate) &&
+    isValidDateFormat(roomCloseDate) === true;
+
+  //날짜 유효성 검사
+  function isValidDateFormat(date) {
+    // 자릿수검사
+    if (date.length != 10) return false;
+
+    // 특수문자 제거
+    let regex = /(\.)|(\-)|(\/)/g;
+    date = date.replace(regex, "");
+    //	 |: 또는 역할
+    // . 이거나 - 이거나 / 조건인 정규식
+    //g:는 전체
+
+    // 타입 검사 (숫자)
+    let format = /^[12][0-9]{7}/;
+    // ^: 앞부분
+    // $: 뒷부분
+
+    if (!format.test(date)) return false;
+    // .test: 해당 date가 정규식에 충족하는지 boolean 형태로 반환
+
+    // 월 일 검사
+    let y = parseInt(date.substr(0, 4));
+    let m = parseInt(date.substr(4, 2));
+    let d = parseInt(date.substr(6));
+
+    if (m < 1 || m > 12) return false;
+
+    let lastDay = new Date(y, m, 0).getDate();
+    if (d < 1 || d > lastDay) return false;
+
+    return true;
+  }
 
   // 방 생성하기
   // const onClickCreateRoom = async () => {
@@ -111,7 +180,7 @@ const CreateMeetingContatiner = () => {
         <TagInput
           className="tagbox"
           selectedTags={selectedMeetingTags}
-          tags={["예시)프랑스"]}
+          tags={[]}
           tagMassage={"엔터키를 치시면 입력됩니다."}
         />
       </StTags>
@@ -154,6 +223,7 @@ const CreateMeetingContatiner = () => {
         >
           등록하기
         </Button>
+        <StValidationMsg>{tagValidationMsg}</StValidationMsg>
       </StbottonBox>
     </StContainer>
   );
@@ -231,7 +301,6 @@ const StTags = styled.div`
 
 const StbottonBox = styled.div`
   margin: 20px;
-  float: right;
 `;
 
 // const StCategorySelectBox = styled.div`
@@ -240,3 +309,11 @@ const StbottonBox = styled.div`
 // const StTriplocationBox = styled.div`
 // /* display: flex; */
 // `
+
+const StValidationMsg = styled.p`
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--red-color);
+  margin-bottom: 1rem;
+`;

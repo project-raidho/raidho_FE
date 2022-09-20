@@ -12,6 +12,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import Input from "../../elements/Input";
 import { BsCalendar3 } from "react-icons/bs";
+import { useEffect } from "react";
 const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
   const [state, setState] = useState([
     {
@@ -21,8 +22,8 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
     },
   ]);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [start, setStart] = useState(startDate);
-  const [end, setEnd] = useState(endDate);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   // setInputdate(moment(date).format('YYYY-MM-DD'))
 
   const onChangeHandler = (item) => {
@@ -33,12 +34,18 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
     setEndDate(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
   };
   const startinputonChangeHandler = (e) => {
+    setStartDate(e.target.value);
     setStart(e.target.value);
   };
 
   const endinputonChangeHandler = (e) => {
     setEnd(e.target.value);
   };
+  useEffect(() => {
+    setStart(startDate);
+    setEnd(endDate);
+    // eslint-disable-next-line
+  }, [startDate, endDate]);
 
   return (
     <CalenderContainer>
