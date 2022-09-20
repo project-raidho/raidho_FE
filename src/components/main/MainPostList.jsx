@@ -5,6 +5,8 @@ import { authInstance } from "../../shared/api";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
+import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
 
 const getPostList = async (state, page) => {
   console.log(state);
@@ -32,8 +34,8 @@ const MainPostList = ({ state }) => {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
 
-  if (status === "loading") return <div>Loading!!!</div>;
-  if (status === "error") return <div>error!!!</div>;
+  if (status === "loading") return <Loading />;
+  if (status === "error") return <Error />;
   console.log(data.pages);
   // const postListQuery = useQuery(["postList", state], getPostList, {
   //   onSuccess: (data) => {
@@ -83,11 +85,7 @@ const MainPostList = ({ state }) => {
             ))}
           </Fragment>
         ))}
-        {isFetchingNextPage ? (
-          <div>Loading!!!!!!!!</div>
-        ) : (
-          <div ref={ref}></div>
-        )}
+        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       </StitemList>
     </StPostLisWrapp>
   );
