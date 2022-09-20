@@ -88,11 +88,6 @@ const GlobalHeader = () => {
 
   return (
     <StGlobalHeaderWrap>
-      <StToggleBackground
-        isToggle={isToggle}
-        isAddPostToggle={isAddPostToggle}
-        onClick={onCloseToggle}
-      />
       <StGlobalLayoutHeader>
         <StHeaderRow>
           <div className="navWrap">
@@ -193,6 +188,11 @@ const GlobalHeader = () => {
           </StDesktopRightMenu>
         </StHeaderRow>
       </StGlobalLayoutHeader>
+      <StToggleBackground
+        isToggle={isToggle}
+        isAddPostToggle={isAddPostToggle}
+        onClick={onCloseToggle}
+      />
     </StGlobalHeaderWrap>
   );
 };
@@ -305,6 +305,7 @@ const StHeaderRow = styled.div`
       height: 60px;
       background-color: var(--bg-color);
       padding: 0 1rem;
+      z-index: 13;
     }
   }
 `;
@@ -587,6 +588,11 @@ const StToggleBox = styled.ul`
     }
 
     a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
       font-size: 1.2rem;
     }
   }
@@ -611,6 +617,7 @@ const StToggleBox = styled.ul`
     border-right: 1px solid var(--gray-color);
     border-bottom: 0px solid var(--gray-color);
     transition: 0.3s;
+    z-index: 10;
   }
 `;
 
