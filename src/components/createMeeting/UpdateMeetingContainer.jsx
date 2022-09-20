@@ -17,7 +17,8 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+
 const UpdateMeetingContainer = () => {
   // :::  모집글 단건 조회
   const getMeetingDetail = async () => {
@@ -30,7 +31,7 @@ const UpdateMeetingContainer = () => {
     }
   };
   //첫번째 파라미터: 퀴리 키, 두번재 파라미터, axios 함수, 세번째 파라미터: 옵션
-  const meeting_query = useQuery("meetingList", getMeetingDetail, {
+  const meetingDetail_query = useQuery("meetingDetail", getMeetingDetail, {
     onSuccess: (data) => {
       console.log(data);
     },
@@ -69,7 +70,11 @@ const UpdateMeetingContainer = () => {
   const [departLocation, setDepartLocation] = useState(
     meetingDetail.departLocation
   );
-  console.log(departLocation);
+
+  const [tagValidationMsg, setTagValidationMsg] = useState("");
+  // const [meetingTagErrorMsg, setMeetingTagErrorMsg] = useState("");
+  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
+
   const data = {
     theme: theme,
     meetingTags: meetingTags,
@@ -82,17 +87,87 @@ const UpdateMeetingContainer = () => {
     departLocation: departLocation,
   };
 
-  // ::: 수정데이터 서버에 전송
+  const isValidDate =
+    isValidDateFormat(endDate) &&
+    isValidDateFormat(startDate) &&
+    isValidDateFormat(roomCloseDate) === true;
+
+  //날짜 유효성 검사
+  function isValidDateFormat(date) {
+    // 자릿수검사
+    if (date.length !== 10) return false;
+
+    // 특수문자 제거
+    let regex = /(\.)|(-)|(\/)/g;
+    date = date.replace(regex, "");
+
+    // 타입 검사 (숫자)
+    let format = /^[12][0-9]{7}/;
+
+    if (!format.test(date)) return false;
+    // .test: 해당 date가 정규식에 충족하는지 boolean 형태로 반환
+
+    // 월 일 검사
+    let y = parseInt(date.substr(0, 4));
+    let m = parseInt(date.substr(4, 2));
+    let d = parseInt(date.substr(6));
+
+    if (m < 1 || m > 12) return false;
+
+    let lastDay = new Date(y, m, 0).getDate();
+    if (d < 1 || d > lastDay) return false;
+
+    return true;
+  }
+
+  // ::: 수정데이터 유효성검사후 서버에 전송
   const onUpdateMeeting = async () => {
-    try {
-      const res = await authInstance.put(`/api/meeting/${meetingId}`, data);
-      console.log("postResponse", res.data);
-      navigate(-1);
-    } catch (error) {
-      console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
-      setModalOn(!modalOn);
+    if (theme.length < 1) {
+      return setTagValidationMsg("대륙을 선택해주세요");
+    } else if (meetingTags.length < 1) {
+      return setTagValidationMsg("나라/도시를 입력해주세요");
+    } else if (startDate.length < 1) {
+      return setTagValidationMsg("여행시작일을 선택해주세요");
+    } else if (isValidDateFormat(startDate) === false) {
+      setPeriodErrorMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      return setTagValidationMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+    } else if (endDate.length < 1) {
+      return setTagValidationMsg("여행종료일을 선택해주세요");
+    } else if (isValidDateFormat(endDate) === false) {
+      setPeriodErrorMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      return setTagValidationMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+    } else if (String(people).length < 1) {
+      return setTagValidationMsg("여행희망인원을 선택해주세요");
+    } else if (title.length < 1) {
+      return setTagValidationMsg("모집글 제목을 입력해주세요");
+    } else if (desc.length < 1) {
+      return setTagValidationMsg("모집글 설명을 입력해주세요");
+    } else if (roomCloseDate.length < 1) {
+      return setTagValidationMsg("모집마감일자를 선택해주세요");
+    } else if (departLocation.length < 1) {
+      return setTagValidationMsg("모집 후 모일 장소를 선택해주세요");
+    } else if (isValidDate === false) {
+      return setTagValidationMsg("날짜 형식이 잘못되었습니다");
+    } else {
+      try {
+        const res = await authInstance.put(`/api/meeting/${meetingId}`, data);
+        console.log(res);
+        navigate(-1);
+        return res;
+      } catch (error) {
+        setModalOn(!modalOn);
+      }
     }
   };
+
+  const queryClient = useQueryClient();
+  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
+  const { mutate } = useMutation(onUpdateMeeting, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("meetingList");
+      navigate(-1);
+    },
+  });
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -120,9 +195,10 @@ const UpdateMeetingContainer = () => {
   //   setEndDate(meetingDetail.endDate);
   //   setDepartLocation(meetingDetail.departLocation);
   // }, [meetingDetail]);
-  if (meeting_query.isLoading) {
+  if (meetingDetail_query.isLoading) {
     return null;
   }
+  // const meetingDetail= meetingDetail_query.data.data.data[0]
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -138,7 +214,9 @@ const UpdateMeetingContainer = () => {
             className="tagbox"
             selectedTags={selectedMeetingTags}
             tags={meetingTags}
-            tagMassage={"엔터키를 치시면 입력됩니다."}
+            tagMassage={
+              meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
+            }
           />
         </StTags>
         <h1>여행기간</h1>
@@ -148,6 +226,7 @@ const UpdateMeetingContainer = () => {
           setStartDate={setStartDate}
           setEndDate={setEndDate}
         />
+        <StValidationMsg>{periodErrorMsg}</StValidationMsg>
         <h1>여행희망인원</h1>
         <TripPeopleCount people={people} setPeople={setPeople} />
         <br />
@@ -191,9 +270,10 @@ const UpdateMeetingContainer = () => {
           >
             취소
           </Button>
-          <Button size="small" onClick={onUpdateMeeting}>
+          <Button size="small" onClick={mutate}>
             등록
           </Button>
+          <StValidationMsg>{tagValidationMsg}</StValidationMsg>
         </StButtonWrap>
       </StCreatePostColumn>
       <Potal>
@@ -244,11 +324,30 @@ const StCreatePostColumn = styled.div`
   padding: 1rem;
 `;
 
-// const StStepTitle = styled.h2`
-//   font-size: 1.5rem;
-//   padding-top: 1.2rem;
-//   margin-bottom: 1rem;
-// `;
+const StStepTitle = styled.h2`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.7rem;
+  padding-top: 1.2rem;
+  margin-bottom: 1.5rem;
+  @media ${(props) => props.theme.mobile} {
+    font-size: 1rem;
+  }
+  strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    background-color: var(--gray-color);
+    border-radius: 5px;
+    border: 1px solid #000;
+    margin-right: 0.7rem;
+    padding: 0.5rem 0.7rem;
+  }
+`;
 
 const StButtonWrap = styled.div`
   display: flex;
@@ -256,7 +355,7 @@ const StButtonWrap = styled.div`
   align-items: center;
   justify-content: right;
   width: 100%;
-
+  margin-top: 20px;
   button {
     margin-left: 10px;
   }
@@ -271,14 +370,18 @@ const StErrorMessage = styled.div`
 
 const StTitleBox = styled(TextField)`
   width: 100%;
-  height: 55px;
 
   element.style {
-    height: 50px;
+    height: 55px;
   }
-  .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    height: 53px;
+    font-size: 1.2rem;
+    border: 1px solid var(--gray-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--subBg-color);
   }
-
   .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
     font-size: 1.5rem;
     height: 55px;
@@ -295,7 +398,7 @@ const StDescBox = styled(TextField)`
 
 const StTags = styled.div`
   .kkqTPl {
-    width: 50%;
+    width: 90%;
     height: 55px;
     border-radius: 10px;
     border: 1px solid #a0a0a0;
@@ -304,25 +407,11 @@ const StTags = styled.div`
   }
 `;
 
-const StStepTitle = styled.h2`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 1.7rem;
-  padding-top: 1.2rem;
-  margin-bottom: 1.5rem;
-
-  strong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
-    border-radius: 5px;
-    border: 1px solid #000;
-    margin-right: 0.7rem;
-    padding: 0.5rem 0.7rem;
-  }
+const StValidationMsg = styled.p`
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--red-color);
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
