@@ -27,6 +27,7 @@ const Routers = () => {
         <GlobalLayout>
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/likelist" element={<MainPage />} />
             <Route path="/postDetail/:id" element={<PostDetailPage />} />
             <Route path="/myProfile" element={<MyProfilePage />} />
             <Route path="/createPost" element={<CreatePostPage />} />

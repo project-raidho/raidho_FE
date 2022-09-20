@@ -1,17 +1,18 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
-// import { useQuery } from "react-query";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 
-const getPostList = async (state, page) => {
+const getPostList = async (state, pageParam) => {
   console.log(state);
-  console.log(page);
-  const response = await authInstance.get(`/api/post/${state}?page=${page}`);
+  console.log(pageParam);
+  const response = await authInstance.get(
+    `/api/post/${state}?page=${pageParam}`
+  );
   console.log("===>", response.data.data);
 
   const { content, last, number } = response.data.data;
@@ -19,74 +20,50 @@ const getPostList = async (state, page) => {
 };
 
 const MainPostList = ({ state }) => {
+  const [changeState, setChangeState] = useState(state);
   const { ref, inView } = useInView();
-  const { data, status, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    "postLists",
-    ({ pageParam = 0 }) => getPostList(state, pageParam),
-    {
-      getNextPageParam: (lastPage) => {
-        return !lastPage.last ? lastPage.nextPage : undefined;
-      },
-    }
-  );
+  const { data, status, fetchNextPage, isFetchingNextPage, error } =
+    useInfiniteQuery(
+      "postLists",
+      ({ pageParam = 0 }) => getPostList(state, pageParam),
+      {
+        getNextPageParam: (lastPage) => {
+          return !lastPage.last
+            ? lastPage.nextPage
+            : console.log("====> 마지막페이지 입니다");
+        },
+      }
+    );
 
   useEffect(() => {
     if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
+  }, [inView]);
+
+  useEffect(() => {
+    console.log("===>상태가 변경되었습니다", state);
+    setChangeState(state);
+    getPostList(state, 0);
+  }, [state]);
 
   if (status === "loading") return <Loading />;
-  if (status === "error") return <Error />;
+  if (status === "error") return <Error message={error.message} />;
+
   console.log(data.pages);
-  // const postListQuery = useQuery(["postList", state], getPostList, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  //   //fresh 타임 늘리는 옵션
-  //   // staleTime: 10000
-  // });
-  //   console.log(postListQuery);
-
-  //   const { ref, inView } = useInView();
-  //   const {
-  //     data,
-  //     hasNextPage,
-  //     fetchNextPage,
-  //     isFetchingNextPage,
-  //     status,
-  //     error,
-  //   } = useInfiniteQuery(
-  //     "postList",
-  //     ({ pageParam = 1 }) => {
-  //       return getPostList(pageParam);
-  //     },
-  //     {
-  //       refetchOnWindowFocus: false,
-  //       getNextPageParam: (_lastPage, pages) => {
-  //         if (pages.length < pages[0].pageData) {
-  //           return pages.length + 1;
-  //         } else {
-  //           return undefined;
-  //         }
-  //       },
-  //     }
-  //   );
-
-  // if (postListQuery.isLoading) {
-  //   return null;
-  // }
 
   return (
     <StPostLisWrapp>
-      <StitemList>
-        {data?.pages.map((page, index) => (
-          <Fragment key={index}>
-            {page.content.map((post) => (
-              <MainPostCard key={post.id} post={post} />
-            ))}
-          </Fragment>
-        ))}
-        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
-      </StitemList>
+      {changeState === "latest" && (
+        <StitemList>
+          {data?.pages.map((page, index) => (
+            <Fragment key={index}>
+              {page.content.map((post) => (
+                <MainPostCard key={post.id} post={post} />
+              ))}
+            </Fragment>
+          ))}
+          {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
+        </StitemList>
+      )}
     </StPostLisWrapp>
   );
 };

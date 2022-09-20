@@ -187,7 +187,13 @@ const StSearchDetailBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "550px" : "50px")};
+    height: ${(props) => (props.isFocusSearch === true ? "550px" : "34px")};
+
+    input {
+      height: 34px;
+      background-size: 27px 27px;
+      background-position: 96% center;
+    }
   }
 `;
 
