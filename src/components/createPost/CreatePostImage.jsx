@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import imageCompression from "browser-image-compression";
 import CreatePostImageCrop from "./CreatePostImageCrop";
 import styled from "styled-components";
 
 const CreatePostImage = ({ selectedPostImages }) => {
   const [files, setFiles] = useState([]);
+  const [resizingFiles, setResizingFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
@@ -26,7 +28,30 @@ const CreatePostImage = ({ selectedPostImages }) => {
     maxFiles: 5, // ::: 최대 이미지 개수 설정하기
   });
 
+  // ::: 이미지 리사이징(Resizing)
+  const compressImageAndGetImageFile = (file) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    const compressedFile = imageCompression(file, options);
+    return compressedFile;
+  };
+
+  console.log("files ===>", files);
+
   // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
+
+  const originImageToResizingImage = async (files) => {
+    let temp = [];
+    for (let i = 0; i < files.length; i++) {
+      const complessedFile = await compressImageAndGetImageFile(files[i]);
+      console.log("complessedFile===>", i, "번째!!!", complessedFile);
+      temp.push(complessedFile);
+    }
+    setResizingFiles(temp);
+  };
   useEffect(() => {
     fileRejections.length > 0
       ? setFileRejectionsMessage(
@@ -36,7 +61,15 @@ const CreatePostImage = ({ selectedPostImages }) => {
           </>
         )
       : setFileRejectionsMessage(null);
-  }, [fileRejections]);
+
+    if (files.length > 0) {
+      originImageToResizingImage(files);
+    }
+
+    // eslint-disable-next-line
+  }, [fileRejections, files]);
+
+  console.log("resizingFiles ===>", resizingFiles);
 
   return (
     <StCreatePostImageWrap>
@@ -53,9 +86,9 @@ const CreatePostImage = ({ selectedPostImages }) => {
       )}
       <StAlertMessage>{fileRejectionsMessage}</StAlertMessage>
       <StPostImageCropWrap>
-        {files.length !== 0 && (
+        {resizingFiles.length !== 0 && (
           <CreatePostImageCrop
-            files={files}
+            files={resizingFiles}
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
             selectedImageIndex={selectedImageIndex}
