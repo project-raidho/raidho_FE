@@ -12,7 +12,7 @@ const Loading = () => {
 
 export default Loading;
 
-const StLoadingWrap = styled.p`
+const StLoadingWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

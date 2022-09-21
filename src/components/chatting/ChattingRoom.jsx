@@ -18,24 +18,7 @@ import { authInstance } from "../../shared/api";
 const ChattingRoom = (props) => {
   const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const [messages, setMessages] = useState([
-    {
-      userId: 2,
-      message: "믿고 있을게요",
-      createdAt: "2022-09-05 18:15",
-      user: {
-        username: "유진님",
-        profileUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReXiJKCJfUo-QZzQ5gpm4ol9qtYe9W8BevUw&usqp=CAU",
-      },
-    },
-    {
-      userId: 1,
-      message: "믿지 마세요;;;",
-      createdAt: "2022-09-05 18:16",
-      sender: "경문",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   console.log(messages);
 
   // 소켓 통신 객체
@@ -52,7 +35,8 @@ const ChattingRoom = (props) => {
   const [messageInput, setMessageInput] = useState();
 
   let sender = localStorage.getItem("memberName");
-
+  let memberImage = localStorage.getItem("memberImage");
+  let memberId = localStorage.getItem("memberId");
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   React.useEffect(() => {
     wsConnectSubscribe();
@@ -61,7 +45,7 @@ const ChattingRoom = (props) => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, messages]);
 
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
@@ -92,16 +76,16 @@ const ChattingRoom = (props) => {
 
   // // 연결해제, 구독해제
   function wsDisConnectUnsubscribe() {
-    // try {
-    //   ws.disconnect(
-    //     () => {
-    //       ws.unsubscribe("sub-0");
-    //     },
-    //     { token: token }
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      ws.disconnect(
+        () => {
+          ws.unsubscribe("sub-0");
+        },
+        { token: token }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
@@ -134,6 +118,8 @@ const ChattingRoom = (props) => {
         roomId: Number(roomId),
         sender: sender,
         message: messageInput,
+        memberId: Number(memberId),
+        memberImage: memberImage,
       };
       //   // 빈문자열이면 리턴
       if (messageInput === "") {

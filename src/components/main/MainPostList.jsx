@@ -20,7 +20,7 @@ const MainPostList = ({ state }) => {
   const { data, status, fetchNextPage, isFetchingNextPage, error } =
     useInfiniteQuery(
       "postLists",
-      ({ pageParam = 1 }) => getPostList(state, pageParam),
+      ({ pageParam = 0 }) => getPostList(state, pageParam),
       {
         getNextPageParam: (lastPage) => {
           return !lastPage.last
@@ -32,7 +32,8 @@ const MainPostList = ({ state }) => {
 
   useEffect(() => {
     if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
+    // eslint-disable-next-line
+  }, [inView]);
 
   console.log("====> mainPostList :: data ", data);
 

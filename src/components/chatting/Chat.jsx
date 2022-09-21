@@ -7,25 +7,23 @@ import Image from "../../elements/Image";
 import { useParams } from "react-router-dom";
 
 // 현재 존재하는 채팅을 보여주는 컴포넌트
-const Chat = (props) => {
+const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
   const { id } = useParams();
-  const {
-    roomName,
-    _onClick,
-    roomId,
-    roomImg,
-    userName,
-    userProfile,
-    category,
-  } = props;
+  // const {
+  //   roomName,
+  //   _onClick,
+  //   roomId,
+  //   roomPic,
+  //   category,
+  // } = props;
   // 카테고리 2개까지 표시
-  const categoryInfo = [];
-  for (let i = 0; i < 2; i++) {
-    if (category[i] === undefined) {
-      continue;
-    }
-    categoryInfo.push(category[i]);
-  }
+  // const categoryInfo = [];
+  // for (let i = 0; i < 2; i++) {
+  //   if (category[i] === undefined) {
+  //     continue;
+  //   }
+  //   categoryInfo.push(category[i]);
+  // }
 
   let is_same = false;
   // 사용자의 현재 방 id와 채팅 리스트의 방 id가 같은 경우
@@ -34,18 +32,18 @@ const Chat = (props) => {
   }
   return (
     <Container onClick={_onClick} selected={is_same}>
-      <Image size="50px" src={roomImg} />
+      <Image size="50px" src={roomPic} />
       <ChatColumn>
         <ChatTitle>{roomName}</ChatTitle>
-        <ChatText>
+        {/* <ChatText>
           <Image size="15px" src={userProfile} />
-          {userName} |
+          {userName}
           <CategoryText>
             {categoryInfo.map((c, idx) => {
               return " " + c + " ";
             })}
           </CategoryText>
-        </ChatText>
+        </ChatText> */}
       </ChatColumn>
     </Container>
   );
@@ -107,24 +105,24 @@ const ChatTitle = styled.span`
   }
 `;
 
-const ChatText = styled.div`
-  ${(props) => props.theme.border_box}
-  ${(props) => props.theme.flex_row}
-  margin-top: 10px;
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-  }
-`;
+// const ChatText = styled.div`
+//   ${(props) => props.theme.border_box}
+//   ${(props) => props.theme.flex_row}
+//   margin-top: 10px;
+//   @media ${(props) => props.theme.mobile} {
+//     display: none;
+//   }
+// `;
 
-const CategoryText = styled.div`
-  ${(props) => props.theme.flex_row}
-  font-size: 10px;
-  align-items: center;
-  margin-left: 5px;
-  padding-top: 2px;
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-  }
-`;
+// const CategoryText = styled.div`
+//   ${(props) => props.theme.flex_row}
+//   font-size: 10px;
+//   align-items: center;
+//   margin-left: 5px;
+//   padding-top: 2px;
+//   @media ${(props) => props.theme.mobile} {
+//     display: none;
+//   }
+// `;
 
 export default Chat;

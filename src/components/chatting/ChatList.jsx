@@ -16,112 +16,24 @@ import { useNavigate } from "react-router-dom";
 const ChatList = (props) => {
   const [chatList, setChatList] = useState([
     {
-      id: 1,
-      chatRoomName: "산골짜기여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "상욱님",
-        profileUrl: "",
-      },
-      category: "",
+      roomMasterId: 1,
+      roomName: "산골짜기여행",
+      roomPic: "",
+      // user: {
+      //   username: "상욱님",
+      //   profileUrl: "",
+      // },
+      // category: "",
     },
     {
-      id: 2,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 3,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 4,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 5,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 6,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 7,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 8,
-      chatRoomName: "바닷가여행",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
-    },
-    {
-      id: 9,
-      chatRoomName: "바닷가여행시작자아아아아아아",
-      createdAt: "8월 8일",
-      modifiedAt: "8월 8일",
-      chatRoomImg: "",
-      user: {
-        username: "태훈님",
-        profileUrl: "",
-      },
-      category: "",
+      roomMasterId: 2,
+      roomName: "산골짜기여행",
+      roomPic: "",
+      // user: {
+      //   username: "상욱님",
+      //   profileUrl: "",
+      // },
+      // category: "",
     },
   ]);
   const navigate = useNavigate();
@@ -133,8 +45,8 @@ const ChatList = (props) => {
   // ::: 채팅 리스트 가져오기
   const getChatList = async () => {
     try {
-      const res = await authInstance.get(`/api/chat/rooms`);
-
+      const res = await authInstance.get(`/api/chat/chatList`);
+      console.log(res);
       return setChatList(res.data);
     } catch (error) {
       console.log(error);
@@ -176,9 +88,9 @@ const ChatList = (props) => {
     console.log(prevRoomId, roomId);
 
     // 입장한 채팅방을 다시 클릭하면 리턴
-    // if (prevRoomId === roomId) {
-    //   return;
-    // }
+    if (prevRoomId === roomId) {
+      return;
+    }
     navigate(`/chatting/${roomId}`);
   };
 
@@ -188,20 +100,20 @@ const ChatList = (props) => {
 
       <ChatListWrap className="scroll">
         {/* 받아온 채팅 리스트 구현하기 */}
-        {chatList.map((info, idx) => {
+        {chatList.map((chat) => {
           return (
             <Chat
-              key={idx}
-              roomId={info.id}
-              roomName={info.chatRoomName}
-              createdAt={info.createdAt}
-              modifiedAt={info.modifiedAt}
-              roomImg={info.chatRoomImg}
-              userName={info.user?.username}
-              userProfile={info.user?.profileUrl}
-              category={info.category}
-              _onClick={(e) => {
-                enterRoom(info.id, info.chatRoomName, info.category);
+              key={chat.roomMasterId}
+              roomId={chat.roomMasterId}
+              roomName={chat.roomName}
+              createdAt={chat?.createdAt}
+              modifiedAt={chat?.modifiedAt}
+              roomPic={chat.roomPic}
+              userName={chat.user?.username}
+              userProfile={chat.user?.profileUrl}
+              category={chat?.category}
+              _onClick={() => {
+                enterRoom(chat.roomMasterId);
               }}
             />
           );
