@@ -32,13 +32,13 @@ const Message = ({ messageInfo }) => {
   }, []);
 
   // 타임 스탬프
-  let time = "";
-  if (!(messageInfo.createdAt === null)) {
-    time = messageInfo.createdAt.split(" ")[1];
-  }
+  // let time = "";
+  // if (!(messageInfo.createdAt === null)) {
+  //   time = messageInfo.createdAt.split(" ")[1];
+  // }
 
   // 메시지의 유저 id 정보와 현재 유저 id가 같으면 본인 메시지
-  if (id === Number(messageInfo.userId)) {
+  if (id === Number(messageInfo.memberId)) {
     return (
       <MessageWrap is_me={true}>
         <SenderWrap>
@@ -46,7 +46,7 @@ const Message = ({ messageInfo }) => {
             {messageInfo.user ? messageInfo.user.username : messageInfo.sender}
           </SenderSpan>
           <div>
-            <SenderSpan is_me={true}>{time}</SenderSpan>
+            {/* <SenderSpan is_me={true}>{time}</SenderSpan> */}
             <ElMessage is_me={true}>{messageInfo.message}</ElMessage>
           </div>
         </SenderWrap>
@@ -77,7 +77,7 @@ const Message = ({ messageInfo }) => {
           </SenderSpan>
           <div>
             <ElMessage>{messageInfo.message}</ElMessage>
-            <SenderSpan>{time}</SenderSpan>
+            {/* <SenderSpan>{time}</SenderSpan> */}
           </div>
         </SenderWrap>
       </MessageWrap>

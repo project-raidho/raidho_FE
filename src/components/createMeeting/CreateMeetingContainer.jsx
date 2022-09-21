@@ -73,10 +73,25 @@ const CreateMeetingContatiner = () => {
     } else if (isValidDate === false) {
       return setTagValidationMsg("날짜 형식이 잘못되었습니다");
     } else {
-      const res = await authInstance.post(`/api/meeting`, data);
-      console.log(res);
-      navigate("/meetingList/all");
-      return res;
+      try {
+        const res = await authInstance.post(`/api/meeting`, data);
+        console.log(res);
+        const chattingId = res.data.data.id;
+
+        const res2 = await authInstance.post(`/api/chat/room/create`, {
+          roomName: title,
+          meetingPostId: chattingId,
+          // people: people,
+          // theme: theme,
+        });
+        console.log(res2);
+        window.alert("채팅방이 생성되었습니다.");
+
+        navigate(`/chatting/${chattingId}`);
+        return res2;
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -88,11 +103,6 @@ const CreateMeetingContatiner = () => {
       queryClient.invalidateQueries("meetingList");
     },
   });
-  // const meeting_query = useQuery("meetingList", postcreatemeeting, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  // });
 
   // const [checkAlert, setCheckAlert] = useState(true);
   //유효성 검사
@@ -108,19 +118,19 @@ const CreateMeetingContatiner = () => {
   //   startDate.length >= 1 &&
   //   endDate.length >= 1 &&
   //   departLocation.length >= 1;
-  console.log(
-    theme.length,
-    title.length,
-    desc.length,
-    meetingTags.length,
-    String(people).length
-  );
-  console.log(
-    roomCloseDate.length,
-    startDate.length,
-    endDate.length,
-    departLocation.length
-  );
+  // console.log(
+  //   theme.length,
+  //   title.length,
+  //   desc.length,
+  //   meetingTags.length,
+  //   String(people).length
+  // );
+  // console.log(
+  //   roomCloseDate.length,
+  //   startDate.length,
+  //   endDate.length,
+  //   departLocation.length
+  // );
   const isValidDate =
     isValidDateFormat(endDate) &&
     isValidDateFormat(startDate) &&
