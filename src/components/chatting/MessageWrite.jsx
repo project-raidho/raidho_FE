@@ -5,18 +5,8 @@ import MessageInput from "./MessageInput";
 // 아이콘
 import { IoSend } from "react-icons/io5";
 
-// 리덕스 접근
-import {
-  // useSelector,
-  useDispatch,
-} from "react-redux";
-
-// 채팅 관련 함수들 가져오기
-import { chatActions } from "../../redux/modules/chat";
-
 // 메시지 입력 컴포넌트
 const MessageWrite = ({ sendMessage, setMessageInput }) => {
-  const dispatch = useDispatch();
   // 메시지 텍스트 입력받기
   const [messageText, setMessageText] = React.useState();
 
@@ -26,7 +16,7 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
   const handleMessageText = (e) => {
     setMessageText(e.target.value);
     setMessageInput(e.target.value);
-    dispatch(chatActions.writeMessage(e.target.value));
+    // dispatch(chatActions.writeMessage(e.target.value));
   };
 
   // 오토 포커스 대상
