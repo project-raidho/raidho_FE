@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import axios from "axios";
+import { authInstance } from "../../shared/api";
 import imageCompression from "browser-image-compression";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
@@ -7,7 +7,6 @@ import Potal from "../../global/globalModal/Potal";
 import Modal from "../../global/globalModal/Modal";
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
-import { authInstance } from "../../shared/api";
 
 const UpdateMyProfile = (props) => {
   // ::: 유저 정보 가져오기
@@ -140,7 +139,6 @@ const UpdateMyProfile = (props) => {
                     )}
                   </StMemberImageBox>
                   <StMemberNicknameBox>
-                    {/* <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle> */}
                     <p>@{memberInfo.memberName}</p>
                   </StMemberNicknameBox>
                 </StUpdateProfileRow>

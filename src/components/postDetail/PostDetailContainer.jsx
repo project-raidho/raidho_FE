@@ -47,6 +47,7 @@ const PostDetailContainer = () => {
     return null;
   }
   const postDetail = postDetailQuery.data.data.data[0];
+
   return (
     <StDetailContainer>
       <IoArrowBackSharp
