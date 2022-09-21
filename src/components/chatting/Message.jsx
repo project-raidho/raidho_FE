@@ -15,7 +15,7 @@ import Image from "../../elements/Image";
 const Message = ({ messageInfo }) => {
   // 사용자 아이디, 프로필 사진을 가져오기
   // let { id, profileUrl } = useSelector((state) => state.user.userInfo);
-  let id = 1;
+  let id = Number(localStorage.getItem("memberId"));
   let profileUrl =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZkadB9ZHoVSbYxeua2K3cQSZ84WymLC5STQ&usqp=CAU";
   React.useEffect(() => {
