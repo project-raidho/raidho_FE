@@ -8,13 +8,10 @@ import Error from "../../elements/Error";
 import styled from "styled-components";
 
 const getPostList = async (state, pageParam) => {
-  // const size = 15;
   const response = await authInstance.get(
     `/api/post/${state}?page=${pageParam}`
   );
-  console.log("========>>>>>>", response);
   const { content, last, number } = response.data.data;
-  console.log("number ====> ::::", number);
   return { content, nextPage: number + 1, last };
 };
 

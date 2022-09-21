@@ -7,19 +7,6 @@
 
 ---
 
-## 맴버 정보
-
-| Position         | Name   | Blog                                                     | MBTI |
-| ---------------- | ------ | -------------------------------------------------------- | ---- |
-| 리더·FE·ReactJS  | 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
-| FE·ReactJS       | 김경문 | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
-| 부리더·BE·Spring | 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
-| BE·Spring        | 김성호 | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
-| BE·Spring        | 전태훈 | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
-| UX/UI            | 강예진 |                                                          | ENFP |
-
----
-
 ## 개발 진행상황 체크
 
 | 완료 여부 | 페이지              | 기능                                                                                       | 서버 연결 여부 |
@@ -86,7 +73,7 @@
 |      **axios(instance)**      | - API를 연동하기 위해서 fetch나 axios 등으로 활용할 수 있는데 axios를 사용하게 된 이유는 자동으로 JSON 데이터 형식으로 변환이 가능하고 XSRF의 보호를 받는다는 점에서 fetch대신 axios를 선택함 <br> - 또한 data가 object 형식이 포함되고, 사용하는 법도 편리하여 사용하게 됨 <br> - axios 사용을 할 때마다 URL과 token을 중복사용하게 되어 인스턴스화 시켜서 사용하는 것으로 수정함                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |      **react-dropzone**       | - [이미지 drop 업로드] 이미지 업로드 시 기본 파일 선택으로 업로드 하는 것 뿐아니라 해당 영역에 파일을 가져다 두면 바로 업로드 되게 하는 편의성을 주고 싶어서 사용 <br> - 해당 패키지의 경우 현재 버전이 14.2.2으로로 주기적으로 업데이트 되는 부분이 확인 되고, 이미지 드롭 업로드 위주의 기능만 있어서 이 패키지를 사용하게 됨                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |     **react-image-crop**      | - [이미지 crop 기능] 사용자가 이미지를 업로드 하고 원하는 부분만 업로드 할 수 있도록 편집기능을 추가하고자 사용함 <br> - 해당 패키지의 경우 간단한 이미지 편집 기능만 들어있고, 패키지 사이즈가 77KB로 다른 패키지와 비교해서 가볍다고 생각했기에 사용 <br> - 패키지를 사용함에 있어서도 문서화 및 예제가 잘 나와있어서 선택하게 됨                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **browser-image-compression** | - [이미지(파일) 용량 조절]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **browser-image-compression** | - [이미지(파일) 용량 조절] 상황에 맞게 이미지 사이즈를 조절해서 데이터를 저장하기 위해서 사용함 <br> - 이미지 압축하는 용으로만 구성되어 있고 파일도 451kB로 가볍고, 주간 누적 다운로드 수도 약 89,000회로 사용자가 많음 <br> - 자바스크립트 기반 이미지 압축 라이브러리며, API 사용법이 간결 <br> - 이미지를 조절하는 다양한 속성 값들을 제공해 줌(최대사이즈, 가로세로 길이, 파일 타입지정 등) <br> - 게시글 이미지 등록과 마이페이지 프로필 이미지 수정 부분에서 사용해서 사이즈에 맞는 이미지를 저장함                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 |     **react-date-range**      | - 여행 기간을 입력할 수 있고 인풋과 함께 사용가능하고 다양한 레이아웃으로 커스터마이징도 가능해서 선택                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |    **react-daum-postcode**    | - 카카오 지도에 보낼 상세 주소가 필요했고 상세 주소를 찾을수 있도록 도와주는 상세 주소검색창을 띄워주기 때문에 선택                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 |      **카카오 지도 api**      | - 카카오 로그인을 구현해놔서 카카오 앱 키가 있기때문에 재사용 할수 있다는 점에서 이 api를 선택                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -118,6 +105,7 @@
 | 2022.09.12-2022.09.17 | - 게시글 CRUD, 모집글 CRUD, 검색 서버 연동 및 기타 <br /> - react-query 변환 에러처리                                                                                                                                                                                                                                  |
 |      2022.09.19       | - 반응형 적용 ::: 메인페이지, 게시글 등록, 마이페이지, 검색상세페이지, 헤더 <br> - 검색 상세 페이지 react-query 적용                                                                                                                                                                                                   |
 |      2022.09.20       | - 반응형 적용 ::: 모집글 작성 <br> - 모집글 수정 페이지 유효성 검사 <br> - 모집글 수정페이지 react query 변환 <br> - 메인 페이지 무한스크롤(실시간, 추천순 모두 적용 완료) <br> - 이미지 리사이징 방법 고민                                                                                                            |
+|      2022.09.21       | - 게시글 등록 이미지 리사이징 기능구현 <br> - 메인페이지 무한스크롤 오류 해결(추천순, 실시간순) <br> - 채팅 기능 구현(방만들기, 메시지 보내기)                                                                                                                                                                         |
 
 ---
 
@@ -223,7 +211,12 @@ reducers: {
 
 #### 문제 해결을 위해 시도한 과정
 
-- 업로드한 원본 파일의 크기가 4MB 이상이라면 2MB로 리사이징을 먼저 진행하고 편집할 수 있도록 진행(2022.09.20 현재 시도중)
+- 업로드한 원본 파일의 크기가 4MB 이상이라면 2MB로 리사이징을 먼저 진행하고 편집할 수 있도록 시도
+- 원본이미지 파일 업로드 -> 이미지 용량 감소 -> 이미지 편집(크롭기능) -> 원본 이미지 가로 사이즈에 따라서 이미지 크기 감소(가로 1,500픽셀 기준) -> 데이터 전송
+- 이미지 용량 감소 (최대 1.5MB, 가로 1500픽셀 기준) : 이미지 사이즈를 너무 줄이면 깨져보이는 현상 발생, 여행 다녀온 이미지를 올려서 커뮤니티하는 서비스이기에 이미지가 중요해서 적정용량을 맞추는 게 필요(너무 작으면 안됨)
+- 이미지 기준을 맞출 때, 모바일로 촬영해서 이미지를 업로드를 할 거 같아서, 모바일 사진 촬영후 카카오톡 고화질로 이미지를 다운 받은 후 데스크탑에서 테스트 진행
+
+<img src="https://github.com/project-raidho/raidho_FE/tree/yoojin/docs/imageResizingSample.png" width="900">
 
 ---
 
@@ -242,5 +235,18 @@ reducers: {
 
   }
 ```
+
+---
+
+## 맴버 정보
+
+| Position         | Name   | Blog                                                     | MBTI |
+| ---------------- | ------ | -------------------------------------------------------- | ---- |
+| 리더·FE·ReactJS  | 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
+| FE·ReactJS       | 김경문 | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
+| 부리더·BE·Spring | 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
+| BE·Spring        | 김성호 | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
+| BE·Spring        | 전태훈 | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
+| UX/UI            | 강예진 |                                                          | ENFP |
 
 ---
