@@ -25,6 +25,7 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
 
 const CreatePostImageCrop = ({
   files,
+  previewFiles,
   selectedImage,
   selectedImageIndex,
   selectedPostImages,
@@ -172,9 +173,9 @@ const CreatePostImageCrop = ({
       <span className="thumbIndex">{index + 1}</span>
       <StThumbInner>
         <img
-          src={file.preview}
+          src={previewFiles[index]}
           onLoad={() => {
-            URL.revokeObjectURL(file.preview);
+            URL.revokeObjectURL(previewFiles[index]);
           }}
           alt={file.name}
         />
@@ -203,8 +204,8 @@ const CreatePostImageCrop = ({
 
   useEffect(() => {
     // ::: 썸네일 이미지 미리보기
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, [files]);
+    return () => previewFiles.forEach((file) => URL.revokeObjectURL(file));
+  }, [previewFiles]);
 
   useEffect(() => {
     // ::: 이미지 저장이 완료되었는지 체크하기
@@ -260,7 +261,6 @@ const CreatePostImageCrop = ({
             onChange={(crop) => setCrop(crop)}
             onComplete={(crop) => setCompletedCrop(crop)}
             aspect={aspect}
-            maxWidth="1080"
           >
             <img
               className="originImage"

@@ -7,6 +7,7 @@ import styled from "styled-components";
 const CreatePostImage = ({ selectedPostImages }) => {
   const [files, setFiles] = useState([]);
   const [resizingFiles, setResizingFiles] = useState([]);
+  const [resizingPreviewFiles, setResizingPreviewFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
@@ -31,7 +32,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
   // ::: 이미지 리사이징(Resizing)
   const compressImageAndGetImageFile = (file) => {
     const options = {
-      maxSizeMB: 1,
+      maxSizeMB: 1.5,
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };
@@ -45,12 +46,18 @@ const CreatePostImage = ({ selectedPostImages }) => {
 
   const originImageToResizingImage = async (files) => {
     let temp = [];
+    let previewTemp = [];
     for (let i = 0; i < files.length; i++) {
       const complessedFile = await compressImageAndGetImageFile(files[i]);
       console.log("complessedFile===>", i, "번째!!!", complessedFile);
       temp.push(complessedFile);
+      const previewCompressedFile = await imageCompression.getDataUrlFromFile(
+        complessedFile
+      );
+      previewTemp.push(previewCompressedFile);
     }
     setResizingFiles(temp);
+    setResizingPreviewFiles(previewTemp);
   };
   useEffect(() => {
     fileRejections.length > 0
@@ -70,6 +77,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
   }, [fileRejections, files]);
 
   console.log("resizingFiles ===>", resizingFiles);
+  console.log("resizingPreviewFiles ===>", resizingPreviewFiles);
 
   return (
     <StCreatePostImageWrap>
@@ -89,6 +97,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
         {resizingFiles.length !== 0 && (
           <CreatePostImageCrop
             files={resizingFiles}
+            previewFiles={resizingPreviewFiles}
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
             selectedImageIndex={selectedImageIndex}
