@@ -15,16 +15,16 @@ const MessageList = ({ messages }) => {
   // 스크롤 대상
   const messageEndRef = React.useRef(null);
   //  하단 스크롤 함수
-  // const scrollTomBottom = () => {
-  //   // 모바일이면 실행하지 않기
-  //   if (window.innerWidth <= 375) {
-  //     return
-  //   }
-  //   messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
+  const scrollTomBottom = () => {
+    // 모바일이면 실행하지 않기
+    if (window.innerWidth <= 375) {
+      return;
+    }
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   // 렌더링시 이동
   React.useEffect(() => {
-    //   scrollTomBottom();
+    scrollTomBottom();
   }, [messages, id]);
 
   return (

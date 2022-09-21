@@ -128,8 +128,7 @@ const MeetingListCard = ({ meeting }) => {
             {!meeting.isMine && (
               <Button
                 variant="primary"
-                // onClick={() =>
-                // }
+                onClick={() => navigate(`/chatting/${meeting.id}`)}
               >
                 참여하기
               </Button>
