@@ -107,7 +107,30 @@ const CreatePostImageCrop = ({
     const cropping = completedCrop;
     const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
-    const pixelRatio = window.devicePixelRatio;
+
+    console.log(
+      "#####imageRef.current.naturalWidth####",
+      imageRef.current.naturalWidth
+    );
+
+    // ::: 원본 이미지 사이즈에 따라서 비율조절 : 가로 사이즈 1,500픽셀로 맞춤
+    const caculatePixelRatio = (originWidth, deviceRatio) => {
+      if (originWidth >= 4000) {
+        return deviceRatio * 0.37;
+      } else if (originWidth >= 3000) {
+        return deviceRatio * 0.5;
+      } else if (originWidth >= 2000) {
+        return deviceRatio * 0.75;
+      } else {
+        return deviceRatio;
+      }
+    };
+
+    const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
+
+    // window.devicePixelRatio ===> 1(기본값)
+    console.log("#####window.devicePixelRatio####", window.devicePixelRatio);
+    console.log("#####pixelRatio####", pixelRatio);
 
     canvasRef.current.width = cropping.width * pixelRatio * scaleX;
     canvasRef.current.height = cropping?.height * pixelRatio * scaleY;
@@ -133,7 +156,6 @@ const CreatePostImageCrop = ({
     if (saveButtonStatus === false) {
       setAlertMsg("이미 이미지 저장이 완료되었습니다.");
       setModalOn(true);
-      // alert("이미 이미지 저장이 완료되었습니다.");
       return;
     }
     createCanvas();
@@ -410,13 +432,9 @@ const StPostImageCropColumn = styled.div`
   &:last-child {
     border: 0px solid var(--gray-color);
   }
-
   .ReactCrop {
     display: flex;
   }
-  .ReactCrop__child-wrapper {
-  }
-
   .originImage {
     max-width: 100%;
     max-height: 100%;
@@ -430,6 +448,7 @@ const StPostImageCropColumn = styled.div`
     justify-content: flex-end;
     width: 100%;
   }
+
   @media (max-width: 767px) {
     width: 100%;
     height: auto;
