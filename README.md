@@ -7,6 +7,25 @@
 
 ---
 
+## 기술정보
+
+<p>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
+  <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=Create React App&logoColor=black">
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+  <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=white">
+  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
+  <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
+  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
+</p>
+
+---
+
 ## 개발 진행상황 체크
 
 | 완료 여부 | 페이지              | 기능                                                                                       | 서버 연결 여부 |
@@ -26,25 +45,6 @@
 |  &#9744;  | 채팅                | &#9744; 채팅 참여, 나가기 <br> &#9744; 실시간 대화                                         |    &#9744;     |
 
 - 체크박스 작성방법 : 완료시 `✅` / 미완료시 `&#9744;`
-
----
-
-## 기술정보
-
-<p>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
-  <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=Create React App&logoColor=black">
-  <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
-  <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=React Query&logoColor=white">
-  <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
-  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
-  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
-  <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
-  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
-  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
-  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
-</p>
 
 ---
 
@@ -216,7 +216,7 @@ reducers: {
 - 이미지 용량 감소 (최대 1.5MB, 가로 1500픽셀 기준) : 이미지 사이즈를 너무 줄이면 깨져보이는 현상 발생, 여행 다녀온 이미지를 올려서 커뮤니티하는 서비스이기에 이미지가 중요해서 적정용량을 맞추는 게 필요(너무 작으면 안됨)
 - 이미지 기준을 맞출 때, 모바일로 촬영해서 이미지를 업로드를 할 거 같아서, 모바일 사진 촬영후 카카오톡 고화질로 이미지를 다운 받은 후 데스크탑에서 테스트 진행
 
-<img src="https://github.com/project-raidho/raidho_FE/tree/yoojin/docs/imageResizingSample.png" width="900">
+<img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSample.png?raw=true" width="900">
 
 ---
 
