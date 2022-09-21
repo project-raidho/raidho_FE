@@ -13,7 +13,7 @@ const Error = ({ message }) => {
 
 export default Error;
 
-const StErrorWrap = styled.p`
+const StErrorWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
