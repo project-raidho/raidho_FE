@@ -20,7 +20,7 @@ const MainPostList = ({ state }) => {
   const { data, status, fetchNextPage, isFetchingNextPage, error } =
     useInfiniteQuery(
       "postLists",
-      ({ pageParam = 0 }) => getPostList(state, pageParam),
+      ({ pageParam = 1 }) => getPostList(state, pageParam),
       {
         getNextPageParam: (lastPage) => {
           return !lastPage.last
@@ -38,6 +38,7 @@ const MainPostList = ({ state }) => {
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
+
   return (
     <StPostLisWrapp>
       <StitemList>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
+import { authInstance } from "../../shared/api";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
 import TagInput from "../../elements/TagInput";
@@ -7,7 +9,6 @@ import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
-import { authInstance } from "../../shared/api";
 
 const CreatePostContainer = () => {
   const navigate = useNavigate();
@@ -46,7 +47,6 @@ const CreatePostContainer = () => {
     for (const image of postImages) {
       formData.append("imgUrl", image, fileName);
     }
-
     formData.append("content", postContent);
     formData.append("tags", postTags);
 
@@ -58,12 +58,21 @@ const CreatePostContainer = () => {
       });
 
       console.log("postResponse ====>", postResponse.data);
-      navigate(`/`);
+      navigate(`/latest`);
+      return postResponse;
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
       setModalOn(!modalOn);
     }
   };
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(onCreatePost, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("postLists");
+    },
+  });
 
   return (
     <StCreatePostContainerWrap>
@@ -96,7 +105,7 @@ const CreatePostContainer = () => {
         >
           취소
         </Button>
-        <Button size="squareTheme" variant="lineBlue" onClick={onCreatePost}>
+        <Button size="squareTheme" variant="lineBlue" onClick={mutate}>
           등록
         </Button>
       </StButtonWrap>
@@ -104,7 +113,6 @@ const CreatePostContainer = () => {
         {modalOn && (
           <Modal onClose={handleModal}>
             <StErrorMessage>
-              죄송합니다. <br />
               게시글을 등록하는 데 오류가 났습니다. <br />
               다시 한 번 시도해주세요.
             </StErrorMessage>
