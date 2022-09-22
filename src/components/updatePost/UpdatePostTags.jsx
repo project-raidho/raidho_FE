@@ -3,18 +3,15 @@ import Input from "../../elements/Input";
 import styled from "styled-components";
 
 const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
-  const [postTags, setPostTags] = useState([]);
+  const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
-
-  useEffect(() => {
-    setPostTags(tags);
-  }, [tags]);
 
   // ::: 태그 삭제하기
   const removeTags = (indexToRemove) => {
     setTagValidationMsg(`${postTags[indexToRemove]} 태그가 삭제되었습니다.`);
     setCheckAlert(true);
+    selectedTags([...postTags.filter((_, index) => index !== indexToRemove)]);
     setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
   };
 
@@ -37,6 +34,10 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
       }
     }
   };
+
+  useEffect(() => {
+    setPostTags(tags);
+  }, [tags]);
 
   return (
     <>

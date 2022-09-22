@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const UpdatePostContent = ({
+const ContentTextArea = ({
   initialContent,
   typedPostContent,
   placeholderText,
 }) => {
-  const [checkTextLength, setCheckTextLength] = useState(0);
+  const [checkTextLength, setCheckTextLength] = useState(initialContent.length);
   const [changeContent, setChangeContent] = useState(initialContent);
 
   const onChangeContent = (event) => {
@@ -17,6 +17,7 @@ const UpdatePostContent = ({
 
   useEffect(() => {
     setChangeContent(initialContent);
+    setCheckTextLength(initialContent.length);
     // eslint-disable-next-line
   }, [initialContent]);
   return (
@@ -33,7 +34,7 @@ const UpdatePostContent = ({
   );
 };
 
-export default UpdatePostContent;
+export default ContentTextArea;
 
 const StContentTextAreaWrap = styled.div`
   width: 100%;
