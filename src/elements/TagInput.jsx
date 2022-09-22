@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "./Input";
 import styled from "styled-components";
 
-const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
+const TagInput = ({ tags, selectedTags, tagMassage }) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
@@ -60,7 +60,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   );
 };
 
-export default CreatePostTags;
+export default TagInput;
 
 const StCreatePostTagsWrap = styled.div`
   display: flex;

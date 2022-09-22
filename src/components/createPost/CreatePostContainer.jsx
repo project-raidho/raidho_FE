@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
@@ -20,12 +20,17 @@ const CreatePostContainer = () => {
   };
 
   // ::: 입력된 데이터 취합하기
-  const [postImages, setPostImages] = useState();
+  const [postImages, setPostImages] = useState([]);
   const [postContent, setpostContent] = useState("");
   const [postTags, setPostTags] = useState([]);
 
+  // ::: 유효성 검사
+  const [validationImages, setValidationImages] = useState("");
+  const [validationContent, setValidationContent] = useState("");
+  const [validationTags, setValidationTags] = useState("");
+
   const selectedPostImages = (images) => {
-    console.log("selectedPostImages", images.target);
+    console.log("selectedPostImages", images);
     setPostImages(images);
   };
 
@@ -39,32 +44,66 @@ const CreatePostContainer = () => {
     setPostTags(tags);
   };
 
-  // ::: 서버전송세팅
+  // ::: 서버전송
   const onCreatePost = async () => {
-    const formData = new FormData();
-    const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
-
-    for (const image of postImages) {
-      formData.append("imgUrl", image, fileName);
+    // ::: 유효성 검사
+    if (postImages.length === 0) {
+      setValidationImages("이미지를 등록해주세요.");
     }
-    formData.append("content", postContent);
-    formData.append("tags", postTags);
+    if (postContent === "") {
+      setValidationContent("내용을 입력해주세요.");
+    }
+    if (postTags.length === 0) {
+      setValidationTags("태그를 입력해주세요.");
+    }
 
-    try {
-      const postResponse = await authInstance.post(`/api/post`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    // ::: 입력이 다 되었다면, 서버 전송
+    if (postImages.length > 0 && postContent !== "" && postTags.length > 0) {
+      const formData = new FormData();
+      const fileName = "raidho_image_" + new Date().getMilliseconds() + ".jpeg";
 
-      console.log("postResponse ====>", postResponse.data);
-      navigate(`/`);
-      return postResponse;
-    } catch (error) {
-      console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
-      setModalOn(!modalOn);
+      for (const image of postImages) {
+        formData.append("imgUrl", image, fileName);
+      }
+      formData.append("content", postContent);
+      formData.append("tags", postTags);
+
+      try {
+        const postResponse = await authInstance.post(`/api/post`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log("postResponse ====>", postResponse.data);
+        navigate(`/`);
+        return postResponse;
+      } catch (error) {
+        console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
+        setModalOn(!modalOn);
+      }
     }
   };
+
+  // ::: 입력여부에 따른 유효성검사
+  useEffect(() => {
+    if (postImages.length > 0) {
+      setValidationImages("");
+    }
+    if (postContent !== "") {
+      if (postImages.length === 0) {
+        setValidationImages("이미지를 등록해주세요.");
+      }
+      setValidationContent("");
+    }
+    if (postTags.length > 0) {
+      if (postContent === "") {
+        setValidationContent("내용을 입력해주세요.");
+      }
+      setValidationTags("");
+    }
+    // eslint-disable-next-line
+  }, [postImages, postContent, postTags]);
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onCreatePost, {
@@ -79,7 +118,11 @@ const CreatePostContainer = () => {
       <StStepTitle>
         <strong>STEP 1</strong>이미지 업로드
       </StStepTitle>
-      <CreatePostImage selectedPostImages={selectedPostImages} />
+      <CreatePostImage
+        selectedPostImages={selectedPostImages}
+        setValidationImages={setValidationImages}
+      />
+      <StValidationMessage>{validationImages}</StValidationMessage>
       <StStepTitle>
         <strong>STEP 2</strong>여행에서 경험한 내용
       </StStepTitle>
@@ -87,6 +130,7 @@ const CreatePostContainer = () => {
         typedPostContent={typedPostContent}
         placeholderText={"경험을 소개해주세요."}
       />
+      <StValidationMessage>{validationContent}</StValidationMessage>
       <StStepTitle>
         <strong>STEP 3</strong>태그
       </StStepTitle>
@@ -95,6 +139,7 @@ const CreatePostContainer = () => {
         tags={[]}
         tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
       />
+      <StValidationMessage>{validationTags}</StValidationMessage>
       <StButtonWrap>
         <Button
           size="squareTheme"
@@ -177,4 +222,18 @@ const StErrorMessage = styled.div`
   height: 150px;
   font-size: 1.2rem;
   line-height: 1.5;
+`;
+
+const StValidationMessage = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 1.2rem;
+  color: var(--red-color);
+  margin-bottom: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
+  }
 `;
