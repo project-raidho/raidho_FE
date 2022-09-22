@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import PostDetailImg from "../postDetail/PostDetailImg";
 import ContentTextArea from "../../elements/ContentTextArea";
@@ -130,6 +131,14 @@ const UpdatePostContainer = () => {
     // eslint-disable-next-line
   }, [postContent, postTags]);
 
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(onUpdatePost, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("postDetail");
+    },
+  });
+
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -169,7 +178,7 @@ const UpdatePostContainer = () => {
           >
             취소
           </Button>
-          <Button size="small" onClick={onUpdatePost}>
+          <Button size="small" onClick={mutate}>
             등록
           </Button>
         </StButtonWrap>
