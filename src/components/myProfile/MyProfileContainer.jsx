@@ -1,18 +1,41 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { authInstance } from "../../shared/api";
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
-import styled from "styled-components";
 import Button from "../../elements/Button";
+import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
+import styled from "styled-components";
+
+const getPostMineList = async () => {
+  try {
+    const responsePostList = await authInstance.get(`/api/post/mypost`);
+    console.log(responsePostList);
+    return responsePostList.data.data;
+  } catch (error) {
+    console.log("내가 쓴 게시글 불러오기 오류 :::", error);
+  }
+};
 
 const MyProfileContainer = () => {
   const navigate = useNavigate();
   // ::: 게시글 더보기 기능 구현
   const [isMore, setIsMore] = useState(false);
+  const { status, data, error } = useQuery("postList", getPostMineList);
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
   };
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "error") {
+    return <Error message={error.message} />;
+  }
 
   // ::: 로그아웃 하기
   const onClickLogOut = () => {
@@ -24,6 +47,8 @@ const MyProfileContainer = () => {
     navigate("/");
   };
 
+  console.log("data", data);
+
   return (
     <StMyProfileContainerWrap>
       <StMyProfileTitleRow>
@@ -31,16 +56,17 @@ const MyProfileContainer = () => {
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <UpdateMyProfile />
-
       <StMyProfileTitleRow>
         <h3>내가 쓴 글</h3>
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
-      <MyPostList isMore={isMore} />
-      <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
-        <p onClick={onClickMorePost}>더보기</p>
-        <span className="bgMiddleLine" />
-      </StMyProfileTitleRow>
+      <MyPostList isMore={isMore} data={data} />
+      {data.length > 4 ? (
+        <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
+          <p onClick={onClickMorePost}>더보기</p>
+          <span className="bgMiddleLine" />
+        </StMyProfileTitleRow>
+      ) : null}
       <Button
         className="buttonLogOutInMyProfile"
         size="squareTheme"
@@ -63,7 +89,7 @@ const StMyProfileContainerWrap = styled.div`
     display: block;
     width: 100%;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 2rem auto;
   }
 `;
 
