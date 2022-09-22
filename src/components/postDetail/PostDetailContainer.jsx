@@ -38,7 +38,7 @@ const PostDetailContainer = () => {
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
   const { mutate } = useMutation(deletePostDetail, {
     onSuccess: () => {
-      queryClient.invalidateQueries("postList");
+      queryClient.invalidateQueries("postLists");
       navigate(-1);
     },
   });

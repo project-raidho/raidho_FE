@@ -82,7 +82,7 @@ const UpdateMyProfile = (props) => {
     formData.append("memberId", memberInfo.memberId);
 
     try {
-      const profileResponse = await authInstance.put(`/api/mypage`, formData, {
+      const profileResponse = await authInstance.post(`/api/mypage`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -35,7 +35,7 @@ const PostDetailLike = ({ postDetail }) => {
   const { mutate } = useMutation(toggleLike, {
     onSuccess: () => {
       queryClient.invalidateQueries("postDetail");
-      queryClient.invalidateQueries("postList");
+      queryClient.invalidateQueries("postLists");
     },
   });
 
