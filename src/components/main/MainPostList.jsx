@@ -32,7 +32,8 @@ const MainPostList = ({ state }) => {
 
   useEffect(() => {
     if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
+    // eslint-disable-next-line
+  }, [inView]);
 
   console.log("====> mainPostList :: data ", data);
 

@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const CreatePostContent = ({ typedPostContent, placeholderText }) => {
+const CreatePostContent = ({
+  typedPostContent,
+  placeholderText,
+  initialContent,
+}) => {
   const [checkTextLength, setCheckTextLength] = useState(0);
+  const [changeContent, setChangeContent] = useState(initialContent);
   const onChangeContent = (event) => {
     typedPostContent(event.target.value);
     setCheckTextLength(event.target.value.length);
+    setChangeContent(event.target.value);
   };
 
+  useEffect(() => {
+    setChangeContent(initialContent);
+    // eslint-disable-next-line
+  }, [initialContent]);
   return (
     <StCreatePostContentWrap>
       <textarea
         onChange={onChangeContent}
+        value={changeContent}
         placeholder={placeholderText}
         maxLength="250"
+        minLength="10"
       />
       <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
     </StCreatePostContentWrap>

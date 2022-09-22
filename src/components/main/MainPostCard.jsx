@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import { authInstance } from "../../shared/api";
-import HeartButton from "../../elements/HeartButton";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { RiFileCopyLine } from "react-icons/ri";
-import fileIcon from "../../assets/fileIcon.svg";
-import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
+import { useMutation, useQueryClient } from "react-query";
+import { authInstance } from "../../shared/api";
+import HeartButton from "../../elements/HeartButton";
+import Button from "../../elements/Button";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
-import Button from "../../elements/Button";
-import { useMutation, useQueryClient } from "react-query";
+import styled from "styled-components";
+import fileIcon from "../../assets/fileIcon.svg";
+import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -99,7 +98,6 @@ const StFigure = styled.figure`
   margin-bottom: 20px;
   .img {
     width: 100%;
-    /* border: 1px solid var(--gray-color); */
     cursor: pointer;
   }
   .imagesicon {

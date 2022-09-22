@@ -1,22 +1,23 @@
-import React, { Fragment, useEffect } from "react";
-import { authInstance } from "../../shared/api";
+import React, { useEffect } from "react";
+// import { authInstance } from "../../shared/api";
 import styled from "styled-components";
-import { useInfiniteQuery } from "react-query";
-import { useInView } from "react-intersection-observer";
-// elements
 import Message from "./Message";
-import Loading from "../../elements/Loading";
-import Error from "../../elements/Error";
+// import { useInfiniteQuery } from "react-query";
+// import { useInView } from "react-intersection-observer";
+// // elements
+
+// import Loading from "../../elements/Loading";
+// import Error from "../../elements/Error";
 import { useParams } from "react-router-dom";
 
-const getMessageList = async (id, pageParam) => {
-  const response = await authInstance.get(
-    `/api/chat/messages/${id}?page=${pageParam}`
-  );
-  console.log(response);
-  const { content, last } = response.data;
-  return { content, nextPage: pageParam + 1, last };
-};
+// const getMessageList = async (id, pageParam) => {
+//   const response = await authInstance.get(
+//     `/api/chat/messages/${id}?page=${pageParam}`
+//   );
+//   console.log(response);
+//   const { content, last } = response.data;
+//   return { content, nextPage: pageParam + 1, last };
+// };
 
 // 메시지 리스트 컴포넌트
 const MessageList = ({ messages }) => {
