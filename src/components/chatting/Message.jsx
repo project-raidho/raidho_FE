@@ -2,9 +2,6 @@ import React from "react";
 
 import styled from "styled-components";
 
-// 리덕스 접근
-// import { useSelector} from 'react-redux';
-
 // 프로필 사진
 import Image from "../../elements/Image";
 
@@ -46,7 +43,7 @@ const Message = ({ messageInfo }) => {
             {messageInfo.user ? messageInfo.user.username : messageInfo.sender}
           </SenderSpan>
           <div>
-            {/* <SenderSpan is_me={true}>{time}</SenderSpan> */}
+            <SenderSpan is_me={true}>{messageInfo.createAt}</SenderSpan>
             <ElMessage is_me={true}>{messageInfo.message}</ElMessage>
           </div>
         </SenderWrap>
@@ -77,7 +74,7 @@ const Message = ({ messageInfo }) => {
           </SenderSpan>
           <div>
             <ElMessage>{messageInfo.message}</ElMessage>
-            {/* <SenderSpan>{time}</SenderSpan> */}
+            <SenderSpan>{messageInfo.createAt}</SenderSpan>
           </div>
         </SenderWrap>
       </MessageWrap>

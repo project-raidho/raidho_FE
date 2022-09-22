@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../elements/Button";
 import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-
+import Modal from "../../global/globalModal/Modal";
+import Potal from "../../global/globalModal/Potal";
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
   try {
@@ -16,6 +17,10 @@ const onDeleteMeeting = async (meetingId) => {
 };
 
 const MeetingListCard = ({ meeting }) => {
+  const [modalOn, setModalOn] = useState(false);
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
@@ -50,6 +55,16 @@ const MeetingListCard = ({ meeting }) => {
 
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
+
+  const onJoinRoom = async (id) => {
+    try {
+      const res = await authInstance.get(`/api/chat/chatting/${id}`);
+      console.log(res);
+    } catch (e) {
+      setModalOn(!modalOn);
+    }
+    navigate(`/chatting/${meeting.id}`);
+  };
 
   return (
     <StMeetingListCardWrap>
@@ -126,16 +141,29 @@ const MeetingListCard = ({ meeting }) => {
               </Button>
             )}
             {!meeting.isMine && (
-              <Button
-                variant="primary"
-                onClick={() => navigate(`/chatting/${meeting.id}`)}
-              >
+              <Button variant="primary" onClick={() => onJoinRoom(meeting.id)}>
                 참여하기
               </Button>
             )}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
+
+      <Potal>
+        {modalOn && (
+          <Modal onClose={handleModal}>
+            <StErrorMessage>
+              죄송합니다. <br />
+              로그인 후 시도해 주세요.
+            </StErrorMessage>
+            <StButtonWrap>
+              <Button size="medium" onClick={handleModal}>
+                닫기
+              </Button>
+            </StButtonWrap>
+          </Modal>
+        )}
+      </Potal>
     </StMeetingListCardWrap>
   );
 };
@@ -235,4 +263,22 @@ const StMeetingCardRow = styled.div`
   .memberNameBox {
     font-size: 1.25rem;
   }
+`;
+
+const StButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+
+  button {
+    margin-left: 10px;
+  }
+`;
+const StErrorMessage = styled.div`
+  width: 100%;
+  height: 150px;
+  font-size: 1.2rem;
+  line-height: 1.5;
 `;
