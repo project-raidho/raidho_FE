@@ -212,11 +212,54 @@ reducers: {
 #### 문제 해결을 위해 시도한 과정
 
 - 업로드한 원본 파일의 크기가 4MB 이상이라면 2MB로 리사이징을 먼저 진행하고 편집할 수 있도록 시도
-- 원본이미지 파일 업로드 -> 이미지 용량 감소 -> 이미지 편집(크롭기능) -> 원본 이미지 가로 사이즈에 따라서 이미지 크기 감소(가로 1,500픽셀 기준) -> 데이터 전송
-- 이미지 용량 감소 (최대 1.5MB, 가로 1500픽셀 기준) : 이미지 사이즈를 너무 줄이면 깨져보이는 현상 발생, 여행 다녀온 이미지를 올려서 커뮤니티하는 서비스이기에 이미지가 중요해서 적정용량을 맞추는 게 필요(너무 작으면 안됨)
-- 이미지 기준을 맞출 때, 모바일로 촬영해서 이미지를 업로드를 할 거 같아서, 모바일 사진 촬영후 카카오톡 고화질로 이미지를 다운 받은 후 데스크탑에서 테스트 진행
+- `원본이미지 파일 업로드 -> 이미지 용량 감소 -> 이미지 편집(크롭기능) -> 원본 이미지 가로 사이즈에 따라서 이미지 크기 감소(가로 1,500픽셀 기준) -> 데이터 전송` 순으로 이미지가 등록될 수 있도록 시도
 
-<img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSample.png?raw=true" width="900">
+#### 문제 해결
+
+- 1. 파일 업로드 시 이미지를 일정 크기로 사이즈 조절 : `browser-image-compression` 라이브러리 사용하여 이미지 용량 감소 `최대 1.5MB` 사이즈로 설정
+
+  - 이미지 사이즈를 너무 줄이면 깨져보이는 현상 발생, 여행 다녀온 이미지를 올려서 커뮤니티하는 서비스이기에 이미지가 중요해서 적정용량을 맞추는 게 필요(너무 작으면 안됨)
+
+- 2. 이미지 편집 시 원본이미지의 가로 사이즈에 따라 사이즈 조절 진행
+  - 가로사이즈 기준을 `1500 픽셀`로 맞춰서 진행
+  ```
+    // ::: 원본 이미지 사이즈에 따라서 비율조절 : 가로 사이즈 1,500픽셀로 맞춤
+    const caculatePixelRatio = (originWidth, deviceRatio) => {
+      if (originWidth >= 4000) {
+        return deviceRatio * 0.37;
+      } else if (originWidth >= 3000) {
+        return deviceRatio * 0.5;
+      } else if (originWidth >= 2000) {
+        return deviceRatio * 0.75;
+      } else {
+        return deviceRatio;
+      }
+    };
+    const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
+  ```
+- 3. 디바이스별 이미지 업로드 테스트 진행
+
+  - 이미지 기준을 맞출 때, 모바일로 촬영해서 이미지를 업로드를 할 거 같아서, 모바일 사진 촬영후 카카오톡 고화질로 이미지를 다운 받은 후 데스크탑에서 테스트 진행
+  - --> 여행이미지를 올리는 서비스이기에 휴대폰으로 촬영한 사진을 올리는 경우가 많을거라 예상함
+    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSample.png?raw=true" width="900">
+
+  - 아이폰 사파리 브라우저를 통해 업로드 테스트 진행
+  - --> 최대로 편집을 진행해도 잘 업로드 되는 점을 확인 할 수 있었음
+    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSampleMobile.png?raw=true" width="900">
+
+---
+
+## 성능최적화
+
+### 1. 이미지 성능최적화
+
+#### 1) 파일 형식 결정 ::: png vs jpeg vs webp
+
+#### 2) 기준 사이즈를 정해서 이미지 용량 압축 ::: 이미지 압축 라이브러리 활용
+
+#### 3) HTML5 canvas 태그 활용해서 필요한 부분만 편집해서 사용할 수 있도록 구현 진행 및 최대 사이즈 조절
+
+#### 4) HTML img 태그 속성중 loading 속성 활용
 
 ---
 

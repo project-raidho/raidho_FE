@@ -24,7 +24,7 @@ const UpdateMyProfile = (props) => {
   const [compressedImageFile, setCompressedImageFile] = useState(
     memberInfo.memberImage
   );
-  // const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
+  const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
@@ -35,15 +35,15 @@ const UpdateMyProfile = (props) => {
     // ::: 유저가 입력한 값 초기화 시키기
     setSelectedMemberImage(null);
     setCompressedImageFile(memberInfo.memberImage);
-    // setUpdateNickname(memberInfo.memberName);
+    setUpdateNickname(memberInfo.memberName);
     setUpdateComment(memberInfo.memberIntro);
   };
 
   // ::: 이미지 리사이징(Resizing)
   const compressImageAndGetImageFile = async (postImageFile) => {
     const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
+      maxSizeMB: 0.8,
+      maxWidthOrHeight: 900,
       useWebWorker: true,
     };
     const compressedFile = await imageCompression(postImageFile, options);
@@ -66,11 +66,16 @@ const UpdateMyProfile = (props) => {
     }
   };
 
+  const onChangeUpdateMemberName = (event) => {
+    setUpdateNickname(event.target.value);
+  };
+
   const onChangeUpdateMemberComment = (event) => {
     setUpdateComment(event.target.value);
   };
 
   console.log("compressedImageFile", compressedImageFile);
+  console.log("updateNickname", updateNickname);
   console.log("updateComment", updateComment);
 
   // ::: 수정 정보 서버에 전달하기
@@ -78,11 +83,12 @@ const UpdateMyProfile = (props) => {
     // :: image file formData 형식 변환
     const formData = new FormData();
     formData.append("memberImage", compressedImageFile);
-    formData.append("memberIntro", updateComment);
+    // formData.append("memberName", updateNickname);
+    // formData.append("memberIntro", updateComment);
     formData.append("memberId", memberInfo.memberId);
 
     try {
-      const profileResponse = await authInstance.put(`/api/mypage`, formData, {
+      const profileResponse = await authInstance.post(`/api/mypage`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -138,8 +144,19 @@ const UpdateMyProfile = (props) => {
                       <span className="changeImageMessage">사진 변경</span>
                     )}
                   </StMemberImageBox>
-                  <StMemberNicknameBox>
+                  {/* <StMemberNicknameBox>
                     <p>@{memberInfo.memberName}</p>
+                  </StMemberNicknameBox> */}
+
+                  <StMemberNicknameBox>
+                    <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
+                    <Input
+                      size="large"
+                      variant="default"
+                      value={updateNickname}
+                      placeholder={memberInfo.memberName}
+                      onChange={(event) => onChangeUpdateMemberName(event)}
+                    />
                   </StMemberNicknameBox>
                 </StUpdateProfileRow>
 
