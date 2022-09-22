@@ -10,7 +10,6 @@ const KakaoLogin = () => {
     try {
       const KAKAO_CODE = location.search.split("=")[1];
       console.log(KAKAO_CODE);
-      // const URI = process.env.REACT_APP_BASE_URI;
       const res = await instance.get(
         `/login/oauth2/code/kakao?code=${KAKAO_CODE}`
       );

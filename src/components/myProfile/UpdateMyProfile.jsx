@@ -82,19 +82,29 @@ const UpdateMyProfile = (props) => {
   const onCompleteUpdateProfile = async () => {
     // :: image file formData 형식 변환
     const formData = new FormData();
-    formData.append("memberImage", compressedImageFile);
-    // formData.append("memberName", updateNickname);
-    // formData.append("memberIntro", updateComment);
-    formData.append("memberId", memberInfo.memberId);
+    const fileName =
+      "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
+    formData.append("memberImage", compressedImageFile, fileName);
+    formData.append("memberName", updateNickname);
+    formData.append("memberIntro", updateComment);
 
     try {
-      const profileResponse = await authInstance.post(`/api/mypage`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await authInstance.put(
+        `/api/mypage/${memberInfo.memberId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      console.log(profileResponse);
+      console.log("프로필수정 response ::: ", response);
+      localStorage.setItem("memberImage", response.data);
+      localStorage.setItem("memberName", updateNickname);
+      localStorage.setItem("memberIntro", updateComment);
+
+      setModalOn(false);
     } catch (error) {
       alert(`프로필 수정에 오류가 났습니다. ${error}`);
       console.log(error);
@@ -144,9 +154,6 @@ const UpdateMyProfile = (props) => {
                       <span className="changeImageMessage">사진 변경</span>
                     )}
                   </StMemberImageBox>
-                  {/* <StMemberNicknameBox>
-                    <p>@{memberInfo.memberName}</p>
-                  </StMemberNicknameBox> */}
 
                   <StMemberNicknameBox>
                     <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
