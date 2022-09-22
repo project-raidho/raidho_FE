@@ -24,7 +24,7 @@ const CreatePostContainer = () => {
   const [postContent, setpostContent] = useState("");
   const [postTags, setPostTags] = useState([]);
 
-  // ::: 유효성 검사
+  // ::: 유효성 검사 메시지 상태관리하기
   const [validationImages, setValidationImages] = useState("");
   const [validationContent, setValidationContent] = useState("");
   const [validationTags, setValidationTags] = useState("");
@@ -40,7 +40,7 @@ const CreatePostContainer = () => {
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
+    console.log("selectedTags", tags);
     setPostTags(tags);
   };
 
@@ -52,6 +52,9 @@ const CreatePostContainer = () => {
     }
     if (postContent === "") {
       setValidationContent("내용을 입력해주세요.");
+    }
+    if (postContent.length < 10) {
+      setValidationContent("내용을 최소 10자 이상 입력해주세요.");
     }
     if (postTags.length === 0) {
       setValidationTags("태그를 입력해주세요.");
@@ -94,11 +97,16 @@ const CreatePostContainer = () => {
       if (postImages.length === 0) {
         setValidationImages("이미지를 등록해주세요.");
       }
+      if (postContent.length < 10) {
+        setValidationContent("내용을 최소 10자 이상 작성해주세요.");
+      }
       setValidationContent("");
     }
     if (postTags.length > 0) {
       if (postContent === "") {
         setValidationContent("내용을 입력해주세요.");
+      } else if (postContent.length < 10) {
+        setValidationContent("내용을 최소 10자 이상 작성해주세요.");
       }
       setValidationTags("");
     }
@@ -129,6 +137,7 @@ const CreatePostContainer = () => {
       <CreatePostContent
         typedPostContent={typedPostContent}
         placeholderText={"경험을 소개해주세요."}
+        initialContent=""
       />
       <StValidationMessage>{validationContent}</StValidationMessage>
       <StStepTitle>
@@ -229,7 +238,7 @@ const StValidationMessage = styled.p`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--red-color);
   margin-bottom: 1rem;
 

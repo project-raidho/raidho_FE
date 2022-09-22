@@ -1,29 +1,41 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const UpdatePostContent = ({ content, typedPostContent }) => {
-  const [postContent, setPostContent] = useState(content);
-  console.log(postContent);
+const UpdatePostContent = ({
+  initialContent,
+  typedPostContent,
+  placeholderText,
+}) => {
+  const [checkTextLength, setCheckTextLength] = useState(0);
+  const [changeContent, setChangeContent] = useState(initialContent);
+
   const onChangeContent = (event) => {
     typedPostContent(event.target.value);
-    setPostContent(event.target.value);
+    setCheckTextLength(event.target.value.length);
+    setChangeContent(event.target.value);
   };
 
   useEffect(() => {
-    setPostContent(content);
+    setChangeContent(initialContent);
     // eslint-disable-next-line
-  }, [content]);
+  }, [initialContent]);
   return (
-    <StUpdatePostContentWrap>
-      <textarea onChange={onChangeContent} value={postContent} />
-    </StUpdatePostContentWrap>
+    <StContentTextAreaWrap>
+      <textarea
+        onChange={onChangeContent}
+        value={changeContent}
+        placeholder={placeholderText}
+        maxLength="250"
+        minLength="10"
+      />
+      <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+    </StContentTextAreaWrap>
   );
 };
 
 export default UpdatePostContent;
 
-const StUpdatePostContentWrap = styled.div`
+const StContentTextAreaWrap = styled.div`
   width: 100%;
 
   textarea {
@@ -35,4 +47,13 @@ const StUpdatePostContentWrap = styled.div`
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
   }
+`;
+
+const StValidationMsg = styled.p`
+  font-size: 1.1rem;
+  font-weight: 300;
+  text-align: right;
+  font-style: italic;
+  color: var(--title-color);
+  margin-bottom: 1rem;
 `;

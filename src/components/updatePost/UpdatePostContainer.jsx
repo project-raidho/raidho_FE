@@ -103,7 +103,8 @@ const UpdatePostContainer = () => {
         </StStepTitle>
         <CreatePostContent
           typedPostContent={typedPostContent}
-          content={postDetail.content}
+          initialContent={postDetail.content}
+          placeholderText={"경험을 소개해주세요."}
         />
 
         <StStepTitle>
