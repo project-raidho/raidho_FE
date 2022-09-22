@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { authInstance } from "../../shared/api";
+import PostDetailImg from "../postDetail/PostDetailImg";
 import ContentTextArea from "../../elements/ContentTextArea";
 import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
-
-import PostDetailImg from "../postDetail/PostDetailImg";
 import styled from "styled-components";
-import { authInstance } from "../../shared/api";
 
 const UpdatePostContainer = () => {
+  const navigate = useNavigate();
+
   const [postDetail, setPostDetail] = useState({
     id: "",
     content: "",
@@ -28,7 +29,9 @@ const UpdatePostContainer = () => {
   const [postContent, setPostContent] = useState(postDetail.content);
   const [postTags, setPostTags] = useState(postDetail.tags);
 
-  const navigate = useNavigate();
+  // ::: 유효성 검사 메시지 상태관리하기
+  const [validationContent, setValidationContent] = useState("");
+  const [validationTags, setValidationTags] = useState("");
 
   // // ::: 게시글 아이디
   const postId = useParams().postId;
@@ -44,26 +47,39 @@ const UpdatePostContainer = () => {
   };
 
   const selectedTags = (tags) => {
+    console.log(tags);
     setPostTags(tags);
   };
 
-  console.log(postContent, postTags, "<======");
   // ::: 서버전송세팅
   const onUpdatePost = async () => {
-    const formData = new FormData();
-    formData.append("content", postContent);
-    formData.append("tags", postTags);
+    // ::: 유효성 검사
+    if (postContent === "") {
+      setValidationContent("내용을 입력해주세요.");
+    }
+    if (postContent.length < 10) {
+      setValidationContent("내용을 최소 10자 이상 입력해주세요.");
+    }
+    if (postTags.length === 0) {
+      setValidationTags("태그를 입력해주세요.");
+    }
+    // ::: 입력이 다 되었다면, 서버 전송
+    if (postContent !== "" && postTags.length > 0) {
+      const formData = new FormData();
+      formData.append("content", postContent);
+      formData.append("tags", postTags);
 
-    try {
-      const postUpdateResponse = await authInstance.put(
-        `/api/post/${postId}`,
-        formData
-      );
-      console.log("postResponse", postUpdateResponse.data);
-      navigate(-1);
-    } catch (error) {
-      console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
-      setModalOn(!modalOn);
+      try {
+        const postUpdateResponse = await authInstance.put(
+          `/api/post/${postId}`,
+          formData
+        );
+        console.log("postResponse", postUpdateResponse.data);
+        navigate(-1);
+      } catch (error) {
+        console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
+        setModalOn(!modalOn);
+      }
     }
   };
 
@@ -89,6 +105,26 @@ const UpdatePostContainer = () => {
     setPostContent(postDetail.content);
     setPostTags(postDetail.tags);
   }, [postDetail]);
+
+  // ::: 입력여부에 따른 유효성검사
+  useEffect(() => {
+    if (postContent !== "") {
+      if (postContent.length < 10) {
+        setValidationContent("내용을 최소 10자 이상 작성해주세요.");
+      }
+      setValidationContent("");
+    }
+    if (postTags.length > 0) {
+      if (postContent === "") {
+        setValidationContent("내용을 입력해주세요.");
+      } else if (postContent.length < 10) {
+        setValidationContent("내용을 최소 10자 이상 작성해주세요.");
+      }
+      setValidationTags("");
+    }
+    // eslint-disable-next-line
+  }, [postContent, postTags]);
+
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -106,6 +142,7 @@ const UpdatePostContainer = () => {
           initialContent={postDetail.content}
           placeholderText={"경험을 소개해주세요."}
         />
+        <StValidationMessage>{validationContent}</StValidationMessage>
 
         <StStepTitle>
           <strong>STEP 3</strong> 태그
@@ -115,6 +152,7 @@ const UpdatePostContainer = () => {
           tags={postDetail.tags}
           tagMassage={"엔터키를 치시면 입력됩니다."}
         />
+        <StValidationMessage>{validationTags}</StValidationMessage>
         <StButtonWrap>
           <Button
             size="small"
@@ -210,4 +248,18 @@ const StErrorMessage = styled.div`
   height: 150px;
   font-size: 1.2rem;
   line-height: 1.5;
+`;
+
+const StValidationMessage = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 1.1rem;
+  color: var(--red-color);
+  margin-bottom: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
+  }
 `;

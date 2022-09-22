@@ -11,6 +11,7 @@ const TagInput = ({ tags, selectedTags, tagMassage }) => {
   const removeTags = (indexToRemove) => {
     setTagValidationMsg(`${postTags[indexToRemove]} 태그가 삭제되었습니다.`);
     setCheckAlert(true);
+    selectedTags([...postTags.filter((_, index) => index !== indexToRemove)]);
     setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
   };
 

@@ -6,7 +6,7 @@ const ContentTextArea = ({
   typedPostContent,
   placeholderText,
 }) => {
-  const [checkTextLength, setCheckTextLength] = useState(0);
+  const [checkTextLength, setCheckTextLength] = useState(initialContent.length);
   const [changeContent, setChangeContent] = useState(initialContent);
 
   const onChangeContent = (event) => {
@@ -17,6 +17,7 @@ const ContentTextArea = ({
 
   useEffect(() => {
     setChangeContent(initialContent);
+    setCheckTextLength(initialContent.length);
     // eslint-disable-next-line
   }, [initialContent]);
   return (
