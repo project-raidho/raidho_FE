@@ -47,7 +47,6 @@ const UpdatePostContainer = () => {
   };
 
   const selectedTags = (tags) => {
-    console.log(tags);
     setPostTags(tags);
   };
 
@@ -63,8 +62,14 @@ const UpdatePostContainer = () => {
     if (postTags.length === 0) {
       setValidationTags("태그를 입력해주세요.");
     }
+
     // ::: 입력이 다 되었다면, 서버 전송
     if (postContent !== "" && postTags.length > 0) {
+      // ::: 변경내용이 없으면 반려하기
+      if (postContent === postDetail.content && postTags === postDetail.tags) {
+        return alert("변경한 내용이 없습니다.");
+      }
+
       const formData = new FormData();
       formData.append("content", postContent);
       formData.append("tags", postTags);
@@ -75,7 +80,7 @@ const UpdatePostContainer = () => {
           formData
         );
         console.log("postResponse", postUpdateResponse.data);
-        navigate(-1);
+        navigate(`/postdetail/${postId}`);
       } catch (error) {
         console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
         setModalOn(!modalOn);
@@ -151,6 +156,7 @@ const UpdatePostContainer = () => {
           selectedTags={selectedTags}
           tags={postDetail.tags}
           tagMassage={"엔터키를 치시면 입력됩니다."}
+          setValidationTags={setValidationTags}
         />
         <StValidationMessage>{validationTags}</StValidationMessage>
         <StButtonWrap>
