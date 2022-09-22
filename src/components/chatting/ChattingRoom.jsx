@@ -12,7 +12,7 @@ import NoRoom from "./NoRoom";
 // 소켓 통신
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-import { authInstance } from "../../shared/api";
+// import { authInstance } from "../../shared/api";
 
 // 채팅 방 컴포넌트
 const ChattingRoom = (props) => {
