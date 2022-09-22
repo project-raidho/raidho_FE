@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import CreatePostContent from "./UpdatePostContent";
+import ContentTextArea from "../../elements/ContentTextArea";
 import UpdatePostTags from "./UpdatePostTags";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
@@ -101,7 +101,7 @@ const UpdatePostContainer = () => {
         <StStepTitle>
           <strong>STEP 2</strong> 여행에서 경험한 내용
         </StStepTitle>
-        <CreatePostContent
+        <ContentTextArea
           typedPostContent={typedPostContent}
           initialContent={postDetail.content}
           placeholderText={"경험을 소개해주세요."}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import CreatePostImage from "./CreatePostImage";
-import CreatePostContent from "./CreatePostContent";
+import ContentTextArea from "../../elements/ContentTextArea";
 import TagInput from "../../elements/TagInput";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
@@ -134,7 +134,7 @@ const CreatePostContainer = () => {
       <StStepTitle>
         <strong>STEP 2</strong>여행에서 경험한 내용
       </StStepTitle>
-      <CreatePostContent
+      <ContentTextArea
         typedPostContent={typedPostContent}
         placeholderText={"경험을 소개해주세요."}
         initialContent=""
