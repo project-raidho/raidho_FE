@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "./Input";
 import styled from "styled-components";
 
-const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
+const TagInput = ({ tags, selectedTags, tagMassage }) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
@@ -11,6 +11,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   const removeTags = (indexToRemove) => {
     setTagValidationMsg(`${postTags[indexToRemove]} 태그가 삭제되었습니다.`);
     setCheckAlert(true);
+    selectedTags([...postTags.filter((_, index) => index !== indexToRemove)]);
     setPostTags([...postTags.filter((_, index) => index !== indexToRemove)]);
   };
 
@@ -60,7 +61,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   );
 };
 
-export default CreatePostTags;
+export default TagInput;
 
 const StCreatePostTagsWrap = styled.div`
   display: flex;
