@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import CreatePostImage from "./CreatePostImage";
 import CreatePostContent from "./CreatePostContent";
@@ -58,7 +58,7 @@ const CreatePostContainer = () => {
       });
 
       console.log("postResponse ====>", postResponse.data);
-      navigate(`/`);
+      navigate(-1);
       return postResponse;
     } catch (error) {
       console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
@@ -66,11 +66,23 @@ const CreatePostContainer = () => {
     }
   };
 
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(onCreatePost, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("postLists");
+    },
+  });
+
   // const { mutate } = useMutation(onCreatePost, {
   //   onSuccess: (data) => {
-  //     console.log(data);
-  //     queryClient.invalidateQueries("postLists");
+  //     queryClient.setQueryData("postLists", (oldData) => {
+  //       if (!oldData) {
+  //         return [];
+  //       }
+
+  //       return [{ isHeartMine: false, multipartFiles: postImages }, ...oldData];
+  //     });
   //   },
   // });
 
@@ -105,7 +117,7 @@ const CreatePostContainer = () => {
         >
           취소
         </Button>
-        <Button size="squareTheme" variant="lineBlue" onClick={onCreatePost}>
+        <Button size="squareTheme" variant="lineBlue" onClick={mutate}>
           등록
         </Button>
       </StButtonWrap>
