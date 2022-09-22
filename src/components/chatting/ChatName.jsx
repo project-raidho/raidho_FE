@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { authInstance } from "../../shared/api";
+// import { authInstance } from "../../shared/api";
 import styled from "styled-components";
 
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
 const ChatName = () => {
-  const [roomName, setRoomName] = useState("프랑스여행");
+  // const [roomName, setRoomName] = useState("프랑스여행");
   const { id } = useParams();
-  console.log(id);
+
   //채팅방 정보 단건조회
-  const getChat = async (roomId) => {
-    try {
-      const res = await authInstance.get(`/api/chat/rooms/${roomId}`);
-      return setRoomName(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getChat = async (roomId) => {
+  //   try {
+  //     const res = await authInstance.get(`/api/chat/rooms/${roomId}`);
+  //     return setRoomName(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const getMessageList = async (roomId) => {
   //   try {
@@ -29,7 +29,7 @@ const ChatName = () => {
   // };
 
   useEffect(() => {
-    getChat(id);
+    // getChat(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   // // 카테고리 2개까지 표시
@@ -42,7 +42,7 @@ const ChatName = () => {
   // }
   return (
     <Container>
-      {roomName}
+      {/* {roomName} */}
       {/* {categoryInfo.map((c, idx) => {
       return (
         <TagWrap

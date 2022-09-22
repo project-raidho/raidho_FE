@@ -12,7 +12,7 @@ import NoRoom from "./NoRoom";
 // 소켓 통신
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-import { authInstance } from "../../shared/api";
+// import { authInstance } from "../../shared/api";
 
 // 채팅 방 컴포넌트
 const ChattingRoom = (props) => {
@@ -40,12 +40,13 @@ const ChattingRoom = (props) => {
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   React.useEffect(() => {
     wsConnectSubscribe();
-    getMessageList(id);
+    // getMessageList(id);
     return () => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, messages]);
+  // [id, messages]);
 
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
@@ -58,12 +59,14 @@ const ChattingRoom = (props) => {
           ws.subscribe(
             `/sub/chat/message/${roomId}`,
             (data) => {
+              console.log(data);
               const newMessage = JSON.parse(data.body);
               console.log(newMessage);
               // dispatch(chatActions.getMessages(newMessage));
               // 실험해볼것 : 실시간으로 적용되는지?
-              messages.push(newMessage);
-              // setMessages([...messages, newMessage]);
+              // messages.push(newMessage);
+              const newarray = [...messages, newMessage];
+              setMessages(newarray);
             },
             { token: token }
           );
@@ -143,15 +146,15 @@ const ChattingRoom = (props) => {
   }
 
   // DB에 존재하는 채팅방 메시지들 가져오기
-  const getMessageList = async (roomId) => {
-    try {
-      const res = await authInstance.get(`/api/chat/rooms/${roomId}/messages`);
-
-      return setMessages(res.data.content);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getMessageList = async (roomId) => {
+  //   try {
+  //     const res = await authInstance.get(`/api/chat/messages/${roomId}`);
+  //     console.log(res);
+  //     return setMessages(res.data.content);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <Container>

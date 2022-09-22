@@ -34,7 +34,7 @@ const MainPostCard = ({ post }) => {
   // 좋아요 성공시 postList 무효화
   const { mutate } = useMutation(changeLike, {
     onSuccess: () => {
-      queryClient.invalidateQueries("postList");
+      queryClient.invalidateQueries("postLists");
     },
   });
 
