@@ -98,7 +98,7 @@ const CreatePostContainer = () => {
         setValidationImages("이미지를 등록해주세요.");
       }
       if (postContent.length < 10) {
-        setValidationContent("내용을 최소 10자 이상 작성해주세요.");
+        return setValidationContent("내용을 최소 10자 이상 작성해주세요.");
       }
       setValidationContent("");
     }
