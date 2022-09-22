@@ -27,6 +27,9 @@ const UpdateMyProfile = (props) => {
   const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
+  // ::: 유효성 검사 메시지 상태관리하기
+  const [validationAlert, setValidationAlert] = useState("");
+
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
@@ -37,6 +40,7 @@ const UpdateMyProfile = (props) => {
     setCompressedImageFile(memberInfo.memberImage);
     setUpdateNickname(memberInfo.memberName);
     setUpdateComment(memberInfo.memberIntro);
+    setValidationAlert(null);
   };
 
   // ::: 이미지 리사이징(Resizing)
@@ -80,6 +84,13 @@ const UpdateMyProfile = (props) => {
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
+    if (
+      memberInfo.memberImage === compressedImageFile &&
+      memberInfo.memberName === updateNickname &&
+      memberInfo.memberIntro === updateComment
+    ) {
+      return setValidationAlert("변경된 내용이 없습니다.");
+    }
     // :: image file formData 형식 변환
     const formData = new FormData();
     const fileName =
@@ -175,6 +186,7 @@ const UpdateMyProfile = (props) => {
                   onChange={(event) => onChangeUpdateMemberComment(event)}
                   value={updateComment}
                 />
+                <StValidationMessage>{validationAlert}</StValidationMessage>
               </StUpdateProfileTop>
               <StButtonWrap>
                 <Button
@@ -341,5 +353,19 @@ const StMemberNicknameBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 180px;
+  }
+`;
+
+const StValidationMessage = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 1.1rem;
+  color: var(--red-color);
+  margin-top: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
   }
 `;

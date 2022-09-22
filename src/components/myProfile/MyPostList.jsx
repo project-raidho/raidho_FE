@@ -1,58 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { authInstance } from "../../shared/api";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../../elements/Button";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 
-const MyPostList = ({ isMore }) => {
-  // ::: 전체 게시글 불러오기
-  const [postList, setPostList] = useState([
-    {
-      content: "",
-      createdAt: "",
-      heartCount: 0,
-      id: 0,
-      isHeartMine: false,
-      isImages: false,
-      isMine: true,
-      locationTags: null,
-      memberImage: null,
-      memberName: "",
-      modifiedAt: "",
-      multipartFiles: [],
-      tags: [],
-    },
-  ]);
-
-  const getPostList = async () => {
-    try {
-      const responsePostList = await authInstance.get(`/api/post/mypost`);
-      console.log(responsePostList);
-      return setPostList(responsePostList.data.data);
-    } catch (error) {
-      console.log("전체 게시글 불러오기 오류 :::", error);
-    }
-  };
-  useEffect(() => {
-    getPostList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const MyPostList = ({ isMore, data }) => {
+  const navigate = useNavigate();
+  console.log(data);
 
   return (
-    <StMyPostListWrap isMore={isMore}>
-      {postList.map((post) => (
-        <StPostCard key={post.id}>
-          <Link to={`/postDetail/${post.id}`}>
-            {post.isImages && <div className="imagesIcon" />}
-            <img src={post.multipartFiles[0]} alt={post.id} loading="lazy" />
-          </Link>
-        </StPostCard>
-      ))}
-    </StMyPostListWrap>
+    <>
+      {data.length === 0 && (
+        <StMessageMinePost>
+          <p>내가 쓴 글이 없어요.</p>
+          <Button
+            onClick={() => navigate(`/createPost`)}
+            size="square"
+            variant="lineSquare"
+          >
+            여행후기 작성하러 가기
+          </Button>
+        </StMessageMinePost>
+      )}
+      <StMyPostListWrap isMore={isMore}>
+        {data?.map((post) => (
+          <StPostCard key={post.id}>
+            <Link to={`/postDetail/${post.id}`}>
+              {post.isImages && <div className="imagesIcon" />}
+              <img src={post.multipartFiles[0]} alt={post.id} loading="lazy" />
+            </Link>
+          </StPostCard>
+        ))}
+      </StMyPostListWrap>
+    </>
   );
 };
 
 export default MyPostList;
+
+const StMessageMinePost = styled.div`
+  width: 100%;
+  text-align: center;
+
+  p {
+    font-size: 1.5rem;
+    color: var(--title-color);
+    font-style: italic;
+    padding: 1rem 0;
+  }
+`;
 
 const StMyPostListWrap = styled.div`
   display: grid;
@@ -68,6 +64,7 @@ const StMyPostListWrap = styled.div`
   @media (max-width: 767px) {
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
+    height: ${(props) => (props.isMore === true ? "auto" : "200px")};
   }
   @media (max-width: 639px) {
     grid-template-columns: repeat(3, 1fr);
