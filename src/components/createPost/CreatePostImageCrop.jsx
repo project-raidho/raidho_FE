@@ -625,8 +625,8 @@ const StModalContent = styled.div`
 
   h4 {
     display: block;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     background-color: var(--text-color);
     border-radius: 50%;
     border: 1px solid var(--title-color);

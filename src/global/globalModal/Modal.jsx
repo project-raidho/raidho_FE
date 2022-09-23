@@ -29,7 +29,7 @@ const Background = styled.div`
 `;
 
 const ModalContentBox = styled.div`
-  position: absolute;
+  position: fixed;
   height: 440px;
   width: 600px;
   top: 50%;
