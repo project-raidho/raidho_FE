@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { MdClose } from "react-icons/md";
 
 const Modal = ({ onClose, children }) => {
   return (
     <>
-      <Background onClick={onClose} />
+      <Background />
       <ModalContentBox>
+        <MdClose className="closeButton" onClick={onClose} />
         <div className="contents">{children}</div>
       </ModalContentBox>
     </>
@@ -29,7 +31,7 @@ const Background = styled.div`
 `;
 
 const ModalContentBox = styled.div`
-  position: absolute;
+  position: fixed;
   height: 440px;
   width: 600px;
   top: 50%;
@@ -49,6 +51,19 @@ const ModalContentBox = styled.div`
     width: 100%;
     height: 100%;
     padding: 20px;
+  }
+
+  svg.closeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    path {
+      color: var(--title-color);
+    }
   }
 
   @media (max-width: 1023px) {

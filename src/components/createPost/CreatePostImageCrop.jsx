@@ -4,6 +4,9 @@ import "react-image-crop/dist/ReactCrop.css";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
+import Success from "../../elements/Success";
+import Info from "../../elements/Info";
+// import Warning from "../../elements/Warning";
 import styled from "styled-components";
 
 // ::: 이미지 크롭 사전 세팅
@@ -42,10 +45,14 @@ const CreatePostImageCrop = ({
   const [saveImagesIndex, setSaveImagesIndex] = useState([]);
   const [saveImageValidationMsg, setSaveImageTagValidationMsg] = useState("");
   const [saveButtonStatus, setSaveButtonStatus] = useState(true);
-  const [alertMsg, setAlertMsg] = useState("");
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState(<Success />);
+  const [modalStatus, setModalStatus] = useState("alert"); // alert(): "alert" / confirm() : "confirm"
+  // const [checkNext, setCheckNext] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -74,8 +81,15 @@ const CreatePostImageCrop = ({
   // ::: 이미지 비율 버튼 클릭 이벤트
   const onClickImageSize = (selectAspect, index) => {
     const alertMessageImageSize = window.confirm(
-      "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠어요?"
+      "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?"
     );
+    // setAlertMsg(
+    //   `지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?`
+    // );
+    // setModalIcon(<Warning />);
+    // setModalStatus("confirm");
+    // setModalOn(true);
+
     if (alertMessageImageSize) {
       const { width, height } = imageRef.current;
       setAspect(selectAspect);
@@ -109,7 +123,7 @@ const CreatePostImageCrop = ({
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
 
     console.log(
-      "#####imageRef.current.naturalWidth####",
+      "::: imageRef.current.naturalWidth :::",
       imageRef.current.naturalWidth
     );
 
@@ -128,8 +142,7 @@ const CreatePostImageCrop = ({
 
     const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
     // window.devicePixelRatio ===> 1(기본값)
-    console.log("#####window.devicePixelRatio####", window.devicePixelRatio);
-    console.log("#####pixelRatio####", pixelRatio);
+    console.log("::: pixelRatio :::", pixelRatio);
 
     canvasRef.current.width = cropping.width * pixelRatio * scaleX;
     canvasRef.current.height = cropping?.height * pixelRatio * scaleY;
@@ -153,6 +166,8 @@ const CreatePostImageCrop = ({
   // ::: 이미지 저장하기 버튼 클릭하기
   const onChangeCropImage = (event) => {
     if (saveButtonStatus === false) {
+      setModalStatus("alert");
+      setModalIcon(<Info />);
       setAlertMsg("이미 이미지 저장이 완료되었습니다.");
       setModalOn(true);
       return;
@@ -218,6 +233,8 @@ const CreatePostImageCrop = ({
       const { width, height } = imageRef.current;
       setCrop(centerAspectCrop(width, height, aspect));
     } else {
+      setModalStatus("alert");
+      setModalIcon(<Info />);
       setAlertMsg("이미 저장한 이미지입니다!");
       setModalOn(true);
     }
@@ -232,6 +249,8 @@ const CreatePostImageCrop = ({
     // ::: 이미지 저장이 완료되었는지 체크하기
     if (saveImagesIndex.length === files.length) {
       setSaveButtonStatus(false);
+      setModalStatus("alert");
+      setModalIcon(<Success />);
       setAlertMsg("이미지 업로드 하기가 완료되었습니다!");
       setModalOn(true);
     }
@@ -319,17 +338,37 @@ const CreatePostImageCrop = ({
         {modalOn && (
           <Modal onClose={handleModal}>
             <StModalContent>
-              <h4>아이콘</h4>
+              <h4>{modalIcon}</h4>
               <p>{alertMsg}</p>
-              <StButtonWrap>
-                <Button
-                  size="square"
-                  variant="lineSquare"
-                  onClick={handleModal}
-                >
-                  확인
-                </Button>
-              </StButtonWrap>
+              {modalStatus === "alert" && (
+                <StButtonWrap>
+                  <Button
+                    size="square"
+                    variant="lineSquare"
+                    onClick={handleModal}
+                  >
+                    확인
+                  </Button>
+                </StButtonWrap>
+              )}
+              {modalStatus === "confirm" && (
+                <StButtonWrap>
+                  <Button
+                    size="square"
+                    variant="lineSquare"
+                    onClick={handleModal}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="square"
+                    variant="lineSquare"
+                    onClick={handleModal}
+                  >
+                    확인
+                  </Button>
+                </StButtonWrap>
+              )}
             </StModalContent>
           </Modal>
         )}
@@ -586,10 +625,13 @@ const StModalContent = styled.div`
 
   h4 {
     display: block;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     background-color: var(--text-color);
     border-radius: 50%;
+    border: 1px solid var(--title-color);
+    margin-top: 30px;
+    overflow: hidden;
   }
 
   p {
@@ -609,4 +651,8 @@ const StButtonWrap = styled.div`
   justify-content: flex-end;
   width: 100%;
   margin-top: 10px;
+
+  button {
+    margin-left: 1rem;
+  }
 `;
