@@ -13,6 +13,7 @@ import MeetingListPage from "../pages/MeetingListPage";
 import ChattingPage from "../pages/ChattingPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import NaverLogin from "../components/login/NaverLogin";
+import NotFound from "../pages/NotFound";
 import GlobalHeader from "../global/GlobalHeader";
 import GlobalLayout from "../global/GlobalLayout";
 import styled from "styled-components";
@@ -39,7 +40,6 @@ const Routers = () => {
               path="/updateMeeting/:meetingId"
               element={<UpdateMeetingPage />}
             />
-            {/* <Route path="/meetingList" element={<MeetingListPage />} /> */}
             {themeList.map((theme) => (
               <Route
                 key={theme.themeName}
@@ -58,6 +58,7 @@ const Routers = () => {
             <Route path="/chatting/:id" element={<ChattingPage />} />
             <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/naver" element={<NaverLogin />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </GlobalLayout>
       </StRouterWrapp>
