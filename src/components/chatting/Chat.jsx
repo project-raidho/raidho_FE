@@ -1,5 +1,4 @@
 import React from "react";
-
 import styled from "styled-components";
 
 // 이미지 컴포넌트
@@ -9,21 +8,6 @@ import { useParams } from "react-router-dom";
 // 현재 존재하는 채팅을 보여주는 컴포넌트
 const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
   const { id } = useParams();
-  // const {
-  //   roomName,
-  //   _onClick,
-  //   roomId,
-  //   roomPic,
-  //   category,
-  // } = props;
-  // 카테고리 2개까지 표시
-  // const categoryInfo = [];
-  // for (let i = 0; i < 2; i++) {
-  //   if (category[i] === undefined) {
-  //     continue;
-  //   }
-  //   categoryInfo.push(category[i]);
-  // }
 
   let is_same = false;
   // 사용자의 현재 방 id와 채팅 리스트의 방 id가 같은 경우
@@ -35,15 +19,6 @@ const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
       <Image size="50px" src={roomPic} />
       <ChatColumn>
         <ChatTitle>{roomName}</ChatTitle>
-        {/* <ChatText>
-          <Image size="15px" src={userProfile} />
-          {userName}
-          <CategoryText>
-            {categoryInfo.map((c, idx) => {
-              return " " + c + " ";
-            })}
-          </CategoryText>
-        </ChatText> */}
       </ChatColumn>
     </Container>
   );
