@@ -19,9 +19,12 @@ const MainPostList = ({ state }) => {
   const { ref, inView } = useInView();
   const { data, status, fetchNextPage, isFetchingNextPage, error } =
     useInfiniteQuery(
-      "postLists",
+      ["postLists"],
       ({ pageParam = 0 }) => getPostList(state, pageParam),
       {
+        // refetchInterval: 3000,
+        // staleTime: 1000,
+        // notifyOnChangeProps: "tracked",
         getNextPageParam: (lastPage) => {
           return !lastPage.last
             ? lastPage.nextPage

@@ -116,8 +116,8 @@ const CreatePostContainer = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onCreatePost, {
     onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries("postLists");
+      console.log("########data##########", data);
+      queryClient.invalidateQueries(["postLists"]); //"postLists"
     },
   });
 
