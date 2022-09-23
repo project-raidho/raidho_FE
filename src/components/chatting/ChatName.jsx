@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 // import { authInstance } from "../../shared/api";
 import styled from "styled-components";
-
+import Button from "../../elements/Button";
+import { authInstance } from "../../shared/api";
 // 사용자가 접속한 현재 채팅방의 이름을 표시할 최소단위 컴포넌트
 const ChatName = () => {
   // const [roomName, setRoomName] = useState("프랑스여행");
   const { id } = useParams();
-
+  const roomName = "프랑스여행";
   //채팅방 정보 단건조회
   // const getChat = async (roomId) => {
   //   try {
@@ -28,6 +29,15 @@ const ChatName = () => {
   //   }
   // };
 
+  const oncloseHandler = async () => {
+    try {
+      const res = await authInstance.delete(`/api/chat/rooms/${id}`);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     // getChat(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +52,7 @@ const ChatName = () => {
   // }
   return (
     <Container>
-      {/* {roomName} */}
+      {roomName}
       {/* {categoryInfo.map((c, idx) => {
       return (
         <TagWrap
@@ -53,6 +63,9 @@ const ChatName = () => {
 
       )
     })} */}
+      <Button size="small" variant="lineBlue" onClick={oncloseHandler}>
+        나가기
+      </Button>
     </Container>
   );
 };
@@ -60,7 +73,7 @@ const ChatName = () => {
 const Container = styled.div`
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex_row}
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
