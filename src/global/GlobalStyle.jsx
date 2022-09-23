@@ -16,6 +16,8 @@ const GlobalStyle = createGlobalStyle`
     --sub-color:#CFCFCF;
     --line-color: #666666;
     --red-color: #FF4040;
+    --green-color: #11CA48;
+    --blue-color: #4888F4;
     --gray-color: #CFCFCF;
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
