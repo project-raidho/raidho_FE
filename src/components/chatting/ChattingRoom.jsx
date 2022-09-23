@@ -17,7 +17,6 @@ import SockJS from "sockjs-client";
 // 채팅 방 컴포넌트
 const ChattingRoom = (props) => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   console.log(messages);
 
@@ -62,7 +61,6 @@ const ChattingRoom = (props) => {
               console.log(data);
               const newMessage = JSON.parse(data.body);
               console.log(newMessage);
-              // dispatch(chatActions.getMessages(newMessage));
               // 실험해볼것 : 실시간으로 적용되는지?
               // messages.push(newMessage);
               const newarray = [...messages, newMessage];
@@ -130,7 +128,6 @@ const ChattingRoom = (props) => {
         return;
       }
       //   // 로딩 중
-      // dispatch(chatActions.isLoading());
       waitForConnection(ws, function () {
         ws.send(
           `/pub/chat/send/${roomId}`,
