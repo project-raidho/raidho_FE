@@ -1,87 +1,39 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import styled from "styled-components";
 
 // components
 import Chat from "./Chat";
-// import Popup from '../components/Popup';
 
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
 // 채팅 리스트 컴포넌트
 // 모바일, 데스크탑에 따라 위치가 달리지도록 한다
 //  모바일 : 채팅 리스트를 상단의 원으로 표시
 //  데스크탑 : 채팅 리스트를 좌측에 리스트로 표시
+
+// ::: 채팅 리스트 가져오기
+const getChatList = async () => {
+  return await authInstance.get(`/api/chat/chatList`);
+};
+
 const ChatList = (props) => {
-  const [chatList, setChatList] = useState([
-    {
-      roomMasterId: 1,
-      roomName: "산골짜기여행",
-      roomPic: "",
-      // user: {
-      //   username: "상욱님",
-      //   profileUrl: "",
-      // },
-      // category: "",
-    },
-    {
-      roomMasterId: 2,
-      roomName: "산골짜기여행",
-      roomPic: "",
-      // user: {
-      //   username: "상욱님",
-      //   profileUrl: "",
-      // },
-      // category: "",
-    },
-  ]);
   const navigate = useNavigate();
-  useEffect(() => {
-    getChatList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  // ::: 채팅 리스트 가져오기
-  const getChatList = async () => {
-    try {
-      const res = await authInstance.get(`/api/chat/chatList`);
-      console.log(res);
-      return setChatList(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 조회할 태그(카테고리)
-  // const [tag, setTag] = React.useState("");
+  //채팅단건 조회 useQuery
+  const chatListQuery = useQuery("chatList", getChatList, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+  if (chatListQuery.isLoading) {
+    return null;
+  }
+  console.log(chatListQuery);
+  const chatList = chatListQuery.data.data;
 
   const { prevRoomId } = props;
-
-  // // 팝업창 키기/종료
-  // //  false가 기본 상태
-  // const [popupOpen, setPopupOpen] = React.useState(false);
-
-  // // 팝업창 키기/끄기 함수
-  // const openPopup = () => {
-  //   setPopupOpen(true);
-  // };
-  // const closePopup = () => {
-  //   setPopupOpen(false);
-  // };
-  //  태그 고르기
-  // const selectTag = async (e) => {
-  //   setTag(e.target.value)
-  //   if (e.target.value === '전체조회') {
-  //     // 전체조회를 선택한 경우 전체조회 API 호출
-  //     const totalList = await chatAPI.getChatList();
-  //     dispatch(chatActions.getChat(totalList.data));
-  //     return
-  //   }
-  //   const tagChatList = await chatAPI.selectCategory(e.target.value);
-  //   console.log(tagChatList)
-  //   dispatch(chatActions.getChat(tagChatList.data))
-  // }
 
   // 채팅방 들어가기
   const enterRoom = (roomId) => {
@@ -119,10 +71,6 @@ const ChatList = (props) => {
           );
         })}
       </ChatListWrap>
-      {/* <FloatingButton onClick={openPopup}>+</FloatingButton> */}
-
-      {/* 채팅 생성 팝업 창 */}
-      {/* {popupOpen && <Popup visible={popupOpen} closePopup={closePopup} />} */}
     </Container>
   );
 };
@@ -167,26 +115,5 @@ const ChatListWrap = styled.div`
     align-items: center;
   }
 `;
-
-// const FloatingButton = styled.div`
-//   width: 50px;
-//   height: 50px;
-//   position: absolute;
-//   bottom: 50px;
-//   right: 16px;
-//   background-color: ${(props) => props.theme.theme_yellow};
-//   color: #ffffff;
-//   box-sizing: border-box;
-//   font-size: 36px;
-//   font-weight: 800;
-//   border-radius: 50%;
-//   text-align: center;
-//   padding: 3px;
-//   cursor: pointer;
-//   @media ${(props) => props.theme.mobile} {
-//     position: fixed;
-//     top: 22vh;
-//   }
-// `;
 
 export default ChatList;

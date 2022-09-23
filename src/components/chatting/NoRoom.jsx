@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const NoRoom = (props) => {
-  return <Container></Container>;
+  return <Container> 선택한 채팅방이 없습니다!!</Container>;
 };
 
 const Container = styled.div`
