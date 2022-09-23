@@ -24,8 +24,11 @@ const UpdateMyProfile = (props) => {
   const [compressedImageFile, setCompressedImageFile] = useState(
     memberInfo.memberImage
   );
-  // const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
+  const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
+
+  // ::: 유효성 검사 메시지 상태관리하기
+  const [validationAlert, setValidationAlert] = useState("");
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -35,15 +38,16 @@ const UpdateMyProfile = (props) => {
     // ::: 유저가 입력한 값 초기화 시키기
     setSelectedMemberImage(null);
     setCompressedImageFile(memberInfo.memberImage);
-    // setUpdateNickname(memberInfo.memberName);
+    setUpdateNickname(memberInfo.memberName);
     setUpdateComment(memberInfo.memberIntro);
+    setValidationAlert(null);
   };
 
   // ::: 이미지 리사이징(Resizing)
   const compressImageAndGetImageFile = async (postImageFile) => {
     const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
+      maxSizeMB: 0.8,
+      maxWidthOrHeight: 900,
       useWebWorker: true,
     };
     const compressedFile = await imageCompression(postImageFile, options);
@@ -66,29 +70,52 @@ const UpdateMyProfile = (props) => {
     }
   };
 
+  const onChangeUpdateMemberName = (event) => {
+    setUpdateNickname(event.target.value);
+  };
+
   const onChangeUpdateMemberComment = (event) => {
     setUpdateComment(event.target.value);
   };
 
   console.log("compressedImageFile", compressedImageFile);
+  console.log("updateNickname", updateNickname);
   console.log("updateComment", updateComment);
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
+    if (
+      memberInfo.memberImage === compressedImageFile &&
+      memberInfo.memberName === updateNickname &&
+      memberInfo.memberIntro === updateComment
+    ) {
+      return setValidationAlert("변경된 내용이 없습니다.");
+    }
     // :: image file formData 형식 변환
     const formData = new FormData();
-    formData.append("memberImage", compressedImageFile);
+    const fileName =
+      "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
+    formData.append("memberImage", compressedImageFile, fileName);
+    formData.append("memberName", updateNickname);
     formData.append("memberIntro", updateComment);
-    formData.append("memberId", memberInfo.memberId);
 
     try {
-      const profileResponse = await authInstance.post(`/api/mypage`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await authInstance.put(
+        `/api/mypage/${memberInfo.memberId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      console.log(profileResponse);
+      console.log("프로필수정 response ::: ", response);
+      localStorage.setItem("memberImage", response.data);
+      localStorage.setItem("memberName", updateNickname);
+      localStorage.setItem("memberIntro", updateComment);
+
+      setModalOn(false);
     } catch (error) {
       alert(`프로필 수정에 오류가 났습니다. ${error}`);
       console.log(error);
@@ -138,8 +165,16 @@ const UpdateMyProfile = (props) => {
                       <span className="changeImageMessage">사진 변경</span>
                     )}
                   </StMemberImageBox>
+
                   <StMemberNicknameBox>
-                    <p>@{memberInfo.memberName}</p>
+                    <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
+                    <Input
+                      size="large"
+                      variant="default"
+                      value={updateNickname}
+                      placeholder={memberInfo.memberName}
+                      onChange={(event) => onChangeUpdateMemberName(event)}
+                    />
                   </StMemberNicknameBox>
                 </StUpdateProfileRow>
 
@@ -151,6 +186,7 @@ const UpdateMyProfile = (props) => {
                   onChange={(event) => onChangeUpdateMemberComment(event)}
                   value={updateComment}
                 />
+                <StValidationMessage>{validationAlert}</StValidationMessage>
               </StUpdateProfileTop>
               <StButtonWrap>
                 <Button
@@ -317,5 +353,19 @@ const StMemberNicknameBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 180px;
+  }
+`;
+
+const StValidationMessage = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 1.1rem;
+  color: var(--red-color);
+  margin-top: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
   }
 `;

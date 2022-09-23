@@ -127,7 +127,6 @@ const CreatePostImageCrop = ({
     };
 
     const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
-
     // window.devicePixelRatio ===> 1(기본값)
     console.log("#####window.devicePixelRatio####", window.devicePixelRatio);
     console.log("#####pixelRatio####", pixelRatio);
