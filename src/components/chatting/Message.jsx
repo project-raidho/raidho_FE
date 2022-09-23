@@ -13,8 +13,6 @@ const Message = ({ messageInfo }) => {
   // 사용자 아이디, 프로필 사진을 가져오기
   // let { id, profileUrl } = useSelector((state) => state.user.userInfo);
   let id = Number(localStorage.getItem("memberId"));
-  let profileUrl =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZkadB9ZHoVSbYxeua2K3cQSZ84WymLC5STQ&usqp=CAU";
   React.useEffect(() => {
     // 로딩중
     if (!messageInfo) {
@@ -43,12 +41,12 @@ const Message = ({ messageInfo }) => {
             {messageInfo.user ? messageInfo.user.username : messageInfo.sender}
           </SenderSpan>
           <div>
-            <SenderSpan is_me={true}>{messageInfo.createAt}</SenderSpan>
+            <SenderSpan is_me={true}>{messageInfo.messageTime}</SenderSpan>
             <ElMessage is_me={true}>{messageInfo.message}</ElMessage>
           </div>
         </SenderWrap>
         <ImageWrap>
-          <Image size="40px" src={profileUrl} />
+          <Image size="40px" src={messageInfo.memberImage} />
         </ImageWrap>
       </MessageWrap>
     );
@@ -66,7 +64,7 @@ const Message = ({ messageInfo }) => {
     return (
       <MessageWrap>
         <ImageWrap>
-          <Image size="40px" src={messageInfo.user?.profileUrl} />
+          <Image size="40px" src={messageInfo.memberImage} />
         </ImageWrap>
         <SenderWrap>
           <SenderSpan>
@@ -74,7 +72,7 @@ const Message = ({ messageInfo }) => {
           </SenderSpan>
           <div>
             <ElMessage>{messageInfo.message}</ElMessage>
-            <SenderSpan>{messageInfo.createAt}</SenderSpan>
+            <SenderSpan>{messageInfo.messageTime}</SenderSpan>
           </div>
         </SenderWrap>
       </MessageWrap>
