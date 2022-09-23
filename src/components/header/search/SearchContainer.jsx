@@ -46,6 +46,7 @@ const SearchContainer = ({ isLogin }) => {
     });
   };
 
+  console.log("=====*****====>", location);
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
   const onKeyPressSearchEnter = (event) => {
     if (event.key === "Enter") {
@@ -79,10 +80,9 @@ const SearchContainer = ({ isLogin }) => {
   // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
     dispatch(getRecentSearch());
-    location.state !== null
-      ? setSearchInput(location.state.tagKeyword)
-      : setSearchInput("");
-  }, [dispatch, location.state]);
+    location.state !== null && setSearchInput(location.state.tagKeyword);
+    location.search === "" && setSearchInput("");
+  }, [dispatch, location.state, location.search]);
 
   return (
     <StSearchContainerWrap isLogin={isLogin}>
