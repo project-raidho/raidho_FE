@@ -8,6 +8,7 @@ const TripPeopleCount = ({ people, setPeople }) => {
   const countList = [2, 3, 4, 5];
   console.log(people);
   const index = countList.indexOf(people);
+
   const NewCountList = countList.slice(index);
   console.log(NewCountList);
   const [count, setCount] = useState(people);
@@ -17,6 +18,7 @@ const TripPeopleCount = ({ people, setPeople }) => {
     setCount(e.target.value);
     setPeople(e.target.value);
   };
+
   return (
     <StSelectBox>
       <FormControl sx={{ m: 1, Width: 120 }} className="select">
