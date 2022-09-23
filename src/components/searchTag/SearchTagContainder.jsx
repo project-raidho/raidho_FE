@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
 // import MeetingListCard from "../meetingList/MeetingListCard";
@@ -11,19 +11,8 @@ const SearchTagContainer = () => {
   const location = useLocation();
 
   // ::: 추천 테마 리스트 전역에서 불러오기
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-  // const meetingList = useSelector((state) => state.meetingSlice.meetingList);
-  // const [postList, setPostList] = useState([
-  //   {
-  //     id: 0,
-  //     imgurl: null,
-  //     memberImage: null,
-  //     memberName: "",
-  //     isImages: false,
-  //     multipartFiles: [],
-  //     heartCount: 0,
-  //     isHeartMine: false,
-  //   },
+  // const themeList = useSelector((state) => state.themeSlice.themeList);
+
   // ]);
 
   // ::: ===> 서버테스트 세팅
@@ -71,11 +60,6 @@ const SearchTagContainer = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getSearchTagList();
-  //   // eslint-disable-next-line
-  // }, [location]);
-
   const tagPostListQuery = useQuery(
     ["tagPostList", tagName],
     getSearchTagList,
@@ -118,7 +102,7 @@ const SearchTagContainer = () => {
             <MainPostCard key={post.id} post={post} />
           ))}
         <StMeetingListWrap>
-          <StMeetingCategoryRow className="themeCategoryRow">
+          {/* <StMeetingCategoryRow className="themeCategoryRow">
             {!checkUri &&
               themeList.map((theme, index) => (
                 <p
@@ -136,7 +120,7 @@ const SearchTagContainer = () => {
                   </NavLink>
                 </p>
               ))}
-          </StMeetingCategoryRow>
+          </StMeetingCategoryRow> */}
           {/* <StMeetingCardBox>
             {!checkUri &&
               tagPostListQuery.data.data.data.content.map((meeting) => (
@@ -253,70 +237,70 @@ const StMeetingListWrap = styled.div`
   width: 100%;
 `;
 
-const StMeetingCategoryRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 1rem 0 0;
-  margin-bottom: 1rem;
-  &.flexRightLayout {
-    justify-content: flex-end;
-  }
-  button {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-  }
-  .themeCategoryButton {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 55px;
+// const StMeetingCategoryRow = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: flex-start;
+//   width: 100%;
+//   padding: 1rem 0 0;
+//   margin-bottom: 1rem;
+//   &.flexRightLayout {
+//     justify-content: flex-end;
+//   }
+//   button {
+//     margin-right: 1rem;
+//     margin-bottom: 1rem;
+//   }
+//   .themeCategoryButton {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: center;
+//     width: 250px;
+//     height: 55px;
 
-    border: 1px solid var(--title-color);
-    border-radius: 15px;
-    background-color: var(--bg-color);
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    cursor: pointer;
+//     border: 1px solid var(--title-color);
+//     border-radius: 15px;
+//     background-color: var(--bg-color);
+//     margin-right: 1rem;
+//     margin-bottom: 1rem;
+//     overflow: hidden;
+//     cursor: pointer;
 
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      width: 100%;
-      height: 100%;
-      &.active {
-        background-color: var(--main-color);
-      }
-    }
-  }
+//     a {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       font-size: 1.5rem;
+//       font-weight: 700;
+//       width: 100%;
+//       height: 100%;
+//       &.active {
+//         background-color: var(--main-color);
+//       }
+//     }
+//   }
 
-  label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 1rem;
-  }
+//   label {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: flex-start;
+//     margin-left: 1rem;
+//   }
 
-  @media (max-width: 767px) {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    .themeCategoryButton {
-      width: auto;
-      a {
-        font-size: 1.2rem;
-      }
-    }
-  }
-`;
+//   @media (max-width: 767px) {
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+//     .themeCategoryButton {
+//       width: auto;
+//       a {
+//         font-size: 1.2rem;
+//       }
+//     }
+//   }
+// `;
 
 // const StMeetingCardBox = styled.div`
 //   display: grid;
