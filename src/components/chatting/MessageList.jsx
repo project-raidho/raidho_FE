@@ -14,13 +14,16 @@ import { useParams } from "react-router-dom";
 //   const response = await authInstance.get(
 //     `/api/chat/messages/${id}?page=${pageParam}`
 //   );
+
+//   console.log(pageParam, pageParam - 1);
 //   console.log(response);
-//   const { content, last } = response.data;
-//   return { content, nextPage: pageParam + 1, last };
+//   const { content, last, number } = response.data;
+//   console.log(number);
+//   return { content, nextPage: pageParam - 1, last };
 // };
 
 // 메시지 리스트 컴포넌트
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, setMessages }) => {
   const { id } = useParams();
   // const { ref, inView } = useInView();
   // const { data, status, fetchNextPage, isFetchingNextPage, error } =
@@ -39,7 +42,7 @@ const MessageList = ({ messages }) => {
 
   // useEffect(() => {
   //   if (inView) fetchNextPage();
-  // }, [inView]);
+  // }, [inView, fetchNextPage]);
 
   // 스크롤 대상
   const messageEndRef = React.useRef(null);
@@ -64,8 +67,8 @@ const MessageList = ({ messages }) => {
       {/* {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       {data?.pages.reverse().map((page, idx) => (
         <Fragment key={idx}>
-          {page.content.map((m) => (
-            <Message key={m.id} messageInfo={m} />
+          {page.content.map((m, idx) => (
+            <Message key={idx} messageInfo={m} />
           ))}
         </Fragment>
       ))} */}
