@@ -86,14 +86,16 @@ const MeetingListCard = ({ meeting }) => {
             )}
             {meeting.meetingStatus === 2 && (
               <span>
-                모집완료 D<b>-10</b>
+                모집완료 D-<b>{dday}</b>
               </span>
             )}
-            {meeting.meetingStatus === 3 && <span>모집완료</span>}
+            {meeting.meetingStatus === 3 && <span>모집종료</span>}
           </p>
-          <p className="infoStatus">
-            모집인원 {meeting.memberCount}/{meeting.people}
-          </p>
+          {meeting.meetingStatus !== 3 && (
+            <p className="infoStatus">
+              모집인원 {meeting.memberCount}/{meeting.people}
+            </p>
+          )}
         </StMeetingCardRow>
         <h3>{meeting.title}</h3>
         <p>
@@ -148,7 +150,7 @@ const MeetingListCard = ({ meeting }) => {
                 삭제하기
               </Button>
             )}
-            {!meeting.isMine && (
+            {!meeting.isMine && meeting.meetingStatus === 1 && (
               <Button variant="primary" onClick={() => onJoinRoom(meeting.id)}>
                 참여하기
               </Button>
@@ -265,7 +267,7 @@ const StMeetingCardRow = styled.div`
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
   .memberNameBox {

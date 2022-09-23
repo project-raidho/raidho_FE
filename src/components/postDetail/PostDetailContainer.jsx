@@ -30,8 +30,6 @@ const PostDetailContainer = () => {
     onSuccess: (data) => {
       console.log(data);
     },
-    //fresh 타임 늘리는 옵션
-    // staleTime: 10000
   });
 
   const queryClient = useQueryClient();
