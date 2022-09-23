@@ -18,6 +18,7 @@ const onDeleteMeeting = async (meetingId) => {
 
 const MeetingListCard = ({ meeting }) => {
   const [modalOn, setModalOn] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -60,10 +61,17 @@ const MeetingListCard = ({ meeting }) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
       console.log(res);
+      //인원 풀이면 오류 처리
+      if (res.data.body === "FULL") {
+        setErrorMsg("인원이 가득찼습니다");
+        return setModalOn(!modalOn);
+      }
+      navigate(`/chatting/${meeting.id}`);
     } catch (e) {
+      console.log(e);
+      setErrorMsg("로그인이 필요합니다.");
       setModalOn(!modalOn);
     }
-    navigate(`/chatting/${meeting.id}`);
   };
 
   return (
@@ -81,10 +89,10 @@ const MeetingListCard = ({ meeting }) => {
                 모집완료 D<b>-10</b>
               </span>
             )}
-            {meeting.meetingStatus === 3 && <span>여행완료</span>}
+            {meeting.meetingStatus === 3 && <span>모집완료</span>}
           </p>
           <p className="infoStatus">
-            모집인원 {meeting.meetingParticipant}/{meeting.people}
+            모집인원 {meeting.memberCount}/{meeting.people}
           </p>
         </StMeetingCardRow>
         <h3>{meeting.title}</h3>
@@ -154,7 +162,7 @@ const MeetingListCard = ({ meeting }) => {
           <Modal onClose={handleModal}>
             <StErrorMessage>
               죄송합니다. <br />
-              로그인 후 시도해 주세요.
+              {errorMsg}
             </StErrorMessage>
             <StButtonWrap>
               <Button size="medium" onClick={handleModal}>

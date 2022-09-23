@@ -39,10 +39,11 @@ const CreateMeetingContatiner = () => {
     desc: desc,
     startDate: startDate,
     endDate: endDate,
-    people: people,
+    people: Number(people),
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
+  console.log(data, people);
 
   const navigate = useNavigate();
   const postcreatemeeting = async () => {
@@ -81,7 +82,7 @@ const CreateMeetingContatiner = () => {
         const res2 = await authInstance.post(`/api/chat/room/create`, {
           roomName: title,
           meetingPostId: chattingId,
-          // people: people,
+          people: people,
           // theme: theme,
         });
         console.log(res2);

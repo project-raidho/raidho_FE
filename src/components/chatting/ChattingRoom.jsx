@@ -66,6 +66,7 @@ const ChattingRoom = (props) => {
               // 실험해볼것 : 실시간으로 적용되는지?
               // messages.push(newMessage);
               const newarray = [...messages, newMessage];
+              console.log(newarray);
               setMessages(newarray);
             },
             { token: token }
@@ -163,7 +164,7 @@ const ChattingRoom = (props) => {
       {roomId && (
         <ChatWrap>
           <ChatName />
-          <MessageList messages={messages} />
+          <MessageList messages={messages} setMessages={setMessages} />
           <MessageWrite
             setMessageInput={setMessageInput}
             sendMessage={sendMessage}
