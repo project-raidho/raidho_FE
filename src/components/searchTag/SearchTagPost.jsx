@@ -1,26 +1,33 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { authInstance } from "../../shared/api";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
-import MainPostCard from "./MainPostCard";
+import MainPostCard from "../main/MainPostCard";
+import styled from "styled-components";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import styled from "styled-components";
+import SearchAlert from "./SearchAlert";
 
-const getPostList = async (state, pageParam) => {
-  const response = await authInstance.get(
-    `/api/post/${state}?page=${pageParam}`
-  );
-  const { content, last, number } = response.data.data;
-  return { content, nextPage: number + 1, last };
+const getSearchTagPostList = async (tagName, pageParam) => {
+  console.log("====>tag", tagName);
+  try {
+    const response = await authInstance.get(
+      `/api/search/${tagName}?page=${pageParam}`
+    );
+
+    const { content, last, number } = response.data.data;
+    return { content, nextPage: number + 1, last };
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const MainPostList = ({ state }) => {
+const SearchTagPost = ({ tagName }) => {
   const { ref, inView } = useInView();
   const { data, status, fetchNextPage, isFetchingNextPage, error } =
     useInfiniteQuery(
-      ["postLists"],
-      ({ pageParam = 0 }) => getPostList(state, pageParam),
+      ["tagPostList"],
+      ({ pageParam = 0 }) => getSearchTagPostList(tagName, pageParam),
       {
         cacheTime: 3000,
         getNextPageParam: (lastPage) => {
@@ -36,14 +43,15 @@ const MainPostList = ({ state }) => {
     // eslint-disable-next-line
   }, [inView]);
 
-  console.log("====> mainPostList :: data ", data);
-
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
 
+  console.log("tagPostListQuery :::", data);
+
   return (
-    <StPostLisWrap>
-      <StitemList>
+    <>
+      {data.pages[0].content.length === 0 && <SearchAlert tagName={tagName} />}
+      <StPostCardBox>
         {data?.pages.map((page, index) => (
           <Fragment key={index}>
             {page.content.map((post) => (
@@ -52,18 +60,14 @@ const MainPostList = ({ state }) => {
           </Fragment>
         ))}
         {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
-      </StitemList>
-    </StPostLisWrap>
+      </StPostCardBox>
+    </>
   );
 };
 
-export default MainPostList;
+export default SearchTagPost;
 
-const StPostLisWrap = styled.div`
-  display: flex;
-`;
-
-const StitemList = styled.div`
+const StPostCardBox = styled.div`
   margin-top: 20px;
   column-width: 310px;
   column-gap: 15px;
