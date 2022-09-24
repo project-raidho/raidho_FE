@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PostDetailImage from "./PostDetailImg";
 import PostDetailLike from "./PostDetailLike";
 import PostDetailUser from "./PostDetailUser";
+import RelatedList from "./RelatedList";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -33,7 +34,6 @@ const PostDetailContainer = () => {
   });
 
   const queryClient = useQueryClient();
-  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
   const { mutate } = useMutation(deletePostDetail, {
     onSuccess: () => {
       queryClient.invalidateQueries("postLists");
@@ -44,52 +44,56 @@ const PostDetailContainer = () => {
   if (postDetailQuery.isLoading) {
     return null;
   }
-  const postDetail = postDetailQuery.data.data.data[0];
 
+  const postDetail = postDetailQuery.data.data.data[0];
+  const targetTag = postDetail.tags[0].split("#")[1];
+  console.log(targetTag);
   return (
-    <StDetailContainer>
-      <IoArrowBackSharp
-        className="backButton"
-        size="24"
-        onClick={() => {
-          navigate(-1);
-        }}
-      />
-      {postDetail.isMine && (
-        <RiDeleteBin6Fill
-          className="deleteButton"
-          size="24"
-          onClick={() => mutate(id)}
-        />
-      )}
-      {postDetail.isMine && (
-        <RiEdit2Fill
-          className="editButton"
+    <>
+      <StDetailContainer>
+        <IoArrowBackSharp
+          className="backButton"
           size="24"
           onClick={() => {
-            navigate(`/updatePost/${id}`);
+            navigate(-1);
           }}
         />
-      )}
+        {postDetail.isMine && (
+          <RiDeleteBin6Fill
+            className="deleteButton"
+            size="24"
+            onClick={() => mutate(id)}
+          />
+        )}
+        {postDetail.isMine && (
+          <RiEdit2Fill
+            className="editButton"
+            size="24"
+            onClick={() => {
+              navigate(`/updatePost/${id}`);
+            }}
+          />
+        )}
 
-      <PostDetailImage images={postDetail.multipartFiles} />
-      <PostDetailLike postDetail={postDetail} />
-      <PostDetailUser postDetail={postDetail} />
-      <StContentBox>{postDetail.content}</StContentBox>
-    </StDetailContainer>
+        <PostDetailImage images={postDetail.multipartFiles} />
+        <PostDetailLike postDetail={postDetail} />
+        <PostDetailUser postDetail={postDetail} />
+        <StContentBox>{postDetail.content}</StContentBox>
+      </StDetailContainer>
+      <RelatedList targetTag={targetTag} />
+    </>
   );
 };
 
 export default PostDetailContainer;
 
 const StDetailContainer = styled.div`
-  margin: 20px auto 0 auto;
-
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   border: 1px solid;
-  border-radius: 20px;
-  padding: 20px 50px;
-  /* box-shadow: var(--box-shadow); */
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin: 0 auto 50px;
 
   .backButton {
     background-color: transparent;
