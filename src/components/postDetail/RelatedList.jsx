@@ -5,16 +5,18 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 
-// ::: 연관 게시글 조회
-const getRelatedPosts = async ({ queryKey }) => {
-  return await authInstance.get(`/api/search/${queryKey}`);
-};
-
 const RelatedList = ({ targetTag }) => {
   console.log(targetTag, "targetTag");
 
+  // ::: 관련 여행후기 게시글 조회
+  const getRelatedPosts = async () => {
+    const response = await authInstance.get(`/api/search/${targetTag}`);
+    console.log("######====>", response);
+    return response;
+  };
+
   const relatedPostListQuery = useQuery(
-    ["tagPostList", targetTag],
+    ["relatedPostList", targetTag],
     getRelatedPosts,
     {
       onSuccess: (data) => {
@@ -28,26 +30,62 @@ const RelatedList = ({ targetTag }) => {
   }
 
   const relatedPostList = relatedPostListQuery.data.data.data.content;
-  console.log(
-    "relatedPostListQuery",
-    relatedPostListQuery.data.data.data.content
-  );
+  console.log("relatedPostListQuery", relatedPostListQuery);
   return (
-    <StRelatedListWrap>
-      {relatedPostList.length !== 0 &&
-        relatedPostList.map((post) => (
-          <StPostCard key={post.id}>
-            <Link to={`/postDetail/${post.id}`}>
-              {post.isImages && <div className="imagesIcon" />}
-              <img src={post.multipartFiles[0]} alt={post.id} loading="lazy" />
-            </Link>
-          </StPostCard>
-        ))}
-    </StRelatedListWrap>
+    <>
+      <StRelatedTitleRow>
+        <h3>관련 여행후기</h3>
+        <span className="bgMiddleLine" />
+      </StRelatedTitleRow>
+      <StRelatedListWrap>
+        {relatedPostList.length !== 0 &&
+          relatedPostList.map((post) => (
+            <StPostCard key={post.id}>
+              <Link to={`/postDetail/${post.id}`}>
+                {post.isImages && <div className="imagesIcon" />}
+                <img
+                  src={post.multipartFiles[0]}
+                  alt={post.id}
+                  loading="lazy"
+                />
+              </Link>
+            </StPostCard>
+          ))}
+      </StRelatedListWrap>
+    </>
   );
 };
 
 export default RelatedList;
+
+const StRelatedTitleRow = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  margin: 25px 0;
+
+  h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--title-color);
+    padding-right: 25px;
+    background-color: var(--bg-color);
+    z-index: 2;
+  }
+
+  .bgMiddleLine {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--line-color);
+    z-index: 1;
+  }
+`;
 
 const StRelatedListWrap = styled.div`
   display: grid;

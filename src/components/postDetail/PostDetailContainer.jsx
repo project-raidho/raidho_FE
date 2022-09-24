@@ -88,13 +88,12 @@ const PostDetailContainer = () => {
 export default PostDetailContainer;
 
 const StDetailContainer = styled.div`
-  margin: 20px auto 0 auto;
-
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   border: 1px solid;
-  border-radius: 20px;
-  padding: 20px 50px;
-  /* box-shadow: var(--box-shadow); */
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin: 0 auto 50px;
 
   .backButton {
     background-color: transparent;
