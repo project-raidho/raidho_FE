@@ -3,20 +3,13 @@ import { NavLink, useLocation } from "react-router-dom";
 // import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import MainPostCard from "../main/MainPostCard";
-// import MeetingListCard from "../meetingList/MeetingListCard";
+import MeetingListCard from "../meetingList/MeetingListCard";
 import { authInstance } from "../../shared/api";
 import { useQuery } from "react-query";
 import Info from "../../elements/Info";
 
 const SearchTagContainer = () => {
   const location = useLocation();
-
-  // ::: 추천 테마 리스트 전역에서 불러오기
-  // const themeList = useSelector((state) => state.themeSlice.themeList);
-
-  // ::: ===> 서버테스트 세팅
-  // const [meetingList, setMeetingList] = useState([]);
-
   // ::: Uri 한글깨짐 방지
   const decodeUri = decodeURI(location?.search);
   const tagName = decodeUri.split("=")[1];
@@ -24,35 +17,31 @@ const SearchTagContainer = () => {
 
   // ::: 검색 uri 상태 확인
   const [checkUri, setCheckUri] = useState(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
-  console.log(checkUri);
-  const onClickCheckUri = () => {
-    // ::: tagUri true이면 post get / false이면 meeting get
-    setCheckUri(tagUri);
-  };
   console.log("Post : True / Meeting : False ===>", checkUri);
   console.log("tagName===>", tagName);
 
-  // ::: uri 정보 가져오기
-  useEffect(() => {
-    const tagUri = location.pathname.includes("post");
-    setCheckUri(tagUri);
-  }, [location]);
-
   // ::: 테그 상세 리스트 리스트 불러오기
-  const getSearchTagList = async () => {
+  const getSearchTagPostList = async () => {
     console.log("====>tag", tagName);
     try {
       // ::: 포스트 게시글 가져오기
-      if (checkUri) {
-        // ::: 포스트 게시글 가져오기
-        return await authInstance.get(`/api/search/${tagName}`);
-      } else {
-        // ::: 미팅 게시글 가져오기
-        // const responseTagMeeting =
-        // return await authInstance.get(`/api/meeting/${tagName}`);
-        // console.log(responseTagMeeting);
-        // return setMeetingList(responseTagMeeting.data);
-      }
+      // if (checkUri) {
+      // ::: 포스트 게시글 가져오기
+      return await authInstance.get(`/api/search/${tagName}`);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // ::: 테그 상세 리스트 리스트 불러오기
+  const getSearchTagMeetingList = async () => {
+    console.log("====>tag", tagName);
+    try {
+      // ::: 포스트 게시글 가져오기
+      // if (!checkUri) {
+      // ::: 미팅 게시글 가져오기
+      return await authInstance.get(`/api/search/meeting/${tagName}`);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +49,7 @@ const SearchTagContainer = () => {
 
   const tagPostListQuery = useQuery(
     ["tagPostList", tagName],
-    getSearchTagList,
+    getSearchTagPostList,
     {
       onSuccess: (data) => {
         console.log(data);
@@ -68,9 +57,32 @@ const SearchTagContainer = () => {
     }
   );
 
+  const tagMeetingListQuery = useQuery(
+    ["tagMeetingList", tagName],
+    getSearchTagMeetingList,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
+  // ::: uri 정보 가져오기
+  useEffect(() => {
+    const tagUri = location.pathname.includes("post");
+    setCheckUri(tagUri);
+  }, [location]);
+
   if (tagPostListQuery.isLoading) {
     return null;
   }
+
+  if (tagMeetingListQuery.isLoading) {
+    return null;
+  }
+
+  console.log(tagPostListQuery.data);
+  console.log(tagMeetingListQuery.data.data.data.content);
 
   return (
     <StSearchTagContainerWrap>
@@ -79,18 +91,20 @@ const SearchTagContainer = () => {
           <NavLink
             to={`/post/best?tag=${tagName}`}
             className={checkUri ? "active" : ""}
-            onClick={onClickCheckUri}
+            // onClick={onClickCheckUri}
           >
             여행 후기
+            <strong>{tagPostListQuery.data.data.data.totalElements}</strong>
           </NavLink>
         </li>
         <li>
           <NavLink
             to={`/meeting/chat?tag=${tagName}`}
             className={checkUri ? "" : "active"}
-            onClick={onClickCheckUri}
+            // onClick={onClickCheckUri}
           >
             여행 친구 찾기
+            <strong>{tagMeetingListQuery.data.data.data.totalElements}</strong>
           </NavLink>
         </li>
       </StTagCategoryWrap>
@@ -124,31 +138,12 @@ const SearchTagContainer = () => {
             <MainPostCard key={post.id} post={post} />
           ))}
         <StMeetingListWrap>
-          {/* <StMeetingCategoryRow className="themeCategoryRow">
+          <StMeetingCardBox>
             {!checkUri &&
-              themeList.map((theme, index) => (
-                <p
-                  className="themeCategoryButton"
-                  size="squareTheme"
-                  variant="lineBlue"
-                  key={theme.themeName + index}
-                  // onClick={() => onClickTheme(theme.themePath)}
-                >
-                  <NavLink
-                    to={`/meeting/${theme.themePath}/chat?tag=${tagName}`}
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    {theme.themeName}
-                  </NavLink>
-                </p>
-              ))}
-          </StMeetingCategoryRow> */}
-          {/* <StMeetingCardBox>
-            {!checkUri &&
-              tagPostListQuery.data.data.data.content.map((meeting) => (
+              tagMeetingListQuery.data.data.data.content.map((meeting) => (
                 <MeetingListCard key={meeting.id} meeting={meeting} />
               ))}
-          </StMeetingCardBox> */}
+          </StMeetingCardBox>
         </StMeetingListWrap>
       </StTagContentWrap>
     </StSearchTagContainerWrap>
@@ -324,19 +319,19 @@ const StMeetingListWrap = styled.div`
 //   }
 // `;
 
-// const StMeetingCardBox = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   padding-bottom: 5rem;
+const StMeetingCardBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 5rem;
 
-//   @media (max-width: 1000px) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
+  @media (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-//   @media (max-width: 600px) {
-//     grid-template-columns: repeat(1, 1fr);
-//   }
-// `;
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
 
 const StAlertWrap = styled.div`
   display: flex;
