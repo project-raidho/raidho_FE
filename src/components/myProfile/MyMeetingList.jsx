@@ -44,6 +44,7 @@ export default MyMeetingList;
 const StMyMeetingListWrap = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
   height: 526px;
   overflow: hidden;
 `;

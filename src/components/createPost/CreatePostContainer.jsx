@@ -72,15 +72,15 @@ const CreatePostContainer = () => {
       formData.append("tags", postTags);
 
       try {
-        const postResponse = await authInstance.post(`/api/post`, formData, {
+        const response = await authInstance.post(`/api/post`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
 
-        console.log("postResponse ====>", postResponse.data);
-        navigate(`/`);
-        return postResponse;
+        console.log("response 게시글 아이디 ====>", response.data.data.data);
+        navigate(`/postdetail/${response.data.data.data}`);
+        return response;
       } catch (error) {
         console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
         setModalOn(!modalOn);
