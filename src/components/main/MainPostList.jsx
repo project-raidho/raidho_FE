@@ -22,9 +22,7 @@ const MainPostList = ({ state }) => {
       ["postLists"],
       ({ pageParam = 0 }) => getPostList(state, pageParam),
       {
-        // refetchInterval: 3000,
-        // staleTime: 1000,
-        // notifyOnChangeProps: "tracked",
+        cacheTime: 3000,
         getNextPageParam: (lastPage) => {
           return !lastPage.last
             ? lastPage.nextPage
