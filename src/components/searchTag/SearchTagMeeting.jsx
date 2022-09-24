@@ -7,7 +7,7 @@ import styled from "styled-components";
 import Loading from "../../elements/Loading";
 
 const SearchTagMeeting = ({ tagName }) => {
-  // ::: 테그 상세 리스트 리스트 불러오기
+  // ::: 태그 상세 리스트 리스트 불러오기
   const getSearchTagMeetingList = async () => {
     console.log("====>tag", tagName);
     try {

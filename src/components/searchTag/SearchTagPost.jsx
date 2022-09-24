@@ -1,49 +1,66 @@
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import { authInstance } from "../../shared/api";
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+import { useInView } from "react-intersection-observer";
 import MainPostCard from "../main/MainPostCard";
 import styled from "styled-components";
 import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
 import SearchAlert from "./SearchAlert";
 
-const SearchTagPost = ({ tagName }) => {
-  // ::: 테그 상세 리스트 리스트 불러오기
-  const getSearchTagPostList = async () => {
-    console.log("====>tag", tagName);
-    try {
-      return await authInstance.get(`/api/search/${tagName}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const getSearchTagPostList = async (tagName, pageParam) => {
+  console.log("====>tag", tagName);
+  try {
+    const response = await authInstance.get(
+      `/api/search/${tagName}?page=${pageParam}`
+    );
 
-  const tagPostListQuery = useQuery(
-    ["tagPostList", tagName],
-    getSearchTagPostList,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
-  );
-
-  if (tagPostListQuery.isLoading) {
-    return <Loading />;
+    const { content, last, number } = response.data.data;
+    return { content, nextPage: number + 1, last };
+  } catch (error) {
+    console.log(error);
   }
+};
 
-  console.log("tagPostListQuery :::", tagPostListQuery);
+const SearchTagPost = ({ tagName }) => {
+  const { ref, inView } = useInView();
+  const { data, status, fetchNextPage, isFetchingNextPage, error } =
+    useInfiniteQuery(
+      ["tagPostList"],
+      ({ pageParam = 0 }) => getSearchTagPostList(tagName, pageParam),
+      {
+        cacheTime: 3000,
+        getNextPageParam: (lastPage) => {
+          return !lastPage.last
+            ? lastPage.nextPage
+            : console.log("====> 마지막페이지 입니다");
+        },
+      }
+    );
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+    // eslint-disable-next-line
+  }, [inView]);
+
+  if (status === "loading") return <Loading />;
+  if (status === "error") return <Error message={error.message} />;
+
+  console.log("tagPostListQuery :::", data);
 
   return (
     <>
-      {tagPostListQuery.data.data.data.content.length === 0 ? (
-        <SearchAlert tagName={tagName} />
-      ) : (
-        <StPostCardBox>
-          {tagPostListQuery.data.data.data.content.map((post) => (
-            <MainPostCard key={post.id} post={post} />
-          ))}
-        </StPostCardBox>
-      )}
+      {data.pages[0].content.length === 0 && <SearchAlert tagName={tagName} />}
+      <StPostCardBox>
+        {data?.pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.content.map((post) => (
+              <MainPostCard key={post.id} post={post} />
+            ))}
+          </Fragment>
+        ))}
+        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
+      </StPostCardBox>
     </>
   );
 };
