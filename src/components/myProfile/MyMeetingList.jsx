@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
+import Slider from "../../elements/Slider";
 import MeetingListCard from "../meetingList/MeetingListCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
@@ -24,17 +25,23 @@ const MyMeetingList = () => {
   if (status === "loading") {
     return <Loading />;
   }
-
   if (status === "error") {
     return <Error message={error.message} />;
   }
 
+  const slideSettings = {
+    itemWidth: "320px",
+    itemCount: data.length,
+  };
+
   console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
-      {data.map((meeting) => (
-        <MeetingListCard key={meeting.id} meeting={meeting} />
-      ))}
+      <Slider slideSettings={slideSettings}>
+        {data.map((meeting) => (
+          <MeetingListCard key={meeting.id} meeting={meeting} />
+        ))}
+      </Slider>
     </StMyMeetingListWrap>
   );
 };
@@ -42,9 +49,9 @@ const MyMeetingList = () => {
 export default MyMeetingList;
 
 const StMyMeetingListWrap = styled.div`
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
   width: 100%;
   height: 526px;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
