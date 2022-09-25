@@ -30,7 +30,7 @@ const CreateMeetingContatiner = () => {
   const [desc, setDesc] = useState("");
   const [roomCloseDate, setRoomCloseDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
-
+  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState("");
   //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState("");
@@ -57,7 +57,7 @@ const CreateMeetingContatiner = () => {
   console.log(data, people);
 
   const navigate = useNavigate();
-  const postcreatemeeting = async () => {
+  const postCreateMeeting = async () => {
     if (theme.length < 1) {
       setAllValMsg("대륙을 선택해주세요");
       return setThemeValMsg("대륙을 선택해주세요");
@@ -92,8 +92,6 @@ const CreateMeetingContatiner = () => {
       setAllValMsg("모집 후 모일 장소를 선택해주세요");
       return setDepartLocationValMsg("모집 후 모일 장소를 선택해주세요");
     } else {
-      setAllValMsg("");
-
       const res = await authInstance.post(`/api/meeting`, data);
 
       const chattingId = res.data.data.id;
@@ -121,6 +119,7 @@ const CreateMeetingContatiner = () => {
   const [departLocationValMsg, setDepartLocationValMsg] = useState("");
   const [allValMsg, setAllValMsg] = useState("");
 
+  //실시간 유효성 검사
   useEffect(() => {
     if (theme.length > 0) {
       setThemeValMsg("");
@@ -151,16 +150,14 @@ const CreateMeetingContatiner = () => {
     // eslint-disable-next-line
   }, [theme, meetingTags, people, title, desc, roomCloseDate, departLocation]);
 
+  //post mutation
   const queryClient = useQueryClient();
-  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
-
-  const { mutate } = useMutation(postcreatemeeting, {
+  const { mutate } = useMutation(postCreateMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
     },
   });
 
-  // const [checkAlert, setCheckAlert] = useState(true);
   //유효성 검사
   // const [validState,setValidState] =useState();
   // 모든 input의 value가 1자 이상이 되어야 한다
@@ -183,17 +180,11 @@ const CreateMeetingContatiner = () => {
     // 특수문자 제거
     let regex = /(\.)|(-)|(\/)/g;
     date = date.replace(regex, "");
-    //	 |: 또는 역할
-    // . 이거나 - 이거나 / 조건인 정규식
-    //g:는 전체
 
     // 타입 검사 (숫자)
     let format = /^[12][0-9]{7}/;
-    // ^: 앞부분
-    // $: 뒷부분
-
-    if (!format.test(date)) return false;
     // .test: 해당 date가 정규식에 충족하는지 boolean 형태로 반환
+    if (!format.test(date)) return false;
 
     // 월 일 검사
     let y = parseInt(date.substr(0, 4));
@@ -215,8 +206,6 @@ const CreateMeetingContatiner = () => {
     console.log("typedPostContent", text);
     setDesc(text);
   };
-
-  console.log(data);
 
   return (
     <StContainer>
@@ -244,6 +233,7 @@ const CreateMeetingContatiner = () => {
         className="periodBox"
         setStartDate={setStartDate}
         setEndDate={setEndDate}
+        setmaxRoomCloseDate={setmaxRoomCloseDate}
       />
       <StValidationMsg>{periodValMsg}</StValidationMsg>
       <h1>여행희망인원</h1>
@@ -268,7 +258,10 @@ const CreateMeetingContatiner = () => {
       />
       <StValidationMsg>{descValMsg}</StValidationMsg>
       <h1>모집마감일자</h1>
-      <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
+      <RoomCloseDateBox
+        setRoomCloseDate={setRoomCloseDate}
+        maxRoomCloseDate={maxRoomCloseDate}
+      />
       <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
 
       <h1>모집 후 모일 장소</h1>

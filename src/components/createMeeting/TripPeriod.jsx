@@ -13,7 +13,13 @@ import "moment/locale/ko";
 import Input from "../../elements/Input";
 import { BsCalendar3 } from "react-icons/bs";
 import { useEffect } from "react";
-const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
+const TripPeriod = ({
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+  setmaxRoomCloseDate,
+}) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -21,7 +27,7 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
       key: "selection",
     },
   ]);
-  const today = moment().add(0, "d").toDate();
+  const tomorrow = moment().add(1, "d").toDate();
   const [showCalendar, setShowCalendar] = useState(false);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -33,16 +39,19 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
     setEnd(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
     setStartDate(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
     setEndDate(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
+    setmaxRoomCloseDate(
+      moment([item.selection][0].startDate).add(-1, "d").toDate()
+    );
   };
-  const startinputonChangeHandler = (e) => {
-    setStartDate(e.target.value);
-    setStart(e.target.value);
-  };
+  // const startinputonChangeHandler = (e) => {
+  //   setStartDate(e.target.value);
+  //   setStart(e.target.value);
+  // };
 
-  const endinputonChangeHandler = (e) => {
-    setEndDate(e.target.value);
-    setEnd(e.target.value);
-  };
+  // const endinputonChangeHandler = (e) => {
+  //   setEndDate(e.target.value);
+  //   setEnd(e.target.value);
+  // };
   useEffect(() => {
     setStart(startDate);
     setEnd(endDate);
@@ -56,22 +65,22 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
           <p>시작일</p>
           <Input
             value={start}
-            placeholder="ex)2022-00-00"
+            placeholder="달력아이콘을 통해 선택해주세요"
             onFocus={() => setShowCalendar(true)}
             variant="default"
             size="large"
-            onChange={startinputonChangeHandler}
+            // onChange={startinputonChangeHandler}
           />
         </div>
         <div>
           <p>종료일</p>
           <Input
             value={end}
-            placeholder="ex)2022-00-00"
+            placeholder="달력아이콘을 통해 선택해주세요"
             onFocus={() => setShowCalendar(true)}
             variant="default"
             size="large"
-            onChange={endinputonChangeHandler}
+            // onChange={endinputonChangeHandler}
           />
         </div>
 
@@ -82,7 +91,7 @@ const TripPeriod = ({ startDate, endDate, setStartDate, setEndDate }) => {
         <DateRange
           showPreview={false}
           locale={ko}
-          minDate={today}
+          minDate={tomorrow}
           onChange={(item) => onChangeHandler(item)}
           moveRangeOnFirstSelection={false}
           ranges={state}

@@ -5,10 +5,16 @@ import moment from "moment";
 import Input from "../../elements/Input";
 import styled from "styled-components";
 import { BsCalendar3 } from "react-icons/bs";
-const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
+const RoomCloseDateBox = ({
+  roomCloseDate,
+  setRoomCloseDate,
+  maxRoomCloseDate,
+}) => {
   const [showCalendar, setShowCalendar] = useState(false); // 캘린더 여는 토글
-  const tomorrow = moment().add(1, "d").toDate(); // 내일 날짜 기본값지정을 위해
-  const [date, setDate] = useState(tomorrow); // date 를 선언하고 기본값을 내일날짜로 지정
+  // 오늘 날짜 기본값지정을 위해
+  const today = moment().add(0, "d").toDate();
+  const [maxdate, setmaxdate] = useState();
+  const [date, setDate] = useState(today); // date 를 선언하고 기본값을 내일날짜로 지정
   const [inputdate, setInputdate] = useState(roomCloseDate);
   const onChangeDate = useCallback(
     (date) => {
@@ -23,24 +29,26 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [date]
   );
-  const inputonChangeHandler = (e) => {
-    setInputdate(e.target.value);
-    // setRoomCloseDate(inputdate);
-  };
+  // const inputonChangeHandler = (e) => {
+  //   setInputdate(e.target.value);
+  //   // setRoomCloseDate(inputdate);
+  // };
   useEffect(() => {
     setInputdate(roomCloseDate);
-  }, [roomCloseDate]);
+    setmaxdate(maxRoomCloseDate);
+  }, [roomCloseDate, maxRoomCloseDate]);
 
   return (
     <StRoomCloseDateBoxContainer>
       <StInputbox>
         <StDateInput
+          placeholder={"여행시작일 이전으로만 선택할 수 있습니다."}
           value={inputdate}
           variant="default"
           size="large"
           onFocus={() => setShowCalendar(true)}
           // onBlur={()=>setShowCalendar(false)}
-          onChange={inputonChangeHandler}
+          // onChange={inputonChangeHandler}
         />
         <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
       </StInputbox>
@@ -51,7 +59,8 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
           editableDateInputs={true}
           locale={ko} // 한국어 달력
           months={1} // 1달치 달력만 디스플레이
-          minDate={tomorrow} // 최소날짜값 내일이면 내일부터 선택가능하다.
+          minDate={today} // 최소날짜값 내일이면 내일부터 선택가능하다.
+          maxDate={maxdate}
           date={date} // 날짜값
           onChange={onChangeDate} // onChange 함수
           dateDisplayFormat={"yyyy.mm.dd"} // 날짜 포맷값
