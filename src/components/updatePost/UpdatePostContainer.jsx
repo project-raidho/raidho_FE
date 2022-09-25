@@ -5,7 +5,7 @@ import { authInstance } from "../../shared/api";
 import PostDetailImg from "../postDetail/PostDetailImg";
 import ContentTextArea from "../../elements/ContentTextArea";
 import UpdatePostTags from "./UpdatePostTags";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
@@ -187,7 +187,7 @@ const UpdatePostContainer = () => {
       </StCreatePostColumn>
       <Potal>
         {modalOn && (
-          <Modal
+          <AlertModal
             onCloseModal={onCloseModal}
             modalIcon={modalIcon}
             alertMsg={alertMsg}

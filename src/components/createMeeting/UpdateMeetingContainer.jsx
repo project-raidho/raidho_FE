@@ -61,13 +61,13 @@ const UpdateMeetingContainer = () => {
   //서버에서 받아온 데이터
 
   const data = {
-    title: title,
-    desc: desc,
-    startDate: startDate,
-    endDate: endDate,
-    people: people,
-    roomCloseDate: roomCloseDate,
-    departLocation: departLocation,
+    title: String(title),
+    desc: String(desc),
+    startDate: String(startDate),
+    endDate: String(endDate),
+    people: Number(people),
+    roomCloseDate: String(roomCloseDate),
+    departLocation: String(departLocation),
   };
   console.log(data);
   const isValidDate =
@@ -137,7 +137,6 @@ const UpdateMeetingContainer = () => {
         data
       );
       console.log(res);
-      return navigate(-1);
     }
   };
 
@@ -146,7 +145,7 @@ const UpdateMeetingContainer = () => {
   const { mutate } = useMutation(onUpdateMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
-      navigate(-1);
+      navigate(`/meetingList/all`);
     },
     onError: () => {
       setModalIcon("warning");
