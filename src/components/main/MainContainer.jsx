@@ -14,8 +14,6 @@ const MainContainer = ({ state }) => {
 export default MainContainer;
 
 const StMainContainerWrap = styled.div`
-  padding-top: 50px;
-
   @media (max-width: 767px) {
     padding-top: 0;
   }

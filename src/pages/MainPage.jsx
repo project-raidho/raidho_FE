@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import MainBanner from "../components/main/MainBanner";
+import GlobalLayout from "../global/GlobalLayout";
 import MainContainer from "../components/main/MainContainer";
 import styled from "styled-components";
 
@@ -18,32 +20,37 @@ const MainPage = () => {
   }, [stateName, state]);
   return (
     <StMainPageWrap>
-      <StMainNav>
-        <p onClick={() => setState("latest")}>
-          <NavLink
-            to={`/latest`}
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            실시간
-          </NavLink>
-        </p>
-        <p onClick={() => setState("likelist")}>
-          <NavLink
-            to={`/likelist`}
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            추천순
-          </NavLink>
-        </p>
-      </StMainNav>
-      <MainContainer state={state} />
+      <MainBanner />
+      <GlobalLayout>
+        <StMainNav>
+          <p onClick={() => setState("latest")}>
+            <NavLink
+              to={`/latest`}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              실시간
+            </NavLink>
+          </p>
+          <p onClick={() => setState("likelist")}>
+            <NavLink
+              to={`/likelist`}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              추천순
+            </NavLink>
+          </p>
+        </StMainNav>
+        <MainContainer state={state} />
+      </GlobalLayout>
     </StMainPageWrap>
   );
 };
 
 export default MainPage;
 
-const StMainPageWrap = styled.div``;
+const StMainPageWrap = styled.div`
+  padding-top: 140px;
+`;
 const StMainNav = styled.div`
   position: fixed;
   left: 0;
