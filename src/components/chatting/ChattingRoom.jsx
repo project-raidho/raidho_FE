@@ -18,14 +18,12 @@ import SockJS from "sockjs-client";
 const ChattingRoom = (props) => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
-  console.log(messages);
 
   // 소켓 통신 객체
   const sock = new SockJS(`https://wjsxogns.shop/ws-stomp`);
   const ws = Stomp.over(sock);
 
   const { id } = useParams();
-  const roomId = id;
 
   // 토큰
   const token = localStorage.getItem("Authorization");
@@ -37,15 +35,22 @@ const ChattingRoom = (props) => {
   let memberImage = localStorage.getItem("memberImage");
   let memberId = localStorage.getItem("memberId");
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
+  // React.useEffect(() => {
+  //   // wsConnectSubscribe();
+  //   // getMessageList(id);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [id, messages]);
+
   React.useEffect(() => {
+    setMessages([]);
     wsConnectSubscribe();
     // getMessageList(id);
     return () => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, messages]);
-  // [id, messages]);
+  }, [id]);
 
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
@@ -56,16 +61,16 @@ const ChattingRoom = (props) => {
         },
         () => {
           ws.subscribe(
-            `/sub/chat/message/${roomId}`,
+            `/sub/chat/message/${id}`,
             (data) => {
-              console.log(data);
               const newMessage = JSON.parse(data.body);
-              console.log(newMessage);
-              // 실험해볼것 : 실시간으로 적용되는지?
-              // messages.push(newMessage);
-              const newarray = [...messages, newMessage];
-              console.log(newarray);
-              setMessages(newarray);
+              console.log(messages);
+              //트러블 슈팅 적어보기 밑에건 안쌓이고 밑밑에건 쌓인다 왜??
+              // setMessages([...messages, newMessage]);
+
+              setMessages((prev) => {
+                return [...prev, newMessage];
+              });
             },
             { token: token }
           );
@@ -75,7 +80,7 @@ const ChattingRoom = (props) => {
       console.log(error);
     }
   }
-
+  console.log(messages);
   // // 연결해제, 구독해제
   function wsDisConnectUnsubscribe() {
     try {
@@ -117,7 +122,7 @@ const ChattingRoom = (props) => {
       // send할 데이터
       const data = {
         type: "TALK",
-        roomId: Number(roomId),
+        roomId: Number(id),
         sender: sender,
         message: messageInput,
         memberId: Number(memberId),
@@ -127,14 +132,11 @@ const ChattingRoom = (props) => {
       if (messageInput === "") {
         return;
       }
+      console.log(messages);
       //   // 로딩 중
       waitForConnection(ws, function () {
-        ws.send(
-          `/pub/chat/send/${roomId}`,
-          { token: token },
-          JSON.stringify(data)
-        );
-        // console.log(ws.ws.readyState);
+        ws.send(`/pub/chat/send/${id}`, { token: token }, JSON.stringify(data));
+        console.log(messages);
         setMessageInput("");
       });
     } catch (error) {
@@ -156,9 +158,9 @@ const ChattingRoom = (props) => {
 
   return (
     <Container>
-      <ChatList prevRoomId={roomId} />
-      {!roomId && <NoRoom />}
-      {roomId && (
+      <ChatList prevRoomId={id} />
+      {!id && <NoRoom />}
+      {id && (
         <ChatWrap>
           <ChatName />
           <MessageList messages={messages} setMessages={setMessages} />

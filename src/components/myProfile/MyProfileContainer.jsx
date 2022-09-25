@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
+import MyMeetingList from "./MyMeetingList";
 import Button from "../../elements/Button";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
@@ -57,7 +58,12 @@ const MyProfileContainer = () => {
       </StMyProfileTitleRow>
       <UpdateMyProfile />
       <StMyProfileTitleRow>
-        <h3>내가 쓴 글</h3>
+        <h3>내가 작성한 모집글</h3>
+        <span className="bgMiddleLine" />
+      </StMyProfileTitleRow>
+      <MyMeetingList />
+      <StMyProfileTitleRow>
+        <h3>내가 작성한 여행후기</h3>
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <MyPostList isMore={isMore} data={data} />

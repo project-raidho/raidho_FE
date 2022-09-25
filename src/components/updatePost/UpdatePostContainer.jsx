@@ -5,7 +5,7 @@ import { authInstance } from "../../shared/api";
 import PostDetailImg from "../postDetail/PostDetailImg";
 import ContentTextArea from "../../elements/ContentTextArea";
 import UpdatePostTags from "./UpdatePostTags";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
@@ -39,10 +39,12 @@ const UpdatePostContainer = () => {
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
-  const handleModal = () => {
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
     setModalOn(!modalOn);
   };
-
   const typedPostContent = (text) => {
     setPostContent(text);
   };
@@ -75,17 +77,12 @@ const UpdatePostContainer = () => {
       formData.append("content", postContent);
       formData.append("tags", postTags);
 
-      try {
-        const postUpdateResponse = await authInstance.put(
-          `/api/post/${postId}`,
-          formData
-        );
-        console.log("postResponse", postUpdateResponse.data);
-        navigate(`/postdetail/${postId}`);
-      } catch (error) {
-        console.log("게시글 수정 데이터 전송 오류가 났습니다!", error);
-        setModalOn(!modalOn);
-      }
+      const postUpdateResponse = await authInstance.put(
+        `/api/post/${postId}`,
+        formData
+      );
+      console.log("postResponse", postUpdateResponse.data);
+      navigate(`/postdetail/${postId}`);
     }
   };
 
@@ -137,6 +134,11 @@ const UpdatePostContainer = () => {
       console.log(data);
       queryClient.invalidateQueries("postDetail");
     },
+    onError: () => {
+      setModalIcon("warning");
+      setAlertMsg("게시글 수정 데이터 전송 오류가 났습니다!");
+      setModalOn(true);
+    },
   });
 
   return (
@@ -185,18 +187,12 @@ const UpdatePostContainer = () => {
       </StCreatePostColumn>
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              죄송합니다. <br />
-              게시글을 수정하는 데 오류가 났습니다. <br />
-              다시 한 번 시도해주세요.
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                다시 수정하기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onCloseModal}
+          />
         )}
       </Potal>
     </StCreatePostContainerWrap>
@@ -256,13 +252,6 @@ const StButtonWrap = styled.div`
   button {
     margin-left: 10px;
   }
-`;
-
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;
 
 const StValidationMessage = styled.p`

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
-
 const Modal = ({ onClose, children }) => {
   return (
     <>
@@ -13,9 +12,7 @@ const Modal = ({ onClose, children }) => {
     </>
   );
 };
-
 export default Modal;
-
 const Background = styled.div`
   height: 100%;
   width: 100%;
@@ -29,7 +26,6 @@ const Background = styled.div`
   background: rgba(0, 0, 0, 0.5);
   z-index: 11;
 `;
-
 const ModalContentBox = styled.div`
   position: fixed;
   height: 440px;
@@ -42,7 +38,6 @@ const ModalContentBox = styled.div`
   border: 1px solid var(--title-color);
   z-index: 12;
   text-align: center;
-
   .contents {
     display: flex;
     flex-direction: column;
@@ -52,7 +47,6 @@ const ModalContentBox = styled.div`
     height: 100%;
     padding: 20px;
   }
-
   svg.closeButton {
     position: absolute;
     right: 1rem;
@@ -60,12 +54,10 @@ const ModalContentBox = styled.div`
     width: 30px;
     height: 30px;
     cursor: pointer;
-
     path {
       color: var(--title-color);
     }
   }
-
   @media (max-width: 1023px) {
   }
   @media (max-width: 767px) {
@@ -77,7 +69,6 @@ const ModalContentBox = styled.div`
     left: 5vw;
     margin-top: 0;
     margin-left: 0;
-
     .contents {
       padding: 1vh;
     }

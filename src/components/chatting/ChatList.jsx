@@ -18,27 +18,21 @@ const getChatList = async () => {
   return await authInstance.get(`/api/chat/chatList`);
 };
 
-const ChatList = (props) => {
+const ChatList = ({ prevRoomId }) => {
   const navigate = useNavigate();
 
   //채팅단건 조회 useQuery
   const chatListQuery = useQuery("chatList", getChatList, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: (data) => {},
   });
   if (chatListQuery.isLoading) {
     return null;
   }
-  console.log(chatListQuery);
-  const chatList = chatListQuery.data.data;
 
-  const { prevRoomId } = props;
+  const chatList = chatListQuery.data.data;
 
   // 채팅방 들어가기
   const enterRoom = (roomId) => {
-    console.log(prevRoomId, roomId);
-
     // 입장한 채팅방을 다시 클릭하면 리턴
     if (prevRoomId === roomId) {
       return;

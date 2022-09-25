@@ -6,6 +6,7 @@ import SearchTagMeeting from "./SearchTagMeeting";
 
 const SearchTagContainer = () => {
   const location = useLocation();
+
   // ::: Uri 한글깨짐 방지
   const decodeUri = decodeURI(location?.search);
   const tagName = decodeUri.split("=")[1];
