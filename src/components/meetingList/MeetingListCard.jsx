@@ -83,6 +83,16 @@ const MeetingListCard = ({ meeting }) => {
     }
   };
 
+  const onClickMeetingTag = (tag) => {
+    const sliceTag = tag.substr(1);
+    console.log(sliceTag);
+    navigate(`/meeting/chat?tag=${sliceTag}`, {
+      state: {
+        tagKeyword: sliceTag,
+      },
+    });
+  };
+
   return (
     <StMeetingListCardWrap>
       <StMeetingCardUpDown>
@@ -123,7 +133,13 @@ const MeetingListCard = ({ meeting }) => {
       <StMeetingCardUpDown>
         <StMeetingCardRow>
           {meeting.meetingTags.map((tag, index) => (
-            <span key={tag + index}>{tag}&nbsp;</span>
+            <span
+              key={index}
+              className="tag"
+              onClick={() => onClickMeetingTag(tag)}
+            >
+              {tag}&nbsp;
+            </span>
           ))}
         </StMeetingCardRow>
         <StMeetingCardRow>
@@ -211,6 +227,11 @@ const StMeetingListCardWrap = styled.div`
   p {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
+  }
+
+  .tag {
+    color: var(--main-color);
+    cursor: pointer;
   }
 `;
 
