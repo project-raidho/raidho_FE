@@ -12,18 +12,18 @@ const PostDetailImg = ({ images }) => {
     slidesToScroll: 1,
   };
   return (
-    <StyledSlide {...settings}>
+    <StyledSlider {...settings}>
       {images.map((img, index) => (
         <div className="imageBox" key={index}>
           <img className="slideImage" src={img} alt="stay slide" />
         </div>
       ))}
-    </StyledSlide>
+    </StyledSlider>
   );
 };
 export default PostDetailImg;
 
-const StyledSlide = styled(Slider)`
+const StyledSlider = styled(Slider)`
   text-align: center;
   margin-bottom: 10px;
 
