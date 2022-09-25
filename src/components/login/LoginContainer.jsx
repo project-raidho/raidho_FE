@@ -8,13 +8,14 @@ import styled from "styled-components";
 import RaidhoLogo from "../../assets/raidhoLogo.svg";
 import {
   KAKAO_AUTH_URL,
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
+  // GOOGLE_AUTH_URL,
+  // NAVER_AUTH_URL,
 } from "../../shared/SocialOAuth";
 
 import kakao from "../../assets/kakao.svg";
-import naver from "../../assets/naver.svg";
-import google from "../../assets/google.svg";
+// import naver from "../../assets/naver.svg";
+// import facebook from "../../assets/facebook.svg";
+// import notPrepare from "../../assets/notPrepare.svg";
 
 const LoginModal = ({ onClose }) => {
   // const navigate = useNavigate();
@@ -40,19 +41,24 @@ const LoginModal = ({ onClose }) => {
         <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
 
         <div className="contents">
-          <h1>
-            <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
-              <img src={kakao} alt="kakao" />
+          <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
+            <img src={kakao} alt="kakao" />
+          </SocialLoginbutton>
+          {/* <div className="prepareBox">
+            <SocialLoginbutton>
+              <SocialLoginbutton href={NAVER_AUTH_URL}>
+              <img src={naver} alt="네이버로그인" />
+              <NaverLogin/>
             </SocialLoginbutton>
-          </h1>
-          <SocialLoginbutton href={NAVER_AUTH_URL}>
-            <img src={naver} alt="네이버로그인" />
-            {/* <NaverLogin/> */}
-          </SocialLoginbutton>
-          <SocialLoginbutton href={GOOGLE_AUTH_URL}>
-            <img src={google} alt="구글로그인" />
-          </SocialLoginbutton>
-
+            <img src={notPrepare} alt="준비중" />
+          </div>
+          <div className="prepareBox">
+            <SocialLoginbutton>
+              <SocialLoginbutton href={GOOGLE_AUTH_URL} >
+              <img src={facebook} alt="페이스북로그인" />
+            </SocialLoginbutton>
+            <img src={notPrepare} alt="준비중" />
+          </div> */}
           {/* <FaceBookLogin
             className="faceBookLogin"
             oAuthLoginHandler={oAuthLoginHandler}
@@ -81,8 +87,8 @@ const Background = styled.div`
 
 const ModalContentBox = styled.div`
   position: absolute;
-  height: 500px;
-  width: 480px;
+  height: 400px;
+  width: 600px;
   top: 50%;
   left: 50%;
   margin-top: -230px;
@@ -106,9 +112,9 @@ const ModalContentBox = styled.div`
   }
 
   .logoImg {
-    margin-top: 80px;
+    margin-top: 120px;
     margin-bottom: 30px;
-    width: 200px;
+    width: 250px;
   }
   .contents {
     justify-content: center;
@@ -120,6 +126,9 @@ const ModalContentBox = styled.div`
   .faceBookLogin {
     margin: auto;
   }
+  .prepareBox {
+    display: flex;
+  }
 `;
 
 const SocialLoginbutton = styled.a`
@@ -130,12 +139,14 @@ const SocialLoginbutton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
+  /* width: 340px; */
+  height: 80px;
   color: #1c1c1c;
   border: none;
-  margin-top: 20px;
   img {
-    width: 100%;
+    object-fit: cover;
+    width: 340px;
     height: 100%;
+    margin-bottom: 5px;
   }
 `;

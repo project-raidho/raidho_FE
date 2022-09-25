@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "../../elements/slider/slick-theme.css";
+import "../../elements/slider/slick.css";
 import Slider from "react-slick";
 
 const PostDetailImg = ({ images }) => {
@@ -12,77 +12,35 @@ const PostDetailImg = ({ images }) => {
     slidesToScroll: 1,
   };
   return (
-    <StyledSlide {...settings}>
+    <StyledSlider {...settings}>
       {images.map((img, index) => (
-        <img className="slideImage" key={index} src={img} alt="stay slide" />
+        <div className="imageBox" key={index}>
+          <img className="slideImage" src={img} alt="stay slide" />
+        </div>
       ))}
-    </StyledSlide>
+    </StyledSlider>
   );
 };
 export default PostDetailImg;
 
-const StyledSlide = styled(Slider)`
+const StyledSlider = styled(Slider)`
   text-align: center;
   margin-bottom: 10px;
 
-  .slideImage {
-    display: block;
-    object-fit: contain;
-    height: 400px !important;
-    margin: 0 auto !important;
-  }
-
-  .slick-slide {
-    display: inline-block;
-  }
-  &:hover .slick-next {
-    opacity: 1;
-  }
-  &:hover .slick-prev {
-    opacity: 1;
-  }
-  .slick-list {
-    margin-top: 0px;
+  .imageBox {
     width: 100%;
-    z-index: 3;
-    overflow: hidden;
-  }
-
-  .slick-prev,
-  .slick-next {
-    z-index: 9999;
-    width: 50px !important;
-    opacity: 1;
-    color: black;
-  }
-
-  .slick-prev {
-    left: 5px;
-  }
-  .slick-next {
-    right: 5px;
-  }
-
-  .slick-prev:before,
-  .slick-next:before {
-    font-size: 30px;
-    color: black;
-  }
-
-  .slick-prev:hover:before,
-  .slick-next:hover:before {
-    /* color: white; */
-    color: var(--title-color);
-  }
-
-  .slick-dots {
-    margin-top: 5px;
-    z-index: 999;
-    position: relative;
-    bottom: 10px;
-
-    li button:before {
-      color: #7188ff;
+    max-width: 738px;
+    height: 100%;
+    max-height: 738px;
+    img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 738px;
+      max-height: 738px;
+      min-width: 100%;
+      object-fit: contain;
+      margin: 0 auto;
     }
   }
 `;
