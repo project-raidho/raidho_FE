@@ -14,13 +14,6 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
     setPlace(InputText);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setPlace(addressDetail);
-  // };
-
-  // const [address, setAddress] = useState(''); // 주소
-  // const [addressDetail, setAddressDetail] = useState(""); // 상세주소
   const [isOpenPost, setIsOpenPost] = useState(false);
   const onChangeOpenPost = () => {
     setIsOpenPost(!isOpenPost);
@@ -41,8 +34,6 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
       fullAddr += extraAddr !== "" ? ` (${extraAddr})` : "";
     }
 
-    // setAddress(data.zonecode);
-    // setAddressDetail(fullAddr);
     setInputText(fullAddr);
     setPlace(fullAddr);
     setDepartLocation(fullAddr);
@@ -56,8 +47,6 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
   return (
     <SearchWrapp>
-      {/* <form className="inputForm" onSubmit={handleSubmit}> */}
-
       <Button onClick={onChangeOpenPost}>
         {isOpenPost ? "검색창 닫기" : "주소검색"}
       </Button>
@@ -65,13 +54,11 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
         <div>
           <DaumPostcode
             className="postmodal"
-            // style={postCodeStyle}
             autoClose
             onComplete={onCompletePost}
           />
         </div>
       )}
-      {/* </form> */}
 
       <KakaoMap searchPlace={Place} />
 
