@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../elements/Button";
 import { authInstance } from "../../shared/api";
+import CofirmModal from "../../global/globalModal/CofirmModal";
+import Potal from "../../global/globalModal/Potal";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
 // 채팅방 정보 단건조회
@@ -20,13 +22,24 @@ const ChatName = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isOpenInfo, setIsOpenInfo] = useState(false);
-  console.log(isOpenInfo);
+
+  // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
+  const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  const onClickYes = () => {
+    mutate(id);
+    setModalOn(!modalOn);
+  };
 
   //채팅단건 조회 useQuery
   const chatDetailQuery = useQuery(["chatDetail", id], getChatDetail, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: (data) => {},
   });
 
   //채팅단건삭제 mutation
@@ -70,6 +83,16 @@ const ChatName = () => {
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, chatDetail.roomCloseDate));
 
+  const onCloseHandler = () => {
+    if (chatDetail.isMine) {
+      setModalIcon("warning");
+      setAlertMsg("방의 모든 메세지들이 삭제됩니다. 정말 나가시겠습니까?");
+      setModalOn(true);
+    } else {
+      mutate(id);
+    }
+  };
+
   return (
     <Container>
       <StInfoBox isOpenInfo={isOpenInfo}>
@@ -77,7 +100,7 @@ const ChatName = () => {
           {chatDetail.title}
           <div>
             <button onClick={() => setIsOpenInfo(!isOpenInfo)}>더보기</button>
-            <Button size="small" variant="lineBlue" onClick={() => mutate(id)}>
+            <Button size="small" variant="lineBlue" onClick={onCloseHandler}>
               나가기
             </Button>
             <button>닫기</button>
@@ -124,6 +147,17 @@ const ChatName = () => {
           </div>
         )}
       </StInfoBox>
+      <Potal>
+        {modalOn && (
+          <CofirmModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+            onClickNo={onCloseModal}
+          />
+        )}
+      </Potal>
     </Container>
   );
 };

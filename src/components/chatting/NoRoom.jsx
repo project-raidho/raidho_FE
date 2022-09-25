@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-
+import Error from "../../elements/Error";
 const NoRoom = (props) => {
-  return <Container> 선택한 채팅방이 없습니다!!</Container>;
+  return (
+    <Container>
+      <Error message={"선택한 채팅방이 없습니다!!"} />
+    </Container>
+  );
 };
 
 const Container = styled.div`

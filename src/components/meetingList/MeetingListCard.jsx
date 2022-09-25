@@ -17,10 +17,17 @@ const onDeleteMeeting = async (meetingId) => {
 };
 
 const MeetingListCard = ({ meeting }) => {
+  //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const handleModal = () => {
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
     setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+    navigate(`/meetingList/all`);
   };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -63,14 +70,16 @@ const MeetingListCard = ({ meeting }) => {
       console.log(res);
       //인원 풀이면 오류 처리
       if (res.data.body === "FULL") {
-        setErrorMsg("인원이 가득찼습니다");
-        return setModalOn(!modalOn);
+        setModalIcon("info");
+        setAlertMsg("인원이 가득찼습니다");
+        return setModalOn(true);
       }
       navigate(`/chatting/${meeting.id}`);
     } catch (e) {
       console.log(e);
-      setErrorMsg("로그인이 필요합니다.");
-      setModalOn(!modalOn);
+      setModalIcon("warning");
+      setAlertMsg("로그인이 필요합니다.");
+      setModalOn(true);
     }
   };
 
@@ -150,28 +159,29 @@ const MeetingListCard = ({ meeting }) => {
                 삭제하기
               </Button>
             )}
-            {!meeting.isMine && meeting.meetingStatus === 1 && (
-              <Button variant="primary" onClick={() => onJoinRoom(meeting.id)}>
-                참여하기
-              </Button>
-            )}
+            {!meeting.isMine &&
+              meeting.meetingStatus === 1 &&
+              !meeting.isAlreadyJoin && (
+                <Button
+                  variant="primary"
+                  onClick={() => onJoinRoom(meeting.id)}
+                >
+                  참여하기
+                </Button>
+              )}
+            {meeting.isAlreadyJoin && <div>이미 참여중인 모집입니다.</div>}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
 
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              죄송합니다. <br />
-              {errorMsg}
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                닫기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <Modal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
       </Potal>
     </StMeetingListCardWrap>
@@ -273,22 +283,4 @@ const StMeetingCardRow = styled.div`
   .memberNameBox {
     font-size: 1.25rem;
   }
-`;
-
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  width: 100%;
-
-  button {
-    margin-left: 10px;
-  }
-`;
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;

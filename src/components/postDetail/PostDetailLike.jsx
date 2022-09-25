@@ -5,28 +5,27 @@ import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
 import Modal from "../../global/globalModal/Modal";
 import Potal from "../../global/globalModal/Potal";
-import Button from "../../elements/Button";
 import { useMutation, useQueryClient } from "react-query";
 
 const PostDetailLike = ({ postDetail }) => {
   const { id } = useParams();
   const [modalOn, setModalOn] = useState(false);
-  const handleModal = () => {
+
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
     setModalOn(!modalOn);
   };
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+  };
+
   const toggleLike = async () => {
     if (!postDetail.isHeartMine) {
-      try {
-        await authInstance.post(`/api/postheart/${id}`);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
+      await authInstance.post(`/api/postheart/${id}`);
     } else {
-      try {
-        await authInstance.delete(`/api/postheart/${id}`);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
+      await authInstance.delete(`/api/postheart/${id}`);
     }
   };
 
@@ -36,6 +35,11 @@ const PostDetailLike = ({ postDetail }) => {
     onSuccess: () => {
       queryClient.invalidateQueries("postDetail");
       queryClient.invalidateQueries("postLists");
+    },
+    onError: () => {
+      setModalIcon("info");
+      setAlertMsg("로그인 후 좋아요 버튼을 누를 수 있습니다.");
+      setModalOn(true);
     },
   });
 
@@ -50,18 +54,12 @@ const PostDetailLike = ({ postDetail }) => {
 
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              죄송합니다. <br />
-              로그인 후 좋아요 버튼을 누를수 있습니다. <br />
-              로그인 후 시도해 주세요.
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                닫기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <Modal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
       </Potal>
     </StlikeWrapper>
@@ -77,23 +75,4 @@ const StlikeWrapper = styled.div`
 const StHeartCountBox = styled.div`
   margin-right: 10px;
   font-size: 1.3rem;
-`;
-
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  width: 100%;
-
-  button {
-    margin-left: 10px;
-  }
-`;
-
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;

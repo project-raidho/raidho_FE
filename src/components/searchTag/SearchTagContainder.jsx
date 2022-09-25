@@ -16,7 +16,7 @@ const SearchTagContainer = () => {
   // ]);
 
   // ::: ===> 서버테스트 세팅
-  // const [meetingList, setMeetingList] = useState([]);
+  const [meetingList, setMeetingList] = useState([]);
 
   // ::: Uri 한글깨짐 방지
   const decodeUri = decodeURI(location?.search);
@@ -50,10 +50,11 @@ const SearchTagContainer = () => {
         return await authInstance.get(`/api/search/${tagName}`);
       } else {
         // ::: 미팅 게시글 가져오기
-        // const responseTagMeeting =
-        // return await authInstance.get(`/api/meeting/${tagName}`);
-        // console.log(responseTagMeeting);
-        // return setMeetingList(responseTagMeeting.data);
+        const responseTagMeeting = await authInstance.get(
+          `/api/search/meeting/${tagName}`
+        );
+        console.log(responseTagMeeting);
+        return setMeetingList(responseTagMeeting.data);
       }
     } catch (error) {
       console.log(error);
@@ -98,7 +99,7 @@ const SearchTagContainer = () => {
       </StTagCategoryWrap>
       <StTagContentWrap checkUri={checkUri}>
         {checkUri &&
-          tagPostListQuery.data.data.data.content.map((post) => (
+          tagPostListQuery?.data?.data.data.content.map((post) => (
             <MainPostCard key={post.id} post={post} />
           ))}
         <StMeetingListWrap>

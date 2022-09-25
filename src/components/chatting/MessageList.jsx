@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-// import { authInstance } from "../../shared/api";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import Message from "./Message";
+
 // import { useInfiniteQuery } from "react-query";
 // import { useInView } from "react-intersection-observer";
-// // elements
-
+// import { authInstance } from "../../shared/api";
 // import Loading from "../../elements/Loading";
 // import Error from "../../elements/Error";
-import { useParams } from "react-router-dom";
 
 // const getMessageList = async (id, pageParam) => {
 //   const response = await authInstance.get(
@@ -25,20 +24,20 @@ import { useParams } from "react-router-dom";
 // 메시지 리스트 컴포넌트
 const MessageList = ({ messages, setMessages }) => {
   const { id } = useParams();
-  // const { ref, inView } = useInView();
-  // const { data, status, fetchNextPage, isFetchingNextPage, error } =
-  //   useInfiniteQuery(
-  //     "messageList",
-  //     ({ pageParam = 0 }) => getMessageList(id, pageParam),
-  //     {
-  //       getNextPageParam: (lastPage) => {
-  //         return !lastPage.last
-  //           ? lastPage.nextPage
-  //           : console.log("====> 마지막페이지 입니다");
-  //       },
-  //     }
-  //   );
-  // console.log(data);
+  //   const { ref, inView } = useInView();
+  //   const { data, status, fetchNextPage, isFetchingNextPage, error } =
+  //     useInfiniteQuery(
+  //       "messageList",
+  //       ({ pageParam = 0 }) => getMessageList(id, pageParam),
+  //       {
+  //         getNextPageParam: (lastPage) => {
+  //           return !lastPage.last
+  //             ? lastPage.nextPage
+  //             : console.log("====> 마지막페이지 입니다");
+  //         },
+  //       }
+  //     );
+  //   console.log(data);
 
   // useEffect(() => {
   //   if (inView) fetchNextPage();
@@ -61,7 +60,7 @@ const MessageList = ({ messages, setMessages }) => {
 
   // if (status === "loading") return <Loading />;
   // if (status === "error") return <Error message={error.message} />;
-
+  console.log(messages);
   return (
     <Container className="scroll" id="messagelist">
       {/* {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}

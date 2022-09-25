@@ -5,7 +5,7 @@ import { authInstance } from "../../shared/api";
 import CreatePostImage from "./CreatePostImage";
 import ContentTextArea from "../../elements/ContentTextArea";
 import TagInput from "../../elements/TagInput";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
@@ -15,7 +15,13 @@ const CreatePostContainer = () => {
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
-  const handleModal = () => {
+  const [modalIcon, setModalIcon] = useState("");
+  // const [checkNext, setCheckNext] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
     setModalOn(!modalOn);
   };
 
@@ -83,7 +89,9 @@ const CreatePostContainer = () => {
         return postResponse;
       } catch (error) {
         console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
-        setModalOn(!modalOn);
+        setModalIcon("warning");
+        setAlertMsg("게시글을 등록하는 데 오류가 났습니다.");
+        setModalOn(true);
       }
     }
   };
@@ -165,17 +173,12 @@ const CreatePostContainer = () => {
       </StButtonWrap>
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              게시글을 등록하는 데 오류가 났습니다. <br />
-              다시 한 번 시도해주세요.
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                다시 등록하러 가기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
       </Potal>
     </StCreatePostContainerWrap>
@@ -224,13 +227,6 @@ const StButtonWrap = styled.div`
   button {
     margin-left: 10px;
   }
-`;
-
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;
 
 const StValidationMessage = styled.p`

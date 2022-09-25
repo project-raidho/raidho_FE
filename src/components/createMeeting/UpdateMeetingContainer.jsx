@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  // useEffect
-} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThemeSelect from "./ThemeSelect";
 // import { useForm } from "react-hook-form";
@@ -13,22 +10,35 @@ import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 import TextField from "@mui/material/TextField";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
 const UpdateMeetingContainer = () => {
+  const { meetingId } = useParams();
+  // ::: 입력된 데이터 취합하기
+  const navigate = useNavigate();
+
+  const [tagValidationMsg, setTagValidationMsg] = useState("");
+  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
+
+  // ::: 에러메세지(createPotal) 컨트롤 하기
+  const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+  };
+
   // :::  모집글 단건 조회
   const getMeetingDetail = async () => {
-    try {
-      const res = await authInstance.get(`/api/post/${meetingId}`);
-      console.log(res.data);
-      setMeetintDetail(res.data.data[0]);
-    } catch (error) {
-      console.log("모집글 단건조회 에러", error);
-    }
+    return await authInstance.get(`/api/chat/rooms/${Number(meetingId)}`);
   };
   //첫번째 파라미터: 퀴리 키, 두번재 파라미터, axios 함수, 세번째 파라미터: 옵션
   const meetingDetail_query = useQuery("meetingDetail", getMeetingDetail, {
@@ -36,48 +46,21 @@ const UpdateMeetingContainer = () => {
       console.log(data);
     },
   });
+  console.log(meetingDetail_query);
 
-  const navigate = useNavigate();
-  // // ::: 게시글 아이디
-  const { meetingId } = useParams();
+  const [theme, setTheme] = useState("");
+  const [meetingTags, setMeetingTags] = useState([""]);
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [people, setPeople] = useState("");
+  const [roomCloseDate, setRoomCloseDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [departLocation, setDepartLocation] = useState("");
 
   //서버에서 받아온 데이터
-  const [meetingDetail, setMeetintDetail] = useState({
-    theme: "국내",
-    meetingTags: ["#여긴", "#한국"],
-    title: "내가 가는 이길이",
-    desc: "어디로 가는지",
-    startDate: "2022-09-18",
-    endDate: "2022-09-20",
-    people: 3,
-    roomCloseDate: "2022-10-10",
-    departLocation: "경기도 안양시 만안구",
-  });
-
-  // ::: 입력된 데이터 취합하기
-  const [theme, setTheme] = useState(meetingDetail.theme);
-  const [title, setTitle] = useState(meetingDetail.title);
-  const [desc, setDesc] = useState(meetingDetail.desc);
-  const [meetingTags, setMeetingTags] = useState(meetingDetail.meetingTags);
-  const [people, setPeople] = useState(meetingDetail.people);
-  console.log(meetingDetail.people);
-  const [roomCloseDate, setRoomCloseDate] = useState(
-    meetingDetail.roomCloseDate
-  );
-  console.log(roomCloseDate);
-  const [startDate, setStartDate] = useState(meetingDetail.startDate);
-  const [endDate, setEndDate] = useState(meetingDetail.endDate);
-  const [departLocation, setDepartLocation] = useState(
-    meetingDetail.departLocation
-  );
-
-  const [tagValidationMsg, setTagValidationMsg] = useState("");
-  // const [meetingTagErrorMsg, setMeetingTagErrorMsg] = useState("");
-  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
 
   const data = {
-    theme: theme,
-    meetingTags: meetingTags,
     title: title,
     desc: desc,
     startDate: startDate,
@@ -86,7 +69,7 @@ const UpdateMeetingContainer = () => {
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
-
+  console.log(data);
   const isValidDate =
     isValidDateFormat(endDate) &&
     isValidDateFormat(startDate) &&
@@ -95,7 +78,7 @@ const UpdateMeetingContainer = () => {
   //날짜 유효성 검사
   function isValidDateFormat(date) {
     // 자릿수검사
-    if (date.length !== 10) return false;
+    if (date?.length !== 10) return false;
 
     // 특수문자 제거
     let regex = /(\.)|(-)|(\/)/g;
@@ -149,14 +132,12 @@ const UpdateMeetingContainer = () => {
     } else if (isValidDate === false) {
       return setTagValidationMsg("날짜 형식이 잘못되었습니다");
     } else {
-      try {
-        const res = await authInstance.put(`/api/meeting/${meetingId}`, data);
-        console.log(res);
-        navigate(-1);
-        return res;
-      } catch (error) {
-        setModalOn(!modalOn);
-      }
+      const res = await authInstance.put(
+        `/api/meeting/${Number(meetingId)}`,
+        data
+      );
+      console.log(res);
+      return navigate(-1);
     }
   };
 
@@ -167,38 +148,29 @@ const UpdateMeetingContainer = () => {
       queryClient.invalidateQueries("meetingList");
       navigate(-1);
     },
+    onError: () => {
+      setModalIcon("warning");
+      setAlertMsg("모집글 수정이 실패했습니다.");
+      setModalOn(true);
+    },
   });
 
-  // ::: 에러메세지(createPotal) 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
-  const handleModal = () => {
-    setModalOn(!modalOn);
-  };
-
+  const meetingDetail = meetingDetail_query?.data?.data;
+  useEffect(() => {
+    setTitle(meetingDetail?.title);
+    setDesc(meetingDetail?.desc);
+    setPeople(meetingDetail?.people);
+    setRoomCloseDate(meetingDetail?.roomCloseDate);
+    setStartDate(meetingDetail?.startDate);
+    setEndDate(meetingDetail?.endDate);
+    setDepartLocation(meetingDetail?.departLocation);
+  }, [meetingDetail]);
   const selectedMeetingTags = (tags) => {
     setMeetingTags(tags);
   };
-
-  // ::: 모집글 상세 내용 불러오기
-  // useEffect(() => {
-  //   getMeetingDetail();
-  //   // eslint-disable-next-line
-  // }, []);
-
-  // useEffect(() => {
-  //   setTitle(meetingDetail.title);
-  //   setDesc(meetingDetail.desc);
-  //   setMeetingTags(meetingDetail.meetingTags);
-  //   setPeople(meetingDetail.people);
-  //   setRoomCloseDate(meetingDetail.roomCloseDate);
-  //   setStartDate(meetingDetail.startDate);
-  //   setEndDate(meetingDetail.endDate);
-  //   setDepartLocation(meetingDetail.departLocation);
-  // }, [meetingDetail]);
   if (meetingDetail_query.isLoading) {
     return null;
   }
-  // const meetingDetail= meetingDetail_query.data.data.data[0]
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
@@ -278,18 +250,12 @@ const UpdateMeetingContainer = () => {
       </StCreatePostColumn>
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              죄송합니다. <br />
-              게시글을 수정하는 데 오류가 났습니다. <br />
-              다시 한 번 시도해주세요.
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                다시 수정하기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
       </Potal>
     </StCreatePostContainerWrap>
@@ -359,13 +325,6 @@ const StButtonWrap = styled.div`
   button {
     margin-left: 10px;
   }
-`;
-
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;
 
 const StTitleBox = styled(TextField)`

@@ -26,12 +26,6 @@ const Message = ({ messageInfo }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 타임 스탬프
-  // let time = "";
-  // if (!(messageInfo.createdAt === null)) {
-  //   time = messageInfo.createdAt.split(" ")[1];
-  // }
-
   // 메시지의 유저 id 정보와 현재 유저 id가 같으면 본인 메시지
   if (id === Number(messageInfo.memberId)) {
     return (
@@ -81,6 +75,7 @@ const Message = ({ messageInfo }) => {
 };
 
 Message.defaultProps = {};
+export default Message;
 
 const MessageWrap = styled.div`
   ${(props) => props.theme.border_box};
@@ -158,4 +153,3 @@ const ImageWrap = styled.div`
   ${(props) => props.theme.border_box};
   margin: 5px;
 `;
-export default Message;

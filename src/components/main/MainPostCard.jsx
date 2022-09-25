@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
-import Button from "../../elements/Button";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
@@ -15,17 +14,9 @@ const MainPostCard = ({ post }) => {
   // ::: 좋아요, 좋아요 취소 axios
   const changeLike = async () => {
     if (!post.isHeartMine) {
-      try {
-        await authInstance.post(`/api/postheart/${post.id}`);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
+      await authInstance.post(`/api/postheart/${post.id}`);
     } else {
-      try {
-        await authInstance.delete(`/api/postheart/${post.id}`);
-      } catch (e) {
-        setModalOn(!modalOn);
-      }
+      await authInstance.delete(`/api/postheart/${post.id}`);
     }
   };
 
@@ -36,6 +27,11 @@ const MainPostCard = ({ post }) => {
     onSuccess: () => {
       queryClient.invalidateQueries("postLists");
     },
+    onError: () => {
+      setModalIcon("warning");
+      setAlertMsg("로그인 후 좋아요 버튼을 누를수 있습니다.");
+      setModalOn(true);
+    },
   });
 
   // ::: 유저 프로필 이미지 적용하기
@@ -43,7 +39,12 @@ const MainPostCard = ({ post }) => {
     post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
 
   const [modalOn, setModalOn] = useState(false);
-  const handleModal = () => {
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
     setModalOn(!modalOn);
   };
   return (
@@ -69,19 +70,22 @@ const MainPostCard = ({ post }) => {
 
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StErrorMessage>
-              죄송합니다. <br />
-              로그인 후 좋아요 버튼을 누를수 있습니다. <br />
-              로그인 후 시도해 주세요.
-            </StErrorMessage>
-            <StButtonWrap>
-              <Button size="medium" onClick={handleModal}>
-                닫기
-              </Button>
-            </StButtonWrap>
-          </Modal>
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
+        {/* {ConfirmModalon &&(
+          <ConfirmModal
+          onCloseModal={onCloseModal}
+          modalIcon={modalIcon}
+          alertMsg={alertMsg}
+          onClickYes={onClickYes}
+          onClickNo={onClickNo}
+          />
+        )} */}
       </Potal>
     </StFigure>
   );
@@ -143,23 +147,4 @@ const StFigure = styled.figure`
     font-size: 1.2rem;
     margin: auto 10px;
   }
-`;
-
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  width: 100%;
-
-  button {
-    margin-left: 10px;
-  }
-`;
-
-const StErrorMessage = styled.div`
-  width: 100%;
-  height: 150px;
-  font-size: 1.2rem;
-  line-height: 1.5;
 `;
