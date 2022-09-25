@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
-import GlobalLayout from "../global/GlobalLayout";
 import MainContainer from "../components/main/MainContainer";
 import styled from "styled-components";
 
@@ -21,7 +20,7 @@ const MainPage = () => {
   return (
     <StMainPageWrap>
       <MainBanner />
-      <GlobalLayout>
+      <StLayout>
         <StMainNav>
           <p onClick={() => setState("latest")}>
             <NavLink
@@ -41,7 +40,7 @@ const MainPage = () => {
           </p>
         </StMainNav>
         <MainContainer state={state} />
-      </GlobalLayout>
+      </StLayout>
     </StMainPageWrap>
   );
 };
@@ -49,19 +48,19 @@ const MainPage = () => {
 export default MainPage;
 
 const StMainPageWrap = styled.div`
-  padding-top: 140px;
+  padding-top: 170px;
 `;
 const StMainNav = styled.div`
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  top: 70px;
+  top: 70px; */
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   width: 100%;
   padding: 0.8rem 0;
-  box-shadow: var(--box-shadow);
+  margin-bottom: 1rem;
+  /* box-shadow: var(--box-shadow); */
   background-color: var(--bg-color);
   z-index: 4;
 
@@ -105,4 +104,10 @@ const StMainNav = styled.div`
       }
     }
   }
+`;
+
+const StLayout = styled.div`
+  padding-top: 190px;
+  width: 1305px;
+  margin: 0 auto;
 `;

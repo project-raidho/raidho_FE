@@ -26,6 +26,9 @@ const MainBanner = () => {
 export default MainBanner;
 
 const StMainBannerWrap = styled.div`
+  position: absolute;
+  top: 70px;
+  left: 0;
   width: 100%;
   height: 375px;
   background-color: var(--gray-color);
