@@ -5,6 +5,8 @@ import ThemeSelect from "./ThemeSelect";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
+import AlertModal from "../../global/globalModal/AlertModal";
+import Potal from "../../global/globalModal/Potal";
 
 import TagInput from "../../elements/TagInput";
 import RoomCloseDateBox from "./RoomCloseDateBox";
@@ -16,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 //리액트 쿼리
 import { useMutation, useQueryClient } from "react-query";
+import { useEffect } from "react";
 
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
@@ -28,10 +31,18 @@ const CreateMeetingContatiner = () => {
   const [roomCloseDate, setRoomCloseDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
 
-  const [tagValidationMsg, setTagValidationMsg] = useState("");
-  // const [meetingTagErrorMsg, setMeetingTagErrorMsg] = useState("");
-  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
+  //모달 상태관리
+  const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
 
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+    navigate(`/meetingList/all`);
+  };
   const data = {
     themeCategory: theme,
     meetingTags: meetingTags,
@@ -48,53 +59,97 @@ const CreateMeetingContatiner = () => {
   const navigate = useNavigate();
   const postcreatemeeting = async () => {
     if (theme.length < 1) {
-      return setTagValidationMsg("대륙을 선택해주세요");
+      setAllValMsg("대륙을 선택해주세요");
+      return setThemeValMsg("대륙을 선택해주세요");
     } else if (meetingTags.length < 1) {
-      return setTagValidationMsg("나라/도시를 입력해주세요");
+      setAllValMsg();
+      return setTagValrMsg("나라/도시를 입력해주세요");
     } else if (startDate.length < 1) {
-      return setTagValidationMsg("여행시작일을 선택해주세요");
+      setAllValMsg("여행시작일을 선택해주세요");
+      return setPeriodValMsg("여행시작일을 선택해주세요");
     } else if (isValidDateFormat(startDate) === false) {
-      setPeriodErrorMsg("여행시작일의 날짜형식이 잘못되었습니다.");
-      return setTagValidationMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      setAllValMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      return setPeriodValMsg("여행시작일의 날짜형식이 잘못되었습니다.");
     } else if (endDate.length < 1) {
-      return setTagValidationMsg("여행종료일을 선택해주세요");
+      setAllValMsg("여행종료일을 선택해주세요");
+      return setPeriodValMsg("여행종료일을 선택해주세요");
     } else if (isValidDateFormat(endDate) === false) {
-      setPeriodErrorMsg("여행종료일의 날짜형식이 잘못되었습니다.");
-      return setTagValidationMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      setAllValMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      return setPeriodValMsg("여행종료일의 날짜형식이 잘못되었습니다.");
     } else if (String(people).length < 1) {
-      return setTagValidationMsg("여행희망인원을 선택해주세요");
+      setAllValMsg("여행희망인원을 선택해주세요");
+      return setPeopleValMsg("여행희망인원을 선택해주세요");
     } else if (title.length < 1) {
-      return setTagValidationMsg("모집글 제목을 입력해주세요");
+      setAllValMsg("모집글 제목을 입력해주세요");
+      return setTitleValMsg("모집글 제목을 입력해주세요");
     } else if (desc.length < 1) {
-      return setTagValidationMsg("모집글 설명을 입력해주세요");
+      setAllValMsg("모집글 설명을 입력해주세요");
+      return setdescValMsg("모집글 설명을 입력해주세요");
     } else if (roomCloseDate.length < 1) {
-      return setTagValidationMsg("모집마감일자를 선택해주세요");
+      setAllValMsg("모집마감일자를 선택해주세요");
+      return setRoomCloseDateValMsg("모집마감일자를 선택해주세요");
     } else if (departLocation.length < 1) {
-      return setTagValidationMsg("모집 후 모일 장소를 선택해주세요");
-    } else if (isValidDate === false) {
-      return setTagValidationMsg("날짜 형식이 잘못되었습니다");
+      setAllValMsg("모집 후 모일 장소를 선택해주세요");
+      return setDepartLocationValMsg("모집 후 모일 장소를 선택해주세요");
     } else {
-      try {
-        const res = await authInstance.post(`/api/meeting`, data);
-        console.log(res);
-        const chattingId = res.data.data.id;
+      setAllValMsg("");
 
-        const res2 = await authInstance.post(`/api/chat/room/create`, {
-          roomName: title,
-          meetingPostId: chattingId,
-          people: people,
-          // theme: theme,
-        });
-        console.log(res2);
-        window.alert("채팅방이 생성되었습니다.");
+      const res = await authInstance.post(`/api/meeting`, data);
 
-        navigate(`/chatting/${chattingId}`);
-        return res2;
-      } catch (error) {
-        console.log(error);
-      }
+      const chattingId = res.data.data.id;
+
+      await authInstance.post(`/api/chat/room/create`, {
+        roomName: title,
+        meetingPostId: chattingId,
+        people: people,
+        // theme: theme,
+      });
+      setModalIcon("success");
+      setAlertMsg("모집글과 채팅방이 생성되었습니다.");
+      setModalOn(true);
     }
   };
+
+  // ::: 유효성 검사 메시지 상태관리하기
+  const [themeValMsg, setThemeValMsg] = useState("");
+  const [tagValMsg, setTagValrMsg] = useState("");
+  const [periodValMsg, setPeriodValMsg] = useState("");
+  const [peopleValMsg, setPeopleValMsg] = useState("");
+  const [titleValMsg, setTitleValMsg] = useState("");
+  const [descValMsg, setdescValMsg] = useState("");
+  const [roomCloseDateValMsg, setRoomCloseDateValMsg] = useState("");
+  const [departLocationValMsg, setDepartLocationValMsg] = useState("");
+  const [allValMsg, setAllValMsg] = useState("");
+
+  useEffect(() => {
+    if (theme.length > 0) {
+      setThemeValMsg("");
+    }
+    if (meetingTags.length > 0) {
+      setTagValrMsg("");
+    }
+    if (people.length > 0) {
+      setPeopleValMsg("");
+    }
+    if (title.length > 0) {
+      setTitleValMsg("");
+    }
+    if (desc.length > 0) {
+      setdescValMsg("");
+    }
+    if (roomCloseDate.length > 0) {
+      setRoomCloseDateValMsg("");
+    }
+    if (departLocation.length > 0) {
+      setDepartLocationValMsg("");
+    }
+    if (isValidAll) {
+      setAllValMsg("");
+    } else {
+      setAllValMsg("빈칸을 모두 입력해주세요");
+    }
+    // eslint-disable-next-line
+  }, [theme, meetingTags, people, title, desc, roomCloseDate, departLocation]);
 
   const queryClient = useQueryClient();
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
@@ -109,33 +164,16 @@ const CreateMeetingContatiner = () => {
   //유효성 검사
   // const [validState,setValidState] =useState();
   // 모든 input의 value가 1자 이상이 되어야 한다
-  // const isValidInput =
-  //   theme.length >= 1 &&
-  //   title.length >= 1 &&
-  //   desc.length >= 1 &&
-  //   meetingTags.length >= 1 &&
-  //   String(people).length >= 1 &&
-  //   roomCloseDate.length >= 1 &&
-  //   startDate.length >= 1 &&
-  //   endDate.length >= 1 &&
-  //   departLocation.length >= 1;
-  // console.log(
-  //   theme.length,
-  //   title.length,
-  //   desc.length,
-  //   meetingTags.length,
-  //   String(people).length
-  // );
-  // console.log(
-  //   roomCloseDate.length,
-  //   startDate.length,
-  //   endDate.length,
-  //   departLocation.length
-  // );
-  const isValidDate =
-    isValidDateFormat(endDate) &&
-    isValidDateFormat(startDate) &&
-    isValidDateFormat(roomCloseDate) === true;
+  const isValidAll =
+    theme.length >= 1 &&
+    title.length >= 1 &&
+    desc.length >= 1 &&
+    meetingTags.length >= 1 &&
+    String(people).length >= 1 &&
+    roomCloseDate.length >= 1 &&
+    startDate.length >= 1 &&
+    endDate.length >= 1 &&
+    departLocation.length >= 1;
 
   //날짜 유효성 검사
   function isValidDateFormat(date) {
@@ -170,28 +208,6 @@ const CreateMeetingContatiner = () => {
     return true;
   }
 
-  // 방 생성하기
-  // const onClickCreateRoom = async () => {
-  //   const roomData = {
-  //     chatRoomTitle: title,
-  //     people: people,
-  //     tags: MeetingTags,
-  //   };
-  //   try {
-  //     const res = await authInstance.post(`/api/chat/rooms`, roomData);
-  //     window.alert("채팅방이 생성되었습니다.");
-
-  //     navigate("/meetingList");
-  //     return res;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const selectedLocationTags = (tags) => {
-  //   setLocationTags(tags);
-  // };
-
   const selectedMeetingTags = (tags) => {
     setMeetingTags(tags);
   };
@@ -210,7 +226,7 @@ const CreateMeetingContatiner = () => {
 
       <h1>대륙 선택</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
-
+      <StValidationMsg>{themeValMsg}</StValidationMsg>
       <h1>여행갈 나라/도시 입력</h1>
       <StTags>
         <TagInput
@@ -221,7 +237,7 @@ const CreateMeetingContatiner = () => {
             meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
           }
         />
-        {/* <StValidationMsg>{meetingTagErrorMsg}</StValidationMsg> */}
+        <StValidationMsg>{tagValMsg}</StValidationMsg>
       </StTags>
       <h1>여행기간</h1>
       <TripPeriod
@@ -229,9 +245,10 @@ const CreateMeetingContatiner = () => {
         setStartDate={setStartDate}
         setEndDate={setEndDate}
       />
-      <StValidationMsg>{periodErrorMsg}</StValidationMsg>
+      <StValidationMsg>{periodValMsg}</StValidationMsg>
       <h1>여행희망인원</h1>
       <TripPeopleCount people={2} setPeople={setPeople} />
+      <StValidationMsg>{peopleValMsg}</StValidationMsg>
       <br />
       <StStepTitle>
         <strong>STEP 2</strong>모집글정보 입력
@@ -243,32 +260,42 @@ const CreateMeetingContatiner = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <StValidationMsg>{titleValMsg}</StValidationMsg>
       <h1>모집글 설명</h1>
       <CreatePostContent
         typedPostContent={typedMeetingContent}
         placeholderText={"모집글 설명을 써주세요."}
       />
-
+      <StValidationMsg>{descValMsg}</StValidationMsg>
       <h1>모집마감일자</h1>
       <RoomCloseDateBox setRoomCloseDate={setRoomCloseDate} />
+      <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
 
       <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
+      <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
         <Button
           className="createButton"
           size="small"
           variant="primary"
-          onClick={
-            mutate
-            // onClickCreateRoom();
-          }
+          onClick={mutate}
           // disabled={validState ? false : true}
         >
           등록하기
         </Button>
-        <StValidationMsg>{tagValidationMsg}</StValidationMsg>
+        <StValidationMsg>{allValMsg}</StValidationMsg>
       </StbottonBox>
+      <Potal>
+        {modalOn && (
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
+        )}
+      </Potal>
     </StContainer>
   );
 };
@@ -319,18 +346,15 @@ const StTitleBox = styled(TextField)`
   element.style {
     height: 55px;
   }
-  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    height: 53px;
-    font-size: 1.2rem;
+  .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
     border: 1px solid var(--gray-color);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--subBg-color);
-  }
-  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
     font-size: 1.5rem;
     height: 55px;
     padding: 5px;
+    color: var(--text-color);
+  }
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border: none;
   }
 `;
 
@@ -357,10 +381,16 @@ const StbottonBox = styled.div`
 // `
 
 const StValidationMsg = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
   color: var(--red-color);
   margin-bottom: 1rem;
   margin-top: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
+  }
 `;

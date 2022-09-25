@@ -14,9 +14,8 @@ const MessageInput = (props) => {
     is_submit,
     onSubmit,
     MessageWrite,
-    // loading,
   } = props;
-  const loading = true;
+
   if (multiLine) {
     return (
       <Grid>
@@ -35,21 +34,17 @@ const MessageInput = (props) => {
   if (MessageWrite) {
     return (
       <React.Fragment>
-        {loading ? (
-          <StMessageWrite
-            value={value}
-            type={type}
-            placeholder={placeholder}
-            onChange={_onChange}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                onSubmit(e);
-              }
-            }}
-          ></StMessageWrite>
-        ) : (
-          <StMessageWrite value="메시지 전송중 ..."></StMessageWrite>
-        )}
+        <StMessageWrite
+          value={value}
+          type={type}
+          placeholder={placeholder}
+          onChange={_onChange}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onSubmit(e);
+            }
+          }}
+        ></StMessageWrite>
       </React.Fragment>
     );
   }

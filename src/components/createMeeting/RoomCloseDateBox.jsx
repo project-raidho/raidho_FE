@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Calendar } from "react-date-range"; // 얘가 캘린더 라이브러리
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 import moment from "moment";
@@ -27,6 +27,9 @@ const RoomCloseDateBox = ({ roomCloseDate, setRoomCloseDate }) => {
     setInputdate(e.target.value);
     // setRoomCloseDate(inputdate);
   };
+  useEffect(() => {
+    setInputdate(roomCloseDate);
+  }, [roomCloseDate]);
 
   return (
     <StRoomCloseDateBoxContainer>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import KakaoMap from "./KakaoMap";
 import DaumPostcode from "react-daum-postcode";
 import Input from "../../elements/Input";
@@ -49,14 +49,10 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
     setIsOpenPost(false);
   };
 
-  // const postCodeStyle = {
-  //   display: "block",
-  //   position: "relative",
-  //   top: "0",
-  //   width: "600px",
-  //   height: "400px",
-  //   padding: "7px",
-  // };
+  useEffect(() => {
+    setInputText(departLocation);
+    setPlace(departLocation);
+  }, [departLocation]);
 
   return (
     <SearchWrapp>

@@ -18,6 +18,7 @@ const PostDetailUser = ({ postDetail }) => {
       },
     });
   };
+
   return (
     <StUserWrapper>
       <div className="profileBox">
@@ -25,7 +26,11 @@ const PostDetailUser = ({ postDetail }) => {
       </div>
       <StProfileRightBox>
         <h2>{postDetail.memberName}</h2>
-        <div>{postDetail.createdAt} 게시</div>
+        <div>
+          {postDetail.createdAt.substr(0, 4)}년{" "}
+          {postDetail.createdAt.substr(5, 2)}월{" "}
+          {postDetail.createdAt.substr(8, 2)}일 게시
+        </div>
         <div className="tagList">
           {postDetail.tags.map((tag, i) => (
             <div key={i} className="tag" onClick={() => onClickTagHandler(tag)}>

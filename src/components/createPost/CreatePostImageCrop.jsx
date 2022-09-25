@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
+// import ConfirmModal from "../../global/globalModal/ConfirmModal"
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
-import Success from "../../elements/Success";
-import Info from "../../elements/Info";
-// import Warning from "../../elements/Warning";
 import styled from "styled-components";
 
 // ::: 이미지 크롭 사전 세팅
@@ -48,12 +46,13 @@ const CreatePostImageCrop = ({
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState(<Success />);
-  const [modalStatus, setModalStatus] = useState("alert"); // alert(): "alert" / confirm() : "confirm"
+  const [modalIcon, setModalIcon] = useState("");
   // const [checkNext, setCheckNext] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
-
-  const handleModal = () => {
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+  const onClickYes = () => {
     setModalOn(!modalOn);
   };
 
@@ -86,8 +85,7 @@ const CreatePostImageCrop = ({
     // setAlertMsg(
     //   `지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?`
     // );
-    // setModalIcon(<Warning />);
-    // setModalStatus("confirm");
+    // setModalIcon("warning");
     // setModalOn(true);
 
     if (alertMessageImageSize) {
@@ -166,8 +164,7 @@ const CreatePostImageCrop = ({
   // ::: 이미지 저장하기 버튼 클릭하기
   const onChangeCropImage = (event) => {
     if (saveButtonStatus === false) {
-      setModalStatus("alert");
-      setModalIcon(<Info />);
+      setModalIcon("info");
       setAlertMsg("이미 이미지 저장이 완료되었습니다.");
       setModalOn(true);
       return;
@@ -233,8 +230,7 @@ const CreatePostImageCrop = ({
       const { width, height } = imageRef.current;
       setCrop(centerAspectCrop(width, height, aspect));
     } else {
-      setModalStatus("alert");
-      setModalIcon(<Info />);
+      setModalIcon("info");
       setAlertMsg("이미 저장한 이미지입니다!");
       setModalOn(true);
     }
@@ -249,8 +245,7 @@ const CreatePostImageCrop = ({
     // ::: 이미지 저장이 완료되었는지 체크하기
     if (saveImagesIndex.length === files.length) {
       setSaveButtonStatus(false);
-      setModalStatus("alert");
-      setModalIcon(<Success />);
+      setModalIcon("success");
       setAlertMsg("이미지 업로드 하기가 완료되었습니다!");
       setModalOn(true);
     }
@@ -336,41 +331,12 @@ const CreatePostImageCrop = ({
 
       <Potal>
         {modalOn && (
-          <Modal onClose={handleModal}>
-            <StModalContent>
-              <h4>{modalIcon}</h4>
-              <p>{alertMsg}</p>
-              {modalStatus === "alert" && (
-                <StButtonWrap>
-                  <Button
-                    size="square"
-                    variant="lineSquare"
-                    onClick={handleModal}
-                  >
-                    확인
-                  </Button>
-                </StButtonWrap>
-              )}
-              {modalStatus === "confirm" && (
-                <StButtonWrap>
-                  <Button
-                    size="square"
-                    variant="lineSquare"
-                    onClick={handleModal}
-                  >
-                    취소
-                  </Button>
-                  <Button
-                    size="square"
-                    variant="lineSquare"
-                    onClick={handleModal}
-                  >
-                    확인
-                  </Button>
-                </StButtonWrap>
-              )}
-            </StModalContent>
-          </Modal>
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
         )}
       </Potal>
     </StCreatePostImageCrop>
@@ -612,47 +578,4 @@ const StValidationMsg = styled.p`
   font-style: italic;
   color: var(--main-color);
   margin-bottom: 1rem;
-`;
-
-const StModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  padding-top: 30px;
-
-  h4 {
-    display: block;
-    width: 100px;
-    height: 100px;
-    background-color: var(--text-color);
-    border-radius: 50%;
-    border: 1px solid var(--title-color);
-    margin-top: 30px;
-    overflow: hidden;
-  }
-
-  p {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 1.3rem;
-  }
-`;
-
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 10px;
-
-  button {
-    margin-left: 1rem;
-  }
 `;
