@@ -27,6 +27,12 @@ const StyledSlider = styled(Slider)`
   text-align: center;
   margin-bottom: 10px;
 
+  .slick-prev {
+    left: -30px;
+  }
+  .slick-next {
+    right: -30px;
+  }
   .imageBox {
     width: 100%;
     max-width: 738px;
@@ -39,7 +45,7 @@ const StyledSlider = styled(Slider)`
       max-width: 738px;
       max-height: 738px;
       min-width: 100%;
-      object-fit: contain;
+      object-fit: cover;
       margin: 0 auto;
     }
   }
