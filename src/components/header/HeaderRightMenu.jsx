@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ToggleBox from "./toggle/ToggleBox";
 import Button from "../../elements/Button";
@@ -13,6 +13,7 @@ import styled from "styled-components";
 
 const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
   const navigate = useNavigate();
+  const userIsLogin = localStorage.getItem("Authorization");
 
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
@@ -43,10 +44,14 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     localStorage.removeItem("memberIntro");
 
     setIsLogin(false);
-    // onCloseToggle();
     navigate("/");
   };
 
+  useEffect(() => {
+    // ::: 로그인 여부 확인하기
+    userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
+    // eslint-disable-next-line
+  }, [userIsLogin]);
   console.log("isLogin", isLogin);
   return (
     <StHeaderRightMenuWrap>
