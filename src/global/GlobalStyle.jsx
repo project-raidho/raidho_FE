@@ -1,13 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  // ::: 웹폰트 임시 적용(nexon폰트 경우 weight 300, 400, 700)
+  // ::: 웹폰트 적용
   @font-face {
-    font-family: 'NEXON Lv2 Gothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 500;
     font-style: normal;
-  }
+}
   
   :root {
     --bg-color: #ffffff;
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     --gray-color: #CFCFCF;
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
-    --font-style: 'NEXON Lv2 Gothic';
+    --font-style: 'Pretendard-Regular';
     --box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.25);
   }
   .darkMode {

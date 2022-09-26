@@ -49,7 +49,6 @@ const StProfileRightBox = styled.div`
   align-items: flex-start;
   justify-content: center;
   margin-left: 15px;
-  /* grid-row-gap: 3px; */
 
   h2 {
     font-size: 1.5rem;
