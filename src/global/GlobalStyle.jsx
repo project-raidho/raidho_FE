@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     --main-color: #7188FF;
     --sub-color:#CFCFCF;
     --line-color: #666666;
-    --red-color: #FF4040;
+    --red-color: #FF3838;
     --green-color: #11CA48;
     --blue-color: #4862E8;
     --lightBlue-color: #4888F4;
@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --font-style: 'Pretendard-Regular';
-    --box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.25);
+    --box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.20);
     --button-shadow : 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   .darkMode {
@@ -32,7 +32,8 @@ const GlobalStyle = createGlobalStyle`
     --bgSub-color: #1E1E1E;
     --title-color: #ffffff;
     --text-color: #ffffff;
-    --box-shadow: 4px 0px 5px rgba(255, 255, 255, 0.2);
+    --box-shadow: 3px 3px 8px rgba(255, 255, 255, 0.2);
+    --button-shadow : 0px 4px 4px rgba(255, 255, 255, 0.25);
   }
   body {
     background-color: var(--bg-color);

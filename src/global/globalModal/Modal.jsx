@@ -23,7 +23,7 @@ const Background = styled.div`
   left: 0;
   top: 0;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0);
   z-index: 11;
 `;
 const ModalContentBox = styled.div`
@@ -35,7 +35,8 @@ const ModalContentBox = styled.div`
   margin-top: -220px;
   margin-left: -300px;
   background-color: var(--bg-color);
-  border: 1px solid var(--title-color);
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
   z-index: 12;
   text-align: center;
   .contents {

@@ -200,7 +200,9 @@ const MeetingListCard = ({ meeting }) => {
                   참여하기
                 </Button>
               )}
-            {meeting.isAlreadyJoin && <div>이미 참여중인 모집입니다.</div>}
+            {meeting.isAlreadyJoin && (
+              <p className="isInMeetingMsg">이미 참여중인 모집입니다.</p>
+            )}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
@@ -272,6 +274,7 @@ const StMeetingCardUpDown = styled.div`
 `;
 
 const StMeetingCardRow = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -365,5 +368,14 @@ const StMeetingCardRow = styled.div`
   }
   .memberNameBox {
     font-size: 1.25rem;
+  }
+
+  .isInMeetingMsg {
+    position: absolute;
+    height: 15px;
+    bottom: -30px;
+    right: 10px;
+    font-size: 0.8rem;
+    font-style: italic;
   }
 `;

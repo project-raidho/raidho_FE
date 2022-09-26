@@ -11,12 +11,11 @@ const StGlobalLayoutWrap = styled.div`
   width: 100%;
   max-width: 1305px;
   margin: 0 auto;
-  padding-top: 100px; // 헤더 높이만큼
+  padding-top: 50px; // 헤더 높이만큼
 
   @media (max-width: 1023px) {
     max-width: 1023px;
     padding: 0 1rem;
-    padding-top: 130px;
   }
   @media (max-width: 767px) {
     max-width: 767px;
