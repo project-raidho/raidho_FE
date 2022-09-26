@@ -5,7 +5,7 @@ const SIZES = {
   medium: css`
     --input-font-size: 1.5rem;
     --input-width: 50%;
-    --input-height: 50px;
+    --input-height: 40px;
     --input-radius: 20px;
   `,
   square: css`
@@ -17,8 +17,8 @@ const SIZES = {
   large: css`
     --input-font-size: 1.5rem;
     --input-width: 100%;
-    --input-height: 50px;
-    --input-radius: 20px;
+    --input-height: 40px;
+    --input-radius: 15px;
   `,
 };
 
@@ -34,7 +34,7 @@ const VARIANTS = {
     --input-color: var(--text-color);
     --input-bg-color: #ffffff;
     --input-border-color: #a0a0a0;
-    --input-search-background: no-repeat 98.5% center url(${SearchIcon})
+    --input-search-background: no-repeat 99% center url(${SearchIcon})
       var(--bg-color);
   `,
 };

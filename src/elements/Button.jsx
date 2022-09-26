@@ -2,9 +2,11 @@ import styled, { css } from "styled-components";
 
 const SIZES = {
   small: css`
-    --button-font-size: 1.2rem;
-    --button-padding: 0px 25px;
-    --button-radius: 30px;
+    --button-height: 30px;
+    --button-width: auto;
+    --button-font-size: 1rem;
+    --button-padding: 0px 30px;
+    --button-radius: 20px;
   `,
   medium: css`
     --button-font-size: 1.5rem;
