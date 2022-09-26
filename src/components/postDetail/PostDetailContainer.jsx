@@ -12,6 +12,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { authInstance } from "../../shared/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import PostDetailTagList from "./PostDetailTagList";
 
 // ::: 상세페이지 조회 axios
 const getPostDetail = async ({ queryKey }) => {
@@ -59,26 +60,27 @@ const PostDetailContainer = () => {
           }}
         />
         {postDetail.isMine && (
-          <RiDeleteBin6Fill
-            className="deleteButton"
-            size="24"
-            onClick={() => mutate(id)}
-          />
-        )}
-        {postDetail.isMine && (
-          <RiEdit2Fill
-            className="editButton"
-            size="24"
-            onClick={() => {
-              navigate(`/updatePost/${id}`);
-            }}
-          />
-        )}
+          <>
+            <RiDeleteBin6Fill
+              className="deleteButton"
+              size="24"
+              onClick={() => mutate(id)}
+            />
 
+            <RiEdit2Fill
+              className="editButton"
+              size="24"
+              onClick={() => {
+                navigate(`/updatePost/${id}`);
+              }}
+            />
+          </>
+        )}
+        <PostDetailUser postDetail={postDetail} />
         <PostDetailImage images={postDetail.multipartFiles} />
         <PostDetailLike postDetail={postDetail} />
-        <PostDetailUser postDetail={postDetail} />
         <StContentBox>{postDetail.content}</StContentBox>
+        <PostDetailTagList tagList={postDetail.tags} />
       </StDetailContainer>
       <RelatedList targetTag={targetTag} />
     </>
@@ -92,7 +94,7 @@ const StDetailContainer = styled.div`
   max-width: 800px;
   border: 1px solid;
   border-radius: 15px;
-  padding: 20px 30px;
+  padding: 20px 90px;
   margin: 0 auto 50px;
 
   .backButton {
@@ -100,7 +102,6 @@ const StDetailContainer = styled.div`
     border: none;
     margin-top: 10px;
     margin-right: 10px;
-
     cursor: pointer;
   }
   .deleteButton {
@@ -118,9 +119,9 @@ const StDetailContainer = styled.div`
 `;
 
 const StContentBox = styled.div`
-  margin-top: 20px;
+  margin-top: 25px;
   width: 100%;
-  height: 100px;
+  height: auto;
   line-height: 1.5;
   font-size: 1.5rem;
   padding-bottom: 20px;

@@ -1,23 +1,11 @@
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
-import { useNavigate } from "react-router-dom";
 
 const PostDetailUser = ({ postDetail }) => {
-  const navigate = useNavigate();
   const memberImage =
     postDetail.memberImage === null
       ? `${DefaultMemberImage}`
       : `${postDetail.memberImage}`;
-
-  const onClickTagHandler = (tag) => {
-    const sliceTag = tag.substr(1);
-    console.log(sliceTag);
-    navigate(`/post/best?tag=${sliceTag}`, {
-      state: {
-        tagKeyword: sliceTag,
-      },
-    });
-  };
 
   return (
     <StUserWrapper>
@@ -31,13 +19,6 @@ const PostDetailUser = ({ postDetail }) => {
           {postDetail.createdAt.substr(5, 2)}월{" "}
           {postDetail.createdAt.substr(8, 2)}일 게시
         </div>
-        <div className="tagList">
-          {postDetail.tags.map((tag, i) => (
-            <div key={i} className="tag" onClick={() => onClickTagHandler(tag)}>
-              {tag}
-            </div>
-          ))}
-        </div>
       </StProfileRightBox>
     </StUserWrapper>
   );
@@ -47,7 +28,8 @@ export default PostDetailUser;
 
 const StUserWrapper = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin: 10px 0;
+
   .profileBox {
     width: 60px;
     height: 60px;
@@ -58,14 +40,6 @@ const StUserWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .tagList {
-    display: flex;
-    gap: 10px;
-  }
-  .tag {
-    color: var(--main-color);
-    cursor: pointer;
   }
 `;
 

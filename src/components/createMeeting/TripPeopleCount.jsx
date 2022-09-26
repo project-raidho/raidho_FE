@@ -60,8 +60,7 @@ const StSelectBox = styled.div`
   .select {
     margin: 0;
   }
-  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-  }
+
   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     border: 2px solid var(--gray-color);
   }
@@ -75,7 +74,7 @@ const StSelectBox = styled.div`
     background-color: var(--subBg-color);
   }
 `;
-// var(--subBg-color)
+
 const StSelect = styled(Select)`
   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     color: var(--text-color);

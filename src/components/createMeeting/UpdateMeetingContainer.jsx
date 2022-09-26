@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ThemeSelect from "./ThemeSelect";
-// import { useForm } from "react-hook-form";
+// import ThemeSelect from "./ThemeSelect";
+// import TagInput from "../../elements/TagInput";
 import { authInstance } from "../../shared/api";
 
 import TripPeriod from "./TripPeriod";
-import TagInput from "../../elements/TagInput";
+
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
@@ -61,15 +61,15 @@ const UpdateMeetingContainer = () => {
   //서버에서 받아온 데이터
 
   const data = {
-    title: String(title),
-    desc: String(desc),
-    startDate: String(startDate),
-    endDate: String(endDate),
+    title: title,
+    desc: desc,
+    startDate: startDate,
+    endDate: endDate,
     people: Number(people),
-    roomCloseDate: String(roomCloseDate),
-    departLocation: String(departLocation),
+    roomCloseDate: roomCloseDate,
+    departLocation: departLocation,
   };
-  console.log(data);
+
   const isValidDate =
     isValidDateFormat(endDate) &&
     isValidDateFormat(startDate) &&
@@ -156,6 +156,8 @@ const UpdateMeetingContainer = () => {
 
   const meetingDetail = meetingDetail_query?.data?.data;
   useEffect(() => {
+    setTheme(meetingDetail?.themeCategory);
+    setMeetingTags(meetingDetail?.meetingTags);
     setTitle(meetingDetail?.title);
     setDesc(meetingDetail?.desc);
     setPeople(meetingDetail?.people);
@@ -164,32 +166,31 @@ const UpdateMeetingContainer = () => {
     setEndDate(meetingDetail?.endDate);
     setDepartLocation(meetingDetail?.departLocation);
   }, [meetingDetail]);
-  const selectedMeetingTags = (tags) => {
-    setMeetingTags(tags);
-  };
+
   if (meetingDetail_query.isLoading) {
     return null;
   }
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
+        <h1>대륙 </h1>
+        <div size="medium" variant="primary" className="theme" disabled={true}>
+          <span className="themeName">{theme}</span>
+        </div>
+
+        <h1>여행갈 나라/도시</h1>
+        <StTags>
+          <ul className="tags">
+            {meetingTags?.map((tag, index) => (
+              <li key={index} className="tag">
+                <span className="tagTitle">{tag}</span>
+              </li>
+            ))}
+          </ul>
+        </StTags>
         <StStepTitle>
           <strong>STEP 1</strong>여행정보 입력
         </StStepTitle>
-        <h1>대륙 선택</h1>
-        <ThemeSelect theme={theme} setTheme={setTheme} />
-
-        <h1>여행갈 나라/도시 입력</h1>
-        <StTags>
-          <TagInput
-            className="tagbox"
-            selectedTags={selectedMeetingTags}
-            tags={meetingTags}
-            tagMassage={
-              meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
-            }
-          />
-        </StTags>
         <h1>여행기간</h1>
         <TripPeriod
           startDate={startDate}
@@ -275,6 +276,24 @@ const StCreatePostContainerWrap = styled.div`
     font-size: 20px;
     margin-top: 50px;
   }
+  .theme {
+    width: 220px;
+    height: 50px;
+    border: 1px solid #7188ff;
+    border-radius: 25px;
+    background: #7188ff;
+  }
+  .themeName {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+  }
 
   @media (max-width: 1023px) {
     flex-direction: column;
@@ -356,12 +375,36 @@ const StDescBox = styled(TextField)`
 
 const StTags = styled.div`
   .kkqTPl {
-    width: 90%;
+    /* width: 90%; */
     height: 55px;
     border-radius: 10px;
     border: 1px solid #a0a0a0;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid;
+  }
+  .tags {
+    display: flex;
+    margin: 8px 0 0 0;
+  }
+  .tag {
+    width: auto;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    padding: 0 8px;
+    font-size: 1.5rem;
+    list-style: none;
+    border-radius: 20px;
+    margin: 0 8px 8px 0;
+    background: var(--main-color);
+    .tagTitle {
+      margin-top: 3px;
+      color: #fff;
+      padding: 0 8px;
+    }
   }
 `;
 
