@@ -21,9 +21,9 @@ const SIZES = {
     --button-radius: 10px;
   `,
   tag: css`
-    --button-font-size: 1.2rem;
+    --button-font-size: 1rem;
     --button-width: auto;
-    --button-height: 33px;
+    --button-height: 30px;
     --button-padding: 0 30px 0 10px;
     --button-margin-right: 25px;
     --button-radius: 25px;
@@ -51,11 +51,11 @@ const VARIANTS = {
     --button-hover-bg-color: #7188ff;
   `,
   gray: css`
-    --button-color: #1e1e1e;
-    --button-bg-color: #cfcfcf;
-    --button-hover-bg-color: var(--bg-color);
-    --button-border-color: var(--title-color);
-    --button-hover-text-color: var(--gray-color);
+    --button-color: var(--title-color);
+    --button-bg-color: var(--lightGray-color);
+    --button-hover-bg-color: var(--lightGray-color);
+    --button-border-color: none;
+    --button-hover-text-color: var(--title-color);
   `,
   line: css`
     --button-color: var(--title-color);

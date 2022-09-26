@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 500;
+    font-weight: 400;
     font-style: normal;
 }
   
@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     --green-color: #11CA48;
     --blue-color: #4862E8;
     --gray-color: #a0a0a0;
+    --lightGray-color: #D9D9D9;
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --font-style: 'Pretendard-Regular';
