@@ -20,15 +20,16 @@ const StToggleBox = styled.ul`
   justify-content: center;
   position: absolute;
   width: 110px;
-  height: ${(props) => (props.isToggle ? "110px" : "0px")};
+  height: ${(props) => (props.isToggle ? "130px" : "0px")};
   background-image: url(${BgToggleBox});
-  top: 40px;
+  background-size: 100% 100%;
+  top: 35px;
   left: 50%;
   padding: 0 8px;
   margin-left: -85px;
   z-index: 3;
   overflow: hidden;
-  transition: 0.2s;
+  transition: 0.3s;
 `;
 
 const StToggleBackground = styled.div`
