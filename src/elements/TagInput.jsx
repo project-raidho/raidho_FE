@@ -81,8 +81,8 @@ const StCreatePostTagsWrap = styled.div`
     flex: 1;
     border: none;
     height: 46px;
-    font-size: 1.2rem;
-    padding: 4px 0 0 0;
+    font-size: 1rem;
+    padding: 2px 0 0 1.3rem;
     &:focus {
       outline: transparent;
     }

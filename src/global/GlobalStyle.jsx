@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     --red-color: #FF4040;
     --green-color: #11CA48;
     --blue-color: #4888F4;
-    --gray-color: #CFCFCF;
+    --gray-color: #a0a0a0;
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --font-style: 'Pretendard-Regular';
@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: var(--font-style);
     font-weight: 400;
     line-height: 1.2;
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--text-color);
     margin: 0; 
     padding: 0;
@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
   }
   h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
+    font-size: 1.3rem;
   }
   ul li, ol li {
     list-style: none;
