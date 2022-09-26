@@ -65,7 +65,7 @@ const TripPeriod = ({
           <p>시작일</p>
           <Input
             value={start}
-            placeholder="달력아이콘을 통해 선택해주세요"
+            placeholder="날짜는 내일부터 선택가능합니다"
             onFocus={() => setShowCalendar(true)}
             variant="default"
             size="large"
@@ -76,7 +76,7 @@ const TripPeriod = ({
           <p>종료일</p>
           <Input
             value={end}
-            placeholder="달력아이콘을 통해 선택해주세요"
+            placeholder="날짜는 내일부터 선택가능합니다"
             onFocus={() => setShowCalendar(true)}
             variant="default"
             size="large"
