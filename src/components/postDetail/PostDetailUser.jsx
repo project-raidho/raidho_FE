@@ -28,7 +28,7 @@ export default PostDetailUser;
 
 const StUserWrapper = styled.div`
   display: flex;
-  margin: 10px 0;
+  margin: 10px 0 20px;
 
   .profileBox {
     width: 60px;
@@ -44,12 +44,15 @@ const StUserWrapper = styled.div`
 `;
 
 const StProfileRightBox = styled.div`
-  display: grid;
-  margin-left: 20px;
-  grid-row-gap: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 15px;
+  /* grid-row-gap: 3px; */
 
   h2 {
     font-size: 1.5rem;
-    margin-bottom: 6px;
+    margin-bottom: 0px;
   }
 `;

@@ -26,13 +26,6 @@ export default PostDetailImg;
 const StyledSlider = styled(Slider)`
   text-align: center;
   margin-bottom: 10px;
-
-  .slick-prev {
-    left: -30px;
-  }
-  .slick-next {
-    right: -30px;
-  }
   .imageBox {
     width: 100%;
     max-width: 738px;
@@ -45,8 +38,14 @@ const StyledSlider = styled(Slider)`
       max-width: 738px;
       max-height: 738px;
       min-width: 100%;
-      object-fit: cover;
+      object-fit: contain;
       margin: 0 auto;
     }
+  }
+  .slick-prev {
+    left: -30px;
+  }
+  .slick-next {
+    right: -30px;
   }
 `;
