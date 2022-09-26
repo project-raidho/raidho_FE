@@ -144,19 +144,20 @@ export default SearchContainer;
 const StSearchContainerWrap = styled.div`
   position: relative;
   display: block;
-  width: ${(props) => (props.isLogin === true ? "55%" : "54%")};
-  height: 50px;
-  min-width: 620px;
+  width: 100%;
+  /* width: ${(props) => (props.isLogin === true ? "55%" : "54%")}; */
+  height: 40px;
+  /* min-width: 620px; */
 
   @media (max-width: 1023px) {
-    min-width: 420px;
+    /* min-width: 420px; */
   }
   @media (max-width: 767px) {
-    min-width: 310px;
+    /* min-width: 310px; */
   }
   @media (max-width: 639px) {
-    min-width: 280px;
-    width: calc(95vw - 70px);
+    /* min-width: 280px; */
+    /* width: calc(95vw - 70px); */
     height: 36px;
   }
 `;
@@ -165,11 +166,11 @@ const StSearchDetailBox = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  /* width: 100%; */
-  height: ${(props) => (props.isFocusSearch === true ? "500px" : "50px")};
+  width: 100%;
+  height: ${(props) => (props.isFocusSearch === true ? "500px" : "40px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
-  border-radius: 20px 20px 20px 20px;
+  border-radius: 15px;
   box-shadow: ${(props) => props.isFocusSearch === true && "var(--box-shadow)"};
   background-color: var(--bg-color);
   overflow: hidden;
@@ -184,7 +185,7 @@ const StSearchDetailBox = styled.div`
   }
   @media (max-width: 767px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "630px" : "50px")};
+    height: ${(props) => (props.isFocusSearch === true ? "630px" : "40px")};
   }
   @media (max-width: 639px) {
     width: 100%;

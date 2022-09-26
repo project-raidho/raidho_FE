@@ -14,7 +14,8 @@ import ChattingPage from "../pages/ChattingPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import NaverLogin from "../components/login/NaverLogin";
 import NotFound from "../pages/NotFound";
-import GlobalHeader from "../global/GlobalHeader";
+// import GlobalHeader from "../global/GlobalHeader";
+import HeaderContainer from "../components/header/HeaderContainer";
 import GlobalLayout from "../global/GlobalLayout";
 import styled from "styled-components";
 
@@ -24,7 +25,7 @@ const Routers = () => {
   return (
     <BrowserRouter>
       <StRouterWrapp>
-        <GlobalHeader />
+        <HeaderContainer />
         <GlobalLayout>
           <Routes>
             <Route path="/" element={<MainPage />} />
