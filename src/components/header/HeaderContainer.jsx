@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../assets/raidhoLogo.svg";
@@ -6,25 +6,12 @@ import HeaderRightMenu from "./HeaderRightMenu";
 import SearchContainer from "./search/SearchContainer";
 
 const HeaderContainer = () => {
-  const [rightMenuWidth, setRightMenuWidth] = useState();
-
   // ::: 로그인 여부 확인하기
   const [isLogin, setIsLogin] = useState(false);
-  const userIsLogin = localStorage.getItem("Authorization");
-
-  const checkRightMenuWidth = (size) => {
-    setRightMenuWidth(size);
-  };
-
-  console.log(rightMenuWidth);
-  useEffect(() => {
-    // ::: 로그인 여부 확인하기
-    userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
-  }, [userIsLogin]);
 
   return (
     <StHeaderWrap>
-      <StHeaderContainerWrap rightMenuWidth={rightMenuWidth}>
+      <StHeaderContainerWrap>
         <StHeaderLogo>
           <Link to="/">
             <img src={Logo} alt="라이도 홈페이지 홈으로 가기" />
@@ -33,11 +20,7 @@ const HeaderContainer = () => {
         <StSearchBox isLogin={isLogin}>
           <SearchContainer />
         </StSearchBox>
-        <HeaderRightMenu
-          checkRightMenuWidth={checkRightMenuWidth}
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-        />
+        <HeaderRightMenu isLogin={isLogin} setIsLogin={setIsLogin} />
       </StHeaderContainerWrap>
     </StHeaderWrap>
   );
