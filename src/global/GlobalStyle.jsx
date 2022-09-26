@@ -17,12 +17,13 @@ const GlobalStyle = createGlobalStyle`
     --line-color: #666666;
     --red-color: #FF4040;
     --green-color: #11CA48;
-    --blue-color: #4888F4;
+    --blue-color: #4862E8;
     --gray-color: #a0a0a0;
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --font-style: 'Pretendard-Regular';
     --box-shadow: 4px 0px 5px rgba(0, 0, 0, 0.25);
+    --button-shadow : 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   .darkMode {
     --bg-color: #343434;

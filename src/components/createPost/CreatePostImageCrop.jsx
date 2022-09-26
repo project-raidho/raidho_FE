@@ -47,7 +47,6 @@ const CreatePostImageCrop = ({
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState("");
-  // const [checkNext, setCheckNext] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
   const onCloseModal = () => {
     setModalOn(!modalOn);
@@ -82,11 +81,6 @@ const CreatePostImageCrop = ({
     const alertMessageImageSize = window.confirm(
       "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?"
     );
-    // setAlertMsg(
-    //   `지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?`
-    // );
-    // setModalIcon("warning");
-    // setModalOn(true);
 
     if (alertMessageImageSize) {
       const { width, height } = imageRef.current;
@@ -265,27 +259,28 @@ const CreatePostImageCrop = ({
   return (
     <StCreatePostImageCrop>
       <p className="guideText">
-        <span>1</span>편집을 원하시는 이미지 비율을 선택해주세요!
+        <span>1</span>편집을 원하시는 이미지 비율을 선택해주세요.
       </p>
       <StImageSizeButtonWrap>
         {aspectButtonList.map((button, index) => (
-          <span
+          <p
             key={button.index}
             onClick={() => onClickImageSize(Number(button.aspect), index)}
             className={
               button.index === buttonActive ? "activeButton" : "inactiveButton"
             }
           >
-            {button.content}
-          </span>
+            <span></span>
+            <strong>{button.content}</strong>
+          </p>
         ))}
       </StImageSizeButtonWrap>
       <div className="guideRow">
         <p className="guideText numberTwo">
-          <span>2</span>이미지를 원하시는 형태로 조절해주세요!
+          <span>2</span>이미지를 원하시는 형태로 조절해주세요.
         </p>
         <p className="guideText numberThree viewDesktop">
-          <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요!
+          <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요.
         </p>
       </div>
       <StPostImageCropWrap>
@@ -308,18 +303,18 @@ const CreatePostImageCrop = ({
         </StPostImageCropColumn>
         <StPostImageCropColumn>
           <p className="guideText viewMobile">
-            <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요!
+            <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요.
           </p>
           <StCanvasPreview ref={canvasRef} />
           <div className="postImageCropBottom">
             <p className="guideText">
-              <span>4</span>편집이 완료되었다면, 저장하기 버튼을 눌러 주세요!
+              <span>4</span>편집이 완료되었다면, 저장하기 버튼을 눌러 주세요.
             </p>
             <StValidationMsg>{saveImageValidationMsg}</StValidationMsg>
             <p className="saveButtonWrap">
               <Button
-                size="squareTheme"
-                variant="lineBlue"
+                size="small"
+                variant="linePrimary"
                 onClick={onChangeCropImage}
               >
                 저장하기
@@ -364,7 +359,7 @@ const StCreatePostImageCrop = styled.div`
     align-items: center;
     width: 100%;
     height: 30px;
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
 
     &.numberTwo {
@@ -379,13 +374,13 @@ const StCreatePostImageCrop = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 30px;
-      height: 30px;
-      background-color: var(--main-color);
+      width: 20px;
+      height: 20px;
+      background-color: var(--gray-color);
       color: var(--text-color);
-      font-size: 1.3rem;
+      font-size: 0.8rem;
       line-height: 1;
-      margin-right: 1rem;
+      margin-right: 0.5rem;
       border-radius: 50%;
     }
   }
@@ -465,29 +460,36 @@ const StImageSizeButtonWrap = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  border-bottom: 1px solid var(--gray-color);
   padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
-  span {
+  p {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    width: 150px;
-    height: 45px;
-    font-size: 1.4rem;
-    line-height: 1;
-    margin-right: 10px;
-    border: 1px solid #000;
-    color: #000;
-    border-radius: 5px;
+    justify-content: flex-start;
+    margin-right: 50px;
 
-    &.activeButton {
+    span {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid var(--gray-color);
+      background-color: var(--bg-color);
+      margin-right: 8px;
+    }
+    strong {
+      color: var(--gray-color);
+      font-size: 300;
+    }
+
+    &.activeButton span {
+      border: 1px solid var(--blue-color);
       background-color: var(--main-color);
     }
-    &.inactiveButton {
-      background-color: var(--gray-color);
+    &.inactiveButton span {
+      border: 1px solid var(--gray-color);
+      background-color: var(--bg-colr);
     }
   }
 `;
@@ -514,7 +516,7 @@ const StThumb = styled.div`
     margin-bottom: 0;
   }
   &.doing {
-    border: 3px solid var(--main-color);
+    border: 2px solid var(--main-color);
 
     .thumbIndex {
       border: 2px solid var(--main-color);
@@ -522,7 +524,7 @@ const StThumb = styled.div`
     }
   }
   &.doingNot {
-    border: 1px solid #000;
+    border: 0px solid #000;
   }
   .thumbIndex {
     position: absolute;
@@ -531,13 +533,13 @@ const StThumb = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
     line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
+    color: var(--title-color);
+    background-color: var(--bg-color);
     border-radius: 50%;
-    border: 1px solid #000;
   }
 
   @media (max-width: 767px) {
@@ -550,7 +552,6 @@ const StThumbInner = styled.div`
   width: 100%;
   height: 100%;
   min-width: 0px;
-  padding: 2px;
   overflow: hidden;
 
   img {
@@ -573,9 +574,8 @@ const StThumbsContainer = styled.aside`
 `;
 
 const StValidationMsg = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
-  font-style: italic;
   color: var(--main-color);
   margin-bottom: 1rem;
 `;

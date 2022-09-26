@@ -150,15 +150,15 @@ const CreatePostContainer = () => {
       <StValidationMessage>{validationTags}</StValidationMessage>
       <StButtonWrap>
         <Button
-          size="squareTheme"
-          variant="gray"
+          size="medium"
+          variant="lineGray"
           onClick={() => {
             navigate(-1);
           }}
         >
           취소
         </Button>
-        <Button size="squareTheme" variant="lineBlue" onClick={mutate}>
+        <Button size="medium" variant="linePrimary" onClick={mutate}>
           등록
         </Button>
       </StButtonWrap>
