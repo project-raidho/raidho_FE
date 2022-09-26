@@ -148,9 +148,8 @@ const StLoginRightMenu = styled.ul`
     ul {
       li {
         width: 100%;
-        height: 40px;
+        height: 50px;
         margin: 0;
-        margin-top: 10px;
 
         a {
           display: flex;
@@ -158,10 +157,12 @@ const StLoginRightMenu = styled.ul`
           justify-content: center;
           width: 100%;
           height: 100%;
+          font-size: 1.1rem;
         }
       }
       li:first-child {
         border-bottom: 1px solid var(--gray-color);
+        margin-top: 15px;
       }
     }
   }
