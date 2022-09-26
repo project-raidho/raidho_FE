@@ -7,12 +7,9 @@ import { FaArrowAltCircleUp } from "react-icons/fa";
 
 const MainPage = () => {
   const { stateName } = useParams();
-  console.log("=====> mainPage :: paramssss", stateName);
-
   const [state, setState] = useState(
     stateName === undefined ? "latest" : stateName
   );
-  console.log("=====> mainPage :: state", state);
 
   useEffect(() => {
     const changeState = stateName === undefined ? "latest" : stateName;
@@ -176,6 +173,6 @@ const StMainNav = styled.div`
 
 const StLayout = styled.div`
   padding-top: 190px;
-  width: 1305px;
+  max-width: 1305px;
   margin: 0 auto;
 `;
