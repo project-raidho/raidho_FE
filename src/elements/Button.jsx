@@ -72,6 +72,14 @@ const VARIANTS = {
     --button-hover-text-color: #ffffff;
     --button-hover-box-shadow: var(--button-shadow);
   `,
+  lineLightBlue: css`
+    --button-color: var(--lightBlue-color);
+    --button-border-color: var(--lightBlue-color);
+    --button-bg-color: var(--bg-color);
+    --button-hover-bg-color: var(--lightBlue-color);
+    --button-hover-text-color: #ffffff;
+    --button-hover-box-shadow: var(--button-shadow);
+  `,
   lineGray: css`
     --button-color: var(--gray-color);
     --button-border-color: var(--gray-color);

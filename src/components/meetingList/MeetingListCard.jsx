@@ -172,7 +172,7 @@ const MeetingListCard = ({ meeting }) => {
             {meeting.isMine && (
               <Button
                 size="small"
-                variant="linePrimary"
+                variant="lineLightBlue"
                 onClick={() => {
                   navigate(`/updateMeeting/${meeting.id}`);
                 }}
@@ -194,7 +194,7 @@ const MeetingListCard = ({ meeting }) => {
               !meeting.isAlreadyJoin && (
                 <Button
                   size="small"
-                  variant="linePrimary"
+                  variant="lineLightBlue"
                   onClick={() => onJoinRoom(meeting.id)}
                 >
                   참여하기
@@ -231,7 +231,7 @@ const StMeetingListCardWrap = styled.div`
   padding: 1.7rem;
   background-color: var(--subBg-color);
   border: 1px solid var(--gray-color);
-  border-radius: 20px;
+  border-radius: 15px;
 
   h3 {
     font-size: 1.7rem;
@@ -256,7 +256,7 @@ const StMeetingListCardWrap = styled.div`
   }
 
   .tag {
-    color: var(--blue-color);
+    color: var(--lightBlue-color);
     font-size: 1.2rem;
     cursor: pointer;
   }
@@ -303,7 +303,7 @@ const StMeetingCardRow = styled.div`
 
   .infoStatus {
     font-size: 1rem;
-    color: var(--main-color);
+    color: var(--lightBlue-color);
 
     & > span {
       display: flex;
@@ -311,12 +311,12 @@ const StMeetingCardRow = styled.div`
       justify-content: center;
       flex-direction: row;
       font-size: 1rem;
-      color: var(--blue-color);
+      color: var(--lightBlue-color);
 
       i {
         width: 13px;
         height: 13px;
-        background-color: var(--blue-color);
+        background-color: var(--lightBlue-color);
         margin-right: 5px;
         border-radius: 50%;
       }
@@ -342,7 +342,7 @@ const StMeetingCardRow = styled.div`
 
       & > b {
         font-size: 1rem;
-        color: var(--blue-color);
+        color: var(--lightBlue-color);
       }
     }
   }
