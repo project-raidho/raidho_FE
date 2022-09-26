@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ToggleBox from "./toggle/ToggleBox";
 import Button from "../../elements/Button";
 import Potal from "../../global/globalModal/Potal";
@@ -11,7 +11,9 @@ import IconPost from "../../assets/header/post.svg";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 
-const HeaderRightMenu = ({ isLogin }) => {
+const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
+  const navigate = useNavigate();
+
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
     localStorage.getItem("memberImage") === "null"
@@ -21,6 +23,28 @@ const HeaderRightMenu = ({ isLogin }) => {
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
+  };
+
+  // ::: 토글 메뉴 확인하기
+  const [isAddToggle, setIsAddToggle] = useState(false);
+  const [isUserToggle, setIsUserToggle] = useState(false);
+
+  // ::: 토글 메뉴 닫기
+  const onCloseToggle = () => {
+    setIsAddToggle(false);
+    setIsUserToggle(false);
+  };
+
+  // ::: 로그아웃 하기
+  const onClickLogOut = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("memberImage");
+    localStorage.removeItem("memberName");
+    localStorage.removeItem("memberIntro");
+
+    setIsLogin(false);
+    // onCloseToggle();
+    navigate("/");
   };
 
   console.log("isLogin", isLogin);
@@ -46,10 +70,15 @@ const HeaderRightMenu = ({ isLogin }) => {
               <img src={IconMeeting} alt="모집글 보러가기" />
             </Link>
           </li>
-          <li>
+          <li onClick={() => setIsAddToggle(!isAddToggle)}>
             <img src={IconAdd} alt="게시글 추가하기" />
-            <ToggleBox>
-              <li>ddd</li>
+            <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
+              <li>
+                <Link to={`/createPost`}>여행후기 작성</Link>
+              </li>
+              <li>
+                <Link to={`/createMeeting`}>모집글 작성</Link>
+              </li>
             </ToggleBox>
           </li>
           <li>
@@ -58,7 +87,15 @@ const HeaderRightMenu = ({ isLogin }) => {
             </Link>
           </li>
           <li className="userMenu">
-            <img src={memberImage} alt="마이프로필" />
+            <p onClick={() => setIsUserToggle(!isUserToggle)}>
+              <img src={memberImage} alt="마이프로필" />
+            </p>
+            <ToggleBox isToggle={isUserToggle} onCloseToggle={onCloseToggle}>
+              <li>
+                <Link to={`/myProfile`}>마이페이지</Link>
+              </li>
+              <li onClick={onClickLogOut}>로그아웃</li>
+            </ToggleBox>
           </li>
         </StLoginRightMenu>
       )}
@@ -108,6 +145,25 @@ const StLoginRightMenu = styled.ul`
       height: 100%;
       object-fit: contain;
     }
+    ul {
+      li {
+        width: 100%;
+        height: 40px;
+        margin: 0;
+        margin-top: 10px;
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      li:first-child {
+        border-bottom: 1px solid var(--gray-color);
+      }
+    }
   }
 
   li:first-child {
@@ -115,15 +171,19 @@ const StLoginRightMenu = styled.ul`
   }
 
   .userMenu {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+    width: 34px;
+    height: 34px;
 
-    img {
+    p {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 `;

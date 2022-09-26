@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import BgToggleBox from "../../../assets/header/togglebox.svg";
 import styled from "styled-components";
 
-const ToggleBox = ({ children }) => {
-  // ::: 토글 메뉴 확인하기
-  const [isToggle, setIsToggle] = useState(false);
-
-  // ::: 메뉴 토글 닫기
-  const onCloseToggle = () => {
-    setIsToggle(false);
-  };
-
+const ToggleBox = ({ children, isToggle, onCloseToggle }) => {
   return (
     <>
-      <StToggleBox>{children}</StToggleBox>
+      <StToggleBox isToggle={isToggle}>{children}</StToggleBox>
+      <StToggleBackground isToggle={isToggle} onClick={onCloseToggle} />
     </>
   );
 };
@@ -21,12 +14,31 @@ const ToggleBox = ({ children }) => {
 export default ToggleBox;
 
 const StToggleBox = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 110px;
-  height: 120px;
+  height: ${(props) => (props.isToggle ? "120px" : "0px")};
   background-image: url(${BgToggleBox});
   top: 40px;
   left: 50%;
+  padding: 0 8px;
   margin-left: -80px;
   z-index: 3;
+  overflow: hidden;
+  transition: 0.2s;
+`;
+
+const StToggleBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${(props) =>
+    props.isToggle || props.isAddPostToggle ? "block" : "none"};
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0);
 `;
