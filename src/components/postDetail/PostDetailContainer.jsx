@@ -91,10 +91,8 @@ export default PostDetailContainer;
 
 const StDetailContainer = styled.div`
   width: 100%;
-  max-width: 800px;
-  border: 1px solid;
-  border-radius: 15px;
-  padding: 20px 90px;
+  max-width: 738px;
+  padding: 20px 0px;
   margin: 0 auto 50px;
 
   .backButton {
