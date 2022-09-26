@@ -95,7 +95,7 @@ const StMeetingCategoryRow = styled.div`
     width: 250px;
     height: 55px;
 
-    border: 1px solid var(--title-color);
+    border: 1px solid var(--gray-color);
     border-radius: 15px;
     background-color: var(--bg-color);
     margin-right: 1rem;
@@ -112,7 +112,9 @@ const StMeetingCategoryRow = styled.div`
       width: 100%;
       height: 100%;
       &.active {
-        background-color: var(--main-color);
+        background-color: var(--lightBlue-color);
+        border: 1px solid var(--blue-color);
+        color: #ffffff;
       }
     }
   }

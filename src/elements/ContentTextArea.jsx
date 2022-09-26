@@ -42,16 +42,16 @@ const StContentTextAreaWrap = styled.div`
   textarea {
     width: 100%;
     height: 200px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border: 1px solid var(--gray-color);
-    padding: 1rem;
+    padding: 1.3rem;
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
   }
 `;
 
 const StValidationMsg = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
   text-align: right;
   font-style: italic;
