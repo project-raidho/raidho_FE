@@ -156,7 +156,7 @@ const UpdateMeetingContainer = () => {
 
   const meetingDetail = meetingDetail_query?.data?.data;
   useEffect(() => {
-    setTheme(meetingDetail?.theme);
+    setTheme(meetingDetail?.themeCategory);
     setMeetingTags(meetingDetail?.meetingTags);
     setTitle(meetingDetail?.title);
     setDesc(meetingDetail?.desc);
@@ -174,19 +174,14 @@ const UpdateMeetingContainer = () => {
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
         <h1>대륙 </h1>
-        <Button
-          size="large"
-          variant="primary"
-          className="themeName"
-          disabled={true}
-        >
-          {theme}
-        </Button>
+        <div size="medium" variant="primary" className="theme" disabled={true}>
+          <span className="themeName">{theme}</span>
+        </div>
 
         <h1>여행갈 나라/도시</h1>
         <StTags>
-          <ul id="tags">
-            {meetingTags.map((tag, index) => (
+          <ul className="tags">
+            {meetingTags?.map((tag, index) => (
               <li key={index} className="tag">
                 <span className="tagTitle">{tag}</span>
               </li>
@@ -281,6 +276,24 @@ const StCreatePostContainerWrap = styled.div`
     font-size: 20px;
     margin-top: 50px;
   }
+  .theme {
+    width: 220px;
+    height: 50px;
+    border: 1px solid #7188ff;
+    border-radius: 25px;
+    background: #7188ff;
+  }
+  .themeName {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+  }
 
   @media (max-width: 1023px) {
     flex-direction: column;
@@ -362,16 +375,21 @@ const StDescBox = styled(TextField)`
 
 const StTags = styled.div`
   .kkqTPl {
-    width: 90%;
+    /* width: 90%; */
     height: 55px;
     border-radius: 10px;
     border: 1px solid #a0a0a0;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     border: 1px solid;
   }
+  .tags {
+    display: flex;
+    margin: 8px 0 0 0;
+  }
   .tag {
     width: auto;
     height: 32px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,6 +402,8 @@ const StTags = styled.div`
     background: var(--main-color);
     .tagTitle {
       margin-top: 3px;
+      color: #fff;
+      padding: 0 8px;
     }
   }
 `;
