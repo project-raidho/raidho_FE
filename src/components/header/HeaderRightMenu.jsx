@@ -44,6 +44,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     localStorage.removeItem("memberIntro");
 
     setIsLogin(false);
+    onCloseToggle();
     navigate("/");
   };
 

@@ -95,6 +95,7 @@ const UpdateMyProfile = (props) => {
     const formData = new FormData();
     const fileName =
       "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
+
     formData.append("memberImage", compressedImageFile, fileName);
     formData.append("memberName", updateNickname);
     formData.append("memberIntro", updateComment);

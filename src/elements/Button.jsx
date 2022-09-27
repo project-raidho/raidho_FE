@@ -7,15 +7,18 @@ const SIZES = {
     --button-font-size: 1rem;
     --button-padding: 0px 30px;
     --button-radius: 20px;
-    --button-mobile-padding: 0px 10px;
-    --button-mobile-font-size: 0.8rem;
-    --button-mobile-width: 80px;
+    --button-mobile-padding: 0px 5px;
+    --button-mobile-font-size: 0.9rem;
+    --button-mobile-width: 100px;
   `,
   medium: css`
     --button-font-size: 1.3rem;
     --button-width: 150px;
     --button-height: 50px;
     --button-radius: 25px;
+    --button-mobile-padding: 0px 0px;
+    --button-mobile-font-size: 1rem;
+    --button-mobile-width: 120px;
   `,
   large: css`
     --button-font-size: 1.5rem;
@@ -30,6 +33,8 @@ const SIZES = {
     --button-padding: 0 30px 0 10px;
     --button-margin-right: 25px;
     --button-radius: 25px;
+    --button-mobile-padding: 0px 5px;
+    --button-mobile-font-size: 0.9rem;
   `,
   square: css`
     --button-font-size: 1.5rem;
