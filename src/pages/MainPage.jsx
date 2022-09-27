@@ -132,7 +132,6 @@ const StMainNav = styled.div`
   align-items: center;
   width: 100%;
   padding: 0.8rem 0;
-  margin-bottom: 1rem;
   /* box-shadow: var(--box-shadow); */
   background-color: var(--bg-color);
   z-index: 4;
@@ -142,12 +141,12 @@ const StMainNav = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 150px;
+    width: 200px;
     height: 40px;
-    border: 1px solid var(--title-color);
-    border-radius: 10px;
-    background-color: var(--bg-color);
+    border-radius: 20px;
+    background-color: var(--lightGray-color);
     margin-right: 1rem;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     cursor: pointer;
 
@@ -160,7 +159,8 @@ const StMainNav = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    color: #ffffff;
     width: 100%;
     height: 100%;
     &.active {
@@ -168,10 +168,14 @@ const StMainNav = styled.div`
     }
   }
   @media (max-width: 639px) {
-    top: 57px;
+    /* top: 57px; */
+    justify-content: center;
+    padding: 0.8rem 0 0;
     p {
       width: 100px;
       height: 30px;
+      border-radius: 15px;
+      margin-right: 0.5rem;
       a {
         font-size: 1rem;
       }
