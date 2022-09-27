@@ -1,23 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
-
-//댓글 조회
-const getComment = ({ queryKey }) => {
-  return authInstance.get(`/api/comment/${queryKey[1]}`);
-};
-
-const deleteCommentList = ({ queryKey }) => {
-  return authInstance.get(`/api/comment/${queryKey[1]}`);
-};
-
-const updateCommentList = ({ queryKey }) => {
-  return authInstance.get(`/api/comment/${queryKey[1]}`);
-};
 
 const Comment = ({ comment }) => {
   const userInfo = localStorage.getItem("memberName");
@@ -25,7 +11,7 @@ const Comment = ({ comment }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [updatedComment, setUpdatedComment] = useState(comment.content);
   // const { content } = useSelector((state) => state.comment.data);
-
+  // 댓글 삭제 axios
   const onDeleteComment = async (commentId) => {
     const result = window.confirm("삭제하시겠습니까?");
     if (result) {
@@ -34,7 +20,7 @@ const Comment = ({ comment }) => {
       return;
     }
   };
-
+  // 댓글 수정 axios(저장 버튼 클릭시)
   const onUpadteComment = async (commentId) => {
     await authInstance.put(`/api/comment/${commentId}`, {
       postId: id,
@@ -43,10 +29,12 @@ const Comment = ({ comment }) => {
     setIsEdit(false);
   };
 
+  //수정버튼 클릭시
   const onChangeEdit = () => {
     setIsEdit(true);
   };
 
+  //취소버튼 클릭시
   const onCancle = () => {
     setIsEdit(false);
     // dispatch(clearComment());
@@ -195,9 +183,14 @@ const StComment = styled.div`
 const StmiddleBox = styled.div`
   margin-left: 10px;
   .name {
+    width: 42px;
     font-weight: 900;
   }
 `;
 const Stcontent = styled.div`
   margin-left: 10px;
+  max-width: 500px;
+  @media (max-width: 639px) {
+    max-width: 100px;
+  }
 `;

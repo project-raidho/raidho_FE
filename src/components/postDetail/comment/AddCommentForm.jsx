@@ -96,6 +96,9 @@ const CommentForm = styled.div`
     height: 40px;
     border: none;
     outline: none;
+    @media (max-width: 639px) {
+      max-width: 150px;
+    }
   }
   .addButton {
     font-size: 20px;
