@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getDarkMode } from "../redux/modules/searchSlice";
 import MainPage from "../pages/MainPage";
 import PostDetailPage from "../pages/PostDetailPage";
 import MyProfilePage from "../pages/MyProfilePage";
@@ -14,13 +15,23 @@ import ChattingPage from "../pages/ChattingPage";
 import KakaoLogin from "../components/login/KakaoLogin";
 import NaverLogin from "../components/login/NaverLogin";
 import NotFound from "../pages/NotFound";
-// import GlobalHeader from "../global/GlobalHeader";
 import HeaderContainer from "../components/header/HeaderContainer";
 import GlobalLayout from "../global/GlobalLayout";
+import GlobalFooter from "../global/GlobalFooter";
 import styled from "styled-components";
 
 const Routers = () => {
+  const dispatch = useDispatch();
   const themeList = useSelector((state) => state.themeSlice.themeList);
+  const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
+
+  // ::: Dark & Light 기능구현
+  useEffect(() => {
+    dispatch(getDarkMode());
+    if (checkDarkMode) {
+      document.getElementsByTagName("html")[0].classList.add("darkMode");
+    }
+  }, [dispatch, checkDarkMode]);
 
   return (
     <BrowserRouter>
@@ -62,6 +73,7 @@ const Routers = () => {
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </GlobalLayout>
+        <GlobalFooter />
       </StRouterWrapp>
     </BrowserRouter>
   );

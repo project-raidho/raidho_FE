@@ -44,6 +44,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     localStorage.removeItem("memberIntro");
 
     setIsLogin(false);
+    onCloseToggle();
     navigate("/");
   };
 
@@ -52,9 +53,9 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
     // eslint-disable-next-line
   }, [userIsLogin]);
-  console.log("isLogin", isLogin);
+
   return (
-    <StHeaderRightMenuWrap>
+    <StHeaderRightMenuWrap isLogin={isLogin}>
       {!isLogin ? (
         <>
           <Button size="small" variant="primary" onClick={handleModal}>
@@ -79,10 +80,14 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
             <img src={IconAdd} alt="게시글 추가하기" />
             <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
               <li>
-                <Link to={`/createPost`}>여행후기 작성</Link>
+                <Link to={`/createPost`} onClick={onCloseToggle}>
+                  여행후기 작성
+                </Link>
               </li>
               <li>
-                <Link to={`/createMeeting`}>모집글 작성</Link>
+                <Link to={`/createMeeting`} onClick={onCloseToggle}>
+                  모집글 작성
+                </Link>
               </li>
             </ToggleBox>
           </li>
@@ -97,7 +102,9 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
             </p>
             <ToggleBox isToggle={isUserToggle} onCloseToggle={onCloseToggle}>
               <li>
-                <Link to={`/myProfile`}>마이페이지</Link>
+                <Link to={`/myProfile`} onClick={onCloseToggle}>
+                  마이페이지
+                </Link>
               </li>
               <li onClick={onClickLogOut}>로그아웃</li>
             </ToggleBox>
@@ -111,7 +118,18 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
-  p.rightMenuBox {
+  @media (max-width: 639px) {
+    position: ${(props) => (props.isLogin ? "fixed" : "")};
+    left: ${(props) => (props.isLogin ? "0" : "")};
+    bottom: ${(props) => (props.isLogin ? "0" : "")};
+    display: ${(props) => (props.isLogin ? "flex" : "")};
+    align-items: ${(props) => (props.isLogin ? "center" : "")};
+    width: ${(props) => (props.isLogin ? "100%" : "")};
+    height: ${(props) => (props.isLogin ? "48px" : "")};
+    background-color: ${(props) => (props.isLogin ? "var(--bg-color)" : "")};
+    box-shadow: ${(props) =>
+      props.isLogin ? "var(--header-bottom-shadow)" : ""};
+    z-index: ${(props) => (props.isLogin ? "8" : "")};
   }
 `;
 
@@ -152,8 +170,8 @@ const StLoginRightMenu = styled.ul`
     }
     ul {
       li {
-        width: 100%;
-        height: 50px;
+        width: 90%;
+        height: 55px;
         margin: 0;
 
         a {
@@ -167,7 +185,7 @@ const StLoginRightMenu = styled.ul`
       }
       li:first-child {
         border-bottom: 1px solid var(--gray-color);
-        margin-top: 15px;
+        margin-top: 10px;
       }
     }
   }
@@ -190,6 +208,30 @@ const StLoginRightMenu = styled.ul`
         height: 100%;
         object-fit: cover;
       }
+    }
+  }
+
+  @media (max-width: 639px) {
+    width: 94%;
+    height: 30px;
+    margin: 0 auto;
+
+    li {
+      width: 30px;
+      height: 30px;
+
+      ul {
+        li {
+          height: 45px;
+        }
+        li:first-child {
+          margin-top: 20px;
+        }
+      }
+    }
+    .userMenu {
+      width: 30px;
+      height: 30px;
     }
   }
 `;

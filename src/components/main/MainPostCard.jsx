@@ -96,7 +96,6 @@ export default MainPostCard;
 const StFigure = styled.figure`
   display: inline-block;
   position: relative;
-
   margin: 0;
   width: 100%;
   margin-bottom: 20px;

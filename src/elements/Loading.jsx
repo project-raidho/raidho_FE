@@ -26,7 +26,7 @@ const StLoadingWrap = styled.div`
     animation: spin 2s linear infinite;
 
     path {
-      color: var(--title-color);
+      color: var(--lightGray-color);
     }
   }
 

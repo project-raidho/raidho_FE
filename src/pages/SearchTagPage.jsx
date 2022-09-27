@@ -13,4 +13,6 @@ const SearchTagPage = () => {
 
 export default SearchTagPage;
 
-const StSearchTagPageWrap = styled.div``;
+const StSearchTagPageWrap = styled.div`
+  min-height: 100vh;
+`;
