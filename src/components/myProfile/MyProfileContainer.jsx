@@ -134,7 +134,7 @@ const StMyProfileTitleRow = styled.div`
   }
 
   h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);
     padding-right: 25px;
@@ -262,5 +262,8 @@ const StSwitchButton = styled.label`
     margin-left: ${(props) => (props.checkDarkMode ? "-20px" : "-7px")};
     margin-top: -7px;
     z-index: 1;
+  }
+  @media (max-width: 639px) {
+    margin-right: 1rem;
   }
 `;

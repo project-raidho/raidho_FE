@@ -17,6 +17,7 @@ import NaverLogin from "../components/login/NaverLogin";
 import NotFound from "../pages/NotFound";
 import HeaderContainer from "../components/header/HeaderContainer";
 import GlobalLayout from "../global/GlobalLayout";
+import GlobalFooter from "../global/GlobalFooter";
 import styled from "styled-components";
 
 const Routers = () => {
@@ -72,6 +73,7 @@ const Routers = () => {
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </GlobalLayout>
+        <GlobalFooter />
       </StRouterWrapp>
     </BrowserRouter>
   );

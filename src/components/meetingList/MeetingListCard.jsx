@@ -182,6 +182,7 @@ const MeetingListCard = ({ meeting }) => {
             )}
             {meeting.isMine && (
               <Button
+                className="deleteButton"
                 size="small"
                 variant="lineGray"
                 onClick={() => mutate(meeting.id)}
@@ -320,6 +321,9 @@ const StMeetingCardRow = styled.div`
   button {
     padding: 0px 20px;
     margin-right: 0.5rem;
+    &.deleteButton {
+      margin-right: 0;
+    }
     &:last-child {
       margin-right: 0;
     }
@@ -424,6 +428,10 @@ const StMeetingCardRow = styled.div`
     }
     .memberNameBox {
       font-size: 1.1rem;
+    }
+
+    button {
+      padding: 0px 8px;
     }
   }
 `;

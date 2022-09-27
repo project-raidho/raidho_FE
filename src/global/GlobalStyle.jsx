@@ -32,6 +32,7 @@ const GlobalStyle = createGlobalStyle`
   .darkMode {
     --bg-color: #343434;
     --bgSub-color: #1E1E1E;
+    --sub-color:#1E1E1E;
     --title-color: #ffffff;
     --text-color: #ffffff;
     --box-shadow: 3px 3px 8px rgba(255, 255, 255, 0.2);

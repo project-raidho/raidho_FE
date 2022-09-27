@@ -229,7 +229,9 @@ const StUpdateMyProfileWrap = styled.div`
     flex-direction: column;
 
     button {
+      font-size: 1rem;
       margin-top: 1rem;
+      margin-left: 1rem;
       padding: 0.5rem 1rem;
     }
   }
@@ -288,7 +290,6 @@ const StMyProfileBox = styled.div`
       dt {
         height: 40px;
         font-size: 1.2rem;
-        background-color: red;
       }
       dd {
         height: 20px;
