@@ -15,7 +15,7 @@ import SockJS from "sockjs-client";
 // import { authInstance } from "../../shared/api";
 
 // 채팅 방 컴포넌트
-const ChattingRoom = (props) => {
+const ChattingRoom = () => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
 
@@ -163,7 +163,7 @@ const ChattingRoom = (props) => {
       {id && (
         <ChatWrap>
           <ChatName />
-          <MessageList messages={messages} setMessages={setMessages} />
+          <MessageList id={id} messages={messages} setMessages={setMessages} />
           <MessageWrite
             setMessageInput={setMessageInput}
             sendMessage={sendMessage}

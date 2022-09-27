@@ -14,11 +14,6 @@ const PostDetailUser = ({ postDetail }) => {
       </div>
       <StProfileRightBox>
         <h2>{postDetail.memberName}</h2>
-        <div>
-          {postDetail.createdAt.substr(0, 4)}년{" "}
-          {postDetail.createdAt.substr(5, 2)}월{" "}
-          {postDetail.createdAt.substr(8, 2)}일 게시
-        </div>
       </StProfileRightBox>
     </StUserWrapper>
   );
@@ -49,7 +44,7 @@ const StProfileRightBox = styled.div`
   align-items: flex-start;
   justify-content: center;
   margin-left: 15px;
-
+  vertical-align: middle;
   h2 {
     font-size: 1.5rem;
     margin-bottom: 0px;
