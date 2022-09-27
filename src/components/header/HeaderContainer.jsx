@@ -9,24 +9,6 @@ const HeaderContainer = () => {
   // ::: 로그인 여부 확인하기
   const [isLogin, setIsLogin] = useState(false);
 
-  // ::: 모바일 여부 확인하기
-  // const [isMobile, setIsMobile] = useState(false);
-
-  // const checkBrowserWidth = () => {
-  //   const browserWidth = window.innerWidth;
-  //   console.log("브라우저 표시화면 너비 :::", browserWidth);
-  //   browserWidth <= 639 ? setIsMobile(true) : setIsMobile(false);
-  // };
-
-  // console.log("브라우저 표시화면 너비 :::", isMobile);
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", checkBrowserWidth);
-  //   return () => {
-  //     window.removeEventListener("resize", checkBrowserWidth);
-  //   };
-  // }, []);
-
   return (
     <StHeaderWrap>
       <StHeaderContainerWrap>

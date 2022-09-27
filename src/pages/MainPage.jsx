@@ -53,14 +53,22 @@ const MainPage = () => {
       <MainBanner />
       <StLayout>
         <StMainNav>
-          <p onClick={() => setState("latest")}>
-            <NavLink
-              to={`/latest`}
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              실시간
-            </NavLink>
-          </p>
+          {stateName === undefined ? (
+            <p>
+              <a href="/" className="active">
+                실시간
+              </a>
+            </p>
+          ) : (
+            <p onClick={() => setState("latest")}>
+              <NavLink
+                to={`/latest`}
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                실시간
+              </NavLink>
+            </p>
+          )}
           <p onClick={() => setState("likelist")}>
             <NavLink
               to={`/likelist`}
