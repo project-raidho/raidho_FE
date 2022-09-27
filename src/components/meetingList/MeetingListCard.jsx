@@ -200,7 +200,8 @@ const MeetingListCard = ({ meeting }) => {
                   참여하기
                 </Button>
               )}
-            {meeting.isAlreadyJoin && (
+
+            {meeting.isAlreadyJoin && !meeting.isMine && (
               <p className="isInMeetingMsg">이미 참여중인 모집입니다.</p>
             )}
           </div>
@@ -340,6 +341,9 @@ const StMeetingCardRow = styled.div`
 
         b {
           color: var(--gray-color);
+        }
+        i {
+          background-color: var(--gray-color);
         }
       }
 

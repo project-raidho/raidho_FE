@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -54,7 +54,7 @@ const PostDetailLike = ({ postDetail }) => {
 
       <Potal>
         {modalOn && (
-          <Modal
+          <AlertModal
             onCloseModal={onCloseModal}
             modalIcon={modalIcon}
             alertMsg={alertMsg}

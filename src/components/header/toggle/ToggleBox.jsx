@@ -29,7 +29,7 @@ const StToggleBox = styled.ul`
   left: 50%;
   padding: 0 8px;
   margin-left: -95px;
-  z-index: 3;
+  z-index: 7;
   overflow: hidden;
   transition: 0.3s;
 `;
