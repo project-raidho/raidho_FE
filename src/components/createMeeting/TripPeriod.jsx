@@ -60,54 +60,56 @@ const TripPeriod = ({
 
   return (
     <CalenderContainer>
-      <InputBox>
-        <div>
-          <p>시작일</p>
-          <Input
-            value={start}
-            placeholder="날짜는 내일부터 선택가능합니다"
-            onFocus={() => setShowCalendar(true)}
-            variant="default"
-            size="large"
-            // onChange={startinputonChangeHandler}
-          />
-        </div>
-        <div>
-          <p>종료일</p>
-          <Input
-            value={end}
-            placeholder="날짜는 내일부터 선택가능합니다"
-            onFocus={() => setShowCalendar(true)}
-            variant="default"
-            size="large"
-            // onChange={endinputonChangeHandler}
-          />
-        </div>
+      <h1>여행기간</h1>
+      <div>
+        <InputBox>
+          <div>
+            <p>시작일</p>
+            <Input
+              value={start}
+              placeholder=""
+              onFocus={() => setShowCalendar(true)}
+              variant="default"
+              size="large"
+              // onChange={startinputonChangeHandler}
+            />
+          </div>
+          <div>
+            <p>종료일</p>
+            <Input
+              value={end}
+              placeholder=""
+              onFocus={() => setShowCalendar(true)}
+              variant="default"
+              size="large"
+              // onChange={endinputonChangeHandler}
+            />
+          </div>
 
-        <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
-      </InputBox>
+          <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
+        </InputBox>
 
-      {showCalendar && (
-        <DateRange
-          showPreview={false}
-          locale={ko}
-          minDate={tomorrow}
-          onChange={(item) => onChangeHandler(item)}
-          moveRangeOnFirstSelection={false}
-          ranges={state}
-          months={1}
-          direction="horizontal"
-          dateDisplayFormat={"yyyy/MMM/d일"} // 날짜 포맷값
-          showDateDisplay={false}
-        />
-      )}
+        {showCalendar && (
+          <DateRange
+            showPreview={false}
+            locale={ko}
+            minDate={tomorrow}
+            onChange={(item) => onChangeHandler(item)}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
+            months={1}
+            direction="horizontal"
+            dateDisplayFormat={"yyyy/MMM/d일"} // 날짜 포맷값
+            showDateDisplay={false}
+          />
+        )}
+      </div>
     </CalenderContainer>
   );
 };
 export default TripPeriod;
 
 const CalenderContainer = styled.div`
-  /* display: flex; */
   width: 100%;
 
   @media ${(props) => props.theme.mobile} {
@@ -118,8 +120,9 @@ const CalenderContainer = styled.div`
 `;
 const InputBox = styled.div`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   div {
+    width: 180px;
     margin: 10px;
   }
   p {
@@ -134,6 +137,6 @@ const InputBox = styled.div`
 
 const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
-  margin: auto 5px;
+  margin: 50px 5px 0 0;
   cursor: pointer;
 `;

@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
 const TripPeopleCount = ({ people, setPeople }) => {
   const countList = [2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -23,60 +20,49 @@ const TripPeopleCount = ({ people, setPeople }) => {
   }, [people]);
 
   return (
-    <StSelectBox>
-      <FormControl sx={{ m: 1, Width: 120 }} className="select">
-        <StSelect
-          value={count}
-          onChange={countonChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem value="">
-            <em>인원 선택</em>
-          </MenuItem>
+    <StPeopleWrapper>
+      <h1>여행희망인원(채팅인원)</h1>
+      <StSelectBox>
+        <select value={count} onChange={countonChange} className="select">
           {NewCountList.map((item, i) => (
-            <MenuItem value={item} key={i}>
+            <option value={item} key={i}>
               {item}
-            </MenuItem>
+            </option>
           ))}
-        </StSelect>
-      </FormControl>
+        </select>
 
-      <People>명</People>
-    </StSelectBox>
+        <People>명</People>
+      </StSelectBox>
+    </StPeopleWrapper>
   );
 };
 export default TripPeopleCount;
 
+const StPeopleWrapper = styled.div`
+  .select {
+    width: 100px;
+    height: 35px;
+    background: url("https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png")
+      calc(100% - 5px) center no-repeat;
+    background-size: 20px;
+    padding: 5px 30px 5px 10px;
+    border-radius: 4px;
+    outline: 0 none;
+    cursor: pointer;
+  }
+  .select option {
+    background: var(--bg-color);
+    color: var(--title-color);
+    padding: 3px 0;
+  }
+`;
+const StSelectBox = styled.div`
+  margin-top: 50px;
+  display: flex;
+  background-color: var(--subBg-color);
+`;
+
 const People = styled.div`
   margin: auto 5px;
   font-size: 20px;
-`;
-
-const StSelectBox = styled.div`
-  display: flex;
-  background-color: var(--subBg-color);
-
-  .select {
-    margin: 0;
-  }
-
-  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-    border: 2px solid var(--gray-color);
-  }
-  .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
-    background-color: black;
-  }
-  .css-6hp17o-MuiList-root-MuiMenu-list {
-    background-color: black;
-  }
-  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
-    background-color: var(--subBg-color);
-  }
-`;
-
-const StSelect = styled(Select)`
-  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-    color: var(--text-color);
-  }
 `;

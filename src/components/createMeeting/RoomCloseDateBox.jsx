@@ -10,12 +10,14 @@ const RoomCloseDateBox = ({
   setRoomCloseDate,
   maxRoomCloseDate,
 }) => {
-  const [showCalendar, setShowCalendar] = useState(false); // 캘린더 여는 토글
+  // 캘린더 여는 토글
+  const [showCalendar, setShowCalendar] = useState(false);
   // 오늘 날짜 기본값지정을 위해
   const today = moment().add(0, "d").toDate();
-  const [maxdate, setmaxdate] = useState();
-  const [date, setDate] = useState(today); // date 를 선언하고 기본값을 내일날짜로 지정
-  const [inputdate, setInputdate] = useState(roomCloseDate);
+  const [maxDate, setmMaxDate] = useState();
+  //기본값을 오늘날짜로 지정
+  const [date, setDate] = useState(today);
+  const [inputDate, setInputDate] = useState(roomCloseDate);
   const onChangeDate = useCallback(
     (date) => {
       // date 변경값을 받아오는 함수
@@ -23,7 +25,7 @@ const RoomCloseDateBox = ({
         return;
       } // 날짜값이 없을 때 예외처리
       setDate(date); // 날짜값이 들어오면 date 를 set해준다
-      setInputdate(moment(date).format("YYYY-MM-DD"));
+      setInputDate(moment(date).format("YYYY-MM-DD"));
       setRoomCloseDate(moment(date).format("YYYY-MM-DD"));
       setShowCalendar(false);
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,16 +36,17 @@ const RoomCloseDateBox = ({
   //   // setRoomCloseDate(inputdate);
   // };
   useEffect(() => {
-    setInputdate(roomCloseDate);
-    setmaxdate(maxRoomCloseDate);
+    setInputDate(roomCloseDate);
+    setmMaxDate(maxRoomCloseDate);
   }, [roomCloseDate, maxRoomCloseDate]);
 
   return (
     <StRoomCloseDateBoxContainer>
+      <h1>모집마감일자</h1>
       <StInputbox>
         <StDateInput
           placeholder={"여행시작일 이전으로만 선택할 수 있습니다."}
-          value={inputdate}
+          value={inputDate}
           variant="default"
           size="large"
           onFocus={() => setShowCalendar(true)}
@@ -60,7 +63,7 @@ const RoomCloseDateBox = ({
           locale={ko} // 한국어 달력
           months={1} // 1달치 달력만 디스플레이
           minDate={today} // 최소날짜값 내일이면 내일부터 선택가능하다.
-          maxDate={maxdate}
+          maxDate={maxDate}
           date={date} // 날짜값
           onChange={onChangeDate} // onChange 함수
           dateDisplayFormat={"yyyy.mm.dd"} // 날짜 포맷값
