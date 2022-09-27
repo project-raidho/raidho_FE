@@ -52,9 +52,9 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
     // eslint-disable-next-line
   }, [userIsLogin]);
-  console.log("isLogin", isLogin);
+
   return (
-    <StHeaderRightMenuWrap>
+    <StHeaderRightMenuWrap isLogin={isLogin}>
       {!isLogin ? (
         <>
           <Button size="small" variant="primary" onClick={handleModal}>
@@ -112,16 +112,17 @@ export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
   @media (max-width: 639px) {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    background-color: var(--bg-color);
-    border-top: 1px solid var(--gray-color);
-    z-index: 8;
+    position: ${(props) => (props.isLogin ? "fixed" : "")};
+    left: ${(props) => (props.isLogin ? "0" : "")};
+    bottom: ${(props) => (props.isLogin ? "0" : "")};
+    display: ${(props) => (props.isLogin ? "flex" : "")};
+    align-items: ${(props) => (props.isLogin ? "center" : "")};
+    width: ${(props) => (props.isLogin ? "100%" : "")};
+    height: ${(props) => (props.isLogin ? "48px" : "")};
+    background-color: ${(props) => (props.isLogin ? "var(--bg-color)" : "")};
+    border-top: ${(props) =>
+      props.isLogin ? "1px solid var(--gray-color)" : ""};
+    z-index: ${(props) => (props.isLogin ? "8" : "")};
   }
 `;
 
