@@ -341,6 +341,9 @@ const StMeetingCardRow = styled.div`
         b {
           color: var(--gray-color);
         }
+        i {
+          background-color: var(--gray-color);
+        }
       }
 
       & > b {
