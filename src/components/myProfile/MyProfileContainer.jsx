@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getDarkMode, updateDarkMode } from "../../redux/modules/searchSlice";
+import { updateDarkMode } from "../../redux/modules/searchSlice";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
@@ -45,14 +45,6 @@ const MyProfileContainer = () => {
       dispatch(updateDarkMode(true));
     }
   };
-
-  // ::: Dark & Light 기능구현
-  useEffect(() => {
-    dispatch(getDarkMode());
-    if (checkDarkMode) {
-      document.getElementsByTagName("html")[0].classList.add("darkMode");
-    }
-  }, [dispatch, checkDarkMode]);
 
   if (status === "loading") {
     return <Loading />;
