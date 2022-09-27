@@ -185,7 +185,9 @@ const MeetingListCard = ({ meeting }) => {
                   참여하기
                 </Button>
               )}
-            {meeting.isAlreadyJoin && <div>이미 참여중인 모집입니다.</div>}
+            {meeting.isAlreadyJoin && !meeting.isMine && (
+              <div>이미 참여중 입니다.</div>
+            )}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>

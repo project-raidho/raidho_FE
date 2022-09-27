@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import PostDetailImage from "./PostDetailImg";
@@ -13,6 +13,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { authInstance } from "../../shared/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import PostDetailTagList from "./PostDetailTagList";
+import PostDetailDate from "./PostDetailDate";
 
 // ::: 상세페이지 조회 axios
 const getPostDetail = async ({ queryKey }) => {
@@ -27,6 +28,11 @@ const deletePostDetail = async (id) => {
 const PostDetailContainer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  //스크롤 맨위로 올리는 함수
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const postDetailQuery = useQuery(["postDetail", id], getPostDetail, {
     onSuccess: (data) => {
@@ -80,6 +86,7 @@ const PostDetailContainer = () => {
         <PostDetailImage images={postDetail.multipartFiles} />
         <PostDetailLike postDetail={postDetail} />
         <StContentBox>{postDetail.content}</StContentBox>
+        <PostDetailDate postDetail={postDetail} />
         <PostDetailTagList tagList={postDetail.tags} />
       </StDetailContainer>
       <RelatedList targetTag={targetTag} />
@@ -122,5 +129,4 @@ const StContentBox = styled.div`
   height: auto;
   line-height: 1.5;
   font-size: 1.5rem;
-  padding-bottom: 20px;
 `;
