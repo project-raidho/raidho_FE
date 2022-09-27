@@ -18,7 +18,7 @@ const StInfoWrap = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: var(--blue-color);
+  background-color: var(--lightBlue-color);
   svg {
     width: 70%;
     height: 70%;

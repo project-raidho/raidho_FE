@@ -59,11 +59,11 @@ const StSearchTagContainerWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  h3 {
-    font-size: 1.5rem;
+  /* h3 {
+    font-size: 1.2rem;
     margin: 15px 0;
     color: var(--title-color);
-  }
+  } */
 `;
 
 const StTagCategoryWrap = styled.ul`
@@ -71,8 +71,7 @@ const StTagCategoryWrap = styled.ul`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 70px;
-  margin-top: 2rem;
+  height: 50px;
   border-bottom: 1px solid var(--gray-color);
   li {
     height: 100%;
@@ -84,13 +83,22 @@ const StTagCategoryWrap = styled.ul`
       align-items: center;
       justify-content: center;
       height: 100%;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      padding: 0 1rem;
+      padding: 0 0.5rem;
     }
 
     .active {
-      border-bottom: 4px solid var(--title-color);
+      border-bottom: 4px solid var(--main-color);
+    }
+  }
+  @media (max-width: 639px) {
+    li {
+      margin-right: 0.5rem;
+
+      a {
+        padding: 0 0.2rem;
+      }
     }
   }
 `;
@@ -98,5 +106,5 @@ const StTagCategoryWrap = styled.ul`
 const StTagContentWrap = styled.div`
   width: 100%;
   min-height: 100px;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 `;

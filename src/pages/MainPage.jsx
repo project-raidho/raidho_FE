@@ -78,7 +78,7 @@ const MainPage = () => {
             </NavLink>
           </p>
         </StMainNav>
-        <MainContainer state={state} />
+        <MainContainer state={state} handleTop={handleTop} />
       </StLayout>
       <FaArrowAltCircleUp
         color="red"
@@ -134,7 +134,7 @@ const StMainNav = styled.div`
   padding: 0.8rem 0;
   /* box-shadow: var(--box-shadow); */
   background-color: var(--bg-color);
-  z-index: 4;
+  /* z-index: 4; */
 
   p {
     display: flex;
@@ -171,6 +171,7 @@ const StMainNav = styled.div`
     /* top: 57px; */
     justify-content: center;
     padding: 0.8rem 0 0;
+    margin-top: 30px;
     p {
       width: 100px;
       height: 30px;

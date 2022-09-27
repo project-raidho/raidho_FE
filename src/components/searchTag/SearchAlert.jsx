@@ -40,19 +40,24 @@ const StAlertWrap = styled.div`
 
   h3 {
     padding: 2rem 1rem 0 1rem;
+    font-size: 1.2rem;
+    margin: 15px 0;
     strong {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       border-bottom: 1px solid var(--title-color);
     }
   }
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.5;
     padding: 0 1rem;
   }
 
   @media (max-width: 639px) {
     flex-direction: column;
+    p {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -65,9 +70,10 @@ const StIconBox = styled.div`
   overflow: hidden;
 
   @media (max-width: 639px) {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+    margin-left: 1rem;
   }
 `;

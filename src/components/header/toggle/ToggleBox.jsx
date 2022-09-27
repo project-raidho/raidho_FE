@@ -60,7 +60,7 @@ const StToggleBox = styled.ul`
     background-image: none;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--header-bottom-shadow);
     z-index: 8;
 
     span {
