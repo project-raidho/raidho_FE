@@ -7,6 +7,9 @@ const SIZES = {
     --button-font-size: 1rem;
     --button-padding: 0px 30px;
     --button-radius: 20px;
+    --button-mobile-padding: 0px 10px;
+    --button-mobile-font-size: 0.8rem;
+    --button-mobile-width: 80px;
   `,
   medium: css`
     --button-font-size: 1.3rem;
@@ -140,6 +143,12 @@ const StyledButton = styled.button`
     background-color: var(--button-hover-bg-color, none);
     color: var(--button-hover-text-color, #ffffff);
     box-shadow: var(--button-hover-box-shadow, none);
+  }
+
+  @media (max-width: 639px) {
+    padding: var(--button-mobile-padding);
+    font-size: var(--button-mobile-font-size);
+    width: var(--button-mobile-width);
   }
 `;
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getDarkMode, updateDarkMode } from "../../redux/modules/searchSlice";
+import { updateDarkMode } from "../../redux/modules/searchSlice";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
@@ -12,13 +12,9 @@ import Error from "../../elements/Error";
 import styled from "styled-components";
 
 const getPostMineList = async () => {
-  try {
-    const responsePostList = await authInstance.get(`/api/post/mypost`);
-    console.log(responsePostList);
-    return responsePostList.data.data;
-  } catch (error) {
-    console.log("내가 쓴 게시글 불러오기 오류 :::", error);
-  }
+  const responsePostList = await authInstance.get(`/api/post/mypost`);
+  console.log(responsePostList);
+  return responsePostList.data.data;
 };
 
 const MyProfileContainer = () => {
@@ -45,14 +41,6 @@ const MyProfileContainer = () => {
       dispatch(updateDarkMode(true));
     }
   };
-
-  // ::: Dark & Light 기능구현
-  useEffect(() => {
-    dispatch(getDarkMode());
-    if (checkDarkMode) {
-      document.getElementsByTagName("html")[0].classList.add("darkMode");
-    }
-  }, [dispatch, checkDarkMode]);
 
   if (status === "loading") {
     return <Loading />;
