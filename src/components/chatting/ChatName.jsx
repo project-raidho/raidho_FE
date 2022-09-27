@@ -8,6 +8,10 @@ import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+// import { ImExit } from "react-icons/im";
+import { AiOutlineClose } from "react-icons/ai";
 // 채팅방 정보 단건조회
 const getChatDetail = async ({ queryKey }) => {
   return await authInstance.get(`/api/chat/rooms/${Number(queryKey[1])}`);
@@ -83,14 +87,21 @@ const ChatName = () => {
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, chatDetail.roomCloseDate));
 
-  const onCloseHandler = () => {
+  const onDeleteHandler = () => {
     if (chatDetail.isMine) {
       setModalIcon("warning");
-      setAlertMsg("방의 모든 메세지들이 삭제됩니다. 정말 나가시겠습니까?");
+      setAlertMsg(
+        "작성하신 모집글과 채팅방이 삭제됩니다. 정말 삭제하시겠습니까?"
+      );
       setModalOn(true);
     } else {
-      mutate(id);
+      setModalIcon("warning");
+      setAlertMsg("정말 채팅방을 나가시겠습니까?");
+      setModalOn(true);
     }
+  };
+  const onCloseHandler = () => {
+    navigate("/chatting");
   };
 
   return (
@@ -98,25 +109,30 @@ const ChatName = () => {
       <StInfoBox isOpenInfo={isOpenInfo}>
         <StTitleBox>
           {chatDetail.title}
-          <div>
-            <button onClick={() => setIsOpenInfo(!isOpenInfo)}>더보기</button>
-            <Button size="small" variant="lineBlue" onClick={onCloseHandler}>
-              나가기
-            </Button>
-            <button>닫기</button>
-          </div>
+          <StRightButtonSet>
+            <AiOutlineInfoCircle
+              className="icon"
+              color="#fff"
+              onClick={() => setIsOpenInfo(!isOpenInfo)}
+            />
+            <RiDeleteBin6Fill
+              className="icon"
+              onClick={() => onDeleteHandler()}
+            />
+            <AiOutlineClose className="icon" onClick={() => onCloseHandler()} />
+          </StRightButtonSet>
         </StTitleBox>
         {isOpenInfo && (
           <div>
-            <div>카테고리 : {chatDetail.themeCategory}</div>
-            <div>
-              여행장소 :
+            <p>카테고리 : {chatDetail.themeCategory}</p>
+            <p>
+              여행장소 :{" "}
               {chatDetail.meetingTags.map((tag, index) => (
                 <span key={tag + index}>{tag}&nbsp;</span>
               ))}
-            </div>
-            <div>
-              여행기간 :
+            </p>
+            <p>
+              여행기간 :{" "}
               {tripPeriod === 0
                 ? `${tripPeriod + 1}일`
                 : `${tripPeriod}박 ${tripPeriod + 1}일`}
@@ -125,25 +141,24 @@ const ChatName = () => {
               } - ${chatDetail.endDate.split("-")[1]}/${
                 chatDetail.endDate.split("-")[2]
               })`}</span>
-            </div>
-            <div>
-              현재인원 :
+            </p>
+            <p>
+              채팅상대 :{" "}
               {chatDetail.memberNames.map((name, idx) => (
-                <span key={idx}>{name}&nbsp;</span>
+                <span key={idx}>{name} </span>
               ))}
-            </div>
-            <div>
-              현재인원/모집인원 : {chatDetail.memberCount}명/
-              {chatDetail.people}명
-            </div>
+            </p>
+            <p>
+              현재/모집인원 : {chatDetail.memberCount}/{chatDetail.people}명
+            </p>
 
-            <div>
+            <p>
               모집마감일 : D-
               <b>
-                {dday} {chatDetail.roomCloseDate}
+                {dday} ({chatDetail.roomCloseDate})
               </b>
-            </div>
-            <div>모임장소 : {chatDetail.departLocation} </div>
+            </p>
+            <p>모임장소 : {chatDetail.departLocation} </p>
           </div>
         )}
       </StInfoBox>
@@ -186,19 +201,48 @@ const Container = styled.div`
 `;
 
 const StInfoBox = styled.div`
+  padding: 0 10px;
   width: 100%;
   position: absolute;
   left: 0;
   top: 0;
   z-index: 5;
   transition: 0.1s;
-  background-color: #fff;
-  height: ${(props) => (props.isOpenInfo === true ? "200px" : "50px")};
+  background-color: var(--lightBlue-color);
+
+  height: ${(props) => (props.isOpenInfo === true ? "250px" : "50px")};
+  p {
+    margin-bottom: 3px;
+    color: #fff;
+  }
+  b,
+  span {
+    color: #fff;
+  }
 `;
 
 const StTitleBox = styled.div`
+  margin: auto 0;
+  color: #fff;
+  height: 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 26px;
   font-weight: 700;
+`;
+
+const StRightButtonSet = styled.div`
+  align-items: center;
+
+  .icon {
+    font-size: 25px;
+
+    cursor: pointer;
+    margin-right: 8px;
+
+    path {
+      color: #fff;
+    }
+  }
 `;

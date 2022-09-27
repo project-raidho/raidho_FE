@@ -30,7 +30,7 @@ const ChatWrap = styled.div`
   ${(props) => props.theme.flex_column};
   justify-content: flex-start;
   ${(props) => props.theme.border_box};
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   position: relative;
 

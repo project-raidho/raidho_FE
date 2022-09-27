@@ -64,6 +64,8 @@ const VARIANTS = {
     --button-hover-bg-color: var(--lightGray-color);
     --button-border-color: none;
     --button-hover-text-color: var(--title-color);
+    --button-box-shadow: none;
+    --button-margin-right: 15px;
   `,
   line: css`
     --button-color: var(--title-color);
@@ -128,7 +130,7 @@ const StyledButton = styled.button`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
 
-  margin: 0;
+  /* margin: 0; */
   border: none;
   cursor: pointer;
   width: var(--button-width);

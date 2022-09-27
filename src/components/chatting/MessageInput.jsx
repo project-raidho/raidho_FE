@@ -33,7 +33,7 @@ const MessageInput = (props) => {
   // 메시지 작성 폼
   if (MessageWrite) {
     return (
-      <React.Fragment>
+      <StInputWrapper>
         <StMessageWrite
           value={value}
           type={type}
@@ -45,12 +45,12 @@ const MessageInput = (props) => {
             }
           }}
         ></StMessageWrite>
-      </React.Fragment>
+      </StInputWrapper>
     );
   }
 
   return (
-    <React.Fragment>
+    <StInputWrapper>
       {label && <p margin="0px">{label}</p>}
       {is_submit ? (
         <StInput
@@ -67,7 +67,7 @@ const MessageInput = (props) => {
       ) : (
         <StInput type={type} placeholder={placeholder} onChange={_onChange} />
       )}
-    </React.Fragment>
+    </StInputWrapper>
   );
 };
 
@@ -85,6 +85,9 @@ MessageInput.defaultProps = {
 
 export default MessageInput;
 
+const StInputWrapper = styled.div`
+  width: 75%;
+`;
 const StTextarea = styled.textarea`
   border: none;
   width: 100%;

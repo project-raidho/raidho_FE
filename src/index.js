@@ -17,7 +17,7 @@ root.render(
     <GlobalStyle />
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <App />
       </QueryClientProvider>
     </ThemeProvider>

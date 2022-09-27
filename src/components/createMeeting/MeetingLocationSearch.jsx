@@ -47,6 +47,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
   return (
     <SearchWrapp>
+      <h1>모집 후 모일 장소</h1>
       <Button onClick={onChangeOpenPost}>
         {isOpenPost ? "검색창 닫기" : "주소검색"}
       </Button>

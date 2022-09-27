@@ -7,7 +7,7 @@ import { authInstance } from "../../shared/api";
 
 // import {  useInfiniteQuery } from "react-query";
 // import { useInView } from "react-intersection-observer";
-// import Loading from "../../elements/Loading";
+import Loading from "../../elements/Loading";
 // import Error from "../../elements/Error";
 
 const getMessageList = async ({ queryKey }) => {
@@ -67,7 +67,7 @@ const MessageList = ({ messages, setMessages, id }) => {
     scrollTomBottom();
   }, [messages, id]);
 
-  // if (status === "loading") return <Loading />;
+  if (allMessageListQuery.status === "loading") return <Loading />;
   // if (status === "error") return <Error message={error.message} />;
   console.log(messages);
 
@@ -101,7 +101,7 @@ const MessageList = ({ messages, setMessages, id }) => {
 const Container = styled.div`
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex_column};
-  background-color: #9bbbd4;
+  background-color: #fff;
   justify-content: flex-start;
   width: 100%;
   height: 100%;
