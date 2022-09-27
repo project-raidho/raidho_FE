@@ -152,8 +152,8 @@ const StLoginRightMenu = styled.ul`
     }
     ul {
       li {
-        width: 100%;
-        height: 50px;
+        width: 90%;
+        height: 55px;
         margin: 0;
 
         a {
@@ -167,7 +167,7 @@ const StLoginRightMenu = styled.ul`
       }
       li:first-child {
         border-bottom: 1px solid var(--gray-color);
-        margin-top: 15px;
+        margin-top: 10px;
       }
     }
   }
