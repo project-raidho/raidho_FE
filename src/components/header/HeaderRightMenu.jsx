@@ -80,10 +80,14 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
             <img src={IconAdd} alt="게시글 추가하기" />
             <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
               <li>
-                <Link to={`/createPost`}>여행후기 작성</Link>
+                <Link to={`/createPost`} onClick={onCloseToggle}>
+                  여행후기 작성
+                </Link>
               </li>
               <li>
-                <Link to={`/createMeeting`}>모집글 작성</Link>
+                <Link to={`/createMeeting`} onClick={onCloseToggle}>
+                  모집글 작성
+                </Link>
               </li>
             </ToggleBox>
           </li>
@@ -98,7 +102,9 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
             </p>
             <ToggleBox isToggle={isUserToggle} onCloseToggle={onCloseToggle}>
               <li>
-                <Link to={`/myProfile`}>마이페이지</Link>
+                <Link to={`/myProfile`} onClick={onCloseToggle}>
+                  마이페이지
+                </Link>
               </li>
               <li onClick={onClickLogOut}>로그아웃</li>
             </ToggleBox>
