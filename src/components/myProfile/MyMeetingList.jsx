@@ -42,11 +42,19 @@ const MyMeetingList = () => {
   console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
-      <Slider {...settings}>
-        {data.map((meeting) => (
-          <MeetingListCard key={meeting.id} meeting={meeting} />
-        ))}
-      </Slider>
+      {data.length < 3 ? (
+        <StMeetingCardBox>
+          {data.map((meeting) => (
+            <MeetingListCard key={meeting.id} meeting={meeting} />
+          ))}
+        </StMeetingCardBox>
+      ) : (
+        <Slider {...settings}>
+          {data.map((meeting) => (
+            <MeetingListCard key={meeting.id} meeting={meeting} />
+          ))}
+        </Slider>
+      )}
     </StMyMeetingListWrap>
   );
 };
@@ -59,4 +67,14 @@ const StMyMeetingListWrap = styled.div`
   width: 100%;
   height: 526px;
   overflow: hidden; */
+`;
+
+const StMeetingCardBox = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

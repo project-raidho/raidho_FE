@@ -12,13 +12,9 @@ import Error from "../../elements/Error";
 import styled from "styled-components";
 
 const getPostMineList = async () => {
-  try {
-    const responsePostList = await authInstance.get(`/api/post/mypost`);
-    console.log(responsePostList);
-    return responsePostList.data.data;
-  } catch (error) {
-    console.log("내가 쓴 게시글 불러오기 오류 :::", error);
-  }
+  const responsePostList = await authInstance.get(`/api/post/mypost`);
+  console.log(responsePostList);
+  return responsePostList.data.data;
 };
 
 const MyProfileContainer = () => {
