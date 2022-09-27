@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
 import Slider from "react-slick";
@@ -24,6 +24,25 @@ const getMeetingMineList = async () => {
 const MyMeetingList = () => {
   const { status, data, error } = useQuery("meetingList", getMeetingMineList);
 
+  // ::: 디바이스 화면 크기 확인
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  const checkDiviceWidth = () => {
+    const browserWidth = window.innerWidth;
+    browserWidth <= 639 ? setIsMobile(true) : setIsMobile(false);
+    browserWidth > 639 && browserWidth < 1023
+      ? setIsTablet(true)
+      : setIsTablet(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", checkDiviceWidth);
+    return () => {
+      window.removeEventListener("resize", checkDiviceWidth);
+    };
+  }, []);
+
   if (status === "loading") {
     return <Loading />;
   }
@@ -31,18 +50,28 @@ const MyMeetingList = () => {
     return <Error message={error.message} />;
   }
 
+  const countMeetingCard = () => {
+    if (isMobile) {
+      return 1;
+    }
+    if (isTablet) {
+      return 2;
+    }
+    return 3;
+  };
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: countMeetingCard(),
     slidesToScroll: 1,
   };
 
   console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
-      {data.length < 3 ? (
+      {data.length < 3 && (!isMobile || !isTablet) ? (
         <StMeetingCardBox>
           {data.map((meeting) => (
             <MeetingListCard key={meeting.id} meeting={meeting} />
@@ -61,13 +90,7 @@ const MyMeetingList = () => {
 
 export default MyMeetingList;
 
-const StMyMeetingListWrap = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 526px;
-  overflow: hidden; */
-`;
+const StMyMeetingListWrap = styled.div``;
 
 const StMeetingCardBox = styled.div`
   width: 100%;
@@ -76,5 +99,8 @@ const StMeetingCardBox = styled.div`
 
   @media (max-width: 1023px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 639px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
