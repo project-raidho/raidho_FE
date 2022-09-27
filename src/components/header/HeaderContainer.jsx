@@ -39,7 +39,7 @@ const StHeaderWrap = styled.div`
   border-bottom: 1px solid var(--gray-color);
   background-color: var(--bg-color);
   padding: 0 1rem;
-  z-index: 3;
+  z-index: 6;
 `;
 
 const StHeaderContainerWrap = styled.div`
