@@ -3,24 +3,41 @@ import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 import MeetingListCard from "./MeetingListCard";
+import Button from "../../elements/Button";
 import styled from "styled-components";
 
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }) => {
   console.log("queryKey", queryKey);
-  if (queryKey[2]) {
+  if (queryKey[3] !== "" && queryKey[4] !== "") {
+    // ::: start ==> queryKey[3] end ===> queryKey[4]
+    const res = authInstance.get(`/api/meeting/filter/date`);
+    console.log(res);
+    return res;
+  }
+  if (queryKey[3] === "" && queryKey[4] === "" && queryKey[2] === true) {
     return authInstance.get(`/api/meeting/filter/1/${queryKey[1]}`);
   }
   return authInstance.get(`/api/meeting/${queryKey[1]}`);
 };
 
 const MeetingListContainer = () => {
+  const themeList = useSelector((state) => state.themeSlice.themeList);
   const [selectedTheme, setSelectedTheme] = useState("");
   const [checkStatus, setCheckStatus] = useState(false);
+  const [checkStartDate, setCheckStartDate] = useState(new Date());
+  const [checkEndDate, setCheckEndDate] = useState(new Date());
+
+  // ::: 조회 시작 날짜, 조회 종료 날짜 문자열 변환 "yyyy-mm-dd"
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const meetingAllListQuery = useQuery(
-    ["meetingList", selectedTheme, checkStatus],
+    ["meetingList", selectedTheme, checkStatus, startDate, endDate],
     getMeetingList,
     {
       onSuccess: (data) => {
@@ -29,11 +46,34 @@ const MeetingListContainer = () => {
     }
   );
 
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-
+  // ::: 모집중 클릭시 상태 조절
   const clickStatus = () => {
+    if (checkStatus) {
+      // ::: 초기화
+      setCheckStartDate("");
+      setCheckEndDate("");
+      setStartDate("");
+      setEndDate("");
+      setCheckStatus(!checkStatus);
+    }
     setCheckStatus(!checkStatus);
   };
+
+  // ::: 날짜 검색 형변환
+  const checkSearchDate = () => {
+    const changeStart = checkStartDate.toLocaleDateString().split("/");
+    const changeEnd = checkEndDate.toLocaleDateString().split("/");
+    const startDateToString = `${changeStart[2]}-${changeStart[0]}-${changeStart[1]}`;
+    const endDateToString = `${changeEnd[2]}-${changeEnd[0]}-${changeEnd[1]}`;
+    console.log(changeStart, changeEnd, startDateToString, endDateToString);
+
+    setStartDate(startDateToString);
+    setEndDate(endDateToString);
+    setCheckStatus(true);
+  };
+
+  console.log(checkStartDate, checkEndDate);
+  console.log(startDate, endDate);
 
   // ::: 현재테마 바꾸는 함수
   const onClickTheme = async (theme) => {
@@ -67,6 +107,35 @@ const MeetingListContainer = () => {
           ))}
         </StMeetingCategoryRow>
         <StCheckStatus>
+          <p>
+            <DatePicker
+              locale={ko}
+              dateFormat="yyyy-MM-dd(eee)"
+              selected={checkStartDate}
+              onChange={(date) => setCheckStartDate(date)}
+              selectsStart
+              startDate={checkStartDate}
+              endDate={checkEndDate}
+              minDate={new Date()}
+            />
+            <DatePicker
+              locale={ko}
+              dateFormat="yyyy-MM-dd(eee)"
+              selected={checkEndDate}
+              onChange={(date) => setCheckEndDate(date)}
+              selectsEnd
+              startDate={checkStartDate}
+              endDate={checkEndDate}
+              minDate={checkStartDate}
+            />
+            <Button
+              size="small"
+              variant="lineLightBlue"
+              onClick={checkSearchDate}
+            >
+              조회
+            </Button>
+          </p>
           <p
             onClick={clickStatus}
             className={checkStatus ? "activeButton" : "inactiveButton"}
@@ -143,6 +212,9 @@ const StCheckStatus = styled.div`
     &.inactiveButton span {
       border: 1px solid var(--gray-color);
       background-color: var(--bg-colr);
+    }
+    button {
+      width: 150px;
     }
   }
   @media (max-width: 639px) {
