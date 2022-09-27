@@ -99,35 +99,44 @@ const MeetingListCard = ({ meeting }) => {
         <StMeetingCardRow className="flexBetweenLayout">
           <p className="infoStatus">
             {meeting.meetingStatus === 1 && (
-              <span>
-                모집중 D-<b>{dday}</b>
+              <span className="statusIng">
+                <i></i>모집중 D-<b>{dday}</b>
               </span>
             )}
             {meeting.meetingStatus === 2 && (
-              <span>
-                모집완료 D-<b>{dday}</b>
+              <span className="statusComplete">
+                <i></i>모집마감 D-<b>{dday}</b>
               </span>
             )}
-            {meeting.meetingStatus === 3 && <span>모집종료</span>}
+            {meeting.meetingStatus === 3 && (
+              <span className="statusFinished">
+                <i></i>모집종료
+              </span>
+            )}
           </p>
-          {meeting.meetingStatus !== 3 && (
+          {meeting.meetingStatus === 1 && (
             <p className="infoStatus">
+              모집인원 {meeting.memberCount}/{meeting.people}
+            </p>
+          )}
+          {meeting.meetingStatus === 2 && (
+            <p className="infoStatus statusComplete">
               모집인원 {meeting.memberCount}/{meeting.people}
             </p>
           )}
         </StMeetingCardRow>
         <h3>{meeting.title}</h3>
-        <p>
-          {tripPeriod === 0
-            ? `${tripPeriod + 1}일`
-            : `${tripPeriod}박 ${tripPeriod + 1}일`}
-          <span>{` (${meeting.startDate.split("-")[1]}/${
+        <p className="meetingPeriod">
+          <span>{` ${meeting.startDate.split("-")[1]}/${
             meeting.startDate.split("-")[2]
-          } - ${meeting.endDate.split("-")[1]}/${
+          }-${meeting.endDate.split("-")[1]}/${
             meeting.endDate.split("-")[2]
-          })`}</span>
+          }`}</span>
+          {tripPeriod === 0
+            ? `(${tripPeriod + 1}일)`
+            : `(${tripPeriod}박 ${tripPeriod + 1}일)`}
         </p>
-        <p>{meeting.departLocation}</p>
+        <p className="meetingAddress">{meeting.departLocation}</p>
         <p className="desc">{meeting.desc}</p>
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
@@ -162,7 +171,8 @@ const MeetingListCard = ({ meeting }) => {
           <div>
             {meeting.isMine && (
               <Button
-                variant="gray"
+                size="small"
+                variant="lineLightBlue"
                 onClick={() => {
                   navigate(`/updateMeeting/${meeting.id}`);
                 }}
@@ -171,7 +181,11 @@ const MeetingListCard = ({ meeting }) => {
               </Button>
             )}
             {meeting.isMine && (
-              <Button variant="primary" onClick={() => mutate(meeting.id)}>
+              <Button
+                size="small"
+                variant="lineGray"
+                onClick={() => mutate(meeting.id)}
+              >
                 삭제하기
               </Button>
             )}
@@ -179,14 +193,16 @@ const MeetingListCard = ({ meeting }) => {
               meeting.meetingStatus === 1 &&
               !meeting.isAlreadyJoin && (
                 <Button
-                  variant="primary"
+                  size="small"
+                  variant="lineLightBlue"
                   onClick={() => onJoinRoom(meeting.id)}
                 >
                   참여하기
                 </Button>
               )}
+
             {meeting.isAlreadyJoin && !meeting.isMine && (
-              <div>이미 참여중 입니다.</div>
+              <p className="isInMeetingMsg">이미 참여중인 모집입니다.</p>
             )}
           </div>
         </StMeetingCardRow>
@@ -218,21 +234,33 @@ const StMeetingListCardWrap = styled.div`
   padding: 1.7rem;
   background-color: var(--subBg-color);
   border: 1px solid var(--gray-color);
-  border-radius: 20px;
+  border-radius: 15px;
 
   h3 {
-    font-size: 2rem;
-    margin-top: 1.5rem;
+    font-size: 1.7rem;
+    margin-top: 1.3rem;
     margin-bottom: 1rem;
   }
 
   p {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
+
+    &.meetingPeriod {
+      span {
+        font-size: 1.2rem;
+      }
+    }
+
+    &.meetingAddress {
+      font-weight: 500;
+      text-decoration: underline;
+    }
   }
 
   .tag {
-    color: var(--main-color);
+    color: var(--lightBlue-color);
+    font-size: 1.2rem;
     cursor: pointer;
   }
 `;
@@ -242,11 +270,12 @@ const StMeetingCardUpDown = styled.div`
 
   .desc {
     padding-top: 1rem;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 `;
 
 const StMeetingCardRow = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -277,18 +306,56 @@ const StMeetingCardRow = styled.div`
   }
 
   .infoStatus {
-    font-size: 1.27rem;
-    color: var(--main-color);
+    font-size: 1rem;
+    color: var(--lightBlue-color);
 
     & > span {
-      font-size: 1.27rem;
-      color: var(--main-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      font-size: 1rem;
+      color: var(--lightBlue-color);
+
+      i {
+        width: 13px;
+        height: 13px;
+        background-color: var(--lightBlue-color);
+        margin-right: 5px;
+        border-radius: 50%;
+      }
+
+      &.statusComplete {
+        color: var(--red-color);
+
+        b {
+          color: var(--red-color);
+        }
+        i {
+          background-color: var(--red-color);
+        }
+      }
+
+      &.statusFinished {
+        color: var(--gray-color);
+
+        b {
+          color: var(--gray-color);
+        }
+        i {
+          background-color: var(--gray-color);
+        }
+      }
 
       & > b {
-        font-size: 1.27rem;
-        color: var(--main-color);
+        font-size: 1rem;
+        color: var(--lightBlue-color);
       }
     }
+  }
+
+  .statusComplete {
+    color: var(--red-color);
   }
 
   .memberImageBox {
@@ -305,5 +372,14 @@ const StMeetingCardRow = styled.div`
   }
   .memberNameBox {
     font-size: 1.25rem;
+  }
+
+  .isInMeetingMsg {
+    position: absolute;
+    height: 15px;
+    bottom: -30px;
+    right: 10px;
+    font-size: 0.8rem;
+    font-style: italic;
   }
 `;

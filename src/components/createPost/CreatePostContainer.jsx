@@ -36,17 +36,14 @@ const CreatePostContainer = () => {
   const [validationTags, setValidationTags] = useState("");
 
   const selectedPostImages = (images) => {
-    console.log("selectedPostImages", images);
     setPostImages(images);
   };
 
   const typedPostContent = (text) => {
-    console.log("typedPostContent", text);
     setpostContent(text);
   };
 
   const selectedTags = (tags) => {
-    console.log("selectedTags", tags);
     setPostTags(tags);
   };
 
@@ -124,50 +121,44 @@ const CreatePostContainer = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onCreatePost, {
     onSuccess: (data) => {
-      console.log("########data##########", data);
-      queryClient.invalidateQueries(["postLists"]); //"postLists"
+      console.log("여행후기 게시글 등록 데이터 :::", data);
+      queryClient.invalidateQueries(["postLists"]);
     },
   });
 
   return (
     <StCreatePostContainerWrap>
-      <StStepTitle>
-        <strong>STEP 1</strong>이미지 업로드
-      </StStepTitle>
+      <StStepTitle>이미지 업로드</StStepTitle>
       <CreatePostImage
         selectedPostImages={selectedPostImages}
         setValidationImages={setValidationImages}
       />
       <StValidationMessage>{validationImages}</StValidationMessage>
-      <StStepTitle>
-        <strong>STEP 2</strong>여행에서 경험한 내용
-      </StStepTitle>
+      <StStepTitle>내용</StStepTitle>
       <ContentTextArea
         typedPostContent={typedPostContent}
-        placeholderText={"경험을 소개해주세요."}
+        placeholderText={"여행에서 경험한 내용을 작성해주세요."}
         initialContent=""
       />
       <StValidationMessage>{validationContent}</StValidationMessage>
-      <StStepTitle>
-        <strong>STEP 3</strong>태그
-      </StStepTitle>
+      <StStepTitle>태그</StStepTitle>
       <TagInput
         selectedTags={selectedTags}
         tags={[]}
-        tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
+        tagMassage={"태그를 입력해주세요. 엔터키를 치시면 태그가 입력됩니다."}
       />
       <StValidationMessage>{validationTags}</StValidationMessage>
       <StButtonWrap>
         <Button
-          size="squareTheme"
-          variant="gray"
+          size="medium"
+          variant="lineGray"
           onClick={() => {
             navigate(-1);
           }}
         >
           취소
         </Button>
-        <Button size="squareTheme" variant="lineBlue" onClick={mutate}>
+        <Button size="medium" variant="linePrimary" onClick={mutate}>
           등록
         </Button>
       </StButtonWrap>
@@ -198,23 +189,8 @@ const StStepTitle = styled.h2`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1.7rem;
   padding-top: 1.2rem;
-  margin-bottom: 1.5rem;
-
-  strong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
-    border-radius: 5px;
-    border: 1px solid #000;
-    margin-right: 0.7rem;
-    padding: 0.5rem 0.7rem;
-  }
+  margin-bottom: 0.8rem;
 `;
 
 const StButtonWrap = styled.div`
@@ -234,7 +210,7 @@ const StValidationMessage = styled.p`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--red-color);
   margin-bottom: 1rem;
 

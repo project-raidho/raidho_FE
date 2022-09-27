@@ -85,10 +85,8 @@ const CreatePostImage = ({ selectedPostImages }) => {
         <StImageDropZone {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
           <p>
-            해당 영역을 클릭하거나 이미지 파일을 드레그하여
-            <br />
-            업로드할 이미지를 선택해주세요. <br />
-            최대 5장까지 업로드 가능합니다.
+            해당 영역을 클릭하거나 파일을 드레그하여 업로드하세요. <br /> (최대
+            5장 업로드 가능)
           </p>
         </StImageDropZone>
       )}
@@ -122,14 +120,14 @@ const StImageDropZone = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 150px;
+  height: 200px;
   border: 1px solid var(--gray-color);
   background-color: var(--bg-color);
   cursor: pointer;
 
   p {
     text-align: center;
-    font-size: 1.2rem;
+    color: var(--gray-color);
     line-height: 1.5;
     padding: 0 1rem;
   }

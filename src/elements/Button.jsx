@@ -9,8 +9,8 @@ const SIZES = {
     --button-radius: 20px;
   `,
   medium: css`
-    --button-font-size: 1.5rem;
-    --button-width: 220px;
+    --button-font-size: 1.3rem;
+    --button-width: 150px;
     --button-height: 50px;
     --button-radius: 25px;
   `,
@@ -21,9 +21,9 @@ const SIZES = {
     --button-radius: 10px;
   `,
   tag: css`
-    --button-font-size: 1.2rem;
+    --button-font-size: 1rem;
     --button-width: auto;
-    --button-height: 33px;
+    --button-height: 30px;
     --button-padding: 0 30px 0 10px;
     --button-margin-right: 25px;
     --button-radius: 25px;
@@ -51,11 +51,11 @@ const VARIANTS = {
     --button-hover-bg-color: #7188ff;
   `,
   gray: css`
-    --button-color: #1e1e1e;
-    --button-bg-color: #cfcfcf;
-    --button-hover-bg-color: var(--bg-color);
-    --button-border-color: var(--title-color);
-    --button-hover-text-color: var(--gray-color);
+    --button-color: var(--title-color);
+    --button-bg-color: var(--lightGray-color);
+    --button-hover-bg-color: var(--lightGray-color);
+    --button-border-color: none;
+    --button-hover-text-color: var(--title-color);
   `,
   line: css`
     --button-color: var(--title-color);
@@ -63,6 +63,30 @@ const VARIANTS = {
     --button-bg-color: var(--bgSub-color);
     --button-hover-bg-color: var(--main-color);
     --button-hover-text-color: #ffffff;
+  `,
+  linePrimary: css`
+    --button-color: var(--main-color);
+    --button-border-color: var(--main-color);
+    --button-bg-color: var(--bg-color);
+    --button-hover-bg-color: var(--main-color);
+    --button-hover-text-color: #ffffff;
+    --button-hover-box-shadow: var(--button-shadow);
+  `,
+  lineLightBlue: css`
+    --button-color: var(--lightBlue-color);
+    --button-border-color: var(--lightBlue-color);
+    --button-bg-color: var(--bg-color);
+    --button-hover-bg-color: var(--lightBlue-color);
+    --button-hover-text-color: #ffffff;
+    --button-hover-box-shadow: var(--button-shadow);
+  `,
+  lineGray: css`
+    --button-color: var(--gray-color);
+    --button-border-color: var(--gray-color);
+    --button-bg-color: var(--bg-color);
+    --button-hover-bg-color: var(--gray-color);
+    --button-hover-text-color: #ffffff;
+    --button-hover-box-shadow: var(--button-shadow);
   `,
   lineSquare: css`
     --button-color: var(--title-color);
@@ -115,6 +139,7 @@ const StyledButton = styled.button`
   &:focus {
     background-color: var(--button-hover-bg-color, none);
     color: var(--button-hover-text-color, #ffffff);
+    box-shadow: var(--button-hover-box-shadow, none);
   }
 `;
 
