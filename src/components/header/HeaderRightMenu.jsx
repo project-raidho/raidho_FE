@@ -111,7 +111,17 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
-  p.rightMenuBox {
+  @media (max-width: 639px) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--gray-color);
+    z-index: 8;
   }
 `;
 
@@ -190,6 +200,30 @@ const StLoginRightMenu = styled.ul`
         height: 100%;
         object-fit: cover;
       }
+    }
+  }
+
+  @media (max-width: 639px) {
+    width: 94%;
+    height: 30px;
+    margin: 0 auto;
+
+    li {
+      width: 30px;
+      height: 30px;
+
+      ul {
+        li {
+          height: 45px;
+        }
+        li:first-child {
+          margin-top: 20px;
+        }
+      }
+    }
+    .userMenu {
+      width: 30px;
+      height: 30px;
     }
   }
 `;

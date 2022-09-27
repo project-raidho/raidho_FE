@@ -39,7 +39,7 @@ const StHeaderWrap = styled.div`
   border-bottom: 1px solid var(--gray-color);
   background-color: var(--bg-color);
   padding: 0 1rem;
-  z-index: 6;
+  z-index: 8;
 `;
 
 const StHeaderContainerWrap = styled.div`
@@ -69,6 +69,10 @@ const StHeaderLogo = styled.h1`
       width: 100%;
     }
   }
+
+  @media (max-width: 639px) {
+    display: none;
+  }
 `;
 
 const StSearchBox = styled.div`
@@ -78,4 +82,8 @@ const StSearchBox = styled.div`
   width: ${(props) =>
     props.isLogin ? "calc(100% - 480px)" : "calc(100% - 330px)"};
   height: 40px;
+
+  @media (max-width: 639px) {
+    width: 100%;
+  }
 `;

@@ -12,6 +12,7 @@ const ToggleBox = ({ children, isToggle, onCloseToggle }) => {
     <>
       <StToggleBox isToggle={isToggle} checkDarkMode={checkDarkMode}>
         {children}
+        <span></span>
       </StToggleBox>
       <StToggleBackground isToggle={isToggle} onClick={onCloseToggle} />
     </>
@@ -42,6 +43,39 @@ const StToggleBox = styled.ul`
   z-index: 7;
   overflow: hidden;
   transition: all 0.3s linear;
+
+  span {
+    display: none;
+  }
+
+  @media (max-width: 639px) {
+    position: fixed;
+    width: 100vw;
+    height: ${(props) => (props.isToggle ? "135px" : "0px")};
+    left: 0%;
+    top: 100%;
+    margin-top: ${(props) => (props.isToggle ? "-183px" : "-50px")};
+    margin-left: 0;
+    background-color: var(--bg-color);
+    background-image: none;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.2);
+    z-index: 8;
+
+    span {
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      display: block;
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      margin-left: -20px;
+      background-color: var(--lightGray-color);
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
 `;
 
 const StToggleBackground = styled.div`
