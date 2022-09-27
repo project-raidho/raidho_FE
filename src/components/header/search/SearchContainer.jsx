@@ -145,19 +145,13 @@ const StSearchContainerWrap = styled.div`
   position: relative;
   display: block;
   width: 100%;
-  /* width: ${(props) => (props.isLogin === true ? "55%" : "54%")}; */
   height: 40px;
-  /* min-width: 620px; */
 
   @media (max-width: 1023px) {
-    /* min-width: 420px; */
   }
   @media (max-width: 767px) {
-    /* min-width: 310px; */
   }
   @media (max-width: 639px) {
-    /* min-width: 280px; */
-    /* width: calc(95vw - 70px); */
     height: 36px;
   }
 `;
@@ -193,8 +187,10 @@ const StSearchDetailBox = styled.div`
 
     input {
       height: 34px;
+      font-size: 1rem;
       background-size: 27px 27px;
       background-position: 96% center;
+      padding: 8px 20px;
     }
   }
 `;
@@ -214,7 +210,7 @@ const StSearchDetailList = styled.div`
 
   @media (max-width: 639px) {
     h3 {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -261,7 +257,9 @@ const StSearchDetailRow = styled.div`
   @media (max-width: 639px) {
     button {
       height: 28px;
-      padding: 0 10px 0 5px;
+      padding: 0 8px 0 0;
+      margin-bottom: 6px;
+      margin-right: 8px;
       a {
         font-size: 0.95rem;
       }
@@ -324,6 +322,6 @@ const StTagCard = styled.p`
   }
   @media (max-width: 639px) {
     height: 60px;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 `;

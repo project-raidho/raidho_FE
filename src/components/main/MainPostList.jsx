@@ -26,7 +26,7 @@ const MainPostList = ({ state }) => {
         getNextPageParam: (lastPage) => {
           return !lastPage.last
             ? lastPage.nextPage
-            : console.log("====> 마지막페이지 입니다");
+            : console.log("====> 마지막페이지");
         },
       }
     );

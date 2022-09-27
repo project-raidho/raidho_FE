@@ -15,7 +15,7 @@ const StGlobalLayoutWrap = styled.div`
 
   @media (max-width: 1023px) {
     max-width: 1023px;
-    padding: 0 1rem;
+    padding: 100px 1rem 0;
   }
   @media (max-width: 767px) {
     max-width: 767px;
