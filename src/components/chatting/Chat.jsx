@@ -32,15 +32,16 @@ Chat.defaultProps = {
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
-
-  border-left: ${(props) => (props.selected ? `5px solid #7188FF;` : "none;")};
+  border: 1px solid;
+  border-left: ${(props) =>
+    props.selected ? `5px solid #7188FF;` : "1px solid;"};
 
   padding: 5px;
   height: 15%;
-  width: 100%;
-  background-color: whitesmoke;
+  width: 80%;
+
   ${(props) => props.theme.border_box}
-  margin: 0px 0px 20px 0px;
+  margin: 10px;
   cursor: pointer;
   color: ${(props) => props.theme.font_color};
   @media ${(props) => props.theme.mobile} {
@@ -49,9 +50,9 @@ const Container = styled.div`
     padding: 0;
     flex-direction: column;
     justify-content: space-between;
-    border-left: none;
+    border-left: 1px solid;
     border-bottom: ${(props) =>
-      props.selected ? `5px solid #7188FF;` : "none;"};
+      props.selected ? `5px solid #7188FF;` : "1px solid;"};
   }
 `;
 const ChatColumn = styled.div`

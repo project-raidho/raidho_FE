@@ -216,7 +216,7 @@ const CreateMeetingContatiner = () => {
       <h1>대륙 선택</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
       <StValidationMsg>{themeValMsg}</StValidationMsg>
-      <h1>여행갈 나라/도시 입력</h1>
+      <h1>여행갈 나라/도시 태그 입력</h1>
       <StTags>
         <TagInput
           className="tagbox"
@@ -228,22 +228,28 @@ const CreateMeetingContatiner = () => {
         />
         <StValidationMsg>{tagValMsg}</StValidationMsg>
       </StTags>
-      <h1>여행기간</h1>
-      <TripPeriod
-        className="periodBox"
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        setmaxRoomCloseDate={setmaxRoomCloseDate}
-      />
-      <StValidationMsg>{periodValMsg}</StValidationMsg>
-      <h1>여행희망인원</h1>
-      <TripPeopleCount people={2} setPeople={setPeople} />
-      <StValidationMsg>{peopleValMsg}</StValidationMsg>
-      <br />
+      <StPeriodPeople>
+        <div>
+          <TripPeriod
+            className="periodBox"
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            setmaxRoomCloseDate={setmaxRoomCloseDate}
+          />
+          <StValidationMsg>{periodValMsg}</StValidationMsg>
+        </div>
+        <div className="peopleBox">
+          <TripPeopleCount people={2} setPeople={setPeople} />
+          <StValidationMsg>{peopleValMsg}</StValidationMsg>
+        </div>
+
+        <br />
+      </StPeriodPeople>
+
       <StStepTitle>
         <strong>STEP 2</strong>모집글정보 입력
       </StStepTitle>
-      <h1>모집글 제목</h1>
+      <h1>모집글/채팅방 제목</h1>
       <StTitleBox
         multiline
         maxRows={4}
@@ -257,14 +263,12 @@ const CreateMeetingContatiner = () => {
         placeholderText={"모집글 설명을 써주세요."}
       />
       <StValidationMsg>{descValMsg}</StValidationMsg>
-      <h1>모집마감일자</h1>
+
       <RoomCloseDateBox
         setRoomCloseDate={setRoomCloseDate}
         maxRoomCloseDate={maxRoomCloseDate}
       />
       <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
-
-      <h1>모집 후 모일 장소</h1>
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
       <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
@@ -362,6 +366,12 @@ const StTags = styled.div`
   }
 `;
 
+const StPeriodPeople = styled.div`
+  display: flex;
+  .peopleBox {
+    margin-left: 50px;
+  }
+`;
 const StbottonBox = styled.div`
   margin: 20px;
 `;

@@ -100,12 +100,12 @@ const MeetingListCard = ({ meeting }) => {
           <p className="infoStatus">
             {meeting.meetingStatus === 1 && (
               <span className="statusIng">
-                <i></i>모집중 D-<b>{dday}</b>
+                <i></i>모집중 D-<b>{dday === 0 ? "day" : dday}</b>
               </span>
             )}
             {meeting.meetingStatus === 2 && (
               <span className="statusComplete">
-                <i></i>모집마감 D-<b>{dday}</b>
+                <i></i>모집마감 D-<b>{dday === 0 ? "day" : dday}</b>
               </span>
             )}
             {meeting.meetingStatus === 3 && (
@@ -182,6 +182,7 @@ const MeetingListCard = ({ meeting }) => {
             )}
             {meeting.isMine && (
               <Button
+                className="deleteButton"
                 size="small"
                 variant="lineGray"
                 onClick={() => mutate(meeting.id)}
@@ -263,6 +264,35 @@ const StMeetingListCardWrap = styled.div`
     font-size: 1.2rem;
     cursor: pointer;
   }
+
+  @media (max-width: 639px) {
+    padding: 1rem;
+    height: 430px;
+    border-radius: 10px;
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+
+      &.meetingPeriod {
+        span {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .tag {
+      color: var(--lightBlue-color);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
 `;
 
 const StMeetingCardUpDown = styled.div`
@@ -292,12 +322,12 @@ const StMeetingCardRow = styled.div`
   button {
     padding: 0px 20px;
     margin-right: 0.5rem;
+    &.deleteButton {
+      margin-right: 0;
+    }
     &:last-child {
       margin-right: 0;
     }
-  }
-  p {
-    font-size: 1.5rem;
   }
 
   & > span {
@@ -381,5 +411,28 @@ const StMeetingCardRow = styled.div`
     right: 10px;
     font-size: 0.8rem;
     font-style: italic;
+  }
+
+  @media (max-width: 639px) {
+    & > span {
+      font-size: 1rem;
+    }
+
+    .infoStatus {
+      font-size: 1rem;
+    }
+    .memberImageBox {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    .memberNameBox {
+      font-size: 1.1rem;
+    }
+
+    button {
+      padding: 0px 8px;
+    }
   }
 `;

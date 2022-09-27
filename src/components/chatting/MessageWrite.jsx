@@ -1,16 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import MessageInput from "./MessageInput";
-
-// 아이콘
-import { IoSend } from "react-icons/io5";
+import Button from "../../elements/Button";
 
 // 메시지 입력 컴포넌트
 const MessageWrite = ({ sendMessage, setMessageInput }) => {
   // 메시지 텍스트 입력받기
-  const [messageText, setMessageText] = React.useState();
-
-  const loading = true;
+  const [messageText, setMessageText] = React.useState("");
 
   // 텍스트 기록 함수
   const handleMessageText = (e) => {
@@ -36,26 +32,27 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
           setMessageText("");
         }}
         mref={autoFocusRef}
-        loading={loading}
       />
 
-      {/* 로딩중이면 보내기 막기 */}
-      {loading && (
-        <SendIcon
-          onClick={() => {
-            sendMessage();
-            setMessageText("");
-          }}
-        />
-      )}
+      <StButton
+        size="small"
+        variant={messageText === "" ? "gray" : "primary"}
+        onClick={() => {
+          sendMessage();
+          setMessageText("");
+        }}
+        disabled={true}
+      >
+        전송
+      </StButton>
     </Container>
   );
 };
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
+  border-top: 1px solid;
   background-color: #fff;
-  justify-content: flex-start;
   width: 100%;
   height: 10%;
 
@@ -63,16 +60,24 @@ const Container = styled.div`
     position: fixed;
     width: 100%;
     left: 0;
-    bottom: 60px;
+    bottom: 50px;
   }
 `;
 
-const SendIcon = styled(IoSend)`
-  ${(props) => props.theme.flex_row};
-  justify-content: center;
-  width: 5%;
-  font-size: 20px;
-  cursor: pointer;
+const StButton = styled(Button)`
+  width: 90px;
+
+  ${(props) =>
+    props.variant === "gray" &&
+    css`
+      box-shadow: none;
+      cursor: default;
+
+      &:hover {
+        background-color: var(--lightGray-color);
+        color: var(--title-color);
+      }
+    `};
 `;
 
 export default MessageWrite;

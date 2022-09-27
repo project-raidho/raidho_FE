@@ -163,6 +163,13 @@ const StMyProfileTitleRow = styled.div`
     transition: 0.2ms;
     cursor: pointer;
   }
+
+  @media (max-width: 639px) {
+    h3 {
+      font-size: 1.2rem;
+      padding-left: 1rem;
+    }
+  }
 `;
 
 const StMyProfileTextRow = styled.div`
@@ -181,6 +188,13 @@ const StMyProfileTextRow = styled.div`
     }
     &.buttonLogout:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 639px) {
+    p {
+      font-size: 1.2rem;
+      padding-left: 1rem;
     }
   }
 `;
@@ -248,5 +262,8 @@ const StSwitchButton = styled.label`
     margin-left: ${(props) => (props.checkDarkMode ? "-20px" : "-7px")};
     margin-top: -7px;
     z-index: 1;
+  }
+  @media (max-width: 639px) {
+    margin-right: 1rem;
   }
 `;

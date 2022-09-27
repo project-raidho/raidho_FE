@@ -95,6 +95,7 @@ const UpdateMyProfile = (props) => {
     const formData = new FormData();
     const fileName =
       "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
+
     formData.append("memberImage", compressedImageFile, fileName);
     formData.append("memberName", updateNickname);
     formData.append("memberIntro", updateComment);
@@ -228,7 +229,9 @@ const StUpdateMyProfileWrap = styled.div`
     flex-direction: column;
 
     button {
+      font-size: 1rem;
       margin-top: 1rem;
+      margin-left: 1rem;
       padding: 0.5rem 1rem;
     }
   }
@@ -267,6 +270,31 @@ const StMyProfileBox = styled.div`
       align-items: flex-start;
       height: 66px;
       font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    p {
+      width: 80px;
+      height: 80px;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    dl {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: end;
+      height: 80px;
+
+      dt {
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      dd {
+        height: 20px;
+        font-size: 1rem;
+      }
     }
   }
 `;

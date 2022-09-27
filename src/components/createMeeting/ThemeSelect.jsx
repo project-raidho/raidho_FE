@@ -25,7 +25,7 @@ const ThemeSelect = ({ theme, setTheme }) => {
           <StButton
             value={theme}
             size="large"
-            variant={theme === btnActive ? "primary" : "gray"}
+            variant={theme === btnActive ? "primary" : "lineGray"}
             key={index}
             onClick={toggleActive}
             themeImage={theme}

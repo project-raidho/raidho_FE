@@ -20,6 +20,7 @@ const KakaoLogin = () => {
       localStorage.setItem("memberName", res.data.memberName);
       localStorage.setItem("memberIntro", res.data.memberIntro);
       localStorage.setItem("memberImage", res.data.memberImage);
+      localStorage.setItem("providerId", res.data.providerId);
       navigate("/");
     } catch (error) {
       console.log(error);

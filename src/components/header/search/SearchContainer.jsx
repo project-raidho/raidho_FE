@@ -173,6 +173,7 @@ const StSearchDetailBox = styled.div`
 
   input {
     border: ${(props) => props.isFocusSearch === true && "none"};
+    font-size: 1.2rem;
     box-shadow: ${(props) =>
       props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
     transition: 0.5s;
@@ -203,7 +204,7 @@ const StSearchDetailList = styled.div`
   transition: 0.5s;
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 15px 0;
     color: var(--title-color);
   }
@@ -294,7 +295,7 @@ const StTagCard = styled.p`
   justify-content: center;
   height: 95px;
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-align: center;
   border-radius: 15px;

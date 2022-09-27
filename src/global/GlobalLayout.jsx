@@ -11,7 +11,7 @@ const StGlobalLayoutWrap = styled.div`
   width: 100%;
   max-width: 1305px;
   margin: 0 auto;
-  padding-top: 80px; // 헤더 높이만큼
+  padding: 80px 1rem 0;
 
   @media (max-width: 1023px) {
     max-width: 1023px;
@@ -22,6 +22,6 @@ const StGlobalLayoutWrap = styled.div`
   }
   @media (max-width: 639px) {
     max-width: 639px;
-    padding: 90px 0 80px;
+    padding: 55px 0 80px;
   }
 `;
