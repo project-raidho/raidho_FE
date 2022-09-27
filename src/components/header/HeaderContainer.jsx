@@ -36,8 +36,8 @@ const StHeaderWrap = styled.div`
   align-items: center;
   width: 100%;
   height: 55px;
-  border-bottom: 1px solid var(--gray-color);
   background-color: var(--bg-color);
+  box-shadow: var(--header-shadow);
   padding: 0 1rem;
   z-index: 8;
 `;

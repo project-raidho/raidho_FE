@@ -120,8 +120,8 @@ const StHeaderRightMenuWrap = styled.div`
     width: ${(props) => (props.isLogin ? "100%" : "")};
     height: ${(props) => (props.isLogin ? "48px" : "")};
     background-color: ${(props) => (props.isLogin ? "var(--bg-color)" : "")};
-    border-top: ${(props) =>
-      props.isLogin ? "1px solid var(--gray-color)" : ""};
+    box-shadow: ${(props) =>
+      props.isLogin ? "var(--header-bottom-shadow)" : ""};
     z-index: ${(props) => (props.isLogin ? "8" : "")};
   }
 `;
