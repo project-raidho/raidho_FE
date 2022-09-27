@@ -1,14 +1,14 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+
 import Message from "./Message";
 import { useQuery } from "react-query";
 import { authInstance } from "../../shared/api";
 
-import { useQueryClient, useMutation, useInfiniteQuery } from "react-query";
-import { useInView } from "react-intersection-observer";
-import Loading from "../../elements/Loading";
-import Error from "../../elements/Error";
+// import {  useInfiniteQuery } from "react-query";
+// import { useInView } from "react-intersection-observer";
+// import Loading from "../../elements/Loading";
+// import Error from "../../elements/Error";
 
 const getMessageList = async ({ queryKey }) => {
   return await authInstance.get(`/api/chat/messages/${queryKey[1]}?page=0`);
@@ -24,8 +24,7 @@ const getMessageList = async ({ queryKey }) => {
 const MessageList = ({ messages, setMessages, id }) => {
   // const { id } = useParams();
 
-  const { ref, inView } = useInView();
-  console.log(id);
+  // const { ref, inView } = useInView();
 
   // const { data, status, fetchNextPage, isFetchingNextPage, error } =
   //   useInfiniteQuery(
