@@ -14,6 +14,8 @@ import { authInstance } from "../../shared/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import PostDetailTagList from "./PostDetailTagList";
 import PostDetailDate from "./PostDetailDate";
+import AddCommentForm from "./comment/AddCommentForm";
+import CommentsList from "./comment/CommentsList";
 
 // ::: 상세페이지 조회 axios
 const getPostDetail = async ({ queryKey }) => {
@@ -88,8 +90,15 @@ const PostDetailContainer = () => {
         <StContentBox>{postDetail.content}</StContentBox>
         <PostDetailDate postDetail={postDetail} />
         <PostDetailTagList tagList={postDetail.tags} />
+        <AddCommentForm />
+        <CommentsList />
+
       </StDetailContainer>
       <RelatedList targetTag={targetTag} />
+
+      <div>
+      
+      </div>
     </>
   );
 };
