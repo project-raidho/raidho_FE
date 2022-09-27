@@ -134,7 +134,7 @@ const StMyProfileTitleRow = styled.div`
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 400;
     color: var(--title-color);
     padding-right: 25px;
@@ -163,6 +163,13 @@ const StMyProfileTitleRow = styled.div`
     transition: 0.2ms;
     cursor: pointer;
   }
+
+  @media (max-width: 639px) {
+    h3 {
+      font-size: 1.2rem;
+      padding-left: 1rem;
+    }
+  }
 `;
 
 const StMyProfileTextRow = styled.div`
@@ -181,6 +188,13 @@ const StMyProfileTextRow = styled.div`
     }
     &.buttonLogout:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 639px) {
+    p {
+      font-size: 1.2rem;
+      padding-left: 1rem;
     }
   }
 `;

@@ -269,6 +269,32 @@ const StMyProfileBox = styled.div`
       font-size: 1.5rem;
     }
   }
+
+  @media (max-width: 639px) {
+    p {
+      width: 80px;
+      height: 80px;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    dl {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: end;
+      height: 80px;
+
+      dt {
+        height: 40px;
+        font-size: 1.2rem;
+        background-color: red;
+      }
+      dd {
+        height: 20px;
+        font-size: 1rem;
+      }
+    }
+  }
 `;
 
 const StUpdateProfileTop = styled.div``;
