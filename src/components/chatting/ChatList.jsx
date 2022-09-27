@@ -81,17 +81,17 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.div`
-  ${(props) => props.theme.border_box};
-  height: 10%;
-  color: ${(props) => props.theme.font_color};
-  padding: 20px 20px 20px 30px;
-  font-size: 26px;
-  font-weight: 700;
-  @media ${(props) => props.theme.mobile} {
-    display: none;
-  }
-`;
+// const Title = styled.div`
+//   ${(props) => props.theme.border_box};
+//   height: 10%;
+//   color: ${(props) => props.theme.font_color};
+//   padding: 20px 20px 20px 30px;
+//   font-size: 26px;
+//   font-weight: 700;
+//   @media ${(props) => props.theme.mobile} {
+//     display: none;
+//   }
+// `;
 
 const ChatListWrap = styled.div`
   ${(props) => props.theme.border_box};
