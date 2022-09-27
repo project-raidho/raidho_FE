@@ -64,7 +64,7 @@ const VARIANTS = {
     --button-hover-bg-color: var(--lightGray-color);
     --button-border-color: none;
     --button-hover-text-color: var(--title-color);
-    --button-box-shadow: none;
+    --button-box-shadow: var(--button-shadow);
     --button-margin-right: 15px;
   `,
   line: css`

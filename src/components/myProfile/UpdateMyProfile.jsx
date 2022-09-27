@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { authInstance } from "../../shared/api";
-import imageCompression from "browser-image-compression";
+// import imageCompression from "browser-image-compression";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
@@ -20,10 +20,8 @@ const UpdateMyProfile = (props) => {
     memberIntro: localStorage.getItem("memberIntro"),
   };
 
-  const [selectedMemberImage, setSelectedMemberImage] = useState(null);
-  const [compressedImageFile, setCompressedImageFile] = useState(
-    memberInfo.memberImage
-  );
+  const [compressedImageFile, setCompressedImageFile] = useState(null);
+  const [previewUpdateImage, setPreviewUpdateImage] = useState(null);
   const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
   const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
 
@@ -36,39 +34,28 @@ const UpdateMyProfile = (props) => {
     setModalOn(!modalOn);
 
     // ::: 유저가 입력한 값 초기화 시키기
-    setSelectedMemberImage(null);
-    setCompressedImageFile(memberInfo.memberImage);
+
+    setCompressedImageFile(null);
     setUpdateNickname(memberInfo.memberName);
     setUpdateComment(memberInfo.memberIntro);
     setValidationAlert(null);
   };
 
-  // ::: 이미지 리사이징(Resizing)
-  const compressImageAndGetImageFile = async (postImageFile) => {
-    const options = {
-      maxSizeMB: 0.8,
-      maxWidthOrHeight: 900,
-      useWebWorker: true,
+  // ::: 이미지 미리보기(Image Preview)
+  const onChangePostImageFile = (event) => {
+    let reader = new FileReader();
+    const postImageFile = event.target.files[0];
+    setCompressedImageFile(postImageFile);
+    if (postImageFile) {
+      reader.readAsDataURL(postImageFile);
+    }
+    reader.onloadend = () => {
+      const resultImage = reader.result;
+      setPreviewUpdateImage(resultImage);
     };
-    const compressedFile = await imageCompression(postImageFile, options);
-    return compressedFile;
   };
 
-  // ::: 이미지 미리보기(Image Preview)
-  const onChangePostImageFile = async (event) => {
-    const postImageFile = event.target.files[0];
-    try {
-      const compressedFile = await compressImageAndGetImageFile(postImageFile);
-      setCompressedImageFile(compressedFile);
-      const finalCompressedImage = await imageCompression.getDataUrlFromFile(
-        compressedFile
-      );
-      setSelectedMemberImage(finalCompressedImage);
-    } catch (error) {
-      console.log("__PostImage_uploadImageError ::", error);
-      alert("이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!");
-    }
-  };
+  console.log(previewUpdateImage);
 
   const onChangeUpdateMemberName = (event) => {
     setUpdateNickname(event.target.value);
@@ -93,12 +80,17 @@ const UpdateMyProfile = (props) => {
     }
     // :: image file formData 형식 변환
     const formData = new FormData();
-    const fileName =
-      "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
 
-    formData.append("memberImage", compressedImageFile, fileName);
-    formData.append("memberName", updateNickname);
-    formData.append("memberIntro", updateComment);
+    if (compressedImageFile !== null) {
+      const fileName =
+        "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
+      formData.append("memberImage", compressedImageFile, fileName);
+      formData.append("memberName", updateNickname);
+      formData.append("memberIntro", updateComment);
+    } else {
+      formData.append("memberName", updateNickname);
+      formData.append("memberIntro", updateComment);
+    }
 
     try {
       const response = await authInstance.put(
@@ -152,9 +144,9 @@ const UpdateMyProfile = (props) => {
                       onChange={onChangePostImageFile}
                       accept="image/jpg, image/jpeg, image/png"
                     />
-                    {selectedMemberImage ? (
+                    {previewUpdateImage !== null ? (
                       <img
-                        src={selectedMemberImage}
+                        src={previewUpdateImage}
                         alt="preview"
                         style={{
                           width: "100%",
