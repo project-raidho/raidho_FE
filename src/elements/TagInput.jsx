@@ -146,7 +146,7 @@ const StCreatePostTagsWrap = styled.div`
 `;
 
 const StValidationMsg = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
   font-style: italic;
   color: ${(props) =>
