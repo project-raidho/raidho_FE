@@ -24,6 +24,7 @@ const PostDetailImg = ({ images }) => {
 export default PostDetailImg;
 
 const StyledSlider = styled(Slider)`
+  width: 100%;
   text-align: center;
   margin-bottom: 10px;
   .imageBox {
@@ -40,12 +41,22 @@ const StyledSlider = styled(Slider)`
       min-width: 100%;
       object-fit: contain;
       margin: 0 auto;
+      @media (max-width: 639px) {
+        width: 80%;
+      }
     }
   }
   .slick-prev {
     left: -30px;
+    @media (max-width: 639px) {
+      display: none;
+    }
   }
   .slick-next {
     right: -30px;
+    @media (max-width: 639px) {
+      display: none;
+      right: 0px;
+    }
   }
 `;

@@ -67,8 +67,7 @@ const ChatList = ({ prevRoomId }) => {
 const Container = styled.div`
   width: 30%;
   height: 100%;
-  border-left: 1px solid;
-  border-top: 1px solid;
+
   ${(props) => props.theme.border_box};
   justify-content: center;
   /* background-color: ${(props) => props.theme.theme_gray}; */
@@ -77,7 +76,8 @@ const Container = styled.div`
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;
-    height: 15%;
+    height: 13%;
+    margin-bottom: 10px;
   }
 `;
 

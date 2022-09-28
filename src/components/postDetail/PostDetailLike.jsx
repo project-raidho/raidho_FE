@@ -71,6 +71,10 @@ export default PostDetailLike;
 const StlikeWrapper = styled.div`
   display: flex;
   float: right;
+
+  img {
+    margin-top: 4px;
+  }
 `;
 const StHeartCountBox = styled.div`
   margin-right: 10px;

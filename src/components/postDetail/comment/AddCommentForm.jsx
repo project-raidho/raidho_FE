@@ -76,7 +76,8 @@ const CommentForm = styled.div`
   align-items: center;
   position: relative;
   padding: 5px 10px;
-  margin: 10px 0;
+  margin-top: 20px;
+  margin-bottom: 15px;
   border: 1px solid;
   border-radius: 12px;
 

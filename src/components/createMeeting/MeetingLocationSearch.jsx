@@ -6,12 +6,13 @@ import Button from "../../elements/Button";
 import styled from "styled-components";
 
 const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
-  const [InputText, setInputText] = useState(departLocation);
+  const [text, setText] = useState(departLocation);
   const [Place, setPlace] = useState("");
 
   const onChange = (e) => {
-    setInputText(e.target.value);
-    setPlace(InputText);
+    setText(e.target.value);
+    setPlace(text);
+    setDepartLocation(text);
   };
 
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -34,21 +35,25 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
       fullAddr += extraAddr !== "" ? ` (${extraAddr})` : "";
     }
 
-    setInputText(fullAddr);
+    setText(fullAddr);
     setPlace(fullAddr);
     setDepartLocation(fullAddr);
     setIsOpenPost(false);
   };
 
   useEffect(() => {
-    setInputText(departLocation);
+    setText(departLocation);
     setPlace(departLocation);
   }, [departLocation]);
 
   return (
     <SearchWrapp>
       <h1>모집 후 모일 장소</h1>
-      <Button size="small" onClick={onChangeOpenPost}>
+      <Button
+        size="small"
+        variant={isOpenPost ? "gray" : "primary"}
+        onClick={onChangeOpenPost}
+      >
         {isOpenPost ? "검색창 닫기" : "주소검색"}
       </Button>
       {isOpenPost && (
@@ -63,12 +68,11 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
       <KakaoMap searchPlace={Place} />
 
-      <SearchInput
-        variant="default"
-        size="large"
-        placeholder="도로명주소가 입력되는 창입니다."
+      <textarea
+        placeholder="주소를 입력해주세요."
         onChange={onChange}
-        value={InputText}
+        value={text}
+        maxLength="100"
       />
     </SearchWrapp>
   );
@@ -86,19 +90,18 @@ const SearchWrapp = styled.div`
     height: 400px;
     padding: 7px;
   }
+  textarea {
+    padding: 10px;
+    width: 100%;
+    font-size: 1.5rem;
+    @media ${(props) => props.theme.mobile} {
+      font-size: 1rem;
+    }
+  }
 
   @media ${(props) => props.theme.mobile} {
     .postmodal {
       width: 300px;
     }
-  }
-`;
-
-const SearchInput = styled(Input)`
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-  @media ${(props) => props.theme.mobile} {
-    font-size: 1.2rem;
   }
 `;

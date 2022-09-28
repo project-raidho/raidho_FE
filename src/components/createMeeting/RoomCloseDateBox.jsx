@@ -45,7 +45,7 @@ const RoomCloseDateBox = ({
       <h1>모집마감일자</h1>
       <StInputbox>
         <StDateInput
-          placeholder={"여행시작일 이전으로만 선택가능합니다."}
+          placeholder={"모집마감일자를 선택해주세요"}
           value={inputDate}
           variant="default"
           size="large"
@@ -87,14 +87,14 @@ const StRoomCloseDateBoxContainer = styled.div`
 
 const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
-  margin: auto 5px;
+  margin: auto 0 auto 10px;
   cursor: pointer;
 `;
 
 const StDateInput = styled(Input)`
   width: 80%;
   @media (max-width: 639px) {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 `;
 const StInputbox = styled.div`

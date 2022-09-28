@@ -42,9 +42,11 @@ const StMeetingTitletWrap = styled.div`
     height: 55px;
     font-size: 1.2rem;
     border: 1px solid var(--gray-color);
+    border-radius: 15px;
     padding: 1rem;
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
+    overflow: hidden;
   }
 `;
 const StValidationMsg = styled.p`

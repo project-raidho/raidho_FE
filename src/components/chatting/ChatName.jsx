@@ -7,10 +7,13 @@ import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-// import { ImExit } from "react-icons/im";
+
+import { ImExit } from "react-icons/im";
 import { AiOutlineClose } from "react-icons/ai";
+import { IoExitOutline } from "react-icons/io5";
 // 채팅방 정보 단건조회
 const getChatDetail = async ({ queryKey }) => {
   return await authInstance.get(`/api/chat/rooms/${Number(queryKey[1])}`);
@@ -95,7 +98,7 @@ const ChatName = () => {
       setModalOn(true);
     } else {
       setModalIcon("warning");
-      setAlertMsg("정말 채팅방을 나가시겠습니까?");
+      setAlertMsg("이 채팅방을 정말 삭제하시겠습니까?");
       setModalOn(true);
     }
   };
@@ -109,16 +112,22 @@ const ChatName = () => {
         <StTitleBox>
           {chatDetail.title}
           <StRightButtonSet>
-            <AiOutlineInfoCircle
-              className="icon"
-              color="#fff"
-              onClick={() => setIsOpenInfo(!isOpenInfo)}
-            />
+            {isOpenInfo ? (
+              <FaAngleUp
+                className="icon"
+                onClick={() => setIsOpenInfo(false)}
+              />
+            ) : (
+              <FaAngleDown
+                className="icon"
+                onClick={() => setIsOpenInfo(true)}
+              />
+            )}
             <RiDeleteBin6Fill
               className="icon"
               onClick={() => onDeleteHandler()}
             />
-            <AiOutlineClose className="icon" onClick={() => onCloseHandler()} />
+            <IoExitOutline className="icon" onClick={() => onCloseHandler()} />
           </StRightButtonSet>
         </StTitleBox>
         {isOpenInfo && (
@@ -127,7 +136,7 @@ const ChatName = () => {
             <p>
               여행장소 :{" "}
               {chatDetail.meetingTags.map((tag, index) => (
-                <span key={tag + index}>{tag}&nbsp;</span>
+                <span key={tag + index}>{tag.slice(1)}&nbsp;</span>
               ))}
             </p>
             <p>
@@ -157,7 +166,9 @@ const ChatName = () => {
                 {dday} ({chatDetail.roomCloseDate})
               </b>
             </p>
-            <p>모임장소 : {chatDetail.departLocation} </p>
+            <p className="location">
+              모임장소 <br /> {chatDetail.departLocation}
+            </p>
           </div>
         )}
       </StInfoBox>
@@ -214,6 +225,12 @@ const StInfoBox = styled.div`
     margin-bottom: 3px;
     color: #fff;
   }
+  .location {
+    @media ${(props) => props.theme.mobile} {
+      display: inline;
+      max-width: 300px;
+    }
+  }
   b,
   span {
     color: #fff;
@@ -227,7 +244,7 @@ const StTitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
 `;
 
@@ -239,7 +256,7 @@ const StRightButtonSet = styled.div`
 
     cursor: pointer;
     margin-right: 8px;
-
+    margin-left: 5px;
     path {
       color: #fff;
     }
