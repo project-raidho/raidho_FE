@@ -312,6 +312,8 @@ const StButtonWrap = styled.div`
   }
 
   @media (max-width: 639px) {
+    margin-top: 0px;
+    padding-right: 1rem;
     button {
       width: 70px;
       height: 30px;
