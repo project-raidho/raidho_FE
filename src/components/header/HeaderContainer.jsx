@@ -19,6 +19,7 @@ const HeaderContainer = () => {
   };
 
   useEffect(() => {
+    checkDiviceWidth();
     window.addEventListener("resize", checkDiviceWidth);
     return () => {
       window.removeEventListener("resize", checkDiviceWidth);
