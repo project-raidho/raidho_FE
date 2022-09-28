@@ -127,15 +127,6 @@ const ChattingRoom = () => {
     });
   }
 
-  React.useEffect(() => {
-    if (partymember) {
-      ConnectSub(token);
-    }
-    return () => {
-      wsDisConnectUnsubscribe();
-    };
-  }, [curtParty?.partyId]);
-
   // 메시지 보내기
   function sendMessage() {
     try {
