@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
 import MainContainer from "../components/main/MainContainer";
 import styled from "styled-components";
-import { FaArrowAltCircleUp } from "react-icons/fa";
+import { MdKeyboardArrowUp } from "react-icons/md";
 
 const MainPage = () => {
   const { stateName } = useParams();
@@ -80,8 +80,7 @@ const MainPage = () => {
         </StMainNav>
         <MainContainer state={state} handleTop={handleTop} />
       </StLayout>
-      <FaArrowAltCircleUp
-        color="red"
+      <MdKeyboardArrowUp
         className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
         onClick={handleTop} // 버튼 클릭시 함수 호출
       />
@@ -94,35 +93,42 @@ export default MainPage;
 const StMainPageWrap = styled.div`
   padding-top: 170px;
 
+  // top 버튼 적용
   .topBtn {
     position: fixed;
     opacity: 0;
-    bottom: 50px;
-    right: 50px;
+    bottom: 2rem;
+    right: 2rem;
     z-index: -10;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     border: 0 none;
     background-color: var(--bg-color);
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: -0.06em;
-
     cursor: pointer;
     transition: opacity 0.3s ease-in;
+    path {
+      color: var(--title-color);
+    }
   }
   .topBtn.active {
-    z-index: 10;
+    z-index: 6;
     opacity: 1;
   }
-
   .topBtn:hover,
   .topBtn:focus,
   .topBtn:active {
     outline: 0 none;
   }
+
+  @media (max-width: 639px) {
+    .topBtn {
+      bottom: 60px;
+      right: 1rem;
+    }
+  }
 `;
+
 const StMainNav = styled.div`
   /* position: fixed;
   left: 0;
