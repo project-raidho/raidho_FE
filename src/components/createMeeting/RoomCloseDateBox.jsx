@@ -42,7 +42,7 @@ const RoomCloseDateBox = ({
 
   return (
     <StRoomCloseDateBoxContainer>
-      <h1>모집마감일자</h1>
+      <h1>모집마감일자 *</h1>
       <StInputbox>
         <StDateInput
           placeholder={"모집마감일자를 선택해주세요"}
@@ -93,9 +93,7 @@ const CalendarIcon = styled(BsCalendar3)`
 
 const StDateInput = styled(Input)`
   width: 80%;
-  @media (max-width: 639px) {
-    font-size: 1.2rem;
-  }
+  font-size: 1rem;
 `;
 const StInputbox = styled.div`
   display: flex;

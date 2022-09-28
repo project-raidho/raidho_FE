@@ -49,15 +49,15 @@ const TripPeriod = ({
       return setCount(0);
     }
   };
-  // const startinputonChangeHandler = (e) => {
-  //   setStartDate(e.target.value);
-  //   setStart(e.target.value);
-  // };
+  const startinputonChangeHandler = (e) => {
+    setStartDate(e.target.value);
+    setStart(e.target.value);
+  };
 
-  // const endinputonChangeHandler = (e) => {
-  //   setEndDate(e.target.value);
-  //   setEnd(e.target.value);
-  // };
+  const endinputonChangeHandler = (e) => {
+    setEndDate(e.target.value);
+    setEnd(e.target.value);
+  };
   useEffect(() => {
     setStart(startDate);
     setEnd(endDate);
@@ -66,7 +66,7 @@ const TripPeriod = ({
 
   return (
     <CalenderContainer>
-      <h1>여행기간</h1>
+      <h1>여행기간 *</h1>
       <div>
         <InputBox>
           <div>
@@ -77,7 +77,7 @@ const TripPeriod = ({
               onFocus={() => setShowCalendar(true)}
               variant="default"
               size="large"
-              // onChange={startinputonChangeHandler}
+              onChange={startinputonChangeHandler}
             />
           </div>
           <h4 className="calenderIconAndInput">
@@ -90,7 +90,7 @@ const TripPeriod = ({
                 onFocus={() => setShowCalendar(true)}
                 variant="default"
                 size="large"
-                // onChange={endinputonChangeHandler}
+                onChange={endinputonChangeHandler}
               />
             </div>
             <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
@@ -137,20 +137,24 @@ const InputBox = styled.div`
     margin-bottom: 10px;
     font-size: 15px;
   }
+  input {
+    font-size: 1.2rem;
+  }
   @media ${(props) => props.theme.mobile} {
     flex-direction: column;
     gap: 10px;
   }
   .calenderIconAndInput {
     display: flex;
+    margin-left: 5px;
+    @media ${(props) => props.theme.mobile} {
+      margin-left: 0;
+    }
   }
 `;
 
 const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
-  margin: 50px 5px 0 0;
+  margin: 47px 0 0 8px;
   cursor: pointer;
-  @media ${(props) => props.theme.mobile} {
-    margin: 47px 0 0 8px;
-  }
 `;

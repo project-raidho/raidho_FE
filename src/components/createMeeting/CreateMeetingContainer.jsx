@@ -12,13 +12,13 @@ import TagInput from "../../elements/TagInput";
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
-import CreatePostContent from "../createPost/CreatePostContent";
 import { useNavigate } from "react-router-dom";
 
 //리액트 쿼리
 import { useMutation, useQueryClient } from "react-query";
 import { useEffect } from "react";
 import MeetingTitle from "./MeetingTitle";
+import ContentTextArea from "../../elements/ContentTextArea";
 
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
@@ -88,6 +88,11 @@ const CreateMeetingContatiner = () => {
     } else if (roomCloseDate.length < 1) {
       setAllValMsg("모집마감일자를 선택해주세요");
       return setRoomCloseDateValMsg("모집마감일자를 선택해주세요");
+    } else if (isValidDateFormat(roomCloseDate) === false) {
+      setAllValMsg("모집마감일자의 날짜 형식이 잘못되었습니다.");
+      return setRoomCloseDateValMsg(
+        "모집마감일자의 날짜 형식이 잘못되었습니다."
+      );
     } else if (departLocation.length < 1) {
       setAllValMsg("모집 후 모일 장소를 선택해주세요");
       return setDepartLocationValMsg("모집 후 모일 장소를 선택해주세요");
@@ -127,6 +132,18 @@ const CreateMeetingContatiner = () => {
     if (meetingTags.length > 0) {
       setTagValrMsg("");
     }
+    if (startDate.length > 0) {
+      setPeriodValMsg("");
+    }
+    if (isValidDateFormat(startDate)) {
+      setPeriodValMsg("");
+    }
+    if (endDate.length > 0) {
+      setPeriodValMsg("");
+    }
+    if (isValidDateFormat(endDate)) {
+      setPeriodValMsg("");
+    }
     if (people.length > 0) {
       setPeopleValMsg("");
     }
@@ -139,16 +156,30 @@ const CreateMeetingContatiner = () => {
     if (roomCloseDate.length > 0) {
       setRoomCloseDateValMsg("");
     }
-    if (departLocation.length > 0) {
+    if (isValidDateFormat(roomCloseDate)) {
+      setRoomCloseDateValMsg("");
+    }
+    if (departLocation?.length > 0) {
       setDepartLocationValMsg("");
     }
+
     if (isValidAll) {
       setAllValMsg("");
     } else {
       setAllValMsg("빈칸을 모두 입력해주세요");
     }
     // eslint-disable-next-line
-  }, [theme, meetingTags, people, title, desc, roomCloseDate, departLocation]);
+  }, [
+    theme,
+    meetingTags,
+    startDate,
+    endDate,
+    people,
+    title,
+    desc,
+    roomCloseDate,
+    departLocation,
+  ]);
 
   //post mutation
   const queryClient = useQueryClient();
@@ -159,7 +190,6 @@ const CreateMeetingContatiner = () => {
   });
 
   //유효성 검사
-  // const [validState,setValidState] =useState();
   // 모든 input의 value가 1자 이상이 되어야 한다
   const isValidAll =
     theme.length >= 1 &&
@@ -214,10 +244,10 @@ const CreateMeetingContatiner = () => {
     <StContainer>
       <StStepTitle>여행정보 입력</StStepTitle>
 
-      <h1>대륙 선택</h1>
+      <h1>대륙 선택 *</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
       <StValidationMsg>{themeValMsg}</StValidationMsg>
-      <h1>여행갈 나라/도시 태그 입력</h1>
+      <h1>여행갈 나라/도시 태그 입력 *</h1>
       <StTags>
         <TagInput
           selectedTags={selectedMeetingTags}
@@ -225,8 +255,8 @@ const CreateMeetingContatiner = () => {
           tagMassage={
             meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
           }
+          tagValMsg={tagValMsg}
         />
-        <StValidationMsg>{tagValMsg}</StValidationMsg>
       </StTags>
       <StPeriodPeople>
         <div>
@@ -246,19 +276,19 @@ const CreateMeetingContatiner = () => {
       <br />
 
       <StStepTitle>모집글정보 입력</StStepTitle>
-      <h1>모집글/채팅방 제목</h1>
+      <h1>모집글/채팅방 제목 *</h1>
       <MeetingTitle
         onChangeMeetingTitle={onChangeMeetingTitle}
         placeholderText={"모집글 제목을 써주세요."}
       />
       <StValidationMsg>{titleValMsg}</StValidationMsg>
-      <h1>모집글 설명</h1>
-      <CreatePostContent
+      <h1>모집글 설명 *</h1>
+      <ContentTextArea
         typedPostContent={typedMeetingContent}
         placeholderText={"모집글 설명을 써주세요."}
+        initialContent=""
+        ValRedMsg={descValMsg}
       />
-      <StValidationMsg>{descValMsg}</StValidationMsg>
-
       <RoomCloseDateBox
         setRoomCloseDate={setRoomCloseDate}
         maxRoomCloseDate={maxRoomCloseDate}
@@ -302,7 +332,7 @@ const StContainer = styled.div`
     margin-top: 30px;
   }
   h1 {
-    font-size: 20px;
+    font-size: 1.3rem;
     margin-top: 20px;
     margin-bottom: 13px;
   }
@@ -365,12 +395,8 @@ const StValidationMsg = styled.p`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--red-color);
   margin-bottom: 1rem;
   margin-top: 1rem;
-
-  @media (max-width: 639px) {
-    font-size: 1rem;
-  }
 `;
