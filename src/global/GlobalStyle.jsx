@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     --text-color: #1E1E1E;
     --font-style: 'Pretendard-Regular';
     --box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.20);
-    --button-shadow : 0px 4px 4px rgba(0, 0, 0, 0.25);
+    --button-shadow : 0px 3px 3px rgba(0, 0, 0, 0.15);
     --header-shadow : 0px 2px 10px rgba(0, 0, 0, 0.15);
     --header-bottom-shadow : 0px -2px 10px rgba(0, 0, 0, 0.15); 
   }
@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #ffffff;
     --text-color: #ffffff;
     --box-shadow: 3px 3px 8px rgba(255, 255, 255, 0.2);
-    --button-shadow : 0px 4px 4px rgba(255, 255, 255, 0.25);
+    --button-shadow : 0px 3x 3px rgba(255, 255, 255, 0.15);
     --header-shadow : 0px 2px 10px rgba(255, 255, 255, 0.15);
     --header-bottom-shadow : 0px -2px 10px rgba(255, 255, 255, 0.15);
   }

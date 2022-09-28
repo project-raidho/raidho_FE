@@ -5,7 +5,6 @@ import IconError from "../assets/iconError.svg";
 const Warning = () => {
   return (
     <StWarningWrap>
-      {/* <AiOutlineInfo /> */}
       <img src={IconError} alt="error" />
     </StWarningWrap>
   );
@@ -19,7 +18,6 @@ const StWarningWrap = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: var(--red-color);
 
   img {
     width: 100%;
