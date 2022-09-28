@@ -13,6 +13,4 @@ const PostDetailPage = () => {
 
 export default PostDetailPage;
 
-const StPostDetailPageeWrap = styled.div`
-  padding: 10px;
-`;
+const StPostDetailPageeWrap = styled.div``;
