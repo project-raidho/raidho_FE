@@ -51,9 +51,8 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
-  border-top: 2px solid var(--lightGray-color);
-  border-bottom: 2px solid var(--lightGray-color);
-  background-color: #fff;
+  border-top: 1px solid var(--gray-color);
+  background-color: var(--bg-color);
   width: 100%;
   height: 10%;
 

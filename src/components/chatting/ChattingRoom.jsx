@@ -198,21 +198,21 @@ const ChattingRoom = () => {
 
 const Container = styled.div`
   ${(props) => props.theme.border_box};
-  ${(props) => props.theme.flex_row}
+  display: flex;
   width: 100%;
   height: 100%;
-  background-color: white;
-  color: ${(props) => props.theme.theme_yellow};
+
   @media ${(props) => props.theme.mobile} {
     flex-direction: column;
   }
 `;
 
 const ChatWrap = styled.div`
-  ${(props) => props.theme.flex_column}
+  display: flex;
+  flex-direction: column;
   width: 70%;
-  height: 100%;
-  border: 1px solid;
+  height: 90%;
+  border: 1px solid var(--gray-color);
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     height: 85%;

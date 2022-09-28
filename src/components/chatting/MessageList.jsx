@@ -102,7 +102,6 @@ const MessageList = ({ messages, setMessages, id }) => {
 const Container = styled.div`
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex_column};
-  background-color: #fff;
   justify-content: flex-start;
   width: 100%;
   height: 100%;
