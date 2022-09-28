@@ -94,6 +94,7 @@ const SearchWrapp = styled.div`
     padding: 10px;
     width: 100%;
     font-size: 1.2rem;
+    background-color: var(--bg-color);
     @media ${(props) => props.theme.mobile} {
       font-size: 1rem;
     }
