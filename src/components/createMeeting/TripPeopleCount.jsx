@@ -4,9 +4,9 @@ import styled from "styled-components";
 const TripPeopleCount = ({ people, setPeople }) => {
   const countList = [2, 3, 4, 5, 6, 7, 8, 9, 10];
   console.log(people);
-  const index = countList.indexOf(people);
 
-  const NewCountList = countList.slice(index);
+  // const index = countList.indexOf(people);
+  // const NewCountList = countList.slice(index);
 
   const [count, setCount] = useState("");
   console.log(count);
