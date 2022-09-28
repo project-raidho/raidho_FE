@@ -4,10 +4,10 @@ import ToggleBox from "./toggle/ToggleBox";
 import Button from "../../elements/Button";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";
-import IconAdd from "../../assets/header/add.svg";
-import IconChat from "../../assets/header/chat.svg";
-import IconMeeting from "../../assets/header/meeting.svg";
-import IconPost from "../../assets/header/post.svg";
+import { BiImage } from "react-icons/bi";
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import { BsChatRightDots } from "react-icons/bs";
+import { MdOutlineTravelExplore } from "react-icons/md";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 
@@ -48,6 +48,11 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     navigate("/");
   };
 
+  // ::: 로그인 여부 확인 후 채팅방 이동
+  const checkLoginGoToChat = () => {
+    !isLogin ? handleModal() : navigate(`/chatting`);
+  };
+
   useEffect(() => {
     // ::: 로그인 여부 확인하기
     userIsLogin !== null ? setIsLogin(true) : setIsLogin(false);
@@ -56,51 +61,36 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 
   return (
     <StHeaderRightMenuWrap isLogin={isLogin}>
-      {!isLogin ? (
-        <>
-          <Button
-            className="loginButton"
-            size="small"
-            variant="primary"
-            onClick={handleModal}
-          >
-            로그인
-          </Button>
-
-          <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
-        </>
-      ) : (
-        <StLoginRightMenu>
-          <li>
-            <Link to={`/`}>
-              <img src={IconPost} alt="여행후기 보러가기" />
-            </Link>
-          </li>
-          <li>
-            <Link to={`/meetingList/all`}>
-              <img src={IconMeeting} alt="모집글 보러가기" />
-            </Link>
-          </li>
-          <li onClick={() => setIsAddToggle(!isAddToggle)}>
-            <img src={IconAdd} alt="게시글 추가하기" />
-            <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
-              <li>
-                <Link to={`/createPost`} onClick={onCloseToggle}>
-                  여행후기 작성
-                </Link>
-              </li>
-              <li>
-                <Link to={`/createMeeting`} onClick={onCloseToggle}>
-                  모집글 작성
-                </Link>
-              </li>
-            </ToggleBox>
-          </li>
-          <li>
-            <Link to={"/chatting"}>
-              <img src={IconChat} alt="채팅 하러가기" />
-            </Link>
-          </li>
+      <StLoginRightMenu isLogin={isLogin}>
+        <li>
+          <Link to={`/`}>
+            <BiImage className="iconPost" />
+          </Link>
+        </li>
+        <li>
+          <Link to={`/meetingList/all`}>
+            <MdOutlineTravelExplore className="iconMeeting" />
+          </Link>
+        </li>
+        <li onClick={() => setIsAddToggle(!isAddToggle)}>
+          <AiOutlineCloudUpload className="iconAdd" />
+          <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
+            <li>
+              <Link to={`/createPost`} onClick={onCloseToggle}>
+                여행후기 작성
+              </Link>
+            </li>
+            <li>
+              <Link to={`/createMeeting`} onClick={onCloseToggle}>
+                모집글 작성
+              </Link>
+            </li>
+          </ToggleBox>
+        </li>
+        <li onClick={() => checkLoginGoToChat()}>
+          <BsChatRightDots className="iconChat" />
+        </li>
+        {isLogin ? (
           <li className="userMenu">
             <p onClick={() => setIsUserToggle(!isUserToggle)}>
               <img src={memberImage} alt="마이프로필" />
@@ -114,8 +104,21 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
               <li onClick={onClickLogOut}>로그아웃</li>
             </ToggleBox>
           </li>
-        </StLoginRightMenu>
-      )}
+        ) : (
+          <li className="loginMenu">
+            <Button
+              className="loginButton"
+              size="small"
+              variant="primary"
+              onClick={handleModal}
+            >
+              로그인
+            </Button>
+
+            <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
+          </li>
+        )}
+      </StLoginRightMenu>
     </StHeaderRightMenuWrap>
   );
 };
@@ -123,21 +126,17 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
-  .loginButton {
-    margin-right: 0%;
-  }
   @media (max-width: 639px) {
-    position: ${(props) => (props.isLogin ? "fixed" : "")};
-    left: ${(props) => (props.isLogin ? "0" : "")};
-    bottom: ${(props) => (props.isLogin ? "0" : "")};
-    display: ${(props) => (props.isLogin ? "flex" : "")};
-    align-items: ${(props) => (props.isLogin ? "center" : "")};
-    width: ${(props) => (props.isLogin ? "100%" : "")};
-    height: ${(props) => (props.isLogin ? "48px" : "")};
-    background-color: ${(props) => (props.isLogin ? "var(--bg-color)" : "")};
-    box-shadow: ${(props) =>
-      props.isLogin ? "var(--header-bottom-shadow)" : ""};
-    z-index: ${(props) => (props.isLogin ? "8" : "")};
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: var(--bg-color);
+    box-shadow: var(--header-bottom-shadow);
+    z-index: 11;
   }
 `;
 
@@ -164,6 +163,14 @@ const StLoginRightMenu = styled.ul`
       width: 100%;
       height: 100%;
 
+      svg {
+        width: 100%;
+        height: 100%;
+        path {
+          color: var(--menu-color);
+        }
+      }
+
       img {
         width: 100%;
         height: 100%;
@@ -175,6 +182,19 @@ const StLoginRightMenu = styled.ul`
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      path {
+        color: var(--menu-color);
+      }
+
+      &.iconChat {
+        width: 80%;
+        height: 80%;
+        margin-top: 0.4rem;
+      }
     }
     ul {
       li {
@@ -218,6 +238,13 @@ const StLoginRightMenu = styled.ul`
       }
     }
   }
+  li.loginMenu {
+    width: 100px;
+    .loginButton {
+      margin-right: 0%;
+      padding: 0 25px;
+    }
+  }
 
   @media (max-width: 639px) {
     width: 94%;
@@ -240,6 +267,14 @@ const StLoginRightMenu = styled.ul`
     .userMenu {
       width: 30px;
       height: 30px;
+    }
+
+    li.loginMenu {
+      width: 76px;
+      .loginButton {
+        margin-right: 0%;
+        padding: 0 10px;
+      }
     }
   }
 `;

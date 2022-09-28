@@ -104,13 +104,13 @@ const StInput = styled.input`
 
 // 메시지 입력 폼
 const StMessageWrite = styled.input`
-  /* background-color: ${(props) => props.theme.main_color_thick}; */
   border: none;
   width: 90%;
   margin-left: 10px;
   padding: 12px 4px;
   box-sizing: border-box;
-  color: #1e1e1e;
+  background-color: var(--bg-color);
+
   font-size: 20px;
   outline: none;
 `;

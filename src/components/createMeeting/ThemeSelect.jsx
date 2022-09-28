@@ -56,16 +56,20 @@ const StThemeSelectBox = styled.div`
       width: 90px;
       margin-bottom: 15px;
     }
+    button {
+      height: 30px;
+    }
   }
   .themeName {
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 800;
   }
 `;
 
 const StButton = styled(Button)`
   margin-right: 20px;
-  font-size: 13px;
+  border-radius: 15px;
+
   /* width: 300px; */
   /* background-image:URL(${(props) => props.themeImage}); 
     background-size: cover; */

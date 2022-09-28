@@ -26,6 +26,9 @@ const SearchContainer = ({ isLogin }) => {
     (state) => state.themeSlice.recommendTagList
   );
 
+  // ::: 모바일 여부 확인하기
+  const [isMobile, setIsMobile] = useState(false);
+
   // ::: 검색창 focus 여부 확인하기
   const [isFocusSearch, setIsFocusSearch] = useState(false);
 
@@ -77,6 +80,19 @@ const SearchContainer = ({ isLogin }) => {
     setIsFocusSearch(true);
   };
 
+  // ::: 디바이스 화면 크기 확인
+  const checkDiviceWidth = () => {
+    const browserWidth = window.innerWidth;
+    browserWidth <= 639 ? setIsMobile(true) : setIsMobile(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", checkDiviceWidth);
+    return () => {
+      window.removeEventListener("resize", checkDiviceWidth);
+    };
+  }, []);
+
   // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
     dispatch(getRecentSearch());
@@ -95,6 +111,9 @@ const SearchContainer = ({ isLogin }) => {
           onChange={onChangeSearchContent}
           onKeyPress={onKeyPressSearchEnter}
           value={searchInput}
+          placeholder={
+            isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."
+          }
         />
         <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>

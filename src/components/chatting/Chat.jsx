@@ -32,7 +32,8 @@ Chat.defaultProps = {
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
-  border: ${(props) => (props.selected ? `3px solid #7188FF;` : "1px solid")};
+  border: ${(props) =>
+    props.selected ? `3px solid #7188FF;` : "1px solid var(--gray-color)"};
 
   padding: 5px;
   height: 15%;

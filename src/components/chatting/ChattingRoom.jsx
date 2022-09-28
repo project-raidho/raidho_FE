@@ -45,7 +45,7 @@ const ChattingRoom = () => {
   React.useEffect(() => {
     setMessages([]);
     wsConnectSubscribe();
-    sendEnterMessage();
+    // sendEnterMessage();
     // getMessageList(id);
     return () => {
       wsDisConnectUnsubscribe();
@@ -53,6 +53,12 @@ const ChattingRoom = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  const enterChat = {
+    type: "ENTER",
+    roomId: Number(id),
+    sender: sender,
+    message: `${sender}님이 입장하셨습니다.`,
+  };
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
     try {
@@ -74,6 +80,11 @@ const ChattingRoom = () => {
               });
             },
             { token: token }
+          );
+          ws.send(
+            `/pub/chat/send/${id}`,
+            { token: token },
+            JSON.stringify(enterChat)
           );
         }
       );
@@ -112,20 +123,15 @@ const ChattingRoom = () => {
     );
   }
 
-  function sendEnterMessage() {
-    const enterChat = {
-      type: "ENTER",
-      roomId: Number(id),
-      sender: sender,
-    };
-    waitForConnection(ws, function () {
-      ws.send(
-        `/pub/chat/send/${id}`,
-        { token: token },
-        JSON.stringify(enterChat)
-      );
-    });
-  }
+  // function sendEnterMessage() {
+  //   waitForConnection(ws, function () {
+  //     ws.send(
+  //       `/pub/chat/send/${id}`,
+  //       { token: token },
+  //       JSON.stringify(enterChat)
+  //     );
+  //   });
+  // }
 
   // 메시지 보내기
   function sendMessage() {
@@ -152,7 +158,7 @@ const ChattingRoom = () => {
       //   // 로딩 중
       waitForConnection(ws, function () {
         ws.send(`/pub/chat/send/${id}`, { token: token }, JSON.stringify(data));
-        console.log(messages);
+
         setMessageInput("");
       });
     } catch (error) {
@@ -192,21 +198,21 @@ const ChattingRoom = () => {
 
 const Container = styled.div`
   ${(props) => props.theme.border_box};
-  ${(props) => props.theme.flex_row}
+  display: flex;
   width: 100%;
   height: 100%;
-  background-color: white;
-  color: ${(props) => props.theme.theme_yellow};
+
   @media ${(props) => props.theme.mobile} {
     flex-direction: column;
   }
 `;
 
 const ChatWrap = styled.div`
-  ${(props) => props.theme.flex_column}
+  display: flex;
+  flex-direction: column;
   width: 70%;
-  height: 100%;
-  border: 1px solid;
+  height: 90%;
+  border: 1px solid var(--gray-color);
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     height: 85%;

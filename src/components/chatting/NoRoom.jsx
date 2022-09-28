@@ -17,7 +17,7 @@ const Container = styled.div`
   width: 100%;
   height: 70%;
   display: flex;
-
+  justify-content: center;
   h4 {
     display: block;
     width: 60px;
@@ -31,7 +31,7 @@ const Container = styled.div`
   }
   p {
     margin-left: 10px;
-    margin-top: 40px;
+    margin-top: 45px;
     font-size: 1.5rem;
   }
 `;
