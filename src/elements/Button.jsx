@@ -57,6 +57,7 @@ const VARIANTS = {
     --button-color: #ffffff;
     --button-bg-color: #7188ff;
     --button-hover-bg-color: #7188ff;
+    --button-margin-right: 15px;
   `,
   gray: css`
     --button-color: var(--title-color);

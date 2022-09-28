@@ -139,4 +139,7 @@ const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
   margin: 50px 5px 0 0;
   cursor: pointer;
+  @media ${(props) => props.theme.mobile} {
+    margin: 20px 0 0 15px;
+  }
 `;

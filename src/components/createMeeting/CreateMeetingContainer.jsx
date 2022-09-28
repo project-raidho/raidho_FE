@@ -12,13 +12,13 @@ import TagInput from "../../elements/TagInput";
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
-import TextField from "@mui/material/TextField";
 import CreatePostContent from "../createPost/CreatePostContent";
 import { useNavigate } from "react-router-dom";
 
 //리액트 쿼리
 import { useMutation, useQueryClient } from "react-query";
 import { useEffect } from "react";
+import MeetingTitle from "./MeetingTitle";
 
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
@@ -207,6 +207,11 @@ const CreateMeetingContatiner = () => {
     setDesc(text);
   };
 
+  const onChangeMeetingTitle = (text) => {
+    console.log("typedPostContent", text);
+    setTitle(text);
+  };
+
   return (
     <StContainer>
       <StStepTitle>
@@ -250,11 +255,9 @@ const CreateMeetingContatiner = () => {
         <strong>STEP 2</strong>모집글정보 입력
       </StStepTitle>
       <h1>모집글/채팅방 제목</h1>
-      <StTitleBox
-        multiline
-        maxRows={4}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+      <MeetingTitle
+        onChangeMeetingTitle={onChangeMeetingTitle}
+        placeholderText={"모집글 제목을 써주세요."}
       />
       <StValidationMsg>{titleValMsg}</StValidationMsg>
       <h1>모집글 설명</h1>
@@ -337,23 +340,6 @@ const StStepTitle = styled.h2`
     padding: 0.5rem 0.7rem;
   }
 `;
-const StTitleBox = styled(TextField)`
-  width: 100%;
-
-  element.style {
-    height: 55px;
-  }
-  .css-dpjnhs-MuiInputBase-root-MuiOutlinedInput-root {
-    border: 1px solid var(--gray-color);
-    font-size: 1.5rem;
-    height: 55px;
-    padding: 5px;
-    color: var(--text-color);
-  }
-  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    border: none;
-  }
-`;
 
 const StTags = styled.div`
   .kkqTPl {
@@ -381,13 +367,6 @@ const StPeriodPeople = styled.div`
 const StbottonBox = styled.div`
   margin: 20px;
 `;
-
-// const StCategorySelectBox = styled.div`
-/* display: flex; */
-// `
-// const StTriplocationBox = styled.div`
-// /* display: flex; */
-// `
 
 const StValidationMsg = styled.p`
   display: flex;
