@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Input from "./Input";
 import { MdClose } from "react-icons/md";
 import styled from "styled-components";
+import { useEffect } from "react";
 
-const TagInput = ({ tags, selectedTags, tagMassage }) => {
+const TagInput = ({ tags, selectedTags, tagMassage, tagValMsg }) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
@@ -35,6 +36,9 @@ const TagInput = ({ tags, selectedTags, tagMassage }) => {
       }
     }
   };
+  useEffect(() => {
+    setTagValidationMsg(tagValMsg);
+  }, [tagValMsg]);
 
   return (
     <>
