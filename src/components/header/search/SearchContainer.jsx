@@ -10,7 +10,7 @@ import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import styled from "styled-components";
 
-const SearchContainer = ({ isLogin }) => {
+const SearchContainer = ({ isMobile }) => {
   // ::: 검색기록 전역상태관리 하기(리덕스 툴킷 이용)
   const dispatch = useDispatch();
   const recentSearchList = useSelector(
@@ -25,9 +25,6 @@ const SearchContainer = ({ isLogin }) => {
   const recommendTagList = useSelector(
     (state) => state.themeSlice.recommendTagList
   );
-
-  // ::: 모바일 여부 확인하기
-  const [isMobile, setIsMobile] = useState(false);
 
   // ::: 검색창 focus 여부 확인하기
   const [isFocusSearch, setIsFocusSearch] = useState(false);
@@ -80,19 +77,6 @@ const SearchContainer = ({ isLogin }) => {
     setIsFocusSearch(true);
   };
 
-  // ::: 디바이스 화면 크기 확인
-  const checkDiviceWidth = () => {
-    const browserWidth = window.innerWidth;
-    browserWidth <= 639 ? setIsMobile(true) : setIsMobile(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", checkDiviceWidth);
-    return () => {
-      window.removeEventListener("resize", checkDiviceWidth);
-    };
-  }, []);
-
   // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
     dispatch(getRecentSearch());
@@ -101,7 +85,7 @@ const SearchContainer = ({ isLogin }) => {
   }, [dispatch, location.state, location.search]);
 
   return (
-    <StSearchContainerWrap isLogin={isLogin}>
+    <StSearchContainerWrap>
       <StSearchDetailBox isFocusSearch={isFocusSearch}>
         <Input
           size="large"

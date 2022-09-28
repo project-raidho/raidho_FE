@@ -27,10 +27,13 @@ const GlobalFooter = () => {
             <Link to={`/`}>여행후기</Link>
           </li>
           <li>
-            <Link to={`/`}>여행친구찾기</Link>
+            <Link to={`/meetingList/all`}>여행친구찾기</Link>
           </li>
           <li>
-            <Link to={`/`}>마이페이지</Link>
+            <Link to={`/chatting`}>채팅</Link>
+          </li>
+          <li>
+            <Link to={`/myProfile`}>마이페이지</Link>
           </li>
         </StFooterMenu>
         <h4>
