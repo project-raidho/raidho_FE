@@ -11,8 +11,8 @@ import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
-import { ImExit } from "react-icons/im";
-import { AiOutlineClose } from "react-icons/ai";
+// import { ImExit } from "react-icons/im";
+// import { AiOutlineClose } from "react-icons/ai";
 import { IoExitOutline } from "react-icons/io5";
 // 채팅방 정보 단건조회
 const getChatDetail = async ({ queryKey }) => {

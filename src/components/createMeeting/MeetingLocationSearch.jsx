@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./KakaoMap";
 import DaumPostcode from "react-daum-postcode";
-import Input from "../../elements/Input";
+// import Input from "../../elements/Input";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
