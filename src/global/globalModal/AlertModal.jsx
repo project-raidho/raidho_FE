@@ -132,11 +132,11 @@ const StModalContent = styled.div`
 
   h4 {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-color: var(--text-color);
     border-radius: 50%;
-    margin-top: 30px;
+    margin-top: 20px;
     overflow: hidden;
   }
 
@@ -146,7 +146,7 @@ const StModalContent = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
   @media (max-width: 639px) {
     h4 {

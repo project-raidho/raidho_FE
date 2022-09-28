@@ -184,8 +184,13 @@ const StCreatePostContainerWrap = styled.div`
   width: 100%;
   padding-bottom: 1rem;
 
-  @media (max-width: 639px) {
+  @media (max-width: 1023px) {
     padding: 0 1rem;
+  }
+  @media (max-width: 767px) {
+  }
+
+  @media (max-width: 639px) {
   }
 `;
 

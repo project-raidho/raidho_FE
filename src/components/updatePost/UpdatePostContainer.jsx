@@ -144,25 +144,19 @@ const UpdatePostContainer = () => {
   return (
     <StCreatePostContainerWrap>
       <StCreatePostColumn>
-        <StStepTitle>
-          <strong>STEP 1</strong> 이미지 확인
-        </StStepTitle>
+        <StStepTitle>이미지 확인</StStepTitle>
         <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
-        <StStepTitle>
-          <strong>STEP 2</strong> 여행에서 경험한 내용
-        </StStepTitle>
+        <StStepTitle>내용</StStepTitle>
         <ContentTextArea
           typedPostContent={typedPostContent}
           initialContent={postDetail.content}
-          placeholderText={"경험을 소개해주세요."}
+          placeholderText={"여행에서 경험한 내용을 입력해주세요."}
         />
         <StValidationMessage>{validationContent}</StValidationMessage>
 
-        <StStepTitle>
-          <strong>STEP 3</strong> 태그
-        </StStepTitle>
+        <StStepTitle>태그</StStepTitle>
         <UpdatePostTags
           selectedTags={selectedTags}
           tags={postDetail.tags}
@@ -172,15 +166,15 @@ const UpdatePostContainer = () => {
         <StValidationMessage>{validationTags}</StValidationMessage>
         <StButtonWrap>
           <Button
-            size="small"
-            variant="gray"
+            size="medium"
+            variant="lineGray"
             onClick={() => {
               navigate(-1);
             }}
           >
             취소
           </Button>
-          <Button size="small" onClick={mutate}>
+          <Button size="medium" variant="linePrimary" onClick={mutate}>
             등록
           </Button>
         </StButtonWrap>
@@ -223,23 +217,8 @@ const StStepTitle = styled.h2`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1.7rem;
   padding-top: 1.2rem;
-  margin-bottom: 1.5rem;
-
-  strong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
-    border-radius: 5px;
-    border: 1px solid #000;
-    margin-right: 0.7rem;
-    padding: 0.5rem 0.7rem;
-  }
+  margin-bottom: 0.8rem;
 `;
 
 const StButtonWrap = styled.div`
