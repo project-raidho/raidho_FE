@@ -38,13 +38,12 @@ const StMainBannerWrap = styled.div`
   position: absolute;
   top: 55px;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 375px;
   background-color: var(--gray-color);
   background-image: url(${BannerBg});
   background-repeat: repeat-x;
   background-size: cover;
-
   .contentBox {
     text-align: center;
     line-height: 375px;

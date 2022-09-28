@@ -11,11 +11,11 @@ const StGlobalLayoutWrap = styled.div`
   width: 100%;
   max-width: 1305px;
   margin: 0 auto;
-  padding: 80px 1rem 0;
+  padding: 80px 0;
 
   @media (max-width: 1023px) {
     max-width: 1023px;
-    padding: 100px 1rem 0;
+    padding: 100px 0;
   }
   @media (max-width: 767px) {
     max-width: 767px;
