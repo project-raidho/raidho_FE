@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import "../../elements/datePicker/datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import MeetingListCard from "./MeetingListCard";
 import Button from "../../elements/Button";
@@ -13,24 +13,24 @@ import styled from "styled-components";
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }) => {
   console.log("queryKey", queryKey);
+  // ::: 기간O
   if (queryKey[3] !== "" && queryKey[4] !== "") {
-    // ::: start ==> queryKey[3] end ===> queryKey[4]
     if (queryKey[1] === "") {
-      const res = authInstance.get(
+      // ::: 기간O 카테고리 전체 조회
+      return authInstance.get(
         `/api/meeting/filter/date/${queryKey[3]}/${queryKey[4]}`
       );
-      console.log(res);
-      return res;
     }
-    const res = authInstance.get(
+    // ::: 기간O 카테고리별 조회
+    return authInstance.get(
       `/api/meeting/filter/date/${queryKey[1]}/${queryKey[3]}/${queryKey[4]}`
     );
-    console.log(res);
-    return res;
   }
   if (queryKey[3] === "" && queryKey[4] === "" && queryKey[2] === true) {
+    // ::: 기간X 모집중 조회
     return authInstance.get(`/api/meeting/filter/1/${queryKey[1]}`);
   }
+  // ::: 기간X 모집중X 카테고리별 조회
   return authInstance.get(`/api/meeting/${queryKey[1]}`);
 };
 
@@ -70,10 +70,29 @@ const MeetingListContainer = () => {
 
   // ::: 날짜 검색 형변환
   const checkSearchDate = () => {
+    let startMM = "";
+    let startDD = "";
+    let endMM = "";
+    let endDD = "";
+
     const changeStart = checkStartDate.toLocaleDateString().split("/");
     const changeEnd = checkEndDate.toLocaleDateString().split("/");
-    const startDateToString = `${changeStart[2]}-${changeStart[0]}-${changeStart[1]}`;
-    const endDateToString = `${changeEnd[2]}-${changeEnd[0]}-${changeEnd[1]}`;
+
+    changeStart[0].length === 1
+      ? (startMM = `0${changeStart[0]}`)
+      : (startMM = `${changeStart[0]}`);
+    changeStart[1].length === 1
+      ? (startDD = `0${changeStart[1]}`)
+      : (startDD = `${changeStart[1]}`);
+    changeEnd[0].length === 1
+      ? (endMM = `0${changeEnd[0]}`)
+      : (endMM = `${changeEnd[0]}`);
+    changeEnd[1].length === 1
+      ? (endDD = `0${changeEnd[1]}`)
+      : (endDD = `${changeEnd[1]}`);
+
+    const startDateToString = `${changeStart[2]}-${startMM}-${startDD}`;
+    const endDateToString = `${changeEnd[2]}-${endMM}-${endDD}`;
     console.log(changeStart, changeEnd, startDateToString, endDateToString);
 
     setStartDate(startDateToString);
@@ -99,60 +118,62 @@ const MeetingListContainer = () => {
   return (
     <StMeetingListContainerWrap>
       <StFixedMenu>
-        <StMeetingCategoryRow className="themeCategoryRow">
-          {themeList.map((theme, index) => (
-            <p
-              className="themeCategoryButton"
-              key={theme.themeName + index}
-              onClick={() => onClickTheme(theme.themeName)}
-            >
-              <NavLink
-                to={`/meetingList/${theme.themePath}`}
-                className={({ isActive }) => (isActive ? "active" : "")}
+        <div className="centerBox">
+          <StMeetingCategoryRow className="themeCategoryRow">
+            {themeList.map((theme, index) => (
+              <p
+                className="themeCategoryButton"
+                key={theme.themeName + index}
+                onClick={() => onClickTheme(theme.themeName)}
               >
-                {theme.themeName}
-              </NavLink>
+                <NavLink
+                  to={`/meetingList/${theme.themePath}`}
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  {theme.themeName}
+                </NavLink>
+              </p>
+            ))}
+          </StMeetingCategoryRow>
+          <StCheckStatus>
+            <p className="datePickerWrap">
+              <DatePicker
+                locale={ko}
+                dateFormat="yyyy-MM-dd(eee)"
+                selected={checkStartDate}
+                onChange={(date) => setCheckStartDate(date)}
+                selectsStart
+                startDate={checkStartDate}
+                endDate={checkEndDate}
+                minDate={new Date()}
+              />
+              <DatePicker
+                locale={ko}
+                dateFormat="yyyy-MM-dd(eee)"
+                selected={checkEndDate}
+                onChange={(date) => setCheckEndDate(date)}
+                selectsEnd
+                startDate={checkStartDate}
+                endDate={checkEndDate}
+                minDate={checkStartDate}
+              />
+              <Button
+                size="small"
+                variant="lineLightBlue"
+                onClick={checkSearchDate}
+              >
+                조회
+              </Button>
             </p>
-          ))}
-        </StMeetingCategoryRow>
-        <StCheckStatus>
-          <p>
-            <DatePicker
-              locale={ko}
-              dateFormat="yyyy-MM-dd(eee)"
-              selected={checkStartDate}
-              onChange={(date) => setCheckStartDate(date)}
-              selectsStart
-              startDate={checkStartDate}
-              endDate={checkEndDate}
-              minDate={new Date()}
-            />
-            <DatePicker
-              locale={ko}
-              dateFormat="yyyy-MM-dd(eee)"
-              selected={checkEndDate}
-              onChange={(date) => setCheckEndDate(date)}
-              selectsEnd
-              startDate={checkStartDate}
-              endDate={checkEndDate}
-              minDate={checkStartDate}
-            />
-            <Button
-              size="small"
-              variant="lineLightBlue"
-              onClick={checkSearchDate}
+            <p
+              onClick={clickStatus}
+              className={checkStatus ? "activeButton" : "inactiveButton"}
             >
-              조회
-            </Button>
-          </p>
-          <p
-            onClick={clickStatus}
-            className={checkStatus ? "activeButton" : "inactiveButton"}
-          >
-            <span></span>
-            <strong>모집중만 보기</strong>
-          </p>
-        </StCheckStatus>
+              <span className="filterMeetingStatus"></span>
+              <strong>모집중만 보기</strong>
+            </p>
+          </StCheckStatus>
+        </div>
       </StFixedMenu>
       <StMeetingCardBox>
         {meetingAllListQuery.data.data.data.content.map((meeting) => (
@@ -183,22 +204,31 @@ const StFixedMenu = styled.div`
   background-color: var(--bg-color);
   box-shadow: var(--header-shadow);
   z-index: 7;
+
+  .centerBox {
+    width: 100%;
+    max-width: 1305px;
+    margin: 0 auto;
+  }
 `;
 
 const StCheckStatus = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
+  max-width: 1305px;
   padding-bottom: 0.3rem;
   p {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    margin-right: 1rem;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 1rem;
 
-    span {
+    span.filterMeetingStatus {
       width: 15px;
       height: 15px;
       border-radius: 50%;
@@ -225,11 +255,32 @@ const StCheckStatus = styled.div`
     button {
       width: 150px;
     }
+    &.datePickerWrap {
+      width: auto;
+    }
   }
   @media (max-width: 639px) {
+    flex-direction: column;
+    .react-datepicker-wrapper,
+    .react-datepicker__input-container {
+      width: 130px;
+    }
     p {
+      padding-right: 1rem;
       strong {
         font-size: 0.9rem;
+      }
+      button {
+        width: 80px;
+        margin-left: 0.5rem;
+      }
+
+      &.datePickerWrap {
+        width: 100%;
+        text-align: center;
+        border-top: 1px dashed var(--gray-color);
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
       }
     }
   }
