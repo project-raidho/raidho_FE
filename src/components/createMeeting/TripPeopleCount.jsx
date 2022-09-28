@@ -46,7 +46,7 @@ const StPeopleWrapper = styled.div`
       calc(100% - 5px) center no-repeat;
     background-size: 20px;
     padding: 5px 30px 5px 10px;
-    border-radius: 4px;
+    border-radius: 15px;
     outline: 0 none;
     cursor: pointer;
   }
@@ -60,6 +60,10 @@ const StSelectBox = styled.div`
   margin-top: 50px;
   display: flex;
   background-color: var(--subBg-color);
+
+  @media ${(props) => props.theme.mobile} {
+    margin-top: 15px;
+  }
 `;
 
 const People = styled.div`

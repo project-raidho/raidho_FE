@@ -41,7 +41,7 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
           sendMessage();
           setMessageText("");
         }}
-        disabled={true}
+        disabled={messageText === ""}
       >
         전송
       </StButton>
@@ -51,7 +51,8 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
 
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
-  border-top: 1px solid;
+  border-top: 2px solid var(--lightGray-color);
+  border-bottom: 2px solid var(--lightGray-color);
   background-color: #fff;
   width: 100%;
   height: 10%;
@@ -60,7 +61,9 @@ const Container = styled.div`
     position: fixed;
     width: 100%;
     left: 0;
-    bottom: 50px;
+    bottom: 45px;
+    height: 8%;
+    z-index: 10;
   }
 `;
 

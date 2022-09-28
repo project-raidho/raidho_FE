@@ -37,7 +37,7 @@ const TagInput = ({ tags, selectedTags, tagMassage }) => {
 
   return (
     <>
-      <StCreatePostTagsWrap>
+      <StCreatePostTagsWrap className="tagBox">
         <ul id="tags">
           {postTags.map((tag, index) => (
             <li key={index} className="tag">

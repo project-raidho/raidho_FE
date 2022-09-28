@@ -26,8 +26,8 @@ const StUserWrapper = styled.div`
   margin: 10px 0 20px;
 
   .profileBox {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 70%;
     overflow: hidden;
   }
@@ -46,7 +46,7 @@ const StProfileRightBox = styled.div`
   margin-left: 15px;
   vertical-align: middle;
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-bottom: 0px;
   }
 `;

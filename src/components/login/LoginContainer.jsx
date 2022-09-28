@@ -44,16 +44,14 @@ const LoginModal = ({ onClose }) => {
           <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </SocialLoginbutton>
+          {/* 
+          <SocialLoginbutton href={NAVER_AUTH_URL}>
+            <img src={naver} alt="네이버로그인" />
+          <NaverLogin />
+          </SocialLoginbutton> */}
+
           {/* <div className="prepareBox">
-            <SocialLoginbutton>
-              <SocialLoginbutton href={NAVER_AUTH_URL}>
-              <img src={naver} alt="네이버로그인" />
-              <NaverLogin/>
-            </SocialLoginbutton>
-            <img src={notPrepare} alt="준비중" />
-          </div>
-          <div className="prepareBox">
-            <SocialLoginbutton>
+           
               <SocialLoginbutton href={GOOGLE_AUTH_URL} >
               <img src={facebook} alt="페이스북로그인" />
             </SocialLoginbutton>

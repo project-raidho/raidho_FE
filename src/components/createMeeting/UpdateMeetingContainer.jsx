@@ -9,20 +9,19 @@ import TripPeriod from "./TripPeriod";
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
-import TextField from "@mui/material/TextField";
+
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import MeetingTitle from "./MeetingTitle";
+import CreatePostContent from "../createPost/CreatePostContent";
 
 const UpdateMeetingContainer = () => {
   const { meetingId } = useParams();
   // ::: 입력된 데이터 취합하기
   const navigate = useNavigate();
-
-  const [tagValidationMsg, setTagValidationMsg] = useState("");
-  const [periodErrorMsg, setPeriodErrorMsg] = useState("");
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -34,6 +33,9 @@ const UpdateMeetingContainer = () => {
   };
   const onClickYes = () => {
     setModalOn(!modalOn);
+    if (alertMsg === "모집글이 수정되었습니다.") {
+      return navigate(-1);
+    }
   };
 
   // :::  모집글 단건 조회
@@ -70,11 +72,6 @@ const UpdateMeetingContainer = () => {
     departLocation: departLocation,
   };
 
-  const isValidDate =
-    isValidDateFormat(endDate) &&
-    isValidDateFormat(startDate) &&
-    isValidDateFormat(roomCloseDate) === true;
-
   //날짜 유효성 검사
   function isValidDateFormat(date) {
     // 자릿수검사
@@ -103,49 +100,94 @@ const UpdateMeetingContainer = () => {
     return true;
   }
 
+  // ::: 유효성 검사 메시지 상태관리하기
+
+  const [periodValMsg, setPeriodValMsg] = useState("");
+  const [peopleValMsg, setPeopleValMsg] = useState("");
+  const [titleValMsg, setTitleValMsg] = useState("");
+  const [descValMsg, setdescValMsg] = useState("");
+  const [roomCloseDateValMsg, setRoomCloseDateValMsg] = useState("");
+  const [departLocationValMsg, setDepartLocationValMsg] = useState("");
+  const [allValMsg, setAllValMsg] = useState("");
+
   // ::: 수정데이터 유효성검사후 서버에 전송
   const onUpdateMeeting = async () => {
-    if (theme.length < 1) {
-      return setTagValidationMsg("대륙을 선택해주세요");
-    } else if (meetingTags.length < 1) {
-      return setTagValidationMsg("나라/도시를 입력해주세요");
-    } else if (startDate.length < 1) {
-      return setTagValidationMsg("여행시작일을 선택해주세요");
+    if (startDate.length < 1) {
+      setAllValMsg("여행시작일을 선택해주세요");
+      return setPeriodValMsg("여행시작일을 선택해주세요");
     } else if (isValidDateFormat(startDate) === false) {
-      setPeriodErrorMsg("여행시작일의 날짜형식이 잘못되었습니다.");
-      return setTagValidationMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      setAllValMsg("여행시작일의 날짜형식이 잘못되었습니다.");
+      return setPeriodValMsg("여행시작일의 날짜형식이 잘못되었습니다.");
     } else if (endDate.length < 1) {
-      return setTagValidationMsg("여행종료일을 선택해주세요");
+      setAllValMsg("여행종료일을 선택해주세요");
+      return setPeriodValMsg("여행종료일을 선택해주세요");
     } else if (isValidDateFormat(endDate) === false) {
-      setPeriodErrorMsg("여행종료일의 날짜형식이 잘못되었습니다.");
-      return setTagValidationMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      setAllValMsg("여행종료일의 날짜형식이 잘못되었습니다.");
+      return setPeriodValMsg("여행종료일의 날짜형식이 잘못되었습니다.");
     } else if (String(people).length < 1) {
-      return setTagValidationMsg("여행희망인원을 선택해주세요");
+      setAllValMsg("여행희망인원을 선택해주세요");
+      return setPeopleValMsg("여행희망인원을 선택해주세요");
     } else if (title.length < 1) {
-      return setTagValidationMsg("모집글 제목을 입력해주세요");
+      setAllValMsg("모집글 제목을 입력해주세요");
+      return setTitleValMsg("모집글 제목을 입력해주세요");
     } else if (desc.length < 1) {
-      return setTagValidationMsg("모집글 설명을 입력해주세요");
+      setAllValMsg("모집글 설명을 입력해주세요");
+      return setdescValMsg("모집글 설명을 입력해주세요");
     } else if (roomCloseDate.length < 1) {
-      return setTagValidationMsg("모집마감일자를 선택해주세요");
+      setAllValMsg("모집마감일자를 선택해주세요");
+      return setRoomCloseDateValMsg("모집마감일자를 선택해주세요");
     } else if (departLocation.length < 1) {
-      return setTagValidationMsg("모집 후 모일 장소를 선택해주세요");
-    } else if (isValidDate === false) {
-      return setTagValidationMsg("날짜 형식이 잘못되었습니다");
+      setAllValMsg("모집 후 모일 장소를 선택해주세요");
+      return setDepartLocationValMsg("모집 후 모일 장소를 선택해주세요");
     } else {
-      const res = await authInstance.put(
-        `/api/meeting/${Number(meetingId)}`,
-        data
-      );
-      console.log(res);
+      await authInstance.put(`/api/meeting/${Number(meetingId)}`, data);
+      setModalIcon("success");
+      setAlertMsg("모집글이 수정되었습니다.");
+      setModalOn(true);
     }
   };
+
+  const isValidAll =
+    theme.length >= 1 &&
+    title.length >= 1 &&
+    desc.length >= 1 &&
+    meetingTags.length >= 1 &&
+    String(people).length >= 1 &&
+    roomCloseDate.length >= 1 &&
+    startDate.length >= 1 &&
+    endDate.length >= 1 &&
+    departLocation.length >= 1;
+
+  //실시간 유효성 검사
+  useEffect(() => {
+    if (people.length > 0) {
+      setPeopleValMsg("");
+    }
+    if (title.length > 0) {
+      setTitleValMsg("");
+    }
+    if (desc.length > 0) {
+      setdescValMsg("");
+    }
+    if (roomCloseDate.length > 0) {
+      setRoomCloseDateValMsg("");
+    }
+    if (departLocation.length > 0) {
+      setDepartLocationValMsg("");
+    }
+    if (isValidAll) {
+      setAllValMsg("");
+    } else {
+      setAllValMsg("빈칸을 모두 입력해주세요");
+    }
+    // eslint-disable-next-line
+  }, [people, title, desc, roomCloseDate, departLocation]);
 
   const queryClient = useQueryClient();
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
   const { mutate } = useMutation(onUpdateMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
-      navigate(`/meetingList/all`);
     },
     onError: () => {
       setModalIcon("warning");
@@ -167,71 +209,76 @@ const UpdateMeetingContainer = () => {
     setDepartLocation(meetingDetail?.departLocation);
   }, [meetingDetail]);
 
+  const onChangeContent = (content) => {
+    setDesc(content);
+  };
+
+  const onChangeTitle = (title) => {
+    setTitle(title);
+  };
+
   if (meetingDetail_query.isLoading) {
     return null;
   }
   return (
-    <StCreatePostContainerWrap>
+    <StContainer>
       <StCreatePostColumn>
-        <h1>대륙 </h1>
-        <div size="medium" variant="primary" className="theme" disabled={true}>
-          <span className="themeName">{theme}</span>
-        </div>
+        <h1>카테고리 </h1>
+        <div className="theme">{theme}</div>
 
         <h1>여행갈 나라/도시</h1>
         <StTags>
           <ul className="tags">
             {meetingTags?.map((tag, index) => (
               <li key={index} className="tag">
-                <span className="tagTitle">{tag}</span>
+                <span className="tagName">{tag.slice(1)}</span>
               </li>
             ))}
           </ul>
         </StTags>
-        <StStepTitle>
-          <strong>STEP 1</strong>여행정보 입력
-        </StStepTitle>
-        <h1>여행기간</h1>
-        <TripPeriod
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-        />
-        <StValidationMsg>{periodErrorMsg}</StValidationMsg>
-        <h1>여행희망인원</h1>
-        <TripPeopleCount people={people} setPeople={setPeople} />
+        <StStepTitle>1. 여행정보 수정</StStepTitle>
+        <StPeriodPeople>
+          <div>
+            <TripPeriod
+              startDate={startDate}
+              endDate={endDate}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+            />
+            <StValidationMsg>{periodValMsg}</StValidationMsg>
+          </div>
+          <div className="peopleBox">
+            <TripPeopleCount people={people} setPeople={setPeople} />
+            <StValidationMsg>{peopleValMsg}</StValidationMsg>
+          </div>
+        </StPeriodPeople>
         <br />
-        <StStepTitle>
-          <strong>STEP 2</strong>모집글정보 입력
-        </StStepTitle>
-        <h1>모집글 제목</h1>
-        <StTitleBox
-          multiline
-          maxRows={4}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <h1>모집글 설명</h1>
-        <StDescBox
-          id="outlined-multiline-static"
-          multiline
-          rows={4}
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
+        <StStepTitle>2. 모집글정보 수정</StStepTitle>
+        <h1>모집글/채팅방 제목</h1>
 
-        <h1>모집마감일자</h1>
+        <MeetingTitle
+          onChangeMeetingTitle={onChangeTitle}
+          placeholderText={"모집글 제목을 써주세요."}
+          initialContent={title}
+        />
+        <StValidationMsg>{titleValMsg}</StValidationMsg>
+        <h1>모집글 설명</h1>
+        <CreatePostContent
+          typedPostContent={onChangeContent}
+          placeholderText={"모집글 설명을 써주세요."}
+          initialContent={desc}
+        />
+        <StValidationMsg>{descValMsg}</StValidationMsg>
         <RoomCloseDateBox
           roomCloseDate={roomCloseDate}
           setRoomCloseDate={setRoomCloseDate}
         />
-
-        <h1>모집 후 모일 장소</h1>
+        <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
         <MeetingLocationSearch
           departLocation={departLocation}
           setDepartLocation={setDepartLocation}
         />
+        <StValidationMsg>{departLocationValMsg}</StValidationMsg>
         <StButtonWrap>
           <Button
             size="small"
@@ -242,11 +289,12 @@ const UpdateMeetingContainer = () => {
           >
             취소
           </Button>
-          <Button size="small" onClick={mutate}>
+
+          <Button size="small" variant="primary" onClick={mutate}>
             등록
           </Button>
-          <StValidationMsg>{tagValidationMsg}</StValidationMsg>
         </StButtonWrap>
+        <StValidationMsg className="allValMsg">{allValMsg}</StValidationMsg>
       </StCreatePostColumn>
       <Potal>
         {modalOn && (
@@ -258,41 +306,48 @@ const UpdateMeetingContainer = () => {
           />
         )}
       </Potal>
-    </StCreatePostContainerWrap>
+    </StContainer>
   );
 };
 
 export default UpdateMeetingContainer;
 
-const StCreatePostContainerWrap = styled.div`
+const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   h2 {
     font-size: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 0;
   }
   h1 {
     font-size: 20px;
-    margin-top: 50px;
+    margin-top: 15px;
+    margin-bottom: 13px;
+  }
+
+  .tagBox {
+    border-radius: 15px;
+  }
+  textarea {
+    border-radius: 15px;
   }
   .theme {
-    width: 220px;
-    height: 50px;
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
     border: 1px solid #7188ff;
     border-radius: 25px;
     background: #7188ff;
-  }
-  .themeName {
-    margin-top: 10px;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #fff;
-    font-size: 1.5rem;
-    text-align: center;
-    vertical-align: middle;
+  }
+  .allValMsg {
+    float: right;
   }
 
   @media (max-width: 1023px) {
@@ -318,70 +373,9 @@ const StStepTitle = styled.h2`
   @media ${(props) => props.theme.mobile} {
     font-size: 1rem;
   }
-  strong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
-    border-radius: 5px;
-    border: 1px solid #000;
-    margin-right: 0.7rem;
-    padding: 0.5rem 0.7rem;
-  }
-`;
-
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  width: 100%;
-  margin-top: 20px;
-  button {
-    margin-left: 10px;
-  }
-`;
-
-const StTitleBox = styled(TextField)`
-  width: 100%;
-
-  element.style {
-    height: 55px;
-  }
-  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    height: 53px;
-    font-size: 1.2rem;
-    border: 1px solid var(--gray-color);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--subBg-color);
-  }
-  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
-    font-size: 1.5rem;
-    height: 55px;
-    padding: 5px;
-  }
-`;
-const StDescBox = styled(TextField)`
-  width: 100%;
-  .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input {
-    font-size: 1.5rem;
-    padding: 5px;
-  }
 `;
 
 const StTags = styled.div`
-  .kkqTPl {
-    /* width: 90%; */
-    height: 55px;
-    border-radius: 10px;
-    border: 1px solid #a0a0a0;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid;
-  }
   .tags {
     display: flex;
     margin: 8px 0 0 0;
@@ -389,7 +383,6 @@ const StTags = styled.div`
   .tag {
     width: auto;
     height: 32px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -398,10 +391,9 @@ const StTags = styled.div`
     font-size: 1.5rem;
     list-style: none;
     border-radius: 20px;
-    margin: 0 8px 8px 0;
+    margin-right: 8px;
     background: var(--main-color);
-    .tagTitle {
-      margin-top: 3px;
+    .tagName {
       color: #fff;
       padding: 0 8px;
     }
@@ -415,4 +407,30 @@ const StValidationMsg = styled.p`
   color: var(--red-color);
   margin-bottom: 1rem;
   margin-top: 1rem;
+`;
+
+const StPeriodPeople = styled.div`
+  display: flex;
+  .peopleBox {
+    margin-left: 50px;
+  }
+  @media ${(props) => props.theme.mobile} {
+    flex-direction: column;
+    .peopleBox {
+      margin-left: 0;
+    }
+  }
+`;
+
+const StButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+  margin-top: 20px;
+  button {
+    margin-left: 10px;
+    margin-right: 0;
+  }
 `;

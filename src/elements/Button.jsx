@@ -144,10 +144,9 @@ const StyledButton = styled.button`
   border: 1px solid var(--button-border-color, #7188ff);
   box-shadow: var(--button-box-shadow, 0px 4px 5px rgba(0, 0, 0, 0.1));
   margin-right: var(--button-margin-right, 0);
-
+  /* &:focus, */
   &:active,
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: var(--button-hover-bg-color, none);
     color: var(--button-hover-text-color, #ffffff);
     box-shadow: var(--button-hover-box-shadow, none);

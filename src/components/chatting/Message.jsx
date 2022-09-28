@@ -83,20 +83,20 @@ const MessageWrap = styled.div`
   justify-content: ${(props) => (props.is_me ? "flex-end" : "flex-start")};
   width: 100%;
   height: auto;
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 15px 0px;
 `;
 
 const ElMessage = styled.span`
   display: inline-block;
   ${(props) => props.theme.border_box};
   background-color: ${(props) =>
-    props.is_me ? props.theme.message_me : props.theme.message_you};
+    props.is_me ? "#7188ff" : props.theme.message_you};
   color: ${(props) => (props.is_me ? "whitesmoke" : "black")};
   ${(props) =>
     props.is_me
       ? "border-radius: 15px 15px 0px 15px;"
       : "border-radius: 15px 15px 15px 0px;"}
-  padding: 15px;
+  padding: 10px;
   width: auto;
   height: auto;
 `;
@@ -141,6 +141,7 @@ const SenderWrap = styled.div`
 `;
 
 const SenderSpan = styled.span`
+  font-size: 0.9rem;
   min-width: 50px;
   width: 100%;
   ${(props) => (props.is_me ? "text-align: right" : "text-align: left")};

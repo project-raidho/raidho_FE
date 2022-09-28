@@ -16,7 +16,7 @@ const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
   }
   return (
     <Container onClick={_onClick} selected={is_same}>
-      <Image size="50px" src={roomPic} />
+      <Image size="40px" src={roomPic} />
       <ChatColumn>
         <ChatTitle>{roomName}</ChatTitle>
       </ChatColumn>
@@ -32,9 +32,7 @@ Chat.defaultProps = {
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
-  border: 1px solid;
-  border-left: ${(props) =>
-    props.selected ? `5px solid #7188FF;` : "1px solid;"};
+  border: ${(props) => (props.selected ? `3px solid #7188FF;` : "1px solid")};
 
   padding: 5px;
   height: 15%;
@@ -49,10 +47,8 @@ const Container = styled.div`
     margin: 0;
     padding: 0;
     flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid;
-    border-bottom: ${(props) =>
-      props.selected ? `5px solid #7188FF;` : "1px solid;"};
+
+    border: ${(props) => (props.selected ? `3px solid #7188FF;` : "none")};
   }
 `;
 const ChatColumn = styled.div`
@@ -80,25 +76,5 @@ const ChatTitle = styled.span`
     text-align: center;
   }
 `;
-
-// const ChatText = styled.div`
-//   ${(props) => props.theme.border_box}
-//   ${(props) => props.theme.flex_row}
-//   margin-top: 10px;
-//   @media ${(props) => props.theme.mobile} {
-//     display: none;
-//   }
-// `;
-
-// const CategoryText = styled.div`
-//   ${(props) => props.theme.flex_row}
-//   font-size: 10px;
-//   align-items: center;
-//   margin-left: 5px;
-//   padding-top: 2px;
-//   @media ${(props) => props.theme.mobile} {
-//     display: none;
-//   }
-// `;
 
 export default Chat;
