@@ -48,7 +48,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
   return (
     <SearchWrapp>
       <h1>모집 후 모일 장소</h1>
-      <Button onClick={onChangeOpenPost}>
+      <Button size="small" onClick={onChangeOpenPost}>
         {isOpenPost ? "검색창 닫기" : "주소검색"}
       </Button>
       {isOpenPost && (
@@ -98,4 +98,7 @@ const SearchInput = styled(Input)`
   display: block;
   width: 100%;
   margin: 0 auto;
+  @media ${(props) => props.theme.mobile} {
+    font-size: 1.2rem;
+  }
 `;
