@@ -105,6 +105,7 @@ const StMainPageWrap = styled.div`
     border-radius: 50%;
     border: 0 none;
     background-color: var(--bg-color);
+    box-shadow: var(--box-shadow);
     cursor: pointer;
     transition: opacity 0.3s ease-in;
     path {
