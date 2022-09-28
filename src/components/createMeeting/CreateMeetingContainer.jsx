@@ -371,6 +371,12 @@ const StPeriodPeople = styled.div`
   .peopleBox {
     margin-left: 50px;
   }
+  @media ${(props) => props.theme.mobile} {
+    flex-direction: column;
+    .peopleBox {
+      margin-left: 0;
+    }
+  }
 `;
 const StbottonBox = styled.div`
   margin: 20px;
