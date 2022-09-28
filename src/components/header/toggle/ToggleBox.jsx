@@ -40,7 +40,7 @@ const StToggleBox = styled.ul`
   left: 50%;
   padding: 0 8px;
   margin-left: -105px;
-  z-index: 7;
+  z-index: 11;
   overflow: hidden;
   transition: all 0.3s linear;
 
@@ -61,7 +61,7 @@ const StToggleBox = styled.ul`
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     box-shadow: var(--header-bottom-shadow);
-    z-index: 8;
+    z-index: 11;
 
     span {
       position: absolute;

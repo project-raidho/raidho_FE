@@ -1,16 +1,35 @@
 import React from "react";
 import styled from "styled-components";
-import HeartImg from "../assets/heart.png";
-import EmptyHeartImg from "../assets/emptyheart.png";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeart } from "react-icons/io";
 
 const HeartButton = ({ like, onClick }) => {
-  return <Heart src={like ? HeartImg : EmptyHeartImg} onClick={onClick} />;
+  return (
+    <StHeart onClick={onClick}>
+      {like ? (
+        <IoIosHeart className="heart" />
+      ) : (
+        <IoIosHeartEmpty className="emptyHeart" />
+      )}
+    </StHeart>
+  );
 };
 
 export default HeartButton;
 
-const Heart = styled.img`
-  width: 17px;
-  height: 17px;
+const StHeart = styled.span`
+  width: 20px;
+  height: 20px;
   cursor: pointer;
+  svg {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+  }
+  .emptyHeart > path {
+    color: var(--title-color);
+  }
+  .heart > path {
+    color: var(--red-color);
+  }
 `;
