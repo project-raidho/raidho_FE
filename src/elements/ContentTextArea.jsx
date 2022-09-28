@@ -47,6 +47,18 @@ const StContentTextAreaWrap = styled.div`
     padding: 1.3rem;
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
+    outline: none;
+
+    &:focus-visible {
+      border: 1px solid var(--main-color);
+    }
+  }
+
+  @media (max-width: 639px) {
+    textarea {
+      font-size: 1rem;
+      padding: 0.6rem;
+    }
   }
 `;
 

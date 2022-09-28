@@ -265,5 +265,47 @@ const StSwitchButton = styled.label`
   }
   @media (max-width: 639px) {
     margin-right: 1rem;
+    width: 60px;
+    height: 24px;
+
+    .onoffSwitch:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 2px;
+      color: var(--gray-color);
+      background-color: var(--lightBlue-color);
+      -webkit-transition: 0.5s;
+      transition: 0.4s;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    input:checked + .onoffSwitch {
+      background-color: #424242;
+    }
+
+    input:checked + .onoffSwitch:before {
+      -webkit-transform: translateX(33px);
+      -ms-transform: translateX(33px);
+      transform: translateX(33px);
+    }
+
+    strong {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 30px;
+      height: 14px;
+      font-size: 0.8rem;
+      text-align: center;
+      line-height: 14px;
+      color: var(--gray-color);
+      margin-left: ${(props) => (props.checkDarkMode ? "-20px" : "-7px")};
+      margin-top: -7px;
+      z-index: 1;
+    }
   }
 `;

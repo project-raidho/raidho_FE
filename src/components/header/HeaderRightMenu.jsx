@@ -58,7 +58,12 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     <StHeaderRightMenuWrap isLogin={isLogin}>
       {!isLogin ? (
         <>
-          <Button size="small" variant="primary" onClick={handleModal}>
+          <Button
+            className="loginButton"
+            size="small"
+            variant="primary"
+            onClick={handleModal}
+          >
             로그인
           </Button>
 
@@ -118,6 +123,9 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
+  .loginButton {
+    margin-right: 0%;
+  }
   @media (max-width: 639px) {
     position: ${(props) => (props.isLogin ? "fixed" : "")};
     left: ${(props) => (props.isLogin ? "0" : "")};
