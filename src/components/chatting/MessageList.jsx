@@ -44,7 +44,7 @@ const MessageList = ({ messages, setMessages, id }) => {
   // }, [inView, fetchNextPage]);
 
   const allMessageListQuery = useQuery(["messageList", id], getMessageList, {
-    staleTime: 1000 * 60 * 60 * 24,
+    // staleTime: 1000 * 60 * 60 * 24,
     onSuccess: (data) => {
       console.log(data);
     },
