@@ -193,7 +193,7 @@ const UpdateMyProfile = (props) => {
                   variant="lineSquare"
                   onClick={onCompleteUpdateProfile}
                 >
-                  수정
+                  저장
                 </Button>
               </StButtonWrap>
             </StUpdateUserProfileModal>

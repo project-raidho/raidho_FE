@@ -147,16 +147,24 @@ const MeetingListCard = ({ meeting }) => {
         </StMeetingCardRow>
         <h3>{meeting.title}</h3>
         <p className="meetingPeriod">
-          <span>{` ${meeting.startDate.split("-")[1]}/${
-            meeting.startDate.split("-")[2]
-          }-${meeting.endDate.split("-")[1]}/${
-            meeting.endDate.split("-")[2]
-          }`}</span>
-          {tripPeriod === 0
-            ? `(${tripPeriod + 1}일)`
-            : `(${tripPeriod}박 ${tripPeriod + 1}일)`}
+          <strong>여행 날짜</strong>
+          <span>
+            {` ${meeting.startDate.split("-")[1]}/${
+              meeting.startDate.split("-")[2]
+            }-${meeting.endDate.split("-")[1]}/${
+              meeting.endDate.split("-")[2]
+            }`}
+            {tripPeriod === 0
+              ? `(${tripPeriod + 1}일)`
+              : `(${tripPeriod}박 ${tripPeriod + 1}일)`}
+          </span>
+          <i className="bgMiddleLine"></i>
         </p>
-        <p className="meetingAddress">{meeting.departLocation}</p>
+        <p className="meetingAddress">
+          <strong>만남 장소</strong>
+          <span>{meeting.departLocation}</span>
+          <i className="bgMiddleLine"></i>
+        </p>
         <p className="desc">{meeting.desc}</p>
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
@@ -267,15 +275,35 @@ const StMeetingListCardWrap = styled.div`
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
 
-    &.meetingPeriod {
+    &.meetingPeriod,
+    &.meetingAddress {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      strong {
+        font-size: 1.1rem;
+        font-weight: 500;
+        background-color: var(--bg-color);
+        padding-right: 0.5rem;
+        z-index: 2;
+      }
       span {
-        font-size: 1.2rem;
+        width: 190px;
+        font-size: 1.1rem;
+        background-color: var(--bg-color);
+        padding-left: 0.5rem;
+        z-index: 2;
       }
     }
 
-    &.meetingAddress {
-      font-weight: 500;
-      text-decoration: underline;
+    .bgMiddleLine {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--line-color);
+      z-index: 1;
     }
   }
 
@@ -311,6 +339,16 @@ const StMeetingListCardWrap = styled.div`
       color: var(--lightBlue-color);
       font-size: 1rem;
       cursor: pointer;
+    }
+
+    &.meetingPeriod,
+    &.meetingAddress {
+      strong {
+        font-size: 1rem;
+      }
+      span {
+        font-size: 1rem;
+      }
     }
   }
 `;

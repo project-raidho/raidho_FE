@@ -137,8 +137,6 @@ const StModalContent = styled.div`
     display: block;
     width: 100px;
     height: 100px;
-    background-color: var(--text-color);
-    border-radius: 50%;
     margin-top: 30px;
     overflow: hidden;
   }
