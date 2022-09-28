@@ -95,6 +95,7 @@ const SearchContainer = ({ isLogin }) => {
           onChange={onChangeSearchContent}
           onKeyPress={onKeyPressSearchEnter}
           value={searchInput}
+          placeholder="여행이나 지역을 검색해주세요."
         />
         <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>

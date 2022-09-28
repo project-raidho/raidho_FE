@@ -71,7 +71,7 @@ const StHeaderLogo = styled.h1`
   }
 
   @media (max-width: 639px) {
-    display: none;
+    width: 100px;
   }
 `;
 
@@ -80,10 +80,11 @@ const StSearchBox = styled.div`
   align-items: center;
   justify-content: center;
   width: ${(props) =>
-    props.isLogin ? "calc(100% - 480px)" : "calc(100% - 330px)"};
+    props.isLogin ? "calc(100% - 480px)" : "calc(100% - 560px)"};
   height: 40px;
 
   @media (max-width: 639px) {
-    width: ${(props) => (props.isLogin ? "100%" : "calc(100% - 120px)")};
+    width: ${(props) =>
+      props.isLogin ? "calc(100% - 110px)" : "calc(100% - 110px)"};
   }
 `;
