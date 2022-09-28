@@ -66,7 +66,7 @@ const Container = styled.div`
 
 const StButton = styled(Button)`
   width: 90px;
-
+  box-shadow: none;
   ${(props) =>
     props.variant === "gray" &&
     css`

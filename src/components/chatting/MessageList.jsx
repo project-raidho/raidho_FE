@@ -44,6 +44,7 @@ const MessageList = ({ messages, setMessages, id }) => {
   // }, [inView, fetchNextPage]);
 
   const allMessageListQuery = useQuery(["messageList", id], getMessageList, {
+    staleTime: 1000 * 60 * 60 * 24,
     onSuccess: (data) => {
       console.log(data);
     },
@@ -55,10 +56,10 @@ const MessageList = ({ messages, setMessages, id }) => {
   const messageEndRef = React.useRef(null);
   //  하단 스크롤 함수
   const scrollTomBottom = () => {
-    // 모바일이면 실행하지 않기
-    if (window.innerWidth <= 375) {
-      return;
-    }
+    // // 모바일이면 실행하지 않기
+    // if (window.innerWidth <= 375) {
+    //   return;
+    // }
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
