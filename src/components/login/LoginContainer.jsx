@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 // import NaverLogin from "./NaverLogin";
 import RaidhoLogo from "../../assets/raidhoLogo.svg";
+import { MdClose } from "react-icons/md";
 import {
   KAKAO_AUTH_URL,
   // GOOGLE_AUTH_URL,
@@ -35,9 +36,7 @@ const LoginModal = ({ onClose }) => {
     <>
       <Background onClick={onClose} />
       <ModalContentBox>
-        <button className="closeButton" onClick={onClose}>
-          x
-        </button>
+        <MdClose className="closeButton" onClick={onClose} />
         <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
 
         <div className="contents">
@@ -81,47 +80,51 @@ const Background = styled.div`
   left: 0;
   top: 0;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0);
   z-index: 11;
 `;
 
 const ModalContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
-  height: 400px;
+  height: 440px;
   width: 600px;
   top: 50%;
   left: 50%;
-  margin-top: -200px;
+  margin-top: -220px;
   margin-left: -300px;
   background-color: var(--bg-color);
-  border: 1px solid var(--title-color);
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
   z-index: 12;
   text-align: center;
-  .closeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    margin-top: 20px;
-    margin-right: 20px;
-    font-size: 18px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
 
-  .logoImg {
-    margin-top: 120px;
-    margin-bottom: 30px;
-    width: 250px;
-  }
   .contents {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 100px;
     padding: 20px;
-    z-index: 3;
+  }
+  svg.closeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    path {
+      color: var(--title-color);
+    }
+  }
+  .logoImg {
+    margin-bottom: 30px;
+    width: 280px;
   }
   .faceBookLogin {
     margin: auto;
@@ -129,24 +132,48 @@ const ModalContentBox = styled.div`
   .prepareBox {
     display: flex;
   }
+  @media (max-width: 1023px) {
+  }
+  @media (max-width: 767px) {
+  }
+  @media (max-width: 639px) {
+    width: 90vw;
+    height: 40vh;
+    top: 5vh;
+    left: 5vw;
+    margin-top: 0;
+    margin-left: 0;
+    .contents {
+      padding: 1vh;
+    }
+
+    svg.closeButton {
+      width: 25px;
+      height: 25px;
+    }
+
+    .logoImg {
+      margin-top: 50px;
+      width: 250px;
+    }
+  }
 `;
 
 const SocialLoginbutton = styled.a`
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 340px; */
+  width: 100%;
   height: 80px;
-  color: #1c1c1c;
-  border: none;
   img {
-    object-fit: cover;
+    object-fit: contain;
     width: 340px;
     height: 100%;
-    margin-bottom: 5px;
+  }
+
+  @media (max-width: 639px) {
+    img {
+      width: 300px;
+    }
   }
 `;
