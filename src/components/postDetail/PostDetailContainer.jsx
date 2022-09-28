@@ -92,13 +92,10 @@ const PostDetailContainer = () => {
         <PostDetailTagList tagList={postDetail.tags} />
         <AddCommentForm />
         <CommentsList />
-
       </StDetailContainer>
       <RelatedList targetTag={targetTag} />
 
-      <div>
-      
-      </div>
+      <div></div>
     </>
   );
 };
@@ -127,7 +124,7 @@ const StDetailContainer = styled.div`
   .editButton {
     float: right;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
     cursor: pointer;
   }
 `;
