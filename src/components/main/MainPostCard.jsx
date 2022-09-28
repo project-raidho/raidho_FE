@@ -8,6 +8,7 @@ import Potal from "../../global/globalModal/Potal";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
+import { BsChat } from "react-icons/bs";
 
 const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -62,9 +63,11 @@ const MainPostCard = ({ post }) => {
           <img className="profileImg" src={memberImage} alt="프로필 이미지" />
         </div>
         <h2>{post.memberName}</h2>
-        <div className="likebutton">
-          <div className="likeNum">{post.heartCount}</div>
+        <div className="cardButtonBox">
           <HeartButton like={post.isHeartMine} onClick={mutate} />
+          <span className="likeNum">{post.heartCount}</span>
+          <BsChat className="commentIcon" />
+          <span className="commentNum">{post.commentCount}</span>
         </div>
       </div>
 
@@ -111,19 +114,28 @@ const StFigure = styled.figure`
     right: 10px;
     background-image: url(${fileIcon});
   }
-  .likebutton {
+  .cardButtonBox {
     display: flex;
     position: absolute;
     bottom: 5px;
     right: 10px;
 
     .likeNum {
-      display: none;
-      margin-right: 5px;
+      /* display: none; */
+      margin-right: 0.5rem;
+      margin-left: 0.2rem;
     }
 
     &:hover .likeNum {
-      display: block;
+      /* display: block; */
+    }
+    .commentIcon {
+      path {
+        color: var(--title-color);
+      }
+    }
+    .commentNum {
+      margin-left: 0.2rem;
     }
   }
   .userBox {

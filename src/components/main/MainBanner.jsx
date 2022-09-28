@@ -17,7 +17,15 @@ const MainBanner = () => {
   return (
     <StMainBannerWrap>
       <Slider {...settings}>
-        <div className="contentBox">
+        <div
+          className="contentBox"
+          onClick={() =>
+            window.open(
+              "https://docs.google.com/forms/d/e/1FAIpQLSehlJ0ZeaBeZFfhWEiwtUOozM6A4RoYig-kxUAxdWDI4T4XEA/viewform",
+              "_blank"
+            )
+          }
+        >
           <div className="centerBox">
             <img
               src={Banner}
@@ -38,18 +46,18 @@ const StMainBannerWrap = styled.div`
   position: absolute;
   top: 55px;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 375px;
   background-color: var(--gray-color);
   background-image: url(${BannerBg});
   background-repeat: repeat-x;
   background-size: cover;
-
   .contentBox {
     text-align: center;
     line-height: 375px;
     width: 100%;
     height: 375px;
+    cursor: pointer;
     .centerBox {
       width: auto;
       max-width: 1305px;

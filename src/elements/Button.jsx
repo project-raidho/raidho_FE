@@ -10,6 +10,7 @@ const SIZES = {
     --button-mobile-padding: 0px 5px;
     --button-mobile-font-size: 0.9rem;
     --button-mobile-width: 100px;
+    --button-mobile-height: 30px;
   `,
   medium: css`
     --button-font-size: 1.3rem;
@@ -19,6 +20,7 @@ const SIZES = {
     --button-mobile-padding: 0px 0px;
     --button-mobile-font-size: 1rem;
     --button-mobile-width: 120px;
+    --button-mobile-height: 40px;
   `,
   large: css`
     --button-font-size: 1.5rem;
@@ -35,6 +37,7 @@ const SIZES = {
     --button-radius: 25px;
     --button-mobile-padding: 0px 5px;
     --button-mobile-font-size: 0.9rem;
+    --button-mobile-height: 30px;
   `,
   square: css`
     --button-font-size: 1.5rem;
@@ -42,6 +45,7 @@ const SIZES = {
     --button-height: 40px;
     --button-padding: 0 16px;
     --button-radius: 0px;
+    --button-mobile-height: 40px;
   `,
   squareTheme: css`
     --button-font-size: 1.5rem;
@@ -49,6 +53,7 @@ const SIZES = {
     --button-height: 50px;
     --button-padding: 0 16px;
     --button-radius: 15px;
+    --button-mobile-height: 50px;
   `,
 };
 
@@ -156,6 +161,7 @@ const StyledButton = styled.button`
     padding: var(--button-mobile-padding);
     font-size: var(--button-mobile-font-size);
     width: var(--button-mobile-width);
+    height: var(--button-mobile-height);
   }
 `;
 

@@ -84,6 +84,6 @@ const StSearchBox = styled.div`
   height: 40px;
 
   @media (max-width: 639px) {
-    width: ${(props) => (props.isLogin ? "100%" : "calc(100% - 100px)")};
+    width: ${(props) => (props.isLogin ? "100%" : "calc(100% - 120px)")};
   }
 `;

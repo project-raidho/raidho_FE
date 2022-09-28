@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../elements/Input";
+import { MdClose } from "react-icons/md";
 import styled from "styled-components";
 
 const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
@@ -47,7 +48,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
             <li key={index} className="tag">
               <span className="tagTitle">{tag}</span>
               <span className="tagCloseIcon" onClick={() => removeTags(index)}>
-                x
+                <MdClose />
               </span>
             </li>
           ))}
@@ -73,11 +74,11 @@ const StCreatePostTagsWrap = styled.div`
   flex-wrap: wrap;
   width: 100%;
   min-height: 48px;
-
   border: 1px solid var(--gray-color);
   border-radius: 0px;
   padding: 0 8px;
   margin-bottom: 1rem;
+
   &:focus-within {
     border: 1px solid var(--main-color);
   }
@@ -85,8 +86,8 @@ const StCreatePostTagsWrap = styled.div`
     flex: 1;
     border: none;
     height: 46px;
-    font-size: 1.2rem;
-    padding: 4px 0 0 0;
+    font-size: 1rem;
+    padding: 2px 0 0 1.3rem;
     &:focus {
       outline: transparent;
     }
@@ -117,25 +118,46 @@ const StCreatePostTagsWrap = styled.div`
     }
     .tagCloseIcon {
       display: block;
-      width: 16px;
-      height: 16px;
-      line-height: 16px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
       text-align: center;
-      font-size: 14px;
       margin-left: 8px;
-      color: var(--main-color);
       border-radius: 50%;
       background: var(--bg-color);
       cursor: pointer;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        path {
+          color: var(--main-color);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 639px) {
+    input {
+      height: 46px;
+      font-size: 1rem;
+      padding: 2px 0 0 0.6rem;
+    }
+    .tag {
+      font-size: 1rem;
     }
   }
 `;
 
 const StValidationMsg = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
   font-style: italic;
   color: ${(props) =>
     props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
   margin-bottom: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 0.9rem;
+  }
 `;

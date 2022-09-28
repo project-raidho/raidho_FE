@@ -65,13 +65,18 @@ const ModalContentBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 90vw;
-    height: 50vh;
+    height: 40vh;
     top: 5vh;
     left: 5vw;
     margin-top: 0;
     margin-left: 0;
     .contents {
       padding: 1vh;
+    }
+
+    svg.closeButton {
+      width: 25px;
+      height: 25px;
     }
   }
 `;
