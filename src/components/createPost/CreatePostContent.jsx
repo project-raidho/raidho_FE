@@ -54,4 +54,10 @@ const StValidationMsg = styled.p`
   font-style: italic;
   color: var(--title-color);
   margin-bottom: 1rem;
+
+  @media (max-width: 639px) {
+    font-size: 1rem;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+  }
 `;

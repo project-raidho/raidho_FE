@@ -144,3 +144,9 @@
 .slick-dots li.slick-active button:before {
   opacity: 0.75;
 }
+@media (max-width: 639px) {
+  .slick-prev,
+  .slick-next {
+    display: none !important;
+  }
+}

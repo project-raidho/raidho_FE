@@ -32,7 +32,7 @@ const TripPeriod = ({
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   // setInputdate(moment(date).format('YYYY-MM-DD'))
-
+  const [count, setCount] = useState(0);
   const onChangeHandler = (item) => {
     setState([item.selection]);
     setStart(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
@@ -42,6 +42,12 @@ const TripPeriod = ({
     setmaxRoomCloseDate(
       moment([item.selection][0].startDate).add(-1, "d").toDate()
     );
+    if (count !== 1) {
+      return setCount((prev) => prev + 1);
+    } else {
+      setShowCalendar(false);
+      return setCount(0);
+    }
   };
   // const startinputonChangeHandler = (e) => {
   //   setStartDate(e.target.value);
@@ -74,19 +80,21 @@ const TripPeriod = ({
               // onChange={startinputonChangeHandler}
             />
           </div>
-          <div>
-            <p>종료일</p>
-            <Input
-              value={end}
-              placeholder=""
-              onFocus={() => setShowCalendar(true)}
-              variant="default"
-              size="large"
-              // onChange={endinputonChangeHandler}
-            />
-          </div>
+          <h4 className="calenderIconAndInput">
+            <div>
+              <p>종료일</p>
 
-          <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
+              <Input
+                value={end}
+                placeholder=""
+                onFocus={() => setShowCalendar(true)}
+                variant="default"
+                size="large"
+                // onChange={endinputonChangeHandler}
+              />
+            </div>
+            <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
+          </h4>
         </InputBox>
 
         {showCalendar && (
@@ -123,7 +131,7 @@ const InputBox = styled.div`
   /* flex-direction: row; */
   div {
     width: 180px;
-    margin: 10px;
+    margin: 10px 0;
   }
   p {
     margin-bottom: 10px;
@@ -133,6 +141,9 @@ const InputBox = styled.div`
     flex-direction: column;
     gap: 10px;
   }
+  .calenderIconAndInput {
+    display: flex;
+  }
 `;
 
 const CalendarIcon = styled(BsCalendar3)`
@@ -140,6 +151,6 @@ const CalendarIcon = styled(BsCalendar3)`
   margin: 50px 5px 0 0;
   cursor: pointer;
   @media ${(props) => props.theme.mobile} {
-    margin: 20px 0 0 15px;
+    margin: 47px 0 0 8px;
   }
 `;

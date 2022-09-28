@@ -45,6 +45,7 @@ const ChattingRoom = () => {
   React.useEffect(() => {
     setMessages([]);
     wsConnectSubscribe();
+    sendEnterMessage();
     // getMessageList(id);
     return () => {
       wsDisConnectUnsubscribe();
@@ -80,7 +81,7 @@ const ChattingRoom = () => {
       console.log(error);
     }
   }
-  console.log(messages);
+
   // // 연결해제, 구독해제
   function wsDisConnectUnsubscribe() {
     try {
@@ -111,6 +112,30 @@ const ChattingRoom = () => {
     );
   }
 
+  function sendEnterMessage() {
+    const enterChat = {
+      type: "ENTER",
+      roomId: Number(id),
+      sender: sender,
+    };
+    waitForConnection(ws, function () {
+      ws.send(
+        `/pub/chat/send/${id}`,
+        { token: token },
+        JSON.stringify(enterChat)
+      );
+    });
+  }
+
+  React.useEffect(() => {
+    if (partymember) {
+      ConnectSub(token);
+    }
+    return () => {
+      wsDisConnectUnsubscribe();
+    };
+  }, [curtParty?.partyId]);
+
   // 메시지 보내기
   function sendMessage() {
     try {
@@ -132,7 +157,7 @@ const ChattingRoom = () => {
       if (messageInput === "") {
         return;
       }
-      console.log(messages);
+
       //   // 로딩 중
       waitForConnection(ws, function () {
         ws.send(`/pub/chat/send/${id}`, { token: token }, JSON.stringify(data));

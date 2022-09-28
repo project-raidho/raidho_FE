@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { authInstance } from "../../shared/api";
-// import imageCompression from "browser-image-compression";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
@@ -291,7 +290,15 @@ const StMyProfileBox = styled.div`
   }
 `;
 
-const StUpdateProfileTop = styled.div``;
+const StUpdateProfileTop = styled.div`
+  @media (max-width: 639px) {
+    padding-top: 10px;
+    input {
+      font-size: 1rem;
+      border-radius: 30px;
+    }
+  }
+`;
 const StButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -303,12 +310,26 @@ const StButtonWrap = styled.div`
   button {
     margin-left: 1rem;
   }
+
+  @media (max-width: 639px) {
+    margin-top: 0px;
+    padding-right: 1rem;
+    button {
+      width: 70px;
+      height: 30px;
+      margin-left: 0.5rem;
+    }
+  }
 `;
 
 const StUpdateUserProfileTitle = styled.h2`
   font-size: 1.5rem;
   text-align: left;
   margin: 1rem 0;
+  @media (max-width: 639px) {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
 `;
 
 const StUpdateUserProfileModal = styled.div`
@@ -332,6 +353,10 @@ const StUpdateProfileRow = styled.div`
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 2rem;
+
+  @media (max-width: 639px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const StMemberImageBox = styled.label`
@@ -356,10 +381,15 @@ const StMemberImageBox = styled.label`
   .changeImageMessage {
     font-size: 1.2rem;
     letter-spacing: 1px;
+    color: #fff;
   }
   @media (max-width: 639px) {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+
+    .changeImageMessage {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -368,11 +398,16 @@ const StMemberNicknameBox = styled.div`
 
   p {
     width: 100%;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     text-align: left;
   }
   @media (max-width: 639px) {
     width: 180px;
+
+    input {
+      font-size: 1rem;
+      border-radius: 30px;
+    }
   }
 `;
 

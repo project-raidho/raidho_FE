@@ -62,7 +62,7 @@ const CreateMeetingContatiner = () => {
       setAllValMsg("대륙을 선택해주세요");
       return setThemeValMsg("대륙을 선택해주세요");
     } else if (meetingTags.length < 1) {
-      setAllValMsg();
+      setAllValMsg("나라/도시를 입력해주세요");
       return setTagValrMsg("나라/도시를 입력해주세요");
     } else if (startDate.length < 1) {
       setAllValMsg("여행시작일을 선택해주세요");
@@ -203,20 +203,16 @@ const CreateMeetingContatiner = () => {
     setMeetingTags(tags);
   };
   const typedMeetingContent = (text) => {
-    console.log("typedPostContent", text);
     setDesc(text);
   };
 
   const onChangeMeetingTitle = (text) => {
-    console.log("typedPostContent", text);
     setTitle(text);
   };
 
   return (
     <StContainer>
-      <StStepTitle>
-        <strong>STEP 1</strong>여행정보 입력
-      </StStepTitle>
+      <StStepTitle>여행정보 입력</StStepTitle>
 
       <h1>대륙 선택</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
@@ -224,7 +220,6 @@ const CreateMeetingContatiner = () => {
       <h1>여행갈 나라/도시 태그 입력</h1>
       <StTags>
         <TagInput
-          className="tagbox"
           selectedTags={selectedMeetingTags}
           tags={[]}
           tagMassage={
@@ -247,13 +242,10 @@ const CreateMeetingContatiner = () => {
           <TripPeopleCount people={2} setPeople={setPeople} />
           <StValidationMsg>{peopleValMsg}</StValidationMsg>
         </div>
-
-        <br />
       </StPeriodPeople>
+      <br />
 
-      <StStepTitle>
-        <strong>STEP 2</strong>모집글정보 입력
-      </StStepTitle>
+      <StStepTitle>모집글정보 입력</StStepTitle>
       <h1>모집글/채팅방 제목</h1>
       <MeetingTitle
         onChangeMeetingTitle={onChangeMeetingTitle}
@@ -307,12 +299,18 @@ const StContainer = styled.div`
   padding-bottom: 50px;
   h2 {
     font-size: 30px;
-    margin-top: 50px;
+    margin-top: 30px;
   }
   h1 {
     font-size: 20px;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 13px;
+  }
+  .tagBox {
+    border-radius: 15px;
+  }
+  textarea {
+    border-radius: 15px;
   }
 `;
 
@@ -325,19 +323,6 @@ const StStepTitle = styled.h2`
   margin-bottom: 1.5rem;
   @media ${(props) => props.theme.mobile} {
     font-size: 1rem;
-  }
-  strong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    color: #000;
-    background-color: var(--gray-color);
-    border-radius: 5px;
-    border: 1px solid #000;
-    margin-right: 0.7rem;
-    padding: 0.5rem 0.7rem;
   }
 `;
 
@@ -366,6 +351,13 @@ const StPeriodPeople = styled.div`
 `;
 const StbottonBox = styled.div`
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  float: right;
+  align-items: flex-end;
+  .createButton {
+    margin-right: 0;
+  }
 `;
 
 const StValidationMsg = styled.p`

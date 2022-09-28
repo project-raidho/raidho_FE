@@ -60,20 +60,21 @@ const Background = styled.div`
   left: 0;
   top: 0;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0);
   z-index: 11;
 `;
 
 const ModalContentBox = styled.div`
   position: fixed;
-  height: 440px;
+  height: 300px;
   width: 600px;
   top: 50%;
   left: 50%;
-  margin-top: -220px;
+  margin-top: -150px;
   margin-left: -300px;
   background-color: var(--bg-color);
-  border: 1px solid var(--title-color);
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
   z-index: 12;
   text-align: center;
 
@@ -86,7 +87,6 @@ const ModalContentBox = styled.div`
     height: 100%;
     padding: 20px;
   }
-
   svg.closeButton {
     position: absolute;
     right: 1rem;
@@ -94,7 +94,6 @@ const ModalContentBox = styled.div`
     width: 30px;
     height: 30px;
     cursor: pointer;
-
     path {
       color: var(--title-color);
     }
@@ -106,14 +105,18 @@ const ModalContentBox = styled.div`
   }
   @media (max-width: 639px) {
     width: 90vw;
-    height: 50vh;
+    height: 30vh;
     top: 5vh;
     left: 5vw;
     margin-top: 0;
     margin-left: 0;
-
     .contents {
       padding: 1vh;
+    }
+
+    svg.closeButton {
+      width: 25px;
+      height: 25px;
     }
   }
 `;
@@ -129,12 +132,11 @@ const StModalContent = styled.div`
 
   h4 {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-color: var(--text-color);
     border-radius: 50%;
-    border: 1px solid var(--title-color);
-    margin-top: 30px;
+    margin-top: 20px;
     overflow: hidden;
   }
 
@@ -144,7 +146,17 @@ const StModalContent = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 1.3rem;
+    font-size: 1rem;
+  }
+  @media (max-width: 639px) {
+    h4 {
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+    }
+    p {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -158,5 +170,14 @@ const StButtonWrap = styled.div`
 
   button {
     margin-left: 1rem;
+  }
+
+  @media (max-width: 639px) {
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    button {
+      width: 60px;
+      height: 30px;
+    }
   }
 `;
