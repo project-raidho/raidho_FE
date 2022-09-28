@@ -5,6 +5,7 @@ const CreatePostContent = ({
   typedPostContent,
   placeholderText,
   initialContent,
+  descValMsg,
 }) => {
   const [checkTextLength, setCheckTextLength] = useState(0);
   const [changeContent, setChangeContent] = useState(initialContent);
@@ -27,7 +28,10 @@ const CreatePostContent = ({
         maxLength="250"
         minLength="10"
       />
-      <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+      <div className="valMsg">
+        <div className="descValMsg">{descValMsg}</div>
+        <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+      </div>
     </StCreatePostContentWrap>
   );
 };
@@ -45,6 +49,13 @@ const StCreatePostContentWrap = styled.div`
     padding: 1rem;
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
+  }
+  .valMsg {
+    display: flex;
+    justify-content: space-between;
+  }
+  .descValMsg {
+    color: var(--red-color);
   }
 `;
 const StValidationMsg = styled.p`

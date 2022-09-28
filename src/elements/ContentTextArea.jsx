@@ -5,8 +5,11 @@ const ContentTextArea = ({
   initialContent,
   typedPostContent,
   placeholderText,
+  ValRedMsg,
 }) => {
-  const [checkTextLength, setCheckTextLength] = useState(initialContent.length);
+  const [checkTextLength, setCheckTextLength] = useState(
+    initialContent?.length
+  );
   const [changeContent, setChangeContent] = useState(initialContent);
 
   const onChangeContent = (event) => {
@@ -17,7 +20,7 @@ const ContentTextArea = ({
 
   useEffect(() => {
     setChangeContent(initialContent);
-    setCheckTextLength(initialContent.length);
+    setCheckTextLength(initialContent?.length);
     // eslint-disable-next-line
   }, [initialContent]);
   return (
@@ -29,7 +32,10 @@ const ContentTextArea = ({
         maxLength="250"
         minLength="10"
       />
-      <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+      <StValMsgSet>
+        <StValRedMsg>{ValRedMsg}</StValRedMsg>
+        <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+      </StValMsgSet>
     </StContentTextAreaWrap>
   );
 };
@@ -62,6 +68,14 @@ const StContentTextAreaWrap = styled.div`
   }
 `;
 
+const StValMsgSet = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StValRedMsg = styled.div`
+  color: var(--red-color);
+`;
 const StValidationMsg = styled.p`
   font-size: 1rem;
   font-weight: 300;

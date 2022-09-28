@@ -47,6 +47,10 @@ const StMeetingTitletWrap = styled.div`
     margin-bottom: 1rem;
     background-color: var(--subBg-color);
     overflow: hidden;
+    outline: none;
+    &:focus-visible {
+      border: 1px solid var(--main-color);
+    }
   }
 `;
 const StValidationMsg = styled.p`

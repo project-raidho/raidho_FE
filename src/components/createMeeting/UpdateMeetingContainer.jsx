@@ -16,7 +16,7 @@ import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import MeetingTitle from "./MeetingTitle";
-import CreatePostContent from "../createPost/CreatePostContent";
+import ContentTextArea from "../../elements/ContentTextArea";
 
 const UpdateMeetingContainer = () => {
   const { meetingId } = useParams();
@@ -59,7 +59,7 @@ const UpdateMeetingContainer = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
-
+  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState("");
   //서버에서 받아온 데이터
 
   const data = {
@@ -136,6 +136,11 @@ const UpdateMeetingContainer = () => {
     } else if (roomCloseDate.length < 1) {
       setAllValMsg("모집마감일자를 선택해주세요");
       return setRoomCloseDateValMsg("모집마감일자를 선택해주세요");
+    } else if (isValidDateFormat(roomCloseDate) === false) {
+      setAllValMsg("모집마감일자의 날짜 형식이 잘못되었습니다.");
+      return setRoomCloseDateValMsg(
+        "모집마감일자의 날짜 형식이 잘못되었습니다."
+      );
     } else if (departLocation.length < 1) {
       setAllValMsg("모집 후 모일 장소를 선택해주세요");
       return setDepartLocationValMsg("모집 후 모일 장소를 선택해주세요");
@@ -147,32 +152,21 @@ const UpdateMeetingContainer = () => {
     }
   };
 
-  const isValidAll =
-    theme.length >= 1 &&
-    title.length >= 1 &&
-    desc.length >= 1 &&
-    meetingTags.length >= 1 &&
-    String(people).length >= 1 &&
-    roomCloseDate.length >= 1 &&
-    startDate.length >= 1 &&
-    endDate.length >= 1 &&
-    departLocation.length >= 1;
-
   //실시간 유효성 검사
   useEffect(() => {
-    if (people.length > 0) {
+    if (String(people).length > 0) {
       setPeopleValMsg("");
     }
-    if (title.length > 0) {
+    if (title?.length > 0) {
       setTitleValMsg("");
     }
-    if (desc.length > 0) {
+    if (desc?.length > 0) {
       setdescValMsg("");
     }
-    if (roomCloseDate.length > 0) {
+    if (roomCloseDate?.length > 0) {
       setRoomCloseDateValMsg("");
     }
-    if (departLocation.length > 0) {
+    if (departLocation?.length > 0) {
       setDepartLocationValMsg("");
     }
     if (isValidAll) {
@@ -182,6 +176,17 @@ const UpdateMeetingContainer = () => {
     }
     // eslint-disable-next-line
   }, [people, title, desc, roomCloseDate, departLocation]);
+
+  const isValidAll =
+    theme?.length >= 1 &&
+    title?.length >= 1 &&
+    desc?.length >= 1 &&
+    meetingTags?.length >= 1 &&
+    String(people)?.length >= 1 &&
+    roomCloseDate?.length >= 1 &&
+    startDate?.length >= 1 &&
+    endDate?.length >= 1 &&
+    departLocation?.length >= 1;
 
   const queryClient = useQueryClient();
   //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
@@ -223,7 +228,7 @@ const UpdateMeetingContainer = () => {
   return (
     <StContainer>
       <StCreatePostColumn>
-        <h1>카테고리 </h1>
+        <h1>카테고리</h1>
         <div className="theme">{theme}</div>
 
         <h1>여행갈 나라/도시</h1>
@@ -244,6 +249,7 @@ const UpdateMeetingContainer = () => {
               endDate={endDate}
               setStartDate={setStartDate}
               setEndDate={setEndDate}
+              setmaxRoomCloseDate={setmaxRoomCloseDate}
             />
             <StValidationMsg>{periodValMsg}</StValidationMsg>
           </div>
@@ -254,7 +260,7 @@ const UpdateMeetingContainer = () => {
         </StPeriodPeople>
         <br />
         <StStepTitle>2. 모집글정보 수정</StStepTitle>
-        <h1>모집글/채팅방 제목</h1>
+        <h1>모집글/채팅방 제목 *</h1>
 
         <MeetingTitle
           onChangeMeetingTitle={onChangeTitle}
@@ -262,16 +268,17 @@ const UpdateMeetingContainer = () => {
           initialContent={title}
         />
         <StValidationMsg>{titleValMsg}</StValidationMsg>
-        <h1>모집글 설명</h1>
-        <CreatePostContent
+        <h1>모집글 설명 *</h1>
+        <ContentTextArea
           typedPostContent={onChangeContent}
           placeholderText={"모집글 설명을 써주세요."}
           initialContent={desc}
+          ValRedMsg={descValMsg}
         />
-        <StValidationMsg>{descValMsg}</StValidationMsg>
         <RoomCloseDateBox
           roomCloseDate={roomCloseDate}
           setRoomCloseDate={setRoomCloseDate}
+          maxRoomCloseDate={maxRoomCloseDate}
         />
         <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
         <MeetingLocationSearch

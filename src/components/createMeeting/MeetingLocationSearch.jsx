@@ -48,7 +48,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
   return (
     <SearchWrapp>
-      <h1>모집 후 모일 장소</h1>
+      <h1>모집 후 모일 장소 *</h1>
       <Button
         size="small"
         variant={isOpenPost ? "gray" : "primary"}
@@ -69,7 +69,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
       <KakaoMap searchPlace={Place} />
 
       <textarea
-        placeholder="주소를 입력해주세요."
+        placeholder="도로명주소를 입력해주세요."
         onChange={onChange}
         value={text}
         maxLength="100"
@@ -93,7 +93,8 @@ const SearchWrapp = styled.div`
   textarea {
     padding: 10px;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    background-color: var(--bg-color);
     @media ${(props) => props.theme.mobile} {
       font-size: 1rem;
     }

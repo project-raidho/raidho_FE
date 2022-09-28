@@ -139,15 +139,16 @@ const CreatePostContainer = () => {
         typedPostContent={typedPostContent}
         placeholderText={"여행에서 경험한 내용을 작성해주세요."}
         initialContent=""
+        ValRedMsg={validationContent}
       />
-      <StValidationMessage>{validationContent}</StValidationMessage>
+
       <StStepTitle>태그</StStepTitle>
       <TagInput
         selectedTags={selectedTags}
         tags={[]}
         tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
+        tagValMsg={validationTags}
       />
-      <StValidationMessage>{validationTags}</StValidationMessage>
       <StButtonWrap>
         <Button
           size="medium"

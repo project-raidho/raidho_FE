@@ -4,10 +4,10 @@ import styled from "styled-components";
 const TripPeopleCount = ({ people, setPeople }) => {
   const countList = [2, 3, 4, 5, 6, 7, 8, 9, 10];
   console.log(people);
-  const index = countList.indexOf(people);
 
-  const NewCountList = countList.slice(index);
-  console.log(NewCountList);
+  // const index = countList.indexOf(people);
+  // const NewCountList = countList.slice(index);
+
   const [count, setCount] = useState("");
   console.log(count);
 
@@ -21,10 +21,10 @@ const TripPeopleCount = ({ people, setPeople }) => {
 
   return (
     <StPeopleWrapper>
-      <h1>여행희망인원(채팅인원)</h1>
+      <h1>여행희망인원(채팅인원) *</h1>
       <StSelectBox>
         <select value={count} onChange={countonChange} className="select">
-          {NewCountList.map((item, i) => (
+          {countList.map((item, i) => (
             <option value={item} key={i}>
               {item}
             </option>
@@ -46,11 +46,11 @@ const StPeopleWrapper = styled.div`
       calc(100% - 5px) center no-repeat;
     background-size: 20px;
     padding: 5px 30px 5px 10px;
-    border-radius: 15px;
+    border-radius: 10px;
     outline: 0 none;
     cursor: pointer;
   }
-  .select option {
+  option {
     background: var(--bg-color);
     color: var(--title-color);
     padding: 3px 0;
