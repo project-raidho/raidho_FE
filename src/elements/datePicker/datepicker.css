@@ -821,6 +821,7 @@
   .react-datepicker__input-container > input {
     width: 130px;
     font-size: 0.9rem;
+    color: var(--title-color);
   }
   .react-datepicker__input-container > input:focus {
     border: 1px solid var(--lightBlue-color);

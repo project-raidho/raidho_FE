@@ -56,7 +56,7 @@ const MainPage = () => {
           {stateName === undefined ? (
             <p>
               <a href="/" className="active">
-                실시간
+                최신순
               </a>
             </p>
           ) : (
@@ -65,7 +65,7 @@ const MainPage = () => {
                 to={`/latest`}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                실시간
+                최신순
               </NavLink>
             </p>
           )}

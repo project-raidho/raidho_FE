@@ -136,7 +136,7 @@ const MeetingListContainer = () => {
             ))}
           </StMeetingCategoryRow>
           <StCheckStatus>
-            <p className="datePickerWrap">
+            <div className="datePickerWrap">
               <DatePicker
                 locale={ko}
                 dateFormat="yyyy-MM-dd(eee)"
@@ -164,7 +164,7 @@ const MeetingListContainer = () => {
               >
                 조회
               </Button>
-            </p>
+            </div>
             <p
               onClick={clickStatus}
               className={checkStatus ? "activeButton" : "inactiveButton"}
@@ -189,10 +189,13 @@ export default MeetingListContainer;
 const StMeetingListContainerWrap = styled.div`
   min-height: 100vh;
   background-color: var(--bg-color);
-  padding-top: 150px;
+  padding-top: 180px;
 
   h2 {
     font-size: 1.8rem;
+  }
+  @media (max-width: 639px) {
+    padding-top: 210px;
   }
 `;
 
@@ -202,7 +205,6 @@ const StFixedMenu = styled.div`
   top: 55px;
   width: 100%;
   background-color: var(--bg-color);
-  box-shadow: var(--header-shadow);
   z-index: 7;
 
   .centerBox {
@@ -220,13 +222,19 @@ const StCheckStatus = styled.div`
   width: 100%;
   max-width: 1305px;
   padding-bottom: 0.3rem;
-  p {
+  p,
+  .datePickerWrap {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
     margin-bottom: 1rem;
+
+    &.activeButton,
+    &.inactiveButton {
+      padding-right: 1rem;
+    }
 
     span.filterMeetingStatus {
       width: 15px;
@@ -253,11 +261,27 @@ const StCheckStatus = styled.div`
       background-color: var(--bg-colr);
     }
     button {
-      width: 150px;
+      width: 100px;
+      margin-left: 0.8rem;
     }
     &.datePickerWrap {
       width: auto;
     }
+  }
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container {
+    width: 200px;
+  }
+  .react-datepicker-wrapper {
+    margin-left: 0.8rem;
+  }
+  .react-datepicker-wrapper:first-child {
+    margin-left: 0rem;
+  }
+  .react-datepicker__input-container > input {
+    width: 200px;
+    font-size: 1rem;
+    color: var(--title-color);
   }
   @media (max-width: 639px) {
     flex-direction: column;
@@ -265,7 +289,15 @@ const StCheckStatus = styled.div`
     .react-datepicker__input-container {
       width: 130px;
     }
-    p {
+    .react-datepicker-wrapper {
+      margin-left: 0.5rem;
+    }
+    .react-datepicker__input-container > input {
+      width: 130px;
+      font-size: 0.9rem;
+    }
+    p,
+    .datePickerWrap {
       padding-right: 1rem;
       strong {
         font-size: 0.9rem;
