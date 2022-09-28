@@ -2,8 +2,8 @@ import React from "react";
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-import Banner1 from "../../assets/banner/banner1.jpeg";
-import BannerBg from "../../assets/banner/bannerBg.png";
+import Banner from "../../assets/banner/bannerContent.png";
+import BannerBg from "../../assets/banner/bannerBg2.png";
 import styled from "styled-components";
 
 const MainBanner = () => {
@@ -20,7 +20,7 @@ const MainBanner = () => {
         <div className="contentBox">
           <div className="centerBox">
             <img
-              src={Banner1}
+              src={Banner}
               alt="라이도 서비스를 이용해주시고 피드백을 남겨주세요."
             />
           </div>
@@ -43,7 +43,7 @@ const StMainBannerWrap = styled.div`
   background-color: var(--gray-color);
   background-image: url(${BannerBg});
   background-repeat: repeat-x;
-  background-size: auto 100%;
+  background-size: cover;
 
   .contentBox {
     text-align: center;
@@ -52,6 +52,7 @@ const StMainBannerWrap = styled.div`
     height: 375px;
     .centerBox {
       width: auto;
+      max-width: 1305px;
       height: 100%;
       margin: 0 auto;
       overflow: hidden;
@@ -64,5 +65,10 @@ const StMainBannerWrap = styled.div`
   }
 
   @media (max-width: 639px) {
+    height: 200px;
+    .contentBox {
+      height: 200px;
+      line-height: 1;
+    }
   }
 `;

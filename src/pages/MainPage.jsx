@@ -188,4 +188,8 @@ const StLayout = styled.div`
   padding-top: 190px;
   max-width: 1305px;
   margin: 0 auto;
+
+  @media (max-width: 639px) {
+    padding-top: 40px;
+  }
 `;
