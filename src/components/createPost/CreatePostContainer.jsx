@@ -145,7 +145,7 @@ const CreatePostContainer = () => {
       <TagInput
         selectedTags={selectedTags}
         tags={[]}
-        tagMassage={"태그를 입력해주세요. 엔터키를 치시면 태그가 입력됩니다."}
+        tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
       />
       <StValidationMessage>{validationTags}</StValidationMessage>
       <StButtonWrap>
@@ -182,7 +182,11 @@ const StCreatePostContainerWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 10rem;
+  padding-bottom: 1rem;
+
+  @media (max-width: 639px) {
+    padding: 0 1rem;
+  }
 `;
 
 const StStepTitle = styled.h2`
@@ -215,6 +219,6 @@ const StValidationMessage = styled.p`
   margin-bottom: 1rem;
 
   @media (max-width: 639px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 `;

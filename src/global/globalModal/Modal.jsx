@@ -73,5 +73,10 @@ const ModalContentBox = styled.div`
     .contents {
       padding: 1vh;
     }
+
+    svg.closeButton {
+      width: 25px;
+      height: 25px;
+    }
   }
 `;

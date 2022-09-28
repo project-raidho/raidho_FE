@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { AiOutlineInfo } from "react-icons/ai";
+import IconError from "../assets/iconError.svg";
 
 const Warning = () => {
   return (
     <StWarningWrap>
-      <AiOutlineInfo />
+      {/* <AiOutlineInfo /> */}
+      <img src={IconError} alt="error" />
     </StWarningWrap>
   );
 };
@@ -19,6 +20,12 @@ const StWarningWrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: var(--red-color);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   svg {
     width: 70%;
     height: 70%;
