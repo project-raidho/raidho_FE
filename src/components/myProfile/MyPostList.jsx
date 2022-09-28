@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
+import IconError from "../../assets/iconError.svg";
 
 const MyPostList = ({ isMore, data }) => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const MyPostList = ({ isMore, data }) => {
     <>
       {data.length === 0 && (
         <StMessageMinePost>
+          <img src={IconError} alt="에러" />
           <p>내가 쓴 글이 없어요.</p>
           <Button
             onClick={() => navigate(`/createPost`)}
@@ -41,12 +43,28 @@ export default MyPostList;
 const StMessageMinePost = styled.div`
   width: 100%;
   text-align: center;
+  img {
+    width: 70px;
+  }
 
   p {
     font-size: 1.5rem;
     color: var(--title-color);
     font-style: italic;
     padding: 1rem 0;
+  }
+
+  @media (max-width: 639px) {
+    img {
+      width: 50px;
+    }
+    p {
+      padding: 0.5rem 0;
+      font-size: 1rem;
+    }
+    button {
+      width: 200px;
+    }
   }
 `;
 

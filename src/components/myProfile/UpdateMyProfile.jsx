@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { authInstance } from "../../shared/api";
-// import imageCompression from "browser-image-compression";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
@@ -293,7 +292,7 @@ const StMyProfileBox = styled.div`
 
 const StUpdateProfileTop = styled.div`
   @media (max-width: 639px) {
-    padding-top: 50px;
+    padding-top: 10px;
     input {
       font-size: 1rem;
       border-radius: 30px;

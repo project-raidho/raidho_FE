@@ -15,7 +15,16 @@ const getMeetingList = ({ queryKey }) => {
   console.log("queryKey", queryKey);
   if (queryKey[3] !== "" && queryKey[4] !== "") {
     // ::: start ==> queryKey[3] end ===> queryKey[4]
-    const res = authInstance.get(`/api/meeting/filter/date`);
+    if (queryKey[1] === "") {
+      const res = authInstance.get(
+        `/api/meeting/filter/date/${queryKey[3]}/${queryKey[4]}`
+      );
+      console.log(res);
+      return res;
+    }
+    const res = authInstance.get(
+      `/api/meeting/filter/date/${queryKey[1]}/${queryKey[3]}/${queryKey[4]}`
+    );
     console.log(res);
     return res;
   }
