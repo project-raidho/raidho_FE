@@ -236,6 +236,6 @@ const StLayout = styled.div`
   margin: 0 auto;
 
   @media (max-width: 639px) {
-    /* padding-top: 10px; */
+    padding-top: 70px;
   }
 `;
