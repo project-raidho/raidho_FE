@@ -116,7 +116,7 @@ const Comment = ({ comment }) => {
                 )}
               </div>
 
-              <p>{dday === 0 ? "오늘" : `${dday}일전`}</p>
+              <p className="dday">{dday === 0 ? "오늘" : `${dday}일전`}</p>
             </StmiddleBox>
           </div>
           {userInfo === comment.memberName && (
@@ -193,7 +193,6 @@ const StComment = styled.div`
     display: flex;
     p {
       margin: 0;
-
       font-size: 16px;
     }
   }
@@ -237,6 +236,10 @@ const StmiddleBox = styled.div`
   .name {
     width: 42px;
     font-weight: 900;
+  }
+  p.dday {
+    font-size: 0.9rem;
+    color: var(--gray-color);
   }
 `;
 const Stcontent = styled.div`

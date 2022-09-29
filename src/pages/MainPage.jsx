@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
 import MainContainer from "../components/main/MainContainer";
+// import SearchContainer from "../components/header/search/SearchContainer";
 import IntroTutorial from "../components/main/IntroTutorial";
 import Potal from "../global/globalModal/Potal";
 import styled from "styled-components";
@@ -73,6 +74,9 @@ const MainPage = () => {
   return (
     <StMainPageWrap>
       <MainBanner />
+      {/* <StSearchWrap>
+        <SearchContainer />
+      </StSearchWrap> */}
       <StLayout>
         <StMainNav>
           {stateName === undefined ? (
@@ -115,6 +119,7 @@ export default MainPage;
 
 const StMainPageWrap = styled.div`
   padding-top: 170px;
+  /* padding-top: 380px; */
 
   // top 버튼 적용
   .topBtn {
@@ -146,12 +151,22 @@ const StMainPageWrap = styled.div`
   }
 
   @media ${(props) => props.theme.mobile} {
+    padding-top: 250px;
+
     .topBtn {
       bottom: 60px;
       right: 1rem;
     }
   }
 `;
+
+// const StSearchWrap = styled.div`
+//   padding: 1rem 0;
+//   background-color: red;
+//   @media (max-width: 639px) {
+//     padding: 1rem;
+//   }
+// `;
 
 const StMainNav = styled.div`
   /* position: fixed;
@@ -201,7 +216,7 @@ const StMainNav = styled.div`
     /* top: 57px; */
     justify-content: center;
     padding: 0.8rem 0 0;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     p {
       width: 100px;
       height: 30px;
@@ -216,10 +231,11 @@ const StMainNav = styled.div`
 
 const StLayout = styled.div`
   padding-top: 190px;
+  /* padding-top: 0; */
   max-width: 1305px;
   margin: 0 auto;
 
   @media (max-width: 639px) {
-    padding-top: 40px;
+    /* padding-top: 10px; */
   }
 `;
