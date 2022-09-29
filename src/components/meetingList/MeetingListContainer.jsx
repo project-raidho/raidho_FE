@@ -194,7 +194,7 @@ const StMeetingListContainerWrap = styled.div`
   h2 {
     font-size: 1.8rem;
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     padding-top: 210px;
   }
 `;
@@ -283,7 +283,7 @@ const StCheckStatus = styled.div`
     font-size: 1rem;
     color: var(--title-color);
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     flex-direction: column;
     .react-datepicker-wrapper,
     .react-datepicker__input-container {
@@ -372,7 +372,7 @@ const StMeetingCategoryRow = styled.div`
       }
     }
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     margin-bottom: 0;
     .themeCategoryButton {
       height: 45px;
@@ -397,7 +397,7 @@ const StMeetingCardBox = styled.div`
   @media (max-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

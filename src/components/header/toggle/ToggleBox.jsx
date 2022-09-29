@@ -48,7 +48,7 @@ const StToggleBox = styled.ul`
     display: none;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     position: fixed;
     width: 100vw;
     height: ${(props) => (props.isToggle ? "135px" : "0px")};

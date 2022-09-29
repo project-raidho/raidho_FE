@@ -7,8 +7,15 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
+import DefaultProfileImage from "../../../assets/defaultProfileImage.svg";
+
 const AddCommentForm = () => {
-  const memberImage = localStorage.getItem("memberImage");
+  const userToken = localStorage.getItem("Authorization");
+  const memberImage =
+    userToken !== null
+      ? localStorage.getItem("memberImage")
+      : DefaultProfileImage;
+  const memberName = localStorage.getItem("memberName");
   const { id } = useParams();
   const {
     register,
@@ -40,7 +47,11 @@ const AddCommentForm = () => {
       </div>
       <input
         required
-        placeholder="댓글달기..."
+        placeholder={
+          memberName === null
+            ? "로그인 후 이용 가능합니다."
+            : `${memberName}(으)로 댓글 달기...`
+        }
         aria-invalid={!isDirty ? undefined : errors.content ? "true" : "false"}
         {...register("content", {
           required: "내용은 필수 입력사항입니다.",
@@ -76,14 +87,10 @@ const CommentForm = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 5px 10px;
+  padding: 10px 10px;
   margin-top: 20px;
   margin-bottom: 15px;
-  border: 1px solid;
-  border-radius: 12px;
-  @media ${(props) => props.theme.mobile} {
-    margin: 15px 10px;
-  }
+  border: 1px solid var(--gray-color);
 
   .profileBox {
     width: 40px;
@@ -107,6 +114,15 @@ const CommentForm = styled.div`
     }
   }
   .addButton {
-    font-size: 20px;
+    font-size: 1rem;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    margin: 15px 10px;
+
+    .addButton {
+      width: 70px;
+      font-size: 0.9rem;
+    }
   }
 `;

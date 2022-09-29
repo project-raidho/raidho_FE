@@ -1,32 +1,32 @@
 const theme = {
-    // 메인 테마 컬러 세가지
-    main_color: '#5D6E91',
-    theme_yellow: '#F9964f',
-    theme_gray: '#EEEDED',
-  
-    // 흐린 메인 컬러
-    main_color_blur: '#E7F0F9',
-    // 진한 메인 컬러
-    main_color_thick: '#121B46',
-    // 메시지 색상
-    message_you: '#EEEDED',
-    message_me: '#174090',
-    // 폰트 색상
-    font_color: '#222831',
-  
-    mobile: `(max-width: 767px)`,
-    tablet: `(max-width: 1024px)`,
-    desktop: `(min-width: 1025px)`,
-    flex_column:
-      'display: flex; flex-direction:column; align-items: center; justify-content: space-between; ',
-    flex_row:
-      'display: flex; align-items: center; justify-content: space-between;',
-    default_width:
-      'width:100vw; max-width:768px; box-sizing:border-box; padding:0 1rem',
-    max_width: `max-width:768px`,
-    border_box: `box-sizing:border-box;`,
-  
-    responsiveContainer: `
+  // 메인 테마 컬러 세가지
+  main_color: "#7188ff",
+  theme_yellow: "#F9964f",
+  theme_gray: "#EEEDED",
+
+  // 흐린 메인 컬러
+  main_color_blur: "#E7F0F9",
+  // 진한 메인 컬러
+  main_color_thick: "#121B46",
+  // 메시지 색상
+  message_you: "#EEEDED",
+  message_me: "#174090",
+  // 폰트 색상
+  font_color: "#222831",
+
+  mobile: `(max-width: 639px)`,
+  tablet: `(max-width: 767px)`,
+  desktop: `(min-width: 1025px)`,
+  flex_column:
+    "display: flex; flex-direction:column; align-items: center; justify-content: space-between; ",
+  flex_row:
+    "display: flex; align-items: center; justify-content: space-between;",
+  default_width:
+    "width:100vw; max-width:768px; box-sizing:border-box; padding:0 1rem",
+  max_width: `max-width:768px`,
+  border_box: `box-sizing:border-box;`,
+
+  responsiveContainer: `
     @media (max-width: 1919px) {
       width: 1376px;
     }
@@ -45,7 +45,7 @@ const theme = {
     width: 1728px;
     margin-left: auto;
     margin-right: auto;
-    `
-  };
-  
-  export default theme;
+    `,
+};
+
+export default theme;

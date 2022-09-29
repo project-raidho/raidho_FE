@@ -40,7 +40,8 @@ const Container = styled.div`
   width: 80%;
 
   ${(props) => props.theme.border_box}
-  margin: 10px;
+
+  margin:0 10px 20px 10px;
   cursor: pointer;
   color: ${(props) => props.theme.font_color};
   @media ${(props) => props.theme.mobile} {

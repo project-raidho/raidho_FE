@@ -69,11 +69,12 @@ const Container = styled.div`
   height: 100%;
 
   ${(props) => props.theme.border_box};
-  justify-content: center;
-  /* background-color: ${(props) => props.theme.theme_gray}; */
+  /* justify-content: center; */
 
   position: relative;
-
+  @media (max-width: 1023px) {
+    padding-top: 0px;
+  }
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     height: 13%;
@@ -98,7 +99,6 @@ const ChatListWrap = styled.div`
   width: 100%;
   height: 90%;
   overflow: auto;
-  padding-top: 10px;
   ${(props) => props.theme.flex_column};
   justify-content: flex-start;
   ::-webkit-scrollbar {
