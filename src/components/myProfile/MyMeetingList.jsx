@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import { authInstance } from "../../shared/api";
+
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
@@ -9,21 +8,7 @@ import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 import styled from "styled-components";
 
-const getMeetingMineList = async () => {
-  try {
-    const responsePostList = await authInstance.get(
-      `/api/meeting/myMeetingPost`
-    );
-    console.log(responsePostList);
-    return responsePostList.data.data;
-  } catch (error) {
-    console.log("내가 작성한 모집글 불러오기 오류 :::", error);
-  }
-};
-
-const MyMeetingList = () => {
-  const { status, data, error } = useQuery("meetingList", getMeetingMineList);
-
+const MyMeetingList = ({ status, data, error }) => {
   // ::: 디바이스 화면 크기 확인
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
