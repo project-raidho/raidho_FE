@@ -93,7 +93,6 @@ const MeetingListContainer = () => {
 
     const startDateToString = `${changeStart[2]}-${startMM}-${startDD}`;
     const endDateToString = `${changeEnd[2]}-${endMM}-${endDD}`;
-    console.log(changeStart, changeEnd, startDateToString, endDateToString);
 
     setStartDate(startDateToString);
     setEndDate(endDateToString);
@@ -336,15 +335,25 @@ const StMeetingCategoryRow = styled.div`
     justify-content: center;
     width: 250px;
     height: 55px;
-
     border: 1px solid var(--gray-color);
     border-radius: 15px;
     background-color: var(--bg-color);
     margin-right: 1rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
     overflow: hidden;
     cursor: pointer;
-
+    &:hover {
+      box-shadow: var(--box-shadow);
+      background-color: var(--lightBlue-color);
+      border: 1px solid var(--blue-color);
+    }
+    &:hover a {
+      color: #ffffff;
+    }
+    &:active {
+      border: 1px solid var(--blue-color);
+    }
     a {
       display: flex;
       align-items: center;
@@ -355,7 +364,6 @@ const StMeetingCategoryRow = styled.div`
       height: 100%;
       &.active {
         background-color: var(--lightBlue-color);
-        border: 1px solid var(--blue-color);
         color: #ffffff;
       }
     }

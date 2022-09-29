@@ -58,7 +58,6 @@ const MeetingListCard = ({ meeting }) => {
   };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  //useMutation 첫번째 파라미터: 함수, 두번째 파라미터: 옵션
   const { mutate } = useMutation(onDeleteMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
@@ -109,6 +108,7 @@ const MeetingListCard = ({ meeting }) => {
     }
   };
 
+  // ::: 태그 클릭시 상세페이지 이동
   const onClickMeetingTag = (tag) => {
     const sliceTag = tag.substr(1);
     console.log(sliceTag);
@@ -118,6 +118,7 @@ const MeetingListCard = ({ meeting }) => {
       },
     });
   };
+
   // ::: 찜하기 버튼 기능 구현
   const changeStar = async () => {
     if (!meeting.isStarMine) {
@@ -223,9 +224,13 @@ const MeetingListCard = ({ meeting }) => {
           <p className="memberNameBox">@{meeting.memberName}</p>
         </StMeetingCardRow>
         <StMeetingCardRow className="flexBetweenLayout">
-          <Button size="tag" variant="gray">
+          <StThemeButton
+            size="tag"
+            variant="gray"
+            theme={meeting.themeCategory}
+          >
             {meeting.themeCategory}
-          </Button>
+          </StThemeButton>
           <div>
             {meeting.isMine && (
               <Button
@@ -300,19 +305,16 @@ const StMeetingListCardWrap = styled.div`
   background-color: var(--subBg-color);
   border: 1px solid var(--gray-color);
   border-radius: 15px;
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: var(--box-shadow);
+  }
 
   .markButton {
     position: absolute;
     width: 26px;
     right: 6px;
     top: -3px;
-    svg {
-      path {
-        /* color: ${(props) =>
-          props.star ? "#ffd229" : "var(--gray-color)"}; */
-        color: #ffd229;
-      }
-    }
   }
 
   h3 {
@@ -518,12 +520,13 @@ const StMeetingCardRow = styled.div`
     align-items: center;
     height: 30px;
     bottom: 45px;
-    right: -27px;
+    right: -28px;
     font-size: 1rem;
     color: #ffffff;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: var(--lightBlue-color);
+    box-shadow: var(--box-shadow);
     padding: 3px 2rem 3px 20px;
   }
 
@@ -563,4 +566,25 @@ const StMeetingCardRow = styled.div`
       padding: 3px 1rem 3px 20px;
     }
   }
+`;
+
+const StThemeButton = styled(Button)`
+  ${(props) =>
+    props.theme === "국내" &&
+    `background-color:var(--theme-korea-color); color: #ffffff;`}
+  ${(props) =>
+    props.theme === "유럽" &&
+    `background-color:var(--theme-europe-color); color: #ffffff;`}
+    ${(props) =>
+    props.theme === "아메리카" &&
+    `background-color:var(--theme-america-color); color: #ffffff;`}
+    ${(props) =>
+    props.theme === "아시아" &&
+    `background-color:var(--theme-asia-color); color: #ffffff;`}
+    ${(props) =>
+    props.theme === "오세아니아" &&
+    `background-color:var(--theme-oseania-color); color: #ffffff;`}
+    ${(props) =>
+    props.theme === "아프리카" &&
+    `background-color:var(--theme-africa-color); color: #ffffff;`}
 `;
