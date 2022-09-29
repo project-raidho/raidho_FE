@@ -86,6 +86,24 @@ const StIntroTutorialWrap = styled.div`
   @media ${(props) => props.theme.mobile} {
     .slideItems {
       line-height: 400px;
+
+      &.slideItemLast {
+        position: relative;
+        height: 361px;
+        background-color: #fff;
+        img {
+          width: 90%;
+          margin: 0 auto;
+        }
+        .buttonStart {
+          position: absolute;
+          width: 100px;
+          height: 32px;
+          bottom: 5px;
+          left: 50%;
+          margin-left: -50px;
+        }
+      }
     }
   }
 `;
