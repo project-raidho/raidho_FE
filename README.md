@@ -1,4 +1,4 @@
-<img src="https://github.com/project-raidho/raidho_FE/blob/dev/src/assets/banner/raidhoIntro.png?raw=true" width="900">
+<img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/src/assets/banner/raidhoIntro.png?raw=true" width="900">
 
 ## 프로젝트 소개
 
