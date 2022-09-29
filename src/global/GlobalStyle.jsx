@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     --text-color: #1E1E1E;
     --menu-color : #666666;
     --font-style: 'Pretendard-Regular';
-    --box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.20);
+    --box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.20);
     --button-shadow : 0px 2px 2px rgba(0, 0, 0, 0.15);
     --header-shadow : 0px 2px 2px rgba(0, 0, 0, 0.15);
     --header-bottom-shadow : 0px -2px 2px rgba(0, 0, 0, 0.15); 
@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #ffffff;
     --text-color: #ffffff;
     --menu-color : #ffffff;
-    --box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.2);
+    --box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
     --button-shadow : 0px 2x 2px rgba(255, 255, 255, 0.15);
     --header-shadow : 0px 2px 2px rgba(255, 255, 255, 0.15);
     --header-bottom-shadow : 0px -2px 2px rgba(255, 255, 255, 0.15);

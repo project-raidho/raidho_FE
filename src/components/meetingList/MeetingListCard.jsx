@@ -478,6 +478,7 @@ const StMeetingCardRow = styled.div`
     bottom: 45px;
     right: -27px;
     font-size: 1rem;
+    color: #ffffff;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: var(--lightBlue-color);
@@ -509,7 +510,7 @@ const StMeetingCardRow = styled.div`
     .isInMeetingMsg {
       height: 30px;
       bottom: 45px;
-      right: -15px;
+      right: -16px;
       font-size: 0.8rem;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;

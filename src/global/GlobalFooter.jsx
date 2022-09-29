@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { BsGithub } from "react-icons/bs";
 import styled from "styled-components";
@@ -22,7 +21,7 @@ const GlobalFooter = () => {
   return (
     <StFooterWrap isNoNeed={isNoNeed}>
       <StCenterBox>
-        <StFooterMenu>
+        {/* <StFooterMenu>
           <li>
             <Link to={`/`}>여행후기</Link>
           </li>
@@ -32,7 +31,7 @@ const GlobalFooter = () => {
           <li>
             <Link to={`/myProfile`}>마이페이지</Link>
           </li>
-        </StFooterMenu>
+        </StFooterMenu> */}
         <h4>
           <BsGithub
             onClick={() =>
@@ -146,50 +145,50 @@ export default GlobalFooter;
 const StFooterWrap = styled.div`
   display: ${(props) => (props.isNoNeed ? "none" : "block")};
   width: 100%;
-  height: 310px;
+  height: 280px;
   background-color: var(--sub-color);
 
   @media (max-width: 639px) {
-    height: 350px;
+    height: 300px;
     padding-bottom: 50px;
   }
 `;
 
-const StFooterMenu = styled.ul`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 30px;
-  margin-bottom: 1rem;
+// const StFooterMenu = styled.ul`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   height: 30px;
+//   margin-bottom: 1rem;
 
-  li {
-    height: 20px;
-    border-right: 1px solid var(--gray-color);
-    a {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      font-size: 1rem;
-      font-weight: bolder;
-      padding: 0 15px;
-    }
+//   li {
+//     height: 20px;
+//     border-right: 1px solid var(--gray-color);
+//     a {
+//       display: flex;
+//       align-items: center;
+//       height: 100%;
+//       font-size: 1rem;
+//       font-weight: bolder;
+//       padding: 0 15px;
+//     }
 
-    &:last-child {
-      border-right: 0;
-    }
-  }
-  @media (max-width: 639px) {
-    ul {
-      li {
-        a {
-          font-size: 0.8rem;
-        }
-      }
-    }
-  }
-`;
+//     &:last-child {
+//       border-right: 0;
+//     }
+//   }
+//   @media (max-width: 639px) {
+//     ul {
+//       li {
+//         a {
+//           font-size: 0.8rem;
+//         }
+//       }
+//     }
+//   }
+// `;
 
 const StCenterBox = styled.div`
   display: flex;
