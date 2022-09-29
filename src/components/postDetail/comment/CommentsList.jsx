@@ -51,17 +51,19 @@ const StCommentListWrap = styled.div`
     font-size: 1rem;
     text-align: right;
     color: var(--gray-color);
+    padding: 8px 0px;
+    cursor: pointer;
   }
   @media ${(props) => props.theme.mobile} {
     p.buttonCommentsAll {
-      padding: 0 10px;
+      padding: 5px 10px;
       font-size: 0.9rem;
     }
   }
 `;
 
 const StCommentsList = styled.div`
-  height: ${(props) => (props.isAll ? "auto" : "110px")};
+  height: ${(props) => (props.isAll ? "auto" : "125px")};
   transition: 0.7s;
   overflow: hidden;
 
