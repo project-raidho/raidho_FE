@@ -16,7 +16,7 @@ const getMeetingMineList = async () => {
   return res.data.data;
 };
 const getMeetingListLiked = async () => {
-  const res = await authInstance.get(`/api/meeting/myMeetingPost`);
+  const res = await authInstance.get(`/api/meeting/myHeartMeetingPost`);
   return res.data.data;
 };
 

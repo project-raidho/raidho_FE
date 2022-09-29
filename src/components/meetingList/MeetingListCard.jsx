@@ -121,11 +121,13 @@ const MeetingListCard = ({ meeting }) => {
   // ::: 찜하기 버튼 기능 구현
   const changeStar = async () => {
     if (!meeting.isStarMine) {
-      const res = await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+      const res = await authInstance.post(
+        `/api/meetingPostStar/${Number(meeting.id)}`
+      );
       console.log(res);
     } else {
       const res = await authInstance.delete(
-        `/api/meetingPostStar/${meeting.id}`
+        `/api/meetingPostStar/${Number(meeting.id)}`
       );
       console.log(res);
     }
