@@ -145,7 +145,7 @@ const StMainPageWrap = styled.div`
     outline: 0 none;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     .topBtn {
       bottom: 60px;
       right: 1rem;

@@ -57,7 +57,7 @@ const StIntroTutorialWrap = styled.div`
     line-height: 530px;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     .slideItems {
       line-height: 400px;
     }
@@ -122,7 +122,7 @@ const ModalContentBox = styled.div`
   }
   @media (max-width: 767px) {
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     width: 300px;
     height: 450px;
     top: 70px;

@@ -578,7 +578,7 @@ const StValidationMsg = styled.p`
   font-weight: 300;
   color: var(--main-color);
   margin-bottom: 1rem;
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     font-size: 0.9rem;
   }
 `;

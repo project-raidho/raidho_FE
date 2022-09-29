@@ -362,7 +362,7 @@ const StContainer = styled.div`
   }
   @media (max-width: 767px) {
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
   }
 `;
 const StCreatePostColumn = styled.div`

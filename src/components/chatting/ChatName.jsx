@@ -14,6 +14,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 // import { ImExit } from "react-icons/im";
 // import { AiOutlineClose } from "react-icons/ai";
 import { IoExitOutline } from "react-icons/io5";
+import Button from "../../elements/Button";
 // 채팅방 정보 단건조회
 const getChatDetail = async ({ queryKey }) => {
   return await authInstance.get(`/api/chat/rooms/${Number(queryKey[1])}`);
@@ -110,24 +111,40 @@ const ChatName = () => {
     <Container>
       <StInfoBox isOpenInfo={isOpenInfo}>
         <StTitleBox>
-          {chatDetail.title}
-          <StRightButtonSet>
+          <div className="title">
+            <div>{chatDetail.title}</div>
             {isOpenInfo ? (
               <FaAngleUp
                 className="icon"
+                size="24"
                 onClick={() => setIsOpenInfo(false)}
               />
             ) : (
               <FaAngleDown
                 className="icon"
+                size="24"
                 onClick={() => setIsOpenInfo(true)}
               />
             )}
-            <RiDeleteBin6Fill
-              className="icon"
+          </div>
+
+          <StRightButtonSet>
+            <Button
+              size="small"
+              variant="lineBlue"
+              className="button"
               onClick={() => onDeleteHandler()}
-            />
-            <IoExitOutline className="icon" onClick={() => onCloseHandler()} />
+            >
+              삭제
+            </Button>
+            <Button
+              size="small"
+              variant="lineBlue"
+              className="button"
+              onClick={() => onCloseHandler()}
+            >
+              닫기
+            </Button>
           </StRightButtonSet>
         </StTitleBox>
         {isOpenInfo && (
@@ -200,10 +217,37 @@ const Container = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 10%;
-  /* background-color: ${(props) => props.theme.theme_gray}; */
 
   color: ${(props) => props.theme.font_color};
   padding: 20px;
+
+  .title {
+    display: flex;
+    div {
+      margin-top: 3px;
+      color: #fff;
+    }
+  }
+  .icon {
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 10px;
+    color: #fff;
+    path {
+      color: #fff;
+    }
+  }
+  .button {
+    width: 70px;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid #fff;
+    margin-right: 5px;
+    margin-left: 10px;
+    color: #fff;
+    padding: 0 10px;
+  }
 
   @media ${(props) => props.theme.mobile} {
     font-size: 1rem;
@@ -221,6 +265,7 @@ const StInfoBox = styled.div`
   background-color: var(--lightBlue-color);
 
   height: ${(props) => (props.isOpenInfo === true ? "250px" : "50px")};
+
   p {
     margin-bottom: 3px;
     color: #fff;
@@ -250,15 +295,7 @@ const StTitleBox = styled.div`
 
 const StRightButtonSet = styled.div`
   align-items: center;
-
-  .icon {
-    font-size: 25px;
-
-    cursor: pointer;
-    margin-right: 8px;
-    margin-left: 5px;
-    path {
-      color: #fff;
-    }
+  button {
+    font-size: 1rem;
   }
 `;

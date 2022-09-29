@@ -108,11 +108,11 @@ const EnterWrap = styled.div`
   width: 40%;
   height: auto;
   padding: 5px;
-  margin: 0px 0px 60px 0px;
-  background-color: ${(props) => props.theme.theme_yellow};
+  margin: 0px 0px 40px 0px;
+  background-color: #7188ff;
   color: whitesmoke;
   border-radius: 40px;
-  opacity: 0.6;
+  opacity: 0.8;
   @media ${(props) => props.theme.mobile} {
     width: 80%;
   }
@@ -125,11 +125,11 @@ const QuitWrap = styled.div`
   width: 40%;
   height: auto;
   padding: 5px;
-  margin: 0px 0px 60px 0px;
-  background-color: ${(props) => props.theme.main_color_thick};
+  margin: 0px 0px 40px 0px;
+  background-color: #7188ff;
   color: whitesmoke;
   border-radius: 40px;
-  opacity: 0.6;
+  opacity: 0.8;
   @media ${(props) => props.theme.mobile} {
     width: 80%;
   }

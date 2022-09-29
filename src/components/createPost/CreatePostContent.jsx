@@ -66,7 +66,7 @@ const StValidationMsg = styled.p`
   color: var(--title-color);
   margin-bottom: 1rem;
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     font-size: 1rem;
     color: var(--title-color);
     margin-bottom: 0.5rem;

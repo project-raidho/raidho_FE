@@ -134,7 +134,7 @@ const ModalContentBox = styled.div`
   }
   @media (max-width: 767px) {
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     width: 90vw;
     height: 40vh;
     top: 10vh;
@@ -169,7 +169,7 @@ const SocialLoginbutton = styled.a`
     height: 100%;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     img {
       width: 300px;
     }
