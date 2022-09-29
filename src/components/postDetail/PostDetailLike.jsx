@@ -37,7 +37,7 @@ const PostDetailLike = ({ postDetail }) => {
       queryClient.invalidateQueries("postLists");
     },
     onError: () => {
-      setModalIcon("info");
+      setModalIcon("warning");
       setAlertMsg("로그인 후 좋아요 버튼을 누를 수 있습니다.");
       setModalOn(true);
     },

@@ -63,7 +63,7 @@ const StMainBannerWrap = styled.div`
   position: absolute;
   top: 55px;
   left: 0;
-  width: 100vw;
+  width: 99.7%;
   height: 375px;
   background-color: var(--gray-color);
   background-image: url(${BannerBg});

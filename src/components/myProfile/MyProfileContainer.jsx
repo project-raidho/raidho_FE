@@ -17,6 +17,10 @@ const getPostMineList = async () => {
   return responsePostList.data.data;
 };
 
+const getPostMineCommented = async () => {
+  return await authInstance.get(`/api/post/commented`);
+};
+
 const MyProfileContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +29,17 @@ const MyProfileContainer = () => {
   // ::: 게시글 더보기 기능 구현
   const [isMore, setIsMore] = useState(false);
   const { status, data, error } = useQuery("postList", getPostMineList);
+
+  const MineCommentedQuery = useQuery(
+    "postListCommented",
+    getPostMineCommented,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+  console.log(MineCommentedQuery);
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
@@ -61,6 +76,10 @@ const MyProfileContainer = () => {
   };
 
   console.log("data", data);
+
+  if (MineCommentedQuery.isLoading) {
+    return null;
+  }
   return (
     <StMyProfileContainerWrap>
       <StMyProfileTitleRow>

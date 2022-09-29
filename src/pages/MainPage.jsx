@@ -118,6 +118,7 @@ const MainPage = () => {
 export default MainPage;
 
 const StMainPageWrap = styled.div`
+  width: 100%;
   padding-top: 170px;
   /* padding-top: 380px; */
 
