@@ -121,13 +121,17 @@ const MeetingListCard = ({ meeting }) => {
   // ::: 찜하기 버튼 기능 구현
   const changeStar = async () => {
     if (!meeting.isStarMine) {
-      await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+      const res = await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+      console.log(res);
     } else {
-      await authInstance.delete(`/api/meetingPostStar/${meeting.id}`);
+      const res = await authInstance.delete(
+        `/api/meetingPostStar/${meeting.id}`
+      );
+      console.log(res);
     }
   };
 
-  const { mutateStar } = useMutation(changeStar, {
+  const mutateStar = useMutation(changeStar, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
     },
@@ -141,7 +145,7 @@ const MeetingListCard = ({ meeting }) => {
   return (
     <StMeetingListCardWrap>
       <p className="markButton">
-        <MarkButton star={meeting.isStarMine} onClick={mutateStar} />
+        <MarkButton star={meeting.isStarMine} onClick={mutateStar.mutate} />
       </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
