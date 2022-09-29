@@ -231,7 +231,7 @@ const MeetingListCard = ({ meeting }) => {
               )}
 
             {meeting.isAlreadyJoin && !meeting.isMine && (
-              <p className="isInMeetingMsg">이미 참여중인 모집입니다.</p>
+              <p className="isInMeetingMsg">참여중</p>
             )}
           </div>
         </StMeetingCardRow>
@@ -464,11 +464,16 @@ const StMeetingCardRow = styled.div`
 
   .isInMeetingMsg {
     position: absolute;
-    height: 15px;
-    bottom: -30px;
-    right: 10px;
-    font-size: 0.8rem;
-    font-style: italic;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    bottom: 45px;
+    right: -27px;
+    font-size: 1rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--lightBlue-color);
+    padding: 3px 2rem 3px 20px;
   }
 
   @media (max-width: 639px) {
@@ -491,6 +496,16 @@ const StMeetingCardRow = styled.div`
 
     button {
       padding: 0px 8px;
+    }
+
+    .isInMeetingMsg {
+      height: 30px;
+      bottom: 45px;
+      right: -15px;
+      font-size: 0.8rem;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      padding: 3px 1rem 3px 20px;
     }
   }
 `;
