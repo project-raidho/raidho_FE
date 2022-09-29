@@ -25,7 +25,7 @@ const Background = styled.div`
   top: 0;
   text-align: center;
   background: rgba(0, 0, 0, 0);
-  z-index: 11;
+  z-index: 20;
 `;
 const ModalContentBox = styled.div`
   position: fixed;
@@ -38,7 +38,7 @@ const ModalContentBox = styled.div`
   background-color: var(--bg-color);
   border-radius: 15px;
   box-shadow: var(--box-shadow);
-  z-index: 12;
+  z-index: 21;
   text-align: center;
   .contents {
     display: flex;

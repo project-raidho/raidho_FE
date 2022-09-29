@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
 import MainContainer from "../components/main/MainContainer";
+import IntroTutorial from "../components/main/IntroTutorial";
+import Potal from "../global/globalModal/Potal";
 import styled from "styled-components";
 import { MdKeyboardArrowUp } from "react-icons/md";
 
@@ -10,6 +12,15 @@ const MainPage = () => {
   const [state, setState] = useState(
     stateName === undefined ? "latest" : stateName
   );
+
+  // ::: 모달 여부 확인하기
+  const [modalOn, setModalOn] = useState(false);
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
+  // ::: 처음 들어온 유저인지 확인
+  const isFirstUser = localStorage.getItem("firstUser");
 
   useEffect(() => {
     const changeState = stateName === undefined ? "latest" : stateName;
@@ -48,6 +59,17 @@ const MainPage = () => {
       window.removeEventListener("scroll", handleFollow);
     };
   });
+
+  // ::: 처음 들어온 유저 확인
+  useEffect(() => {
+    if (!isFirstUser || isFirstUser === null) {
+      setModalOn(true);
+    } else {
+      setModalOn(false);
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <StMainPageWrap>
       <MainBanner />
@@ -84,6 +106,7 @@ const MainPage = () => {
         className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
         onClick={handleTop} // 버튼 클릭시 함수 호출
       />
+      <Potal>{modalOn && <IntroTutorial onClose={handleModal} />}</Potal>
     </StMainPageWrap>
   );
 };
