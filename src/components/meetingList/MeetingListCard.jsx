@@ -19,8 +19,6 @@ const onDeleteMeeting = async (meetingId) => {
   }
 };
 
-// ::: 찜하기 버튼 기능 구현
-
 const MeetingListCard = ({ meeting }) => {
   //   function connect() {
   //     // pub/sub event
@@ -120,7 +118,7 @@ const MeetingListCard = ({ meeting }) => {
       },
     });
   };
-
+  // ::: 찜하기 버튼 기능 구현
   const changeStar = async () => {
     if (!meeting.isStarMine) {
       await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
@@ -306,9 +304,15 @@ const StMeetingListCardWrap = styled.div`
   .markButton {
     position: absolute;
     width: 26px;
-
     right: 6px;
     top: -3px;
+    svg {
+      path {
+        /* color: ${(props) =>
+          props.star ? "#ffd229" : "var(--gray-color)"}; */
+        color: #ffd229;
+      }
+    }
   }
 
   h3 {
