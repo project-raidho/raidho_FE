@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";
+import MarkButton from "../../elements/MarkButton";
+
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
   try {
@@ -116,8 +118,31 @@ const MeetingListCard = ({ meeting }) => {
     });
   };
 
+  // ::: 찜하기 버튼 기능 구현
+  const changeStar = async () => {
+    if (!meeting.isStarMine) {
+      await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+    } else {
+      await authInstance.delete(`/api/meetingPostStar/${meeting.id}`);
+    }
+  };
+
+  const { mutateStar } = useMutation(changeStar, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("meetingList");
+    },
+    onError: () => {
+      setModalIcon("warning");
+      setAlertMsg("로그인 후 찜하기 버튼을 누를수 있습니다.");
+      setModalOn(true);
+    },
+  });
+
   return (
     <StMeetingListCardWrap>
+      <p className="markButton">
+        <MarkButton star={meeting.isStarMine} onClick={mutateStar} />
+      </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
           <p className="infoStatus">
@@ -262,6 +287,7 @@ const MeetingListCard = ({ meeting }) => {
 export default MeetingListCard;
 
 const StMeetingListCardWrap = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -272,6 +298,14 @@ const StMeetingListCardWrap = styled.div`
   background-color: var(--subBg-color);
   border: 1px solid var(--gray-color);
   border-radius: 15px;
+
+  .markButton {
+    position: absolute;
+    width: 26px;
+
+    right: 6px;
+    top: -3px;
+  }
 
   h3 {
     font-size: 1.7rem;
@@ -492,6 +526,10 @@ const StMeetingCardRow = styled.div`
 
     .infoStatus {
       font-size: 1rem;
+
+      &.infoStatus:last-child {
+        margin-right: 20px;
+      }
     }
     .memberImageBox {
       width: 35px;
