@@ -71,7 +71,9 @@ const StMainBannerWrap = styled.div`
   left: 0;
   width: 99.7%;
   height: 375px;
-  background-color: var(--gray-color);
+  background-image: url(${BannerBg1});
+  background-repeat: repeat-x;
+  background-size: cover;
 
   .contentBox {
     text-align: center;
@@ -109,6 +111,10 @@ const StMainBannerWrap = styled.div`
       &.contentBox1 {
         background-size: auto 100%;
         background-position-x: 45%;
+      }
+      &.contentBox2 {
+        background-size: auto 100%;
+        background-position-x: 35%;
       }
       .centerBox {
         width: 100%;
