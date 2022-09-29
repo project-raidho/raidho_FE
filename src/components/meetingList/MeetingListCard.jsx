@@ -19,15 +19,6 @@ const onDeleteMeeting = async (meetingId) => {
   }
 };
 
-// ::: 찜하기 버튼 기능 구현
-const changeStar = async (meetingId, isStarMine) => {
-  if (!isStarMine) {
-    await authInstance.post(`/api/meetingPostStar/${meetingId}`);
-  } else {
-    await authInstance.delete(`/api/meetingPostStar/${meetingId}`);
-  }
-};
-
 const MeetingListCard = ({ meeting }) => {
   //   function connect() {
   //     // pub/sub event
@@ -71,6 +62,7 @@ const MeetingListCard = ({ meeting }) => {
   const { mutate } = useMutation(onDeleteMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
+      queryClient.invalidateQueries("meetingListMine");
     },
   });
 
@@ -126,10 +118,20 @@ const MeetingListCard = ({ meeting }) => {
       },
     });
   };
+  // ::: 찜하기 버튼 기능 구현
+  const changeStar = async () => {
+    if (!meeting.isStarMine) {
+      await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+    } else {
+      await authInstance.delete(`/api/meetingPostStar/${meeting.id}`);
+    }
+  };
 
   const mutateStar = useMutation(changeStar, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
+      queryClient.invalidateQueries("meetingListMine");
+      queryClient.invalidateQueries("MeetingListLiked");
     },
     onError: () => {
       setModalIcon("warning");
@@ -141,10 +143,7 @@ const MeetingListCard = ({ meeting }) => {
   return (
     <StMeetingListCardWrap>
       <p className="markButton">
-        <MarkButton
-          star={meeting.isStarMine}
-          onClick={() => mutateStar.mutate(meeting.id, meeting.isStarMine)}
-        />
+        <MarkButton star={meeting.isStarMine} onClick={mutateStar.mutate} />
       </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
@@ -305,9 +304,15 @@ const StMeetingListCardWrap = styled.div`
   .markButton {
     position: absolute;
     width: 26px;
-
     right: 6px;
     top: -3px;
+    svg {
+      path {
+        /* color: ${(props) =>
+          props.star ? "#ffd229" : "var(--gray-color)"}; */
+        color: #ffd229;
+      }
+    }
   }
 
   h3 {
