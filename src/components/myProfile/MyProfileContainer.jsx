@@ -28,6 +28,7 @@ const MyProfileContainer = () => {
 
   // ::: 게시글 더보기 기능 구현
   const [isMore, setIsMore] = useState(false);
+  const [isMoreMeeting, setIsMoreMeeting] = useState(false);
   const { status, data, error } = useQuery("postList", getPostMineList);
 
   const MineCommentedQuery = useQuery(
@@ -43,6 +44,9 @@ const MyProfileContainer = () => {
 
   const onClickMorePost = () => {
     setIsMore(!isMore);
+  };
+  const onClickMoreMeeting = () => {
+    setIsMoreMeeting(!isMoreMeeting);
   };
 
   const darkOnOff = (event) => {
@@ -87,16 +91,30 @@ const MyProfileContainer = () => {
         <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <UpdateMyProfile />
+      <div>
+        <div className="menubox"></div>
+        <div></div>
+      </div>
+
       <StMyProfileTitleRow>
         <h3>내가 작성한 모집글</h3>
-        <span className="bgMiddleLine" />
+        <button onClick={onClickMoreMeeting}>펼치기</button>
       </StMyProfileTitleRow>
       <MyMeetingList />
       <StMyProfileTitleRow>
         <h3>내가 작성한 여행후기</h3>
-        <span className="bgMiddleLine" />
       </StMyProfileTitleRow>
       <MyPostList isMore={isMore} data={data} />
+      {data.length > 4 ? (
+        <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
+          <p onClick={onClickMorePost}>더보기</p>
+        </StMyProfileTitleRow>
+      ) : null}
+      <StMyProfileTitleRow>
+        <h3>내가 댓글단 여행후기</h3>
+        <span className="bgMiddleLine" />
+      </StMyProfileTitleRow>
+      <MyPostList isMore={isMore} data={MineCommentedQuery.data.data.data} />
       {data.length > 4 ? (
         <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
           <p onClick={onClickMorePost}>더보기</p>
@@ -135,6 +153,7 @@ const StMyProfileContainerWrap = styled.div`
 `;
 
 const StMyProfileTitleRow = styled.div`
+  border: 1px solid;
   position: relative;
   display: flex;
   flex-direction: row;
