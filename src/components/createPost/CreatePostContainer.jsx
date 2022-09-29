@@ -128,13 +128,17 @@ const CreatePostContainer = () => {
 
   return (
     <StCreatePostContainerWrap>
-      <StStepTitle>이미지 업로드</StStepTitle>
+      <StStepTitle>
+        이미지 업로드 <span>*</span>
+      </StStepTitle>
       <CreatePostImage
         selectedPostImages={selectedPostImages}
         setValidationImages={setValidationImages}
       />
       <StValidationMessage>{validationImages}</StValidationMessage>
-      <StStepTitle>내용</StStepTitle>
+      <StStepTitle>
+        내용 <span>*</span>
+      </StStepTitle>
       <ContentTextArea
         typedPostContent={typedPostContent}
         placeholderText={"여행에서 경험한 내용을 작성해주세요."}
@@ -142,7 +146,9 @@ const CreatePostContainer = () => {
         ValRedMsg={validationContent}
       />
 
-      <StStepTitle>태그</StStepTitle>
+      <StStepTitle>
+        태그 <span>*</span>
+      </StStepTitle>
       <TagInput
         selectedTags={selectedTags}
         tags={[]}
@@ -201,6 +207,12 @@ const StStepTitle = styled.h2`
   align-items: center;
   padding-top: 1.2rem;
   margin-bottom: 0.8rem;
+  span {
+    font-size: 0.9rem;
+    color: var(--main-color);
+    margin-top: 10px;
+    margin-left: 3px;
+  }
 `;
 
 const StButtonWrap = styled.div`
