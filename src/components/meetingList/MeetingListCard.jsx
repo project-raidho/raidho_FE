@@ -19,6 +19,15 @@ const onDeleteMeeting = async (meetingId) => {
   }
 };
 
+// ::: 찜하기 버튼 기능 구현
+const changeStar = async (meetingId, isStarMine) => {
+  if (!isStarMine) {
+    await authInstance.post(`/api/meetingPostStar/${meetingId}`);
+  } else {
+    await authInstance.delete(`/api/meetingPostStar/${meetingId}`);
+  }
+};
+
 const MeetingListCard = ({ meeting }) => {
   //   function connect() {
   //     // pub/sub event
@@ -118,21 +127,6 @@ const MeetingListCard = ({ meeting }) => {
     });
   };
 
-  // ::: 찜하기 버튼 기능 구현
-  const changeStar = async () => {
-    if (!meeting.isStarMine) {
-      const res = await authInstance.post(
-        `/api/meetingPostStar/${Number(meeting.id)}`
-      );
-      console.log(res);
-    } else {
-      const res = await authInstance.delete(
-        `/api/meetingPostStar/${Number(meeting.id)}`
-      );
-      console.log(res);
-    }
-  };
-
   const mutateStar = useMutation(changeStar, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
@@ -147,7 +141,10 @@ const MeetingListCard = ({ meeting }) => {
   return (
     <StMeetingListCardWrap>
       <p className="markButton">
-        <MarkButton star={meeting.isStarMine} onClick={mutateStar.mutate} />
+        <MarkButton
+          star={meeting.isStarMine}
+          onClick={() => mutateStar.mutate(meeting.id, meeting.isStarMine)}
+        />
       </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
