@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
+import LoginModal from "../login/LoginContainer";
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
   try {
@@ -42,6 +43,10 @@ const MeetingListCard = ({ meeting }) => {
   const [modalIcon, setModalIcon] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
 
+  const [loginModalOn, setLoginModalOn] = useState(false);
+  const handleLoginModal = () => {
+    setLoginModalOn(!loginModalOn);
+  };
   const onCloseModal = () => {
     setModalOn(!modalOn);
   };
@@ -87,7 +92,7 @@ const MeetingListCard = ({ meeting }) => {
   const onJoinRoom = async (id) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
-      console.log(res);
+
       //인원 풀이면 오류 처리
       if (res.data.body === "FULL") {
         setModalIcon("info");
@@ -97,9 +102,7 @@ const MeetingListCard = ({ meeting }) => {
       navigate(`/chatting/${meeting.id}`);
     } catch (e) {
       console.log(e);
-      setModalIcon("warning");
-      setAlertMsg("로그인이 필요합니다.");
-      setModalOn(true);
+      setLoginModalOn(true);
     }
   };
 
@@ -236,10 +239,15 @@ const MeetingListCard = ({ meeting }) => {
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
+      <Potal>
+        {loginModalOn && (
+          <LoginModal className="loginModal" onClose={handleLoginModal} />
+        )}
+      </Potal>
 
       <Potal>
         {modalOn && (
-          <Modal
+          <AlertModal
             onCloseModal={onCloseModal}
             modalIcon={modalIcon}
             alertMsg={alertMsg}
