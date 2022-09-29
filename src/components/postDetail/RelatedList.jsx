@@ -74,6 +74,10 @@ const StRelatedTitleRow = styled.div`
     padding-right: 25px;
     background-color: var(--bg-color);
     z-index: 2;
+    @media ${(props) => props.theme.mobile} {
+      font-size: 1.2rem;
+      margin-left: 10px;
+    }
   }
 
   .bgMiddleLine {
@@ -106,6 +110,7 @@ const StRelatedListWrap = styled.div`
   @media (max-width: 639px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    margin: 0 10px;
   }
 `;
 

@@ -114,6 +114,9 @@ const StDetailContainer = styled.div`
     margin-top: 10px;
     margin-right: 10px;
     cursor: pointer;
+    @media ${(props) => props.theme.mobile} {
+      margin-left: 10px;
+    }
   }
   .deleteButton {
     float: right;
@@ -134,5 +137,8 @@ const StContentBox = styled.div`
   width: 100%;
   height: auto;
   line-height: 1.5;
-  font-size: 1.5rem;
+
+  @media ${(props) => props.theme.mobile} {
+    margin-left: 10px;
+  }
 `;

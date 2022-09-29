@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
 import { useEffect } from "react";
+// import CofirmModal from "../../../global/globalModal/CofirmModal";
+// import Potal from "../../../global/globalModal/Potal";
 
 const Comment = ({ comment }) => {
   const userInfo = localStorage.getItem("memberName");
@@ -13,13 +15,23 @@ const Comment = ({ comment }) => {
   // const { content } = useSelector((state) => state.comment.data);
   // 댓글 삭제 axios
   const onDeleteComment = async (commentId) => {
-    const result = window.confirm("삭제하시겠습니까?");
-    if (result) {
-      return await authInstance.delete(`/api/comment/${commentId}`);
-    } else {
-      return;
-    }
+    await authInstance.delete(`/api/comment/${commentId}`);
+    // setModalIcon("warning");
+    // setAlertMsg("댓글을 정말 삭제하시겠습니까?");
+    // setModalOn(true);
   };
+  //모달 상태관리
+  // const [modalOn, setModalOn] = useState(false);
+  // const [modalIcon, setModalIcon] = useState("");
+  // const [alertMsg, setAlertMsg] = useState("");
+
+  // const onCloseModal = () => {
+  //   setModalOn(!modalOn);
+  // };
+  // const onClickYes = async (commentId) => {
+  //   setModalOn(!modalOn);
+  // };
+
   // 댓글 수정 axios(저장 버튼 클릭시)
   const onUpadteComment = async (commentId) => {
     await authInstance.put(`/api/comment/${commentId}`, {
@@ -42,6 +54,7 @@ const Comment = ({ comment }) => {
   const deleteMutate = useMutation(onDeleteComment, {
     onSuccess: () => {
       queryClient.invalidateQueries("commentList");
+      queryClient.invalidateQueries("postDetail");
     },
   });
   const updateMutate = useMutation(onUpadteComment, {
@@ -149,6 +162,19 @@ const Comment = ({ comment }) => {
             </>
           )}
         </StComment>
+        {/* <Potal>
+          {modalOn && (
+            <CofirmModal
+              onCloseModal={onCloseModal}
+              modalIcon={modalIcon}
+              alertMsg={alertMsg}
+              onClickYes={() => {
+                onClickYes(comment.id);
+              }}
+              onClickNo={onCloseModal}
+            />
+          )}
+        </Potal> */}
       </>
     </div>
   );

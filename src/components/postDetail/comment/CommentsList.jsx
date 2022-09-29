@@ -35,4 +35,8 @@ function CommentsList() {
 
 export default CommentsList;
 
-const StCommentsList = styled.div``;
+const StCommentsList = styled.div`
+  @media ${(props) => props.theme.mobile} {
+    margin: 0 10px;
+  }
+`;

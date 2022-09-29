@@ -38,4 +38,7 @@ const StTagWrapper = styled.div`
     color: var(--main-color);
     cursor: pointer;
   }
+  @media ${(props) => props.theme.mobile} {
+    margin-left: 10px;
+  }
 `;
