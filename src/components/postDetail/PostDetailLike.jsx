@@ -6,7 +6,7 @@ import HeartButton from "../../elements/HeartButton";
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import { useMutation, useQueryClient } from "react-query";
-
+import { BsChat } from "react-icons/bs";
 const PostDetailLike = ({ postDetail }) => {
   const { id } = useParams();
   const [modalOn, setModalOn] = useState(false);
@@ -44,13 +44,15 @@ const PostDetailLike = ({ postDetail }) => {
   });
 
   return (
-    <StlikeWrapper>
-      <StHeartCountBox>{postDetail.heartCount}</StHeartCountBox>
+    <StLikeWrapper>
       <HeartButton
         like={postDetail.isHeartMine}
         onClick={mutate}
         className="iconHeart"
       />
+      <span className="likeNum">{postDetail.heartCount}</span>
+      <BsChat className="commentIcon" />
+      <span className="commentNum">{postDetail.commentCount}</span>
 
       <Potal>
         {modalOn && (
@@ -62,21 +64,34 @@ const PostDetailLike = ({ postDetail }) => {
           />
         )}
       </Potal>
-    </StlikeWrapper>
+    </StLikeWrapper>
   );
 };
 
 export default PostDetailLike;
 
-const StlikeWrapper = styled.div`
+const StLikeWrapper = styled.div`
   display: flex;
   float: right;
-
-  img {
-    margin-top: 4px;
+  @media ${(props) => props.theme.mobile} {
+    margin-right: 10px;
   }
-`;
-const StHeartCountBox = styled.div`
-  margin-right: 10px;
-  font-size: 1.3rem;
+
+  .likeNum {
+    /* display: none; */
+    margin-right: 0.5rem;
+    margin-left: 0.2rem;
+  }
+
+  &:hover .likeNum {
+    /* display: block; */
+  }
+  .commentIcon {
+    path {
+      color: var(--title-color);
+    }
+  }
+  .commentNum {
+    margin-left: 0.2rem;
+  }
 `;

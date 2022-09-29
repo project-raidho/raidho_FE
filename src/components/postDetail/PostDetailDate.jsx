@@ -21,4 +21,7 @@ const StDateWrapper = styled.div`
   .date {
     float: right;
   }
+  @media ${(props) => props.theme.mobile} {
+    margin-right: 10px;
+  }
 `;

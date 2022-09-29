@@ -33,6 +33,10 @@ const Container = styled.div`
     margin-left: 10px;
     margin-top: 45px;
     font-size: 1.5rem;
+    @media ${(props) => props.theme.mobile} {
+      margin-top: 50px;
+      font-size: 1.2rem;
+    }
   }
 `;
 

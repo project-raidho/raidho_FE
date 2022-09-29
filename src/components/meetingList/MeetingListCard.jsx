@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../global/globalModal/Modal";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
+import LoginModal from "../login/LoginContainer";
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
   try {
@@ -42,6 +43,10 @@ const MeetingListCard = ({ meeting }) => {
   const [modalIcon, setModalIcon] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
 
+  const [loginModalOn, setLoginModalOn] = useState(false);
+  const handleLoginModal = () => {
+    setLoginModalOn(!loginModalOn);
+  };
   const onCloseModal = () => {
     setModalOn(!modalOn);
   };
@@ -87,7 +92,7 @@ const MeetingListCard = ({ meeting }) => {
   const onJoinRoom = async (id) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
-      console.log(res);
+
       //인원 풀이면 오류 처리
       if (res.data.body === "FULL") {
         setModalIcon("info");
@@ -97,9 +102,7 @@ const MeetingListCard = ({ meeting }) => {
       navigate(`/chatting/${meeting.id}`);
     } catch (e) {
       console.log(e);
-      setModalIcon("warning");
-      setAlertMsg("로그인이 필요합니다.");
-      setModalOn(true);
+      setLoginModalOn(true);
     }
   };
 
@@ -231,15 +234,20 @@ const MeetingListCard = ({ meeting }) => {
               )}
 
             {meeting.isAlreadyJoin && !meeting.isMine && (
-              <p className="isInMeetingMsg">이미 참여중인 모집입니다.</p>
+              <p className="isInMeetingMsg">참여중</p>
             )}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
+      <Potal>
+        {loginModalOn && (
+          <LoginModal className="loginModal" onClose={handleLoginModal} />
+        )}
+      </Potal>
 
       <Potal>
         {modalOn && (
-          <Modal
+          <AlertModal
             onCloseModal={onCloseModal}
             modalIcon={modalIcon}
             alertMsg={alertMsg}
@@ -464,11 +472,16 @@ const StMeetingCardRow = styled.div`
 
   .isInMeetingMsg {
     position: absolute;
-    height: 15px;
-    bottom: -30px;
-    right: 10px;
-    font-size: 0.8rem;
-    font-style: italic;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    bottom: 45px;
+    right: -27px;
+    font-size: 1rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--lightBlue-color);
+    padding: 3px 2rem 3px 20px;
   }
 
   @media (max-width: 639px) {
@@ -491,6 +504,16 @@ const StMeetingCardRow = styled.div`
 
     button {
       padding: 0px 8px;
+    }
+
+    .isInMeetingMsg {
+      height: 30px;
+      bottom: 45px;
+      right: -15px;
+      font-size: 0.8rem;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      padding: 3px 1rem 3px 20px;
     }
   }
 `;
