@@ -62,6 +62,7 @@ const MeetingListCard = ({ meeting }) => {
   const { mutate } = useMutation(onDeleteMeeting, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
+      queryClient.invalidateQueries("meetingListMine");
     },
   });
 
@@ -129,6 +130,8 @@ const MeetingListCard = ({ meeting }) => {
   const mutateStar = useMutation(changeStar, {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
+      queryClient.invalidateQueries("meetingListMine");
+      queryClient.invalidateQueries("MeetingListLiked");
     },
     onError: () => {
       setModalIcon("warning");
@@ -140,10 +143,7 @@ const MeetingListCard = ({ meeting }) => {
   return (
     <StMeetingListCardWrap>
       <p className="markButton">
-        <MarkButton
-          star={meeting.isStarMine}
-          onClick={() => mutateStar.mutate(meeting.id, meeting.isStarMine)}
-        />
+        <MarkButton star={meeting.isStarMine} onClick={mutateStar.mutate} />
       </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
