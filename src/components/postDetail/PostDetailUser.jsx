@@ -36,6 +36,9 @@ const StUserWrapper = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  @media ${(props) => props.theme.mobile} {
+    margin-left: 10px;
+  }
 `;
 
 const StProfileRightBox = styled.div`

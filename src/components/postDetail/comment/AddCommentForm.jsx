@@ -30,6 +30,7 @@ const AddCommentForm = () => {
   const { mutate } = useMutation(onAddComment, {
     onSuccess: () => {
       queryClient.invalidateQueries("commentList");
+      queryClient.invalidateQueries("postDetail");
     },
   });
   return (
@@ -80,6 +81,9 @@ const CommentForm = styled.div`
   margin-bottom: 15px;
   border: 1px solid;
   border-radius: 12px;
+  @media ${(props) => props.theme.mobile} {
+    margin: 15px 10px;
+  }
 
   .profileBox {
     width: 40px;

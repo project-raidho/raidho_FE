@@ -109,7 +109,7 @@ const ModalContentBox = styled.div`
   @media (max-width: 639px) {
     width: 90vw;
     height: 30vh;
-    top: 5vh;
+    top: 10vh;
     left: 5vw;
     margin-top: 0;
     margin-left: 0;
