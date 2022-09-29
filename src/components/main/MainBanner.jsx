@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-import Banner from "../../assets/banner/bannerContent.png";
-import BannerBg from "../../assets/banner/bannerBg2.png";
-import BannerBgMobile from "../../assets/banner/bannerMobile1.png";
+import Banner2 from "../../assets/banner/bannerContent2.png";
+import BannerBg2 from "../../assets/banner/bannerBg2.png";
+import Banner1 from "../../assets/banner/bannerContent1.png";
+import BannerBg1 from "../../assets/banner/bannerBg1.png";
+import BannerBgMobile1 from "../../assets/banner/bannerMobile1.png";
+import BannerBgMobile2 from "../../assets/banner/bannerMobile2.png";
 import styled from "styled-components";
 
 const MainBanner = () => {
@@ -34,8 +37,13 @@ const MainBanner = () => {
   return (
     <StMainBannerWrap>
       <Slider {...settings}>
+        <div className="contentBox contentBox1">
+          <div className="centerBox">
+            <img src={isMobile ? BannerBgMobile1 : Banner1} alt="라이도" />
+          </div>
+        </div>
         <div
-          className="contentBox"
+          className="contentBox contentBox2"
           onClick={() =>
             window.open(
               "https://docs.google.com/forms/d/e/1FAIpQLSehlJ0ZeaBeZFfhWEiwtUOozM6A4RoYig-kxUAxdWDI4T4XEA/viewform",
@@ -45,13 +53,11 @@ const MainBanner = () => {
         >
           <div className="centerBox">
             <img
-              src={isMobile ? BannerBgMobile : Banner}
+              src={isMobile ? BannerBgMobile2 : Banner2}
               alt="라이도 서비스를 이용해주시고 피드백을 남겨주세요."
             />
           </div>
         </div>
-        <div className="contentBox">2</div>
-        <div className="contentBox">3</div>
       </Slider>
     </StMainBannerWrap>
   );
@@ -66,15 +72,21 @@ const StMainBannerWrap = styled.div`
   width: 99.7%;
   height: 375px;
   background-color: var(--gray-color);
-  background-image: url(${BannerBg});
-  background-repeat: repeat-x;
-  background-size: cover;
+
   .contentBox {
     text-align: center;
     line-height: 375px;
     width: 100%;
     height: 375px;
+    background-repeat: repeat-x;
+    background-size: cover;
     cursor: pointer;
+    &.contentBox1 {
+      background-image: url(${BannerBg1});
+    }
+    &.contentBox2 {
+      background-image: url(${BannerBg2});
+    }
     .centerBox {
       width: auto;
       max-width: 1305px;
@@ -94,6 +106,10 @@ const StMainBannerWrap = styled.div`
     .contentBox {
       height: 300px;
       line-height: 1;
+      &.contentBox1 {
+        background-size: auto 100%;
+        background-position-x: 45%;
+      }
       .centerBox {
         width: 100%;
         max-width: 300px;
