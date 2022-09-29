@@ -191,7 +191,7 @@ const StCreatePostContainerWrap = styled.div`
   @media (max-width: 767px) {
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
   }
 `;
 
@@ -224,7 +224,7 @@ const StValidationMessage = styled.p`
   color: var(--red-color);
   margin-bottom: 1rem;
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     font-size: 0.9rem;
   }
 `;

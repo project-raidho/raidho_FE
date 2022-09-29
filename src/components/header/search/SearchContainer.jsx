@@ -154,7 +154,7 @@ const StSearchContainerWrap = styled.div`
   }
   @media (max-width: 767px) {
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     height: 36px;
   }
 `;
@@ -185,7 +185,7 @@ const StSearchDetailBox = styled.div`
     width: 100%;
     height: ${(props) => (props.isFocusSearch === true ? "630px" : "40px")};
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     width: 100%;
     height: ${(props) => (props.isFocusSearch === true ? "550px" : "34px")};
 
@@ -212,7 +212,7 @@ const StSearchDetailList = styled.div`
     color: var(--title-color);
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     h3 {
       font-size: 1rem;
     }
@@ -258,7 +258,7 @@ const StSearchDetailRow = styled.div`
       }
     }
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     button {
       height: 28px;
       padding: 0 8px 0 0;
@@ -286,7 +286,7 @@ const StTagCardWrap = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
@@ -324,7 +324,7 @@ const StTagCard = styled.p`
     height: 65px;
     font-size: 1.1rem;
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     height: 60px;
     font-size: 1rem;
   }

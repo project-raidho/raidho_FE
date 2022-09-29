@@ -150,7 +150,7 @@ const StMainPageWrap = styled.div`
     outline: 0 none;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     padding-top: 250px;
 
     .topBtn {

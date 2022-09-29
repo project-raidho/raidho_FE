@@ -91,7 +91,7 @@ const StHeaderLogo = styled.h1`
     }
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     width: 32px;
     padding: 14px 0;
     a {

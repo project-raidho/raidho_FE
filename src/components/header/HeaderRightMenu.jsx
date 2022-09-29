@@ -126,7 +126,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
 export default HeaderRightMenu;
 
 const StHeaderRightMenuWrap = styled.div`
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     position: fixed;
     left: 0;
     bottom: 0;

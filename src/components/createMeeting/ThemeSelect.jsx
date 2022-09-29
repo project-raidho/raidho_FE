@@ -49,7 +49,7 @@ const StThemeSelectBox = styled.div`
   align-items: center;
   list-style: none;
 
-  @media (max-width: 767px) {
+  @media ${(props) => props.theme.mobile} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     .themeName {

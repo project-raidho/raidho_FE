@@ -321,7 +321,7 @@ const StMeetingListCardWrap = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     padding: 1rem;
     height: 430px;
     border-radius: 10px;
