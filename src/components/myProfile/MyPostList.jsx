@@ -4,10 +4,19 @@ import Button from "../../elements/Button";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 import IconError from "../../assets/iconError.svg";
-
-const MyPostList = ({ isMore, data }) => {
+import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
+const MyPostList = ({ data, status, error }) => {
   const navigate = useNavigate();
   console.log(data);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "error") {
+    return <Error message={error.message} />;
+  }
 
   return (
     <>
@@ -24,7 +33,7 @@ const MyPostList = ({ isMore, data }) => {
           </Button>
         </StMessageMinePost>
       )}
-      <StMyPostListWrap isMore={isMore}>
+      <StMyPostListWrap>
         {data?.map((post) => (
           <StPostCard key={post.id}>
             <Link to={`/postDetail/${post.id}`}>
@@ -72,7 +81,8 @@ const StMyPostListWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  height: ${(props) => (props.isMore === true ? "auto" : "400px")};
+  /* height: ${(props) => (props.isMore === true ? "auto" : "400px")}; */
+  height: auto;
   background-color: var(--bg-color);
   overflow: hidden;
 

@@ -7,18 +7,32 @@ import { authInstance } from "../../shared/api";
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
 import MyMeetingList from "./MyMeetingList";
-import Loading from "../../elements/Loading";
-import Error from "../../elements/Error";
 import styled from "styled-components";
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 
-const getPostMineList = async () => {
-  const responsePostList = await authInstance.get(`/api/post/mypost`);
-  console.log(responsePostList);
-  return responsePostList.data.data;
+const getMeetingMineList = async () => {
+  const res = await authInstance.get(`/api/meeting/myMeetingPost`);
+  return res.data.data;
+};
+const getMeetingListLiked = async () => {
+  const res = await authInstance.get(`/api/meeting/myHeartMeetingPost`);
+  return res.data.data;
 };
 
-const getPostMineCommented = async () => {
-  return await authInstance.get(`/api/post/commented`);
+const getPostMineList = async () => {
+  const res = await authInstance.get(`/api/post/mypost`);
+  return res.data.data;
+};
+
+const getPostCommented = async () => {
+  const res = await authInstance.get(`/api/post/commented`);
+  return res.data.data;
+};
+
+const getPostliked = async () => {
+  const res = await authInstance.get(`/api/post/liked`);
+  return res.data.data;
 };
 
 const MyProfileContainer = () => {
@@ -27,22 +41,42 @@ const MyProfileContainer = () => {
   const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
 
   // ::: 게시글 더보기 기능 구현
-  const [isMore, setIsMore] = useState(false);
-  const { status, data, error } = useQuery("postList", getPostMineList);
+  const [isMoreMeeting, setIsMoreMeeting] = useState(false);
+  const [isMoreMeetingLiked, setIsMoreMeetingLiked] = useState(false);
+  const [isMorePost, setIsMorePost] = useState(false);
+  const [isMorePostCommented, setIsMorePostCommented] = useState(false);
+  const [isMorePostLiked, setIsMorePostLiked] = useState(false);
 
-  const MineCommentedQuery = useQuery(
-    "postListCommented",
-    getPostMineCommented,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
-  );
-  console.log(MineCommentedQuery);
+  const MeetingListQuery = useQuery("meetingListMine", getMeetingMineList);
+
+  const MeetingLikedQuery = useQuery("MeetingListLiked", getMeetingListLiked);
+  const PostListQuery = useQuery("postListMine", getPostMineList);
+
+  const PostCommentedQuery = useQuery("postListCommented", getPostCommented);
+
+  const PostLikedQuery = useQuery("postListLiked", getPostliked, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
+  const onClickMoreMeeting = () => {
+    setIsMoreMeeting(!isMoreMeeting);
+  };
+
+  const onClickMoreMeetingLiked = () => {
+    setIsMoreMeetingLiked(!isMoreMeetingLiked);
+  };
 
   const onClickMorePost = () => {
-    setIsMore(!isMore);
+    setIsMorePost(!isMorePost);
+  };
+
+  const onClickMorePostCommented = () => {
+    setIsMorePostCommented(!isMorePostCommented);
+  };
+  const onClickMorePostLiked = () => {
+    setIsMorePostLiked(!isMorePostLiked);
   };
 
   const darkOnOff = (event) => {
@@ -57,14 +91,6 @@ const MyProfileContainer = () => {
     }
   };
 
-  if (status === "loading") {
-    return <Loading />;
-  }
-
-  if (status === "error") {
-    return <Error message={error.message} />;
-  }
-
   // ::: 로그아웃 하기
   const onClickLogOut = () => {
     localStorage.removeItem("Authorization");
@@ -75,37 +101,89 @@ const MyProfileContainer = () => {
     navigate("/");
   };
 
-  console.log("data", data);
-
-  if (MineCommentedQuery.isLoading) {
+  if (PostCommentedQuery.isLoading) {
     return null;
   }
   return (
     <StMyProfileContainerWrap>
-      <StMyProfileTitleRow>
-        <h3>프로필</h3>
-        <span className="bgMiddleLine" />
-      </StMyProfileTitleRow>
+      <StMyProfileTextRow>
+        <p>프로필</p>
+      </StMyProfileTextRow>
+
       <UpdateMyProfile />
+      <div>
+        <div className="menubox"></div>
+        <div></div>
+      </div>
+
       <StMyProfileTitleRow>
         <h3>내가 작성한 모집글</h3>
-        <span className="bgMiddleLine" />
+        {isMoreMeeting ? (
+          <FaAngleUp className="moreIcon" onClick={onClickMoreMeeting} />
+        ) : (
+          <FaAngleDown className="moreIcon" onClick={onClickMoreMeeting} />
+        )}
       </StMyProfileTitleRow>
-      <MyMeetingList />
+      {isMoreMeeting && (
+        <MyMeetingList
+          status={MeetingListQuery.status}
+          data={MeetingListQuery.data}
+          error={MeetingListQuery.error}
+        />
+      )}
+
+      <StMyProfileTitleRow>
+        <h3>내가 찜한 모집글</h3>
+        {isMoreMeetingLiked ? (
+          <FaAngleUp className="moreIcon" onClick={onClickMoreMeetingLiked} />
+        ) : (
+          <FaAngleDown className="moreIcon" onClick={onClickMoreMeetingLiked} />
+        )}
+      </StMyProfileTitleRow>
+      {isMoreMeetingLiked && (
+        <MyMeetingList
+          status={MeetingLikedQuery.status}
+          data={MeetingLikedQuery.data}
+          error={MeetingLikedQuery.error}
+        />
+      )}
+
       <StMyProfileTitleRow>
         <h3>내가 작성한 여행후기</h3>
-        <span className="bgMiddleLine" />
+        {isMorePost ? (
+          <FaAngleUp className="moreIcon" onClick={onClickMorePost} />
+        ) : (
+          <FaAngleDown className="moreIcon" onClick={onClickMorePost} />
+        )}
       </StMyProfileTitleRow>
-      <MyPostList isMore={isMore} data={data} />
-      {data.length > 4 ? (
-        <StMyProfileTitleRow className="buttonMore" isMore={isMore}>
-          <p onClick={onClickMorePost}>더보기</p>
-        </StMyProfileTitleRow>
-      ) : null}
+      {isMorePost && <MyPostList data={PostListQuery.data} />}
+
       <StMyProfileTitleRow>
-        <h3>설정</h3>
-        <span className="bgMiddleLine" />
+        <h3>내가 댓글단 여행후기</h3>
+        {isMorePostCommented ? (
+          <FaAngleUp className="moreIcon" onClick={onClickMorePostCommented} />
+        ) : (
+          <FaAngleDown
+            className="moreIcon"
+            onClick={onClickMorePostCommented}
+          />
+        )}
       </StMyProfileTitleRow>
+      {isMorePostCommented && <MyPostList data={PostCommentedQuery.data} />}
+
+      <StMyProfileTitleRow>
+        <h3>내가 좋아요한 여행후기</h3>
+        {isMorePostLiked ? (
+          <FaAngleUp className="moreIcon" onClick={onClickMorePostLiked} />
+        ) : (
+          <FaAngleDown className="moreIcon" onClick={onClickMorePostLiked} />
+        )}
+      </StMyProfileTitleRow>
+      {isMorePostLiked && <MyPostList data={PostLikedQuery.data} />}
+
+      <StMyProfileTextRow>
+        <p>설정</p>
+      </StMyProfileTextRow>
       <StMyProfileTextRow>
         <p>다크모드</p>
         <StSwitchButton checkDarkMode={checkDarkMode}>
@@ -132,9 +210,15 @@ export default MyProfileContainer;
 const StMyProfileContainerWrap = styled.div`
   padding-bottom: 5rem;
   background-color: var(--bg-color);
+
+  .moreIcon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
 `;
 
 const StMyProfileTitleRow = styled.div`
+  border-bottom: 1px solid var(--gray-color);
   position: relative;
   display: flex;
   flex-direction: row;
@@ -153,6 +237,7 @@ const StMyProfileTitleRow = styled.div`
   }
 
   h3 {
+    margin-left: 10px;
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);
@@ -197,7 +282,8 @@ const StMyProfileTextRow = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 0.8rem;
+
+  margin-top: 1rem;
 
   p {
     font-size: 1.5rem;
