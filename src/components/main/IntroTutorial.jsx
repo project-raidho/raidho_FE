@@ -2,9 +2,12 @@ import React from "react";
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-import { MdClose } from "react-icons/md";
+// import { MdClose } from "react-icons/md";
 import Button from "../../elements/Button";
 import styled from "styled-components";
+import ImageIntro1 from "../../assets/banner/intro1.jpeg";
+import ImageIntro2 from "../../assets/banner/intro2.jpeg";
+import ImageIntro3 from "../../assets/banner/intro3.jpeg";
 
 const IntroTutorial = ({ onClose }) => {
   const settings = {
@@ -23,14 +26,20 @@ const IntroTutorial = ({ onClose }) => {
     <>
       <Background />
       <ModalContentBox>
-        <MdClose className="closeButton" onClick={onClose} />
+        {/* <MdClose className="closeButton" onClick={onClose} /> */}
         <div className="contents">
           <StIntroTutorialWrap>
             <Slider {...settings}>
-              <div className="slideItems">1</div>
-              <div className="slideItems">2</div>
               <div className="slideItems">
+                <img src={ImageIntro1} alt="서비스소개" />
+              </div>
+              <div className="slideItems">
+                <img src={ImageIntro3} alt="서비스소개" />
+              </div>
+              <div className="slideItems slideItemLast">
+                <img src={ImageIntro2} alt="서비스소개" />
                 <Button
+                  className="buttonStart"
                   size="medium"
                   variant="linePrimary"
                   onClick={changeFirstUser}
@@ -54,12 +63,47 @@ const StIntroTutorialWrap = styled.div`
   .slideItems {
     width: 100%;
     height: 100%;
-    line-height: 530px;
+    img {
+      width: 100%;
+    }
+    &.slideItemLast {
+      position: relative;
+      height: 536px;
+      background-color: #fff;
+      img {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .buttonStart {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        margin-left: -75px;
+      }
+    }
   }
 
   @media ${(props) => props.theme.mobile} {
     .slideItems {
       line-height: 400px;
+
+      &.slideItemLast {
+        position: relative;
+        height: 361px;
+        background-color: #fff;
+        img {
+          width: 90%;
+          margin: 0 auto;
+        }
+        .buttonStart {
+          position: absolute;
+          width: 100px;
+          height: 32px;
+          bottom: 5px;
+          left: 50%;
+          margin-left: -50px;
+        }
+      }
     }
   }
 `;

@@ -118,6 +118,7 @@ const MainPage = () => {
 export default MainPage;
 
 const StMainPageWrap = styled.div`
+  width: 100%;
   padding-top: 170px;
   /* padding-top: 380px; */
 
@@ -236,6 +237,6 @@ const StLayout = styled.div`
   margin: 0 auto;
 
   @media (max-width: 639px) {
-    /* padding-top: 10px; */
+    padding-top: 70px;
   }
 `;

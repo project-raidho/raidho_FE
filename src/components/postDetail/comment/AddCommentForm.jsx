@@ -8,6 +8,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
 import DefaultProfileImage from "../../../assets/defaultProfileImage.svg";
+import LoginModal from "../../login/LoginContainer";
+import Potal from "../../../global/globalModal/Potal";
 
 const AddCommentForm = () => {
   const userToken = localStorage.getItem("Authorization");
@@ -39,7 +41,17 @@ const AddCommentForm = () => {
       queryClient.invalidateQueries("commentList");
       queryClient.invalidateQueries("postDetail");
     },
+    onError: () => {
+      setModalOn(!modalOn);
+    },
   });
+
+  // ::: 모달 여부 확인하기
+  const [modalOn, setModalOn] = useState(false);
+  const handleModal = () => {
+    setModalOn(!modalOn);
+  };
+
   return (
     <CommentForm onSubmit={handleSubmit(mutate)}>
       <div className="profileBox">
@@ -76,6 +88,7 @@ const AddCommentForm = () => {
       >
         게시
       </Button>
+      <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
     </CommentForm>
   );
 };
