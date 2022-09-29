@@ -210,8 +210,11 @@ const StComment = styled.div`
   }
   .nameAndContent {
     display: flex;
+    align-items: center;
+    height: 30px;
   }
   .buttonbox {
+    padding-top: 0.2rem;
     button {
       margin: 0 3px;
       padding: 2px 0;
@@ -225,8 +228,29 @@ const StComment = styled.div`
   input {
     margin-left: 10px;
     max-width: 500px;
+    height: 30px;
+    text-indent: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--gray-color);
+    border-radius: 15px;
+    background-color: var(--bg-color);
     @media (max-width: 639px) {
       max-width: 100px;
+      font-size: 0.9rem;
+    }
+  }
+  @media (max-width: 639px) {
+    .buttonbox {
+      button {
+        height: 24px;
+        font-size: 0.85rem;
+        margin-right: 0;
+        margin-left: 0.5rem;
+
+        /* :hover {
+        background-color: #3da9fc;
+      } */
+      }
     }
   }
 `;
