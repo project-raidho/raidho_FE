@@ -18,13 +18,12 @@ const StSuccessWrap = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: var(--green-color);
   svg {
     width: 70%;
     height: 70%;
 
     path {
-      color: var(--bg-color);
+      color: var(--title-color);
     }
   }
 `;
