@@ -113,4 +113,7 @@ const StMessageWrite = styled.input`
 
   font-size: 20px;
   outline: none;
+  @media ${(props) => props.theme.mobile} {
+    font-size: 1rem;
+  }
 `;
