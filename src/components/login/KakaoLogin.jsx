@@ -9,11 +9,11 @@ const KakaoLogin = () => {
   const kakaoLoginAction = async () => {
     try {
       const KAKAO_CODE = location.search.split("=")[1];
-      console.log(KAKAO_CODE);
+      // console.log(KAKAO_CODE);
       const res = await instance.get(
         `/login/oauth2/code/kakao?code=${KAKAO_CODE}`
       );
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("Authorization", res.headers.authorization);
       localStorage.setItem("refreshToken", res.headers.refreshtoken);
       localStorage.setItem("memberId", res.data.id);

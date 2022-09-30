@@ -48,7 +48,7 @@ const UpdateMeetingContainer = () => {
       console.log(data);
     },
   });
-  console.log(meetingDetail_query);
+  // console.log(meetingDetail_query);
 
   const [theme, setTheme] = useState("");
   const [meetingTags, setMeetingTags] = useState([""]);

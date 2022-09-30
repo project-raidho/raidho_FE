@@ -36,7 +36,7 @@ const MainPostList = ({ state }) => {
     // eslint-disable-next-line
   }, [inView]);
 
-  console.log("====> mainPostList :: data ", data);
+  // console.log("====> mainPostList :: data ", data);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;

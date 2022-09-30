@@ -8,7 +8,7 @@ import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 const MyPostList = ({ data, status, error }) => {
   // const navigate = useNavigate();
-  console.log(data);
+  // console.log(data);
 
   if (status === "loading") {
     return <Loading />;

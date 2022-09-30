@@ -14,8 +14,8 @@ const SearchTagContainer = () => {
 
   // ::: 검색 uri 상태 확인
   const [checkUri, setCheckUri] = useState(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
-  console.log("Post : True / Meeting : False ===>", checkUri);
-  console.log("tagName===>", tagName);
+  // console.log("Post : True / Meeting : False ===>", checkUri);
+  // console.log("tagName===>", tagName);
 
   // ::: uri 정보 가져오기
   useEffect(() => {

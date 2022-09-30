@@ -56,7 +56,7 @@ const PostDetailContainer = () => {
 
   const postDetail = postDetailQuery.data.data.data[0];
   const targetTag = postDetail.tags[0].split("#")[1];
-  console.log(targetTag);
+  // console.log(targetTag);
   return (
     <>
       <StDetailContainer>
