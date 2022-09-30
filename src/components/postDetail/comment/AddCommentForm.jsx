@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { useParams } from "react-router-dom";
-// import { useForm } from "react-hook-form";
 
 import styled, { css } from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
@@ -19,11 +18,6 @@ const AddCommentForm = () => {
       : DefaultProfileImage;
   const memberName = localStorage.getItem("memberName");
   const { id } = useParams();
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { isDirty, errors },
-  // } = useForm();
 
   const [content, setContent] = useState("");
   const [commentLength, setCommentLength] = useState(0);
