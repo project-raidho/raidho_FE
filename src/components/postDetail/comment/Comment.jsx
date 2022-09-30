@@ -228,7 +228,7 @@ const StComment = styled.div`
   input {
     margin-left: 10px;
     max-width: 500px;
-    height: 30px;
+    min-height: 30px;
     text-indent: 10px;
     font-size: 1rem;
     border: 1px solid var(--gray-color);
@@ -258,7 +258,7 @@ const StComment = styled.div`
 const StmiddleBox = styled.div`
   margin-left: 10px;
   .name {
-    width: 42px;
+    width: 45px;
     font-weight: 900;
   }
   p.dday {
