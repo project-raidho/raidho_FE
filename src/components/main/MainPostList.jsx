@@ -24,9 +24,7 @@ const MainPostList = ({ state }) => {
       {
         cacheTime: 3000,
         getNextPageParam: (lastPage) => {
-          return !lastPage.last
-            ? lastPage.nextPage
-            : console.log("====> 마지막페이지");
+          return !lastPage.last ? lastPage.nextPage : console.log("");
         },
       }
     );
