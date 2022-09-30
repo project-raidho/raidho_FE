@@ -64,7 +64,7 @@ const AddCommentForm = () => {
           value={content}
           name="content"
           type="text"
-          maxlength="100"
+          maxLength="100"
           onChange={onChangeContent}
         />
 

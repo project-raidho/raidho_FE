@@ -19,7 +19,7 @@ const onDeleteMeeting = async (meetingId) => {
   }
 };
 
-const MeetingListCard = ({ meeting }) => {
+const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   //   function connect() {
   //     // pub/sub event
   //     ws.connect({}, function(frame) {
@@ -116,6 +116,17 @@ const MeetingListCard = ({ meeting }) => {
       state: {
         tagKeyword: sliceTag,
       },
+    });
+  };
+
+  // ::: 카테고리 클릭시 해당 카테고리로 이동
+  const onClickMeetingCategory = (meetingCategory) => {
+    themeList.map((theme) => {
+      if (theme.themeName === meetingCategory) {
+        navigate(`/meetingList/${theme.themePath}`);
+        onClickTheme(theme.themeName);
+      }
+      return false;
     });
   };
 
@@ -230,6 +241,7 @@ const MeetingListCard = ({ meeting }) => {
             size="tag"
             variant="gray"
             theme={meeting.themeCategory}
+            onClick={() => onClickMeetingCategory(meeting.themeCategory)}
           >
             {meeting.themeCategory}
           </StThemeButton>
@@ -267,7 +279,7 @@ const MeetingListCard = ({ meeting }) => {
                 </Button>
               )}
 
-            {meeting.isAlreadyJoin && !meeting.isMine && (
+            {meeting.isAlreadyJoin && meeting.isMine && (
               <p className="isInMeetingMsg">참여중</p>
             )}
           </div>
@@ -301,7 +313,7 @@ const StMeetingListCardWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-width: 320px;
-  height: 500px;
+  height: 550px;
   margin: 1rem;
   padding: 1.7rem;
   background-color: var(--subBg-color);
@@ -314,9 +326,9 @@ const StMeetingListCardWrap = styled.div`
 
   .markButton {
     position: absolute;
-    width: 26px;
+    width: 34px;
     right: 6px;
-    top: -3px;
+    top: -4px;
   }
 
   h3 {
@@ -363,13 +375,13 @@ const StMeetingListCardWrap = styled.div`
 
   .tag {
     color: var(--lightBlue-color);
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
   }
 
   @media ${(props) => props.theme.mobile} {
     padding: 1rem;
-    height: 430px;
+    height: 520px;
     border-radius: 10px;
 
     h3 {
@@ -387,21 +399,21 @@ const StMeetingListCardWrap = styled.div`
           font-size: 1rem;
         }
       }
-    }
 
-    .tag {
-      color: var(--lightBlue-color);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    &.meetingPeriod,
-    &.meetingAddress {
-      strong {
-        font-size: 1rem;
+      .tag {
+        color: var(--lightBlue-color);
+        font-size: 1.1rem;
+        cursor: pointer;
       }
-      span {
-        font-size: 1rem;
+
+      &.meetingPeriod,
+      &.meetingAddress {
+        strong {
+          font-size: 1rem;
+        }
+        span {
+          font-size: 1rem;
+        }
       }
     }
   }
@@ -541,7 +553,7 @@ const StMeetingCardRow = styled.div`
       font-size: 1rem;
 
       &.infoStatus:last-child {
-        margin-right: 20px;
+        margin-right: 28px;
       }
     }
     .memberImageBox {
@@ -571,6 +583,7 @@ const StMeetingCardRow = styled.div`
 `;
 
 const StThemeButton = styled(Button)`
+  min-width: 45px;
   ${(props) =>
     props.theme === "국내" &&
     `background-color:var(--theme-korea-color); color: var(--title-color);`}

@@ -10,11 +10,7 @@ import Button from "../../../elements/Button";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const getCommentList = ({ queryKey }) => {
-  try {
-    return authInstance.get(`/api/comment/${queryKey[1]}`);
-  } catch (e) {
-    console.log("없어용");
-  }
+  return authInstance.get(`/api/comment/${queryKey[1]}`);
 };
 
 function CommentsList() {
@@ -23,14 +19,13 @@ function CommentsList() {
 
   const commentgAllListQuery = useQuery(["commentList", id], getCommentList);
 
-  // console.log(commentgAllListQuery);
   if (commentgAllListQuery.isLoading) {
     return null;
   }
-
+  const commentsList = commentgAllListQuery.data.data.data;
   return (
     <StCommentListWrap>
-      {commentgAllListQuery.data.data.data.totalElements < 2 ? null : (
+      {commentsList.totalElements < 2 ? null : (
         <p className="buttonCommentToggle" onClick={() => setIsAll(!isAll)}>
           {isAll ? (
             <Button
@@ -47,21 +42,19 @@ function CommentsList() {
               variant="linePrimary"
               className="buttonCommentAll"
             >
-              댓글{commentgAllListQuery.data.data.data.totalElements}개 모두보기
+              댓글{commentsList.totalElements}개 모두보기
               <IoIosArrowDown />
             </Button>
           )}
         </p>
       )}
       <StCommentsList className="StCommentsList" isAll={isAll}>
-        {commentgAllListQuery.data.data.data.content.length > 1 && isAll
-          ? commentgAllListQuery.data.data.data.content.map((comment, i) => (
+        {commentsList.content.length > 1 && isAll
+          ? commentsList.content.map((comment, i) => (
               <Comment key={i} comment={comment} />
             ))
-          : commentgAllListQuery.data.data.data.content.length !== 0 && (
-              <Comment
-                comment={commentgAllListQuery.data.data.data.content[0]}
-              />
+          : commentsList.content.length !== 0 && (
+              <Comment comment={commentsList.content[0]} />
             )}
       </StCommentsList>
     </StCommentListWrap>
