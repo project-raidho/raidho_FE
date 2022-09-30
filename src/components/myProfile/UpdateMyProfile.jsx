@@ -102,9 +102,9 @@ const UpdateMyProfile = (props) => {
         }
       );
 
-      // localStorage.setItem("memberImage", response.data);
-      // localStorage.setItem("memberName", updateNickname);
-      // localStorage.setItem("memberIntro", updateComment);
+      localStorage.setItem("memberImage", response.data);
+      localStorage.setItem("memberName", updateNickname);
+      localStorage.setItem("memberIntro", updateComment);
 
       setModalOn(false);
     } catch (error) {
