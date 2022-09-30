@@ -113,7 +113,7 @@ const Comment = ({ comment }) => {
                         setUpdatedComment(e.target.value);
                         setCommentLength(e.target.value.length);
                       }}
-                      maxlength="100"
+                      maxLength="100"
                     />
                     <span>{commentLength}/100자</span>
                   </>
