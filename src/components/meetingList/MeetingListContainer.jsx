@@ -78,16 +78,16 @@ const MeetingListContainer = () => {
     const changeStart = checkStartDate.toLocaleDateString().split("/");
     const changeEnd = checkEndDate.toLocaleDateString().split("/");
 
-    changeStart[0].length === 1
+    changeStart[0]?.length === 1
       ? (startMM = `0${changeStart[0]}`)
       : (startMM = `${changeStart[0]}`);
-    changeStart[1].length === 1
+    changeStart[1]?.length === 1
       ? (startDD = `0${changeStart[1]}`)
       : (startDD = `${changeStart[1]}`);
-    changeEnd[0].length === 1
+    changeEnd[0]?.length === 1
       ? (endMM = `0${changeEnd[0]}`)
       : (endMM = `${changeEnd[0]}`);
-    changeEnd[1].length === 1
+    changeEnd[1]?.length === 1
       ? (endDD = `0${changeEnd[1]}`)
       : (endDD = `${changeEnd[1]}`);
 
