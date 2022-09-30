@@ -80,8 +80,6 @@ const CreatePostContainer = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-
-        console.log("response 게시글 아이디 ====>", response.data.data.data);
         navigate(`/postdetail/${response.data.data.data}`);
         return response;
       } catch (error) {
@@ -121,7 +119,7 @@ const CreatePostContainer = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onCreatePost, {
     onSuccess: (data) => {
-      console.log("여행후기 게시글 등록 데이터 :::", data);
+      // console.log("여행후기 게시글 등록 데이터 :::", data);
       queryClient.invalidateQueries(["postLists"]);
     },
   });

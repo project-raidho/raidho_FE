@@ -111,7 +111,7 @@ const MeetingListCard = ({ meeting }) => {
   // ::: 태그 클릭시 상세페이지 이동
   const onClickMeetingTag = (tag) => {
     const sliceTag = tag.substr(1);
-    console.log(sliceTag);
+    // console.log(sliceTag);
     navigate(`/meeting/chat?tag=${sliceTag}`, {
       state: {
         tagKeyword: sliceTag,

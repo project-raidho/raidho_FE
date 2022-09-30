@@ -46,7 +46,7 @@ const SearchContainer = ({ isMobile }) => {
     });
   };
 
-  console.log("=====*****====>", location);
+  // console.log("=====*****====>", location);
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
   const onKeyPressSearchEnter = (event) => {
     if (event.key === "Enter") {

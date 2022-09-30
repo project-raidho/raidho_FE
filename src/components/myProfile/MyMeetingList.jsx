@@ -53,7 +53,7 @@ const MyMeetingList = ({ status, data, error }) => {
     slidesToScroll: 1,
   };
 
-  console.log("내가 작성한 모집글 리스트 ::::", data);
+  // console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
       {data.length < 3 && (!isMobile || !isTablet) ? (

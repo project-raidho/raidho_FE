@@ -21,7 +21,7 @@ function CommentsList() {
     },
   });
 
-  console.log(commentgAllListQuery);
+  // console.log(commentgAllListQuery);
   if (commentgAllListQuery.isLoading) {
     return null;
   }

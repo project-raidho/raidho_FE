@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }) => {
-  console.log("queryKey", queryKey);
+  // console.log("queryKey", queryKey);
   // ::: 기간O
   if (queryKey[3] !== "" && queryKey[4] !== "") {
     if (queryKey[1] === "") {
@@ -102,8 +102,8 @@ const MeetingListContainer = () => {
     setCheckStatus(true);
   };
 
-  console.log(checkStartDate, checkEndDate);
-  console.log(startDate, endDate);
+  // console.log(checkStartDate, checkEndDate);
+  // console.log(startDate, endDate);
 
   // ::: 현재테마 바꾸는 함수
   const onClickTheme = async (theme) => {
