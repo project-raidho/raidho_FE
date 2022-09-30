@@ -10,6 +10,7 @@ const RelatedList = ({ targetTag }) => {
 
   // ::: 관련 여행후기 게시글 조회
   const getRelatedPosts = async () => {
+    // const response = await authInstance.get(`/api/search/review/${targetTag}`);
     const response = await authInstance.get(`/api/search/${targetTag}`);
     // console.log("######====>", response);
     return response;
