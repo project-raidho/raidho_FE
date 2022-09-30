@@ -260,12 +260,21 @@ const StComment = styled.div`
 const StmiddleBox = styled.div`
   margin-left: 10px;
   .name {
-    width: 45px;
+    /* width: 45px; */
     font-weight: 900;
   }
   p.dday {
     font-size: 0.9rem;
     color: var(--gray-color);
+  }
+  @media (max-width: 639px) {
+    .name {
+      width: 45px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.8rem;
+    }
   }
 `;
 const Stcontent = styled.div`

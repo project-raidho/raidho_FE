@@ -576,10 +576,10 @@ const StThemeButton = styled(Button)`
     `background-color:var(--theme-korea-color); color: var(--title-color);`}
   ${(props) =>
     props.theme === "유럽" &&
-    `background-color:var(--theme-europe-color); color: var(--title-color);`}
+    `background-color:var(--theme-europe-color); color: #1e1e1e;`}
     ${(props) =>
     props.theme === "아메리카" &&
-    `background-color:var(--theme-america-color); color: var(--title-color);`}
+    `background-color:var(--theme-america-color); color: #1e1e1e;`}
     ${(props) =>
     props.theme === "아시아" &&
     `background-color:var(--theme-asia-color); color: var(--title-color);`}
@@ -596,10 +596,10 @@ const StThemeButton = styled(Button)`
       `background-color:var(--theme-korea-color); color: var(--title-color);`}
     ${(props) =>
       props.theme === "유럽" &&
-      `background-color:var(--theme-europe-color); color: var(--title-color);`}
+      `background-color:var(--theme-europe-color); color: #1e1e1e;`}
     ${(props) =>
       props.theme === "아메리카" &&
-      `background-color:var(--theme-america-color); color: var(--title-color);`}
+      `background-color:var(--theme-america-color); color: #1e1e1e;`}
     ${(props) =>
       props.theme === "아시아" &&
       `background-color:var(--theme-asia-color); color: var(--title-color);`}
