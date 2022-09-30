@@ -573,20 +573,41 @@ const StMeetingCardRow = styled.div`
 const StThemeButton = styled(Button)`
   ${(props) =>
     props.theme === "국내" &&
-    `background-color:var(--theme-korea-color); color: #ffffff;`}
+    `background-color:var(--theme-korea-color); color: var(--title-color);`}
   ${(props) =>
     props.theme === "유럽" &&
-    `background-color:var(--theme-europe-color); color: #ffffff;`}
+    `background-color:var(--theme-europe-color); color: var(--title-color);`}
     ${(props) =>
     props.theme === "아메리카" &&
-    `background-color:var(--theme-america-color); color: #ffffff;`}
+    `background-color:var(--theme-america-color); color: var(--title-color);`}
     ${(props) =>
     props.theme === "아시아" &&
-    `background-color:var(--theme-asia-color); color: #ffffff;`}
+    `background-color:var(--theme-asia-color); color: var(--title-color);`}
     ${(props) =>
     props.theme === "오세아니아" &&
-    `background-color:var(--theme-oseania-color); color: #ffffff;`}
+    `background-color:var(--theme-oseania-color); color: var(--title-color);`}
     ${(props) =>
     props.theme === "아프리카" &&
     `background-color:var(--theme-africa-color); color: #ffffff;`}
+
+    &:hover {
+    ${(props) =>
+      props.theme === "국내" &&
+      `background-color:var(--theme-korea-color); color: var(--title-color);`}
+    ${(props) =>
+      props.theme === "유럽" &&
+      `background-color:var(--theme-europe-color); color: var(--title-color);`}
+    ${(props) =>
+      props.theme === "아메리카" &&
+      `background-color:var(--theme-america-color); color: var(--title-color);`}
+    ${(props) =>
+      props.theme === "아시아" &&
+      `background-color:var(--theme-asia-color); color: var(--title-color);`}
+    ${(props) =>
+      props.theme === "오세아니아" &&
+      `background-color:var(--theme-oseania-color); color: var(--title-color);`}
+    ${(props) =>
+      props.theme === "아프리카" &&
+      `background-color:var(--theme-africa-color); color: #ffffff;`}
+  }
 `;
