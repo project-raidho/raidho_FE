@@ -17,7 +17,6 @@ const GlobalFooter = () => {
     // eslint-disable-next-line
   }, [pathname]);
 
-  console.log("footer location =====>>>>>", pathname);
   return (
     <StFooterWrap isNoNeed={isNoNeed}>
       <StCenterBox>

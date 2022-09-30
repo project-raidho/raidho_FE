@@ -54,7 +54,7 @@ const UpdateMyProfile = (props) => {
     };
   };
 
-  console.log(previewUpdateImage);
+  // console.log(previewUpdateImage);
 
   const onChangeUpdateMemberName = (event) => {
     setUpdateNickname(event.target.value);
@@ -64,9 +64,9 @@ const UpdateMyProfile = (props) => {
     setUpdateComment(event.target.value);
   };
 
-  console.log("compressedImageFile", compressedImageFile);
-  console.log("updateNickname", updateNickname);
-  console.log("updateComment", updateComment);
+  // console.log("compressedImageFile", compressedImageFile);
+  // console.log("updateNickname", updateNickname);
+  // console.log("updateComment", updateComment);
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
@@ -102,10 +102,10 @@ const UpdateMyProfile = (props) => {
         }
       );
 
-      console.log("프로필수정 response ::: ", response);
-      localStorage.setItem("memberImage", response.data);
-      localStorage.setItem("memberName", updateNickname);
-      localStorage.setItem("memberIntro", updateComment);
+      console.log(response);
+      // localStorage.setItem("memberImage", response.data);
+      // localStorage.setItem("memberName", updateNickname);
+      // localStorage.setItem("memberIntro", updateComment);
 
       setModalOn(false);
     } catch (error) {

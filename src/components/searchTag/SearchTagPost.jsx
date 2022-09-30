@@ -9,7 +9,7 @@ import Error from "../../elements/Error";
 import SearchAlert from "./SearchAlert";
 
 const getSearchTagPostList = async (tagName, pageParam) => {
-  console.log("====>tag", tagName);
+  // console.log("====>tag", tagName);
   try {
     const response = await authInstance.get(
       `/api/search/${tagName}?page=${pageParam}`
@@ -46,7 +46,7 @@ const SearchTagPost = ({ tagName }) => {
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
 
-  console.log("tagPostListQuery :::", data);
+  // console.log("tagPostListQuery :::", data);
 
   return (
     <>

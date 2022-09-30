@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }) => {
-  console.log("queryKey", queryKey);
+  // console.log("queryKey", queryKey);
   // ::: 기간O
   if (queryKey[3] !== "" && queryKey[4] !== "") {
     if (queryKey[1] === "") {
@@ -75,32 +75,35 @@ const MeetingListContainer = () => {
     let endMM = "";
     let endDD = "";
 
-    const changeStart = checkStartDate.toLocaleDateString().split("/");
-    const changeEnd = checkEndDate.toLocaleDateString().split("/");
+    const changeStart = checkStartDate.toLocaleDateString("ko").split(`. `);
+    const changeEnd = checkEndDate.toLocaleDateString("ko").split(`. `);
 
-    changeStart[0].length === 1
-      ? (startMM = `0${changeStart[0]}`)
-      : (startMM = `${changeStart[0]}`);
-    changeStart[1].length === 1
-      ? (startDD = `0${changeStart[1]}`)
-      : (startDD = `${changeStart[1]}`);
-    changeEnd[0].length === 1
-      ? (endMM = `0${changeEnd[0]}`)
-      : (endMM = `${changeEnd[0]}`);
-    changeEnd[1].length === 1
-      ? (endDD = `0${changeEnd[1]}`)
-      : (endDD = `${changeEnd[1]}`);
+    const daySplitDotStart = changeStart[2].split(".")[0];
+    const daySplitDotEnd = changeEnd[2].split(".")[0];
 
-    const startDateToString = `${changeStart[2]}-${startMM}-${startDD}`;
-    const endDateToString = `${changeEnd[2]}-${endMM}-${endDD}`;
+    changeStart[1]?.length === 1
+      ? (startMM = `0${changeStart[1]}`)
+      : (startMM = `${changeStart[1]}`);
+    daySplitDotStart?.length === 1
+      ? (startDD = `0${daySplitDotStart}`)
+      : (startDD = `${daySplitDotStart}`);
+    changeEnd[1]?.length === 1
+      ? (endMM = `0${changeEnd[1]}`)
+      : (endMM = `${changeEnd[1]}`);
+    daySplitDotEnd?.length === 1
+      ? (endDD = `0${daySplitDotEnd}`)
+      : (endDD = `${daySplitDotEnd}`);
+
+    const startDateToString = `${changeStart[0]}-${startMM}-${startDD}`;
+    const endDateToString = `${changeEnd[0]}-${endMM}-${endDD}`;
 
     setStartDate(startDateToString);
     setEndDate(endDateToString);
     setCheckStatus(true);
   };
 
-  console.log(checkStartDate, checkEndDate);
-  console.log(startDate, endDate);
+  // console.log(checkStartDate, checkEndDate);
+  // console.log(startDate, endDate);
 
   // ::: 현재테마 바꾸는 함수
   const onClickTheme = async (theme) => {
