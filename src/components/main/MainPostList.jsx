@@ -5,7 +5,6 @@ import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import LastPageInfo from "../../elements/LastPageInfo";
 import styled from "styled-components";
 
 const getPostList = async (state, pageParam) => {
