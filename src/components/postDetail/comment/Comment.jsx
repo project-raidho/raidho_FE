@@ -12,6 +12,7 @@ const Comment = ({ comment }) => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [updatedComment, setUpdatedComment] = useState("");
+  const [commentLength, setCommentLength] = useState(comment.content.length);
   // const { content } = useSelector((state) => state.comment.data);
   // 댓글 삭제 axios
   const onDeleteComment = async (commentId) => {
@@ -109,12 +110,17 @@ const Comment = ({ comment }) => {
               <div className="nameAndContent">
                 <p className="name">{comment.memberName}</p>
                 {isEdit ? (
-                  <input
-                    value={updatedComment}
-                    onChange={(e) => {
-                      setUpdatedComment(e.target.value);
-                    }}
-                  />
+                  <>
+                    <input
+                      value={updatedComment}
+                      onChange={(e) => {
+                        setUpdatedComment(e.target.value);
+                        setCommentLength(e.target.value.length);
+                      }}
+                      maxlength="100"
+                    />
+                    <span>{commentLength}/100자</span>
+                  </>
                 ) : (
                   <Stcontent>{comment.content}</Stcontent>
                 )}
@@ -191,7 +197,7 @@ export default Comment;
 const StComment = styled.div`
   padding: 5px 10px;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   .textbox {
@@ -219,9 +225,22 @@ const StComment = styled.div`
   }
   .nameAndContent {
     display: flex;
-    /* align-items: center; */
     width: 100%;
     min-height: 30px;
+    margin-bottom: 5px;
+
+    span {
+      width: 65px;
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--title-color);
+      margin-left: 5px;
+
+      @media (max-width: 639px) {
+        width: 65px;
+        font-size: 0.8rem;
+      }
+    }
   }
   .buttonbox {
     padding-top: 0.2rem;
@@ -238,20 +257,22 @@ const StComment = styled.div`
   input {
     display: block;
     margin-left: 10px;
-    width: calc(100% - 150px);
+    width: calc(100% - 175px);
     min-height: 30px;
-    text-indent: 10px;
+    padding: 0 10px;
     font-size: 1rem;
     border: 1px solid var(--gray-color);
     border-radius: 15px;
     background-color: var(--bg-color);
+    outline: none;
+    &:focus {
+      border: 1px solid var(--main-color);
+    }
     @media (max-width: 639px) {
       display: block;
-      width: calc(100% - 55px);
+      width: calc(100% - 100px);
       font-size: 0.9rem;
     }
-  }
-  @media (max-width: 639px) {
   }
 `;
 
