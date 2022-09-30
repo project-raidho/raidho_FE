@@ -25,12 +25,12 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --menu-color : #666666;
-    --theme-korea-color: #663399;
-    --theme-europe-color: #66FFFF;
-    --theme-america-color: #339900;
-    --theme-asia-color: #990000;
-    --theme-oseania-color: #CC9966;
-    --theme-africa-color: #663300;
+    --theme-korea-color: #CC99FF;
+    --theme-europe-color: #CCFFFF;
+    --theme-america-color: #CCFF99;
+    --theme-asia-color: #FF9999;
+    --theme-oseania-color: #FFCC99;
+    --theme-africa-color: #cc6633;
     --font-style: 'Pretendard-Regular';
     --box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.20);
     --button-shadow : 0px 2px 2px rgba(0, 0, 0, 0.15);

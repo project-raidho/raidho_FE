@@ -26,7 +26,7 @@ const StMark = styled.span`
   }
   svg.mark {
     path {
-      color: var(--yellow-color);
+      color: var(--lightBlue-color);
     }
   }
   svg.emptyMark {
