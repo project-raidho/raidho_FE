@@ -24,4 +24,14 @@ const StMark = styled.span`
     height: 95%;
     object-fit: contain;
   }
+  svg.mark {
+    path {
+      color: var(--yellow-color);
+    }
+  }
+  svg.emptyMark {
+    path {
+      color: var(--gray-color);
+    }
+  }
 `;
