@@ -135,6 +135,7 @@ function Button({ size, variant, children, ...props }) {
 const StyledButton = styled.button`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
+ 
 
   /* margin: 0; */
   border: none;
