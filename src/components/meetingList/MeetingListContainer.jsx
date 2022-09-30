@@ -78,16 +78,16 @@ const MeetingListContainer = () => {
     const changeStart = checkStartDate.toLocaleDateString().split("/");
     const changeEnd = checkEndDate.toLocaleDateString().split("/");
 
-    changeStart[0]?.length === 1
+    changeStart[0].length === 1
       ? (startMM = `0${changeStart[0]}`)
       : (startMM = `${changeStart[0]}`);
-    changeStart[1]?.length === 1
+    changeStart[1].length === 1
       ? (startDD = `0${changeStart[1]}`)
       : (startDD = `${changeStart[1]}`);
-    changeEnd[0]?.length === 1
+    changeEnd[0].length === 1
       ? (endMM = `0${changeEnd[0]}`)
       : (endMM = `${changeEnd[0]}`);
-    changeEnd[1]?.length === 1
+    changeEnd[1].length === 1
       ? (endDD = `0${changeEnd[1]}`)
       : (endDD = `${changeEnd[1]}`);
 
@@ -121,7 +121,7 @@ const MeetingListContainer = () => {
           <StMeetingCategoryRow className="themeCategoryRow">
             {themeList.map((theme, index) => (
               <p
-                className={`themeCategoryButton ${theme.themePath}`}
+                className="themeCategoryButton"
                 key={theme.themeName + index}
                 onClick={() => onClickTheme(theme.themeName)}
               >
@@ -367,37 +367,6 @@ const StMeetingCategoryRow = styled.div`
         color: #ffffff;
       }
     }
-    /* &.korea {
-      a.active {
-        background-color: var(--theme-korea-color);
-      }
-    }
-    &.europe {
-      a.active {
-        background-color: var(--theme-europe-color);
-      }
-    }
-    &.america {
-      a.active {
-        background-color: var(--theme-america-color);
-        color: var(--title-color);
-      }
-    }
-    &.asia {
-      a.active {
-        background-color: var(--theme-asia-color);
-      }
-    }
-    &.oseania {
-      a.active {
-        background-color: var(--theme-oseania-color);
-      }
-    }
-    &.africa {
-      a.active {
-        background-color: var(--theme-africa-color);
-      }
-    } */
   }
 
   @media (max-width: 767px) {
