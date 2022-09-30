@@ -12,11 +12,9 @@ import Loading from "../../elements/Loading";
 
 const getMessageList = async ({ queryKey }) => {
   return await authInstance.get(`/api/chat/messages/${queryKey[1]}?page=0`);
-  // console.log(id);
-  // console.log(pageParam, pageParam - 1);
-  // console.log(response);
+
   // const { content, last, number } = response.data;
-  // console.log(number);
+
   // return { content, nextPage: pageParam - 1, last };
 };
 

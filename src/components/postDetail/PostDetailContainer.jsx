@@ -36,11 +36,7 @@ const PostDetailContainer = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const postDetailQuery = useQuery(["postDetail", id], getPostDetail, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const postDetailQuery = useQuery(["postDetail", id], getPostDetail);
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(deletePostDetail, {

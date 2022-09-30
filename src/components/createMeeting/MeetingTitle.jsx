@@ -24,10 +24,10 @@ const MeetingTitle = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength="30"
+        maxLength="20"
         minLength="1"
       />
-      <StValidationMsg>{checkTextLength} / 30자</StValidationMsg>
+      <StValidationMsg>{checkTextLength} / 20자</StValidationMsg>
     </StMeetingTitletWrap>
   );
 };

@@ -54,11 +54,7 @@ const MyProfileContainer = () => {
 
   const PostCommentedQuery = useQuery("postListCommented", getPostCommented);
 
-  const PostLikedQuery = useQuery("postListLiked", getPostliked, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const PostLikedQuery = useQuery("postListLiked", getPostliked);
 
   const onClickMoreMeeting = () => {
     setIsMoreMeeting(!isMoreMeeting);
