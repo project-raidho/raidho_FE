@@ -114,10 +114,10 @@ const CreatePostImageCrop = ({
     const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
 
-    console.log(
-      "::: imageRef.current.naturalWidth :::",
-      imageRef.current.naturalWidth
-    );
+    // console.log(
+    //   "::: imageRef.current.naturalWidth :::",
+    //   imageRef.current.naturalWidth
+    // );
 
     // ::: 원본 이미지 사이즈에 따라서 비율조절 : 가로 사이즈 1,500픽셀로 맞춤
     const caculatePixelRatio = (originWidth, deviceRatio) => {
@@ -134,7 +134,7 @@ const CreatePostImageCrop = ({
 
     const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
     // window.devicePixelRatio ===> 1(기본값)
-    console.log("::: pixelRatio :::", pixelRatio);
+    // console.log("::: pixelRatio :::", pixelRatio);
 
     canvasRef.current.width = cropping.width * pixelRatio * scaleX;
     canvasRef.current.height = cropping?.height * pixelRatio * scaleY;
@@ -251,10 +251,10 @@ const CreatePostImageCrop = ({
   }, [completedCrop, createCanvas, crop]);
 
   // ::: 확인용 console
-  console.log(
-    "::: CreatePostImageCrop : 최종 이미지 업로드 파일 ===>",
-    uploadImages
-  );
+  // console.log(
+  //   "::: CreatePostImageCrop : 최종 이미지 업로드 파일 ===>",
+  //   uploadImages
+  // );
 
   return (
     <StCreatePostImageCrop>

@@ -54,7 +54,7 @@ const CreateMeetingContatiner = () => {
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
-  console.log(data, people);
+  // console.log(data, people);
 
   const navigate = useNavigate();
   const postCreateMeeting = async () => {

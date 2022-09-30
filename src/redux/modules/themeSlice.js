@@ -99,11 +99,11 @@ const themeSlice = createSlice({
   reducers: {
     getTheme: (state, action) => {
       state.themeList = initialState.themeList;
-      console.log(state.themeList);
+      // console.log(state.themeList);
     },
     getRecommandTag: (state, action) => {
       state.recommendTagList = initialState.recommendTagList;
-      console.log(state.recommendTagList);
+      // console.log(state.recommendTagList);
     },
   },
   extraReducers: {},

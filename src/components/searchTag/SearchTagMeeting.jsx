@@ -9,7 +9,7 @@ import Loading from "../../elements/Loading";
 const SearchTagMeeting = ({ tagName }) => {
   // ::: 태그 상세 리스트 리스트 불러오기
   const getSearchTagMeetingList = async () => {
-    console.log("====>tag", tagName);
+    // console.log("====>tag", tagName);
     try {
       return await authInstance.get(`/api/search/meeting/${tagName}`);
     } catch (error) {
@@ -31,7 +31,7 @@ const SearchTagMeeting = ({ tagName }) => {
     return <Loading />;
   }
 
-  console.log("tagMeetingListQuery", tagMeetingListQuery);
+  // console.log("tagMeetingListQuery", tagMeetingListQuery);
 
   return (
     <>

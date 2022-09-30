@@ -89,7 +89,7 @@ const UpdatePostContainer = () => {
   const getPostDetail = async (postId) => {
     try {
       const responsePostDetail = await authInstance.get(`/api/post/${postId}`);
-      console.log(responsePostDetail.data);
+      // console.log(responsePostDetail.data);
       setPostDetail(responsePostDetail.data.data[0]);
     } catch (error) {
       console.log(

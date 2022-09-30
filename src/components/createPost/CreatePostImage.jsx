@@ -40,7 +40,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
     return compressedFile;
   };
 
-  console.log("files ===>", files);
+  // console.log("files ===>", files);
 
   // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
 
@@ -49,7 +49,7 @@ const CreatePostImage = ({ selectedPostImages }) => {
     let previewTemp = [];
     for (let i = 0; i < files.length; i++) {
       const complessedFile = await compressImageAndGetImageFile(files[i]);
-      console.log("complessedFile===>", i, "번째!!!", complessedFile);
+      // console.log("complessedFile===>", i, "번째!!!", complessedFile);
       temp.push(complessedFile);
       const previewCompressedFile = await imageCompression.getDataUrlFromFile(
         complessedFile
@@ -76,8 +76,8 @@ const CreatePostImage = ({ selectedPostImages }) => {
     // eslint-disable-next-line
   }, [fileRejections, files]);
 
-  console.log("resizingFiles ===>", resizingFiles);
-  console.log("resizingPreviewFiles ===>", resizingPreviewFiles);
+  // console.log("resizingFiles ===>", resizingFiles);
+  // console.log("resizingPreviewFiles ===>", resizingPreviewFiles);
 
   return (
     <StCreatePostImageWrap>
