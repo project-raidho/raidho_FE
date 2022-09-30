@@ -48,12 +48,9 @@ const MyProfileContainer = () => {
   const [isMorePostLiked, setIsMorePostLiked] = useState(false);
 
   const MeetingListQuery = useQuery("meetingListMine", getMeetingMineList);
-
   const MeetingLikedQuery = useQuery("MeetingListLiked", getMeetingListLiked);
   const PostListQuery = useQuery("postListMine", getPostMineList);
-
   const PostCommentedQuery = useQuery("postListCommented", getPostCommented);
-
   const PostLikedQuery = useQuery("postListLiked", getPostliked);
 
   const onClickMoreMeeting = () => {
@@ -278,11 +275,11 @@ const StMyProfileTextRow = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-
   margin-top: 1rem;
 
   p {
     font-size: 1.5rem;
+    margin-left: 10px;
 
     &.buttonLogout {
       cursor: pointer;
@@ -295,7 +292,7 @@ const StMyProfileTextRow = styled.div`
   @media (max-width: 639px) {
     p {
       font-size: 1.2rem;
-      padding-left: 1rem;
+      padding: 0.5rem 0 0.5rem 1rem;
     }
   }
 `;
