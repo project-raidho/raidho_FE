@@ -10,7 +10,11 @@ import Button from "../../../elements/Button";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const getCommentList = ({ queryKey }) => {
-  return authInstance.get(`/api/comment/${queryKey[1]}`);
+  try {
+    return authInstance.get(`/api/comment/${queryKey[1]}`);
+  } catch (e) {
+    console.log("없어용");
+  }
 };
 
 function CommentsList() {
@@ -26,7 +30,7 @@ function CommentsList() {
 
   return (
     <StCommentListWrap>
-      {commentgAllListQuery.data.data.data.totalElements < 3 ? null : (
+      {commentgAllListQuery.data.data.data.totalElements < 2 ? null : (
         <p className="buttonCommentToggle" onClick={() => setIsAll(!isAll)}>
           {isAll ? (
             <Button
@@ -50,9 +54,15 @@ function CommentsList() {
         </p>
       )}
       <StCommentsList className="StCommentsList" isAll={isAll}>
-        {commentgAllListQuery.data.data.data.content.map((comment, i) => (
-          <Comment key={i} comment={comment} />
-        ))}
+        {commentgAllListQuery.data.data.data.content.length > 1 && isAll
+          ? commentgAllListQuery.data.data.data.content.map((comment, i) => (
+              <Comment key={i} comment={comment} />
+            ))
+          : commentgAllListQuery.data.data.data.content.length !== 0 && (
+              <Comment
+                comment={commentgAllListQuery.data.data.data.content[0]}
+              />
+            )}
       </StCommentsList>
     </StCommentListWrap>
   );
@@ -118,11 +128,12 @@ const StCommentListWrap = styled.div`
 `;
 
 const StCommentsList = styled.div`
-  height: ${(props) => (props.isAll ? "auto" : "130px")};
+  height: ${(props) => (props.isAll ? "auto" : "95px")};
   transition: 0.7s;
   overflow: hidden;
 
   @media ${(props) => props.theme.mobile} {
+    height: ${(props) => (props.isAll ? "auto" : "160px")};
     margin: 0 10px;
   }
 `;

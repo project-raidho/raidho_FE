@@ -195,7 +195,7 @@ export default Comment;
 const StComment = styled.div`
   padding: 5px 10px;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   .textbox {
