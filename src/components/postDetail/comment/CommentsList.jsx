@@ -15,11 +15,7 @@ function CommentsList() {
   const { id } = useParams();
   const [isAll, setIsAll] = useState(false);
 
-  const commentgAllListQuery = useQuery(["commentList", id], getCommentList, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const commentgAllListQuery = useQuery(["commentList", id], getCommentList);
 
   // console.log(commentgAllListQuery);
   if (commentgAllListQuery.isLoading) {
@@ -63,7 +59,7 @@ const StCommentListWrap = styled.div`
 `;
 
 const StCommentsList = styled.div`
-  height: ${(props) => (props.isAll ? "auto" : "125px")};
+  height: ${(props) => (props.isAll ? "auto" : "130px")};
   transition: 0.7s;
   overflow: hidden;
 
