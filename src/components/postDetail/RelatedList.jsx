@@ -17,12 +17,7 @@ const RelatedList = ({ targetTag }) => {
 
   const relatedPostListQuery = useQuery(
     ["relatedPostList", targetTag],
-    getRelatedPosts,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
+    getRelatedPosts
   );
 
   if (relatedPostListQuery.isLoading) {

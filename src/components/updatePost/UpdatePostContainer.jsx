@@ -77,11 +77,8 @@ const UpdatePostContainer = () => {
       formData.append("content", postContent);
       formData.append("tags", postTags);
 
-      const postUpdateResponse = await authInstance.put(
-        `/api/post/${postId}`,
-        formData
-      );
-      console.log("postResponse", postUpdateResponse.data);
+      await authInstance.put(`/api/post/${postId}`, formData);
+
       navigate(`/postdetail/${postId}`);
     }
   };
@@ -89,7 +86,7 @@ const UpdatePostContainer = () => {
   const getPostDetail = async (postId) => {
     try {
       const responsePostDetail = await authInstance.get(`/api/post/${postId}`);
-      // console.log(responsePostDetail.data);
+
       setPostDetail(responsePostDetail.data.data[0]);
     } catch (error) {
       console.log(
@@ -130,8 +127,7 @@ const UpdatePostContainer = () => {
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onUpdatePost, {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       queryClient.invalidateQueries("postDetail");
     },
     onError: () => {

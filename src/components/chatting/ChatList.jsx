@@ -30,7 +30,7 @@ const ChatList = ({ prevRoomId }) => {
   }
 
   const chatList = chatListQuery.data.data;
-  console.log(chatList);
+
   // 채팅방 들어가기
   const enterRoom = (roomId) => {
     // 입장한 채팅방을 다시 클릭하면 리턴
