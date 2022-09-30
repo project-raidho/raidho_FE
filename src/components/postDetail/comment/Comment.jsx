@@ -212,8 +212,8 @@ const StComment = styled.div`
   }
   .nameAndContent {
     display: flex;
-    align-items: center;
-    height: 30px;
+    /* align-items: center; */
+    min-height: 30px;
   }
   .buttonbox {
     padding-top: 0.2rem;
@@ -280,7 +280,8 @@ const StmiddleBox = styled.div`
 const Stcontent = styled.div`
   margin-left: 10px;
   max-width: 500px;
+
   @media (max-width: 639px) {
-    max-width: 100px;
+    max-width: 130px;
   }
 `;
