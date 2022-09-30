@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     --line-color: #666666;
     --red-color: #FF3838;
     --green-color: #11CA48;
+    --yellow-color: #ffd229;
     --blue-color: #4862E8;
     --lightBlue-color: #4888F4;
     --gray-color: #a0a0a0;
@@ -24,6 +25,12 @@ const GlobalStyle = createGlobalStyle`
     --title-color: #1E1E1E;
     --text-color: #1E1E1E;
     --menu-color : #666666;
+    --theme-korea-color: #663399;
+    --theme-europe-color: #66FFFF;
+    --theme-america-color: #339900;
+    --theme-asia-color: #990000;
+    --theme-oseania-color: #CC9966;
+    --theme-africa-color: #663300;
     --font-style: 'Pretendard-Regular';
     --box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.20);
     --button-shadow : 0px 2px 2px rgba(0, 0, 0, 0.15);
