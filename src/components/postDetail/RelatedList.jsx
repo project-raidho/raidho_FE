@@ -76,7 +76,7 @@ const StRelatedTitleRow = styled.div`
     z-index: 2;
     @media ${(props) => props.theme.mobile} {
       font-size: 1.2rem;
-      margin-left: 10px;
+      padding-left: 10px;
     }
   }
 

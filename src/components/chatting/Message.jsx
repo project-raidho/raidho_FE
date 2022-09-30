@@ -98,6 +98,7 @@ const ElMessage = styled.span`
       : "border-radius: 15px 15px 15px 0px;"}
   padding: 10px;
   width: auto;
+  max-width: 90%;
   height: auto;
 `;
 
