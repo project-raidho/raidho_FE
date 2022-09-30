@@ -94,17 +94,14 @@ const ChatName = () => {
     if (chatDetail.isMine) {
       setModalIcon("warning");
       setAlertMsg(
-        "작성하신 모집글과 채팅방이 삭제됩니다. 정말 삭제하시겠습니까?"
+        "작성하신 모집글과 채팅방이 삭제됩니다. 정말 니가시겠습니까?"
       );
       setModalOn(true);
     } else {
       setModalIcon("warning");
-      setAlertMsg("이 채팅방을 정말 삭제하시겠습니까?");
+      setAlertMsg("이 채팅방을 정말 나가시겠습니까?");
       setModalOn(true);
     }
-  };
-  const onCloseHandler = () => {
-    navigate("/chatting");
   };
 
   return (
@@ -135,15 +132,7 @@ const ChatName = () => {
               className="button"
               onClick={() => onDeleteHandler()}
             >
-              삭제
-            </Button>
-            <Button
-              size="small"
-              variant="lineBlue"
-              className="button"
-              onClick={() => onCloseHandler()}
-            >
-              닫기
+              나가기
             </Button>
           </StRightButtonSet>
         </StTitleBox>
