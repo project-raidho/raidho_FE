@@ -279,9 +279,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
                 </Button>
               )}
 
-            {meeting.isAlreadyJoin && meeting.isMine && (
-              <p className="isInMeetingMsg">참여중</p>
-            )}
+            {meeting.isAlreadyJoin && <p className="isInMeetingMsg">참여중</p>}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
