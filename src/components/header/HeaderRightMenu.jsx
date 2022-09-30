@@ -20,15 +20,19 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     localStorage.getItem("memberImage") === "null"
       ? `${DefaultMemberImage}`
       : localStorage.getItem("memberImage");
+
   // ::: 모달 여부 확인하기
   const [modalOn, setModalOn] = useState(false);
   const handleModal = () => {
     setModalOn(!modalOn);
+    modalOn && setInfoMessage("");
   };
 
   // ::: 토글 메뉴 확인하기
   const [isAddToggle, setIsAddToggle] = useState(false);
   const [isUserToggle, setIsUserToggle] = useState(false);
+
+  const [infoMessage, setInfoMessage] = useState("");
 
   // ::: 토글 메뉴 닫기
   const onCloseToggle = () => {
@@ -49,17 +53,32 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
   };
 
   // ::: 로그인 여부 확인 후 메뉴 이동
-  const checkLoginGoToChat = () => {
-    !isLogin ? handleModal() : navigate(`/chatting`);
+  const checkLoginGoToChat = (message) => {
+    if (!isLogin) {
+      setInfoMessage(message);
+      handleModal();
+    } else {
+      navigate(`/chatting`);
+    }
   };
 
-  const checkLoginGoToCreateMeeting = () => {
-    !isLogin ? handleModal() : navigate(`/createMeeting`);
+  const checkLoginGoToCreateMeeting = (message) => {
+    if (!isLogin) {
+      setInfoMessage(message);
+      handleModal();
+    } else {
+      navigate(`/createMeeting`);
+    }
     onCloseToggle();
   };
 
-  const checkLoginGoToCreatePost = () => {
-    !isLogin ? handleModal() : navigate(`/createPost`);
+  const checkLoginGoToCreatePost = (message) => {
+    if (!isLogin) {
+      setInfoMessage(message);
+      handleModal();
+    } else {
+      navigate(`/createPost`);
+    }
     onCloseToggle();
   };
 
@@ -85,19 +104,23 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
         <li onClick={() => setIsAddToggle(!isAddToggle)}>
           <AiOutlineCloudUpload className="iconAdd" />
           <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
-            <li onClick={() => checkLoginGoToCreatePost()}>
-              {/* <Link to={`/createPost`} onClick={onCloseToggle}> */}
+            <li
+              onClick={() =>
+                checkLoginGoToCreatePost("로그인 후 이용이 가능합니다.")
+              }
+            >
               여행후기 작성
-              {/* </Link> */}
             </li>
-            <li onClick={() => checkLoginGoToCreateMeeting()}>
-              {/* <Link to={`/createMeeting`} onClick={onCloseToggle}> */}
+            <li
+              onClick={() =>
+                checkLoginGoToCreateMeeting("로그인 후 이용이 가능합니다.")
+              }
+            >
               모집글 작성
-              {/* </Link> */}
             </li>
           </ToggleBox>
         </li>
-        <li onClick={() => checkLoginGoToChat()}>
+        <li onClick={() => checkLoginGoToChat("로그인 후 이용이 가능합니다.")}>
           <BsChatRightDots className="iconChat" />
         </li>
         {isLogin ? (
@@ -125,7 +148,11 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
               로그인
             </Button>
 
-            <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
+            <Potal>
+              {modalOn && (
+                <LoginModal onClose={handleModal} message={infoMessage} />
+              )}
+            </Potal>
           </li>
         )}
       </StLoginRightMenu>
