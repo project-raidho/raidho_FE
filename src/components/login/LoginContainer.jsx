@@ -43,6 +43,10 @@ const LoginModal = ({ onClose }) => {
           <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </SocialLoginbutton>
+          <p className="infoMessage">
+            현재 이메일 동의를 필수적으로 해주셔야 가입이 가능합니다. <br />
+            불편을 드려 죄송합니다.
+          </p>
           {/* 
           <SocialLoginbutton href={NAVER_AUTH_URL}>
             <img src={naver} alt="네이버로그인" />
@@ -108,6 +112,11 @@ const ModalContentBox = styled.div`
     width: 100%;
     height: 100px;
     padding: 20px;
+    .infoMessage {
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
   }
   svg.closeButton {
     position: absolute;
@@ -143,6 +152,10 @@ const ModalContentBox = styled.div`
     margin-left: 0;
     .contents {
       padding: 1vh;
+      .infoMessage {
+        width: 70%;
+        margin: 0 auto;
+      }
     }
 
     svg.closeButton {
