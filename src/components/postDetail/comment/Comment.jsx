@@ -116,53 +116,55 @@ const Comment = ({ comment }) => {
                 )}
               </div>
 
-              <p className="dday">
-                {Number(dday) === 0 ? "오늘" : `${Number(dday)}일전`}
-              </p>
+              <StBottomRow>
+                <p className="dday">
+                  {Number(dday) === 0 ? "오늘" : `${Number(dday)}일전`}
+                </p>
+                {userInfo === comment.memberName && (
+                  <>
+                    {isEdit ? (
+                      <div className="buttonbox">
+                        <Button
+                          size="small"
+                          variant="linePrimary"
+                          onClick={() => onCancle()}
+                        >
+                          취소
+                        </Button>
+
+                        <Button
+                          size="small"
+                          variant="linePrimary"
+                          onClick={() => updateMutate.mutate(comment.id)}
+                        >
+                          저장
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="buttonbox">
+                        <Button
+                          size="small"
+                          variant="linePrimary"
+                          onClick={onChangeEdit}
+                        >
+                          수정
+                        </Button>
+                        <Button
+                          size="small"
+                          variant="linePrimary"
+                          onClick={() => {
+                            deleteMutate.mutate(comment.id);
+                          }}
+                        >
+                          삭제
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </StBottomRow>
             </StmiddleBox>
           </div>
-          {userInfo === comment.memberName && (
-            <>
-              {isEdit ? (
-                <div className="buttonbox">
-                  <Button
-                    size="small"
-                    variant="linePrimary"
-                    onClick={() => onCancle()}
-                  >
-                    취소
-                  </Button>
-
-                  <Button
-                    size="small"
-                    variant="linePrimary"
-                    onClick={() => updateMutate.mutate(comment.id)}
-                  >
-                    저장
-                  </Button>
-                </div>
-              ) : (
-                <div className="buttonbox">
-                  <Button
-                    size="small"
-                    variant="linePrimary"
-                    onClick={onChangeEdit}
-                  >
-                    수정
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="linePrimary"
-                    onClick={() => {
-                      deleteMutate.mutate(comment.id);
-                    }}
-                  >
-                    삭제
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
         </StComment>
         {/* <Potal>
           {modalOn && (
@@ -191,8 +193,11 @@ const StComment = styled.div`
   display: flex;
   justify-content: space-between;
   .textbox {
-    height: 100%;
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
     p {
       margin: 0;
       font-size: 16px;
@@ -213,6 +218,7 @@ const StComment = styled.div`
   .nameAndContent {
     display: flex;
     /* align-items: center; */
+    width: 100%;
     min-height: 30px;
   }
   .buttonbox {
@@ -228,8 +234,9 @@ const StComment = styled.div`
     }
   }
   input {
+    display: block;
     margin-left: 10px;
-    max-width: 500px;
+    width: calc(100% - 150px);
     min-height: 30px;
     text-indent: 10px;
     font-size: 1rem;
@@ -237,30 +244,23 @@ const StComment = styled.div`
     border-radius: 15px;
     background-color: var(--bg-color);
     @media (max-width: 639px) {
-      max-width: 100px;
+      display: block;
+      width: calc(100% - 55px);
       font-size: 0.9rem;
     }
   }
   @media (max-width: 639px) {
-    .buttonbox {
-      button {
-        height: 24px;
-        font-size: 0.85rem;
-        margin-right: 0;
-        margin-left: 0.5rem;
-
-        /* :hover {
-        background-color: #3da9fc;
-      } */
-      }
-    }
   }
 `;
 
 const StmiddleBox = styled.div`
+  width: calc(100% - 50px);
   margin-left: 10px;
   .name {
-    /* width: 45px; */
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: 900;
   }
   p.dday {
@@ -278,10 +278,26 @@ const StmiddleBox = styled.div`
   }
 `;
 const Stcontent = styled.div`
-  margin-left: 10px;
-  max-width: 500px;
+  padding-left: 10px;
+  width: calc(100% - 100px);
 
   @media (max-width: 639px) {
-    max-width: 130px;
+    width: calc(100% - 45px);
+    /* max-width: 130px; */
+  }
+`;
+
+const StBottomRow = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  .buttonbox {
+    button {
+      height: 24px;
+      font-size: 0.85rem;
+      margin-right: 0;
+      margin-left: 0.5rem;
+    }
   }
 `;

@@ -63,7 +63,7 @@ const StCommentListWrap = styled.div`
 `;
 
 const StCommentsList = styled.div`
-  height: ${(props) => (props.isAll ? "auto" : "125px")};
+  height: ${(props) => (props.isAll ? "auto" : "130px")};
   transition: 0.7s;
   overflow: hidden;
 
