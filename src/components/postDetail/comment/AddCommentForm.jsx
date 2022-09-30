@@ -23,7 +23,7 @@ const AddCommentForm = () => {
     register,
     handleSubmit,
     formState: { isDirty, errors },
-  } = useForm();
+  } = useForm({ mode: "onChange"});
 
   const [content, setContent] = useState("");
 

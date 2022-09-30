@@ -14,7 +14,7 @@ const RoomCloseDateBox = ({
   const [showCalendar, setShowCalendar] = useState(false);
   // 오늘 날짜 기본값지정을 위해
   const today = moment().add(0, "d").toDate();
-  const [maxDate, setmMaxDate] = useState();
+  const [maxDate, setmMaxDate] = useState(today);
   //기본값을 오늘날짜로 지정
   const [date, setDate] = useState(today);
   const [inputDate, setInputDate] = useState(roomCloseDate);
@@ -35,9 +35,14 @@ const RoomCloseDateBox = ({
   //   setInputdate(e.target.value);
   //   // setRoomCloseDate(inputdate);
   // };
+  console.log(maxRoomCloseDate);
   useEffect(() => {
     setInputDate(roomCloseDate);
-    setmMaxDate(maxRoomCloseDate);
+    if (maxRoomCloseDate === "") {
+      return setmMaxDate(moment().add(600, "d").toDate());
+    } else {
+      return setmMaxDate(maxRoomCloseDate);
+    }
   }, [roomCloseDate, maxRoomCloseDate]);
 
   return (
