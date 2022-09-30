@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
 import styled, { css } from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
@@ -19,16 +19,18 @@ const AddCommentForm = () => {
       : DefaultProfileImage;
   const memberName = localStorage.getItem("memberName");
   const { id } = useParams();
-  const {
-    register,
-    handleSubmit,
-    formState: { isDirty, errors },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { isDirty, errors },
+  // } = useForm();
 
   const [content, setContent] = useState("");
+  const [commentLength, setCommentLength] = useState(0);
 
   const onChangeContent = (e) => {
     setContent(e.target.value);
+    setCommentLength(e.target.value.length);
   };
 
   const onAddComment = async () => {
@@ -53,44 +55,49 @@ const AddCommentForm = () => {
   };
 
   return (
-    <CommentForm onSubmit={handleSubmit(mutate)}>
-      <div className="profileBox">
-        <img className="profileImg" src={memberImage} alt="프로필이미지" />
-      </div>
-      <input
-        required
-        placeholder={
-          memberName === null
-            ? "로그인 후 이용 가능합니다."
-            : `${memberName}(으)로 댓글 달기...`
-        }
-        aria-invalid={!isDirty ? undefined : errors.content ? "true" : "false"}
-        {...register("content", {
-          required: "내용은 필수 입력사항입니다.",
-          maxLength: {
-            value: 100,
-            message: "100자 이내로  작성해주세요.",
-          },
-        })}
-        value={content}
-        name="content"
-        type="text"
-        onChange={onChangeContent}
-      />
-      {errors.content && <small role="alert">{errors.content.message}</small>}
+    <>
+      <CommentForm onSubmit={mutate}>
+        <div className="profileBox">
+          <img className="profileImg" src={memberImage} alt="프로필이미지" />
+        </div>
+        <input
+          required
+          placeholder={
+            memberName === null
+              ? "로그인 후 이용 가능합니다."
+              : `${memberName}(으)로 댓글 달기...`
+          }
+          value={content}
+          name="content"
+          type="text"
+          maxlength="100"
+          onChange={onChangeContent}
+        />
 
-      <StButton
-        size="small"
-        variant={content === "" ? "lineGray" : "lineLightBlue"}
-        onClick={mutate}
-        className="addButton"
-        type="submit"
-        disabled={content === ""}
-      >
-        게시
-      </StButton>
-      <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
-    </CommentForm>
+        <StButton
+          size="small"
+          variant={content === "" ? "lineGray" : "lineLightBlue"}
+          onClick={mutate}
+          className="addButton"
+          type="submit"
+          disabled={content === ""}
+        >
+          게시
+        </StButton>
+        <Potal>
+          {modalOn && (
+            <LoginModal
+              onClose={handleModal}
+              message={"로그인 후 이용이 가능합니다."}
+            />
+          )}
+        </Potal>
+      </CommentForm>
+      <StValidation commentLength={commentLength}>
+        <strong>댓글은 최대 100자까지 입력이 가능합니다. </strong>
+        <span>{commentLength}/100자</span>
+      </StValidation>
+    </>
   );
 };
 
@@ -152,4 +159,27 @@ const StButton = styled(Button)`
         color: var(--gray-color);
       }
     `};
+`;
+
+const StValidation = styled.p`
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px 10px;
+  span,
+  strong {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    padding: 0px 10px 10px;
+    span,
+    strong {
+      font-size: 0.9rem;
+    }
+    span {
+      color: ${({ commentLength }) =>
+        commentLength > 0 && "var(--title-color)"};
+    }
+  }
 `;

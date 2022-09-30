@@ -74,6 +74,13 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  button {
+    transition: all 0.3s ease;
+   
+  }
+  button:hover {
+    box-shadow: var(--button-shadow);
+  }
 `;
 
 export default GlobalStyle;

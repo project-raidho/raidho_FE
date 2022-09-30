@@ -18,7 +18,7 @@ import kakao from "../../assets/kakao.svg";
 // import facebook from "../../assets/facebook.svg";
 // import notPrepare from "../../assets/notPrepare.svg";
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, message }) => {
   // const navigate = useNavigate();
   // const oAuthLoginHandler = (id, email) => {
   //   let request = {
@@ -43,10 +43,7 @@ const LoginModal = ({ onClose }) => {
           <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </SocialLoginbutton>
-          {/* <p className="infoMessage">
-            현재 이메일 동의를 필수적으로 해주셔야 가입이 가능합니다. <br />
-            불편을 드려 죄송합니다.
-          </p> */}
+          <p className="infoMessage">{message}</p>
           {/* 
           <SocialLoginbutton href={NAVER_AUTH_URL}>
             <img src={naver} alt="네이버로그인" />
