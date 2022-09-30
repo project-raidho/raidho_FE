@@ -40,7 +40,7 @@ const PostDetailContainer = () => {
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
-    confirmModalOn(false);
+    setConfirmModalOn(false);
     setAlertModalOn(false);
   };
 

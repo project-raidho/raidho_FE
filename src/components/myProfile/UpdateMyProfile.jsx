@@ -21,8 +21,12 @@ const UpdateMyProfile = (props) => {
 
   const [compressedImageFile, setCompressedImageFile] = useState(null);
   const [previewUpdateImage, setPreviewUpdateImage] = useState(null);
-  const [updateNickname, setUpdateNickname] = useState(memberInfo.memberName);
-  const [updateComment, setUpdateComment] = useState(memberInfo.memberIntro);
+  const [updateNickname, setUpdateNickname] = useState(null);
+  const [updateComment, setUpdateComment] = useState(null);
+
+  // ::: 프로필 수정 글자수 제한
+  const [nickNameLength, setNickNameLength] = useState(0);
+  const [introLength, setIntroLength] = useState(0);
 
   // ::: 유효성 검사 메시지 상태관리하기
   const [validationAlert, setValidationAlert] = useState("");
@@ -35,8 +39,8 @@ const UpdateMyProfile = (props) => {
     // ::: 유저가 입력한 값 초기화 시키기
 
     setCompressedImageFile(null);
-    setUpdateNickname(memberInfo.memberName);
-    setUpdateComment(memberInfo.memberIntro);
+    setUpdateNickname(null);
+    setUpdateComment(null);
     setValidationAlert(null);
   };
 
@@ -58,25 +62,33 @@ const UpdateMyProfile = (props) => {
 
   const onChangeUpdateMemberName = (event) => {
     setUpdateNickname(event.target.value);
+    setNickNameLength(event.target.value.length);
   };
 
   const onChangeUpdateMemberComment = (event) => {
     setUpdateComment(event.target.value);
+    setIntroLength(event.target.value.length);
   };
-
-  // console.log("compressedImageFile", compressedImageFile);
-  // console.log("updateNickname", updateNickname);
-  // console.log("updateComment", updateComment);
 
   // ::: 수정 정보 서버에 전달하기
   const onCompleteUpdateProfile = async () => {
     if (
-      memberInfo.memberImage === compressedImageFile &&
-      memberInfo.memberName === updateNickname &&
-      memberInfo.memberIntro === updateComment
+      compressedImageFile === null &&
+      updateNickname === null &&
+      updateComment === null
     ) {
       return setValidationAlert("변경된 내용이 없습니다.");
     }
+
+    const finalNickname =
+      updateNickname !== "" && updateNickname !== null
+        ? updateNickname
+        : memberInfo.memberName;
+    const finalIntro =
+      updateComment !== "" && updateComment !== null
+        ? updateComment
+        : memberInfo.memberIntro;
+
     // :: image file formData 형식 변환
     const formData = new FormData();
 
@@ -84,11 +96,11 @@ const UpdateMyProfile = (props) => {
       const fileName =
         "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
       formData.append("memberImage", compressedImageFile, fileName);
-      formData.append("memberName", updateNickname);
-      formData.append("memberIntro", updateComment);
+      formData.append("memberName", finalNickname);
+      formData.append("memberIntro", finalIntro);
     } else {
-      formData.append("memberName", updateNickname);
-      formData.append("memberIntro", updateComment);
+      formData.append("memberName", finalNickname);
+      formData.append("memberIntro", finalIntro);
     }
 
     try {
@@ -102,10 +114,9 @@ const UpdateMyProfile = (props) => {
         }
       );
 
-
       localStorage.setItem("memberImage", response.data);
-      localStorage.setItem("memberName", updateNickname);
-      localStorage.setItem("memberIntro", updateComment);
+      localStorage.setItem("memberName", finalNickname);
+      localStorage.setItem("memberIntro", finalIntro);
 
       setModalOn(false);
     } catch (error) {
@@ -160,24 +171,34 @@ const UpdateMyProfile = (props) => {
 
                   <StMemberNicknameBox>
                     <StUpdateUserProfileTitle>닉네임</StUpdateUserProfileTitle>
-                    <Input
-                      size="large"
-                      variant="default"
-                      value={updateNickname}
-                      placeholder={memberInfo.memberName}
-                      onChange={(event) => onChangeUpdateMemberName(event)}
-                    />
+                    <div className="inputProfileRow">
+                      <Input
+                        size="large"
+                        variant="default"
+                        value={updateNickname}
+                        placeholder={memberInfo.memberName}
+                        onChange={(event) => onChangeUpdateMemberName(event)}
+                        maxLength="10"
+                      />
+                      <StValidationLength>
+                        {nickNameLength}/10자
+                      </StValidationLength>
+                    </div>
                   </StMemberNicknameBox>
                 </StUpdateProfileRow>
 
                 <StUpdateUserProfileTitle>한 줄 소개</StUpdateUserProfileTitle>
-                <Input
-                  size="large"
-                  variant="default"
-                  placeholder={memberInfo.memberIntro}
-                  onChange={(event) => onChangeUpdateMemberComment(event)}
-                  value={updateComment}
-                />
+                <div className="inputProfileRow">
+                  <Input
+                    size="large"
+                    variant="default"
+                    placeholder={memberInfo.memberIntro}
+                    onChange={(event) => onChangeUpdateMemberComment(event)}
+                    value={updateComment}
+                    maxLength="50"
+                  />
+                  <StValidationLength>{introLength}/50자</StValidationLength>
+                </div>
                 <StValidationMessage>{validationAlert}</StValidationMessage>
               </StUpdateProfileTop>
               <StButtonWrap>
@@ -211,8 +232,14 @@ const StUpdateMyProfileWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 120px;
+  min-height: 120px;
   background-color: var(--bg-color);
+  margin-top: 20px;
+
+  button {
+    width: 150px;
+    font-size: 1.3rem;
+  }
 
   @media (max-width: 639px) {
     height: 150px;
@@ -220,9 +247,10 @@ const StUpdateMyProfileWrap = styled.div`
     flex-direction: column;
 
     button {
+      width: 130px;
+      height: 38px;
       font-size: 1rem;
-      margin-top: 1rem;
-      margin-left: 1rem;
+      margin: 0 auto;
       padding: 0.5rem 1rem;
     }
   }
@@ -233,6 +261,7 @@ const StMyProfileBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: left;
+  width: calc(100% - 120px);
 
   p {
     width: 120px;
@@ -251,21 +280,23 @@ const StMyProfileBox = styled.div`
   }
 
   dl {
+    width: calc(100% - 180px);
     dt {
       display: flex;
       align-items: center;
       height: 54px;
-      font-size: 2.25rem;
+      font-size: 2rem;
     }
     dd {
       display: flex;
       align-items: flex-start;
       height: 66px;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 
   @media (max-width: 639px) {
+    width: 100%;
     p {
       width: 80px;
       height: 80px;
@@ -277,26 +308,48 @@ const StMyProfileBox = styled.div`
       flex-direction: column;
       align-items: flex-start;
       justify-content: end;
+      width: calc(100% - 130px);
       height: 80px;
 
       dt {
-        height: 40px;
+        height: 30px;
         font-size: 1.2rem;
       }
       dd {
-        height: 20px;
-        font-size: 1rem;
+        width: 100%;
+        height: auto;
+        min-height: 20px;
+        font-size: 0.9rem;
       }
     }
   }
 `;
 
 const StUpdateProfileTop = styled.div`
+  width: 100%;
+  height: 100%;
+  .inputProfileRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+    input {
+      display: flex;
+      width: calc(100% - 80px);
+      font-size: 1rem;
+    }
+  }
   @media (max-width: 639px) {
     padding-top: 10px;
-    input {
-      font-size: 1rem;
-      border-radius: 30px;
+    .inputProfileRow {
+      input {
+        width: calc(100% - 60px);
+        height: 36px;
+        font-size: 0.9rem;
+        border-radius: 30px;
+      }
     }
   }
 `;
@@ -310,6 +363,7 @@ const StButtonWrap = styled.div`
 
   button {
     margin-left: 1rem;
+    font-size: 1.3rem;
   }
 
   @media (max-width: 639px) {
@@ -324,7 +378,7 @@ const StButtonWrap = styled.div`
 `;
 
 const StUpdateUserProfileTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: left;
   margin: 1rem 0;
   @media (max-width: 639px) {
@@ -378,6 +432,7 @@ const StMemberImageBox = styled.label`
   border-radius: 50%;
   margin-right: 20px;
   overflow: hidden;
+  cursor: pointer;
 
   .changeImageMessage {
     font-size: 1.2rem;
@@ -395,15 +450,18 @@ const StMemberImageBox = styled.label`
 `;
 
 const StMemberNicknameBox = styled.div`
-  width: 200px;
+  width: calc(100% - 170px);
 
   p {
     width: 100%;
     font-size: 1.5rem;
     text-align: left;
   }
+  input {
+    font-size: 1.2rem;
+  }
   @media (max-width: 639px) {
-    width: 180px;
+    width: calc(100% - 100px);
 
     input {
       font-size: 1rem;
@@ -423,5 +481,17 @@ const StValidationMessage = styled.p`
 
   @media (max-width: 639px) {
     font-size: 1rem;
+  }
+`;
+
+const StValidationLength = styled.span`
+  width: 80px;
+  font-size: 1rem;
+  text-align: right;
+  color: var(--gray-color);
+
+  @media (max-width: 639px) {
+    width: 60px;
+    font-size: 0.9rem;
   }
 `;
