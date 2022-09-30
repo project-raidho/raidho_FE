@@ -5,19 +5,22 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 
-const RelatedList = ({ targetTag }) => {
+const RelatedList = ({ targetTag, postId }) => {
   // console.log(targetTag, "targetTag");
 
   // ::: 관련 여행후기 게시글 조회
   const getRelatedPosts = async () => {
-    // const response = await authInstance.get(`/api/search/review/${targetTag}`);
-    const response = await authInstance.get(`/api/search/${targetTag}`);
-    // console.log("######====>", response);
+    const response = await authInstance.get(
+      `/api/search/review/${targetTag}/${postId}`
+    );
+
+    // const response = await authInstance.get(`/api/search/${targetTag}`);
+    console.log("######====>", response);
     return response;
   };
 
   const relatedPostListQuery = useQuery(
-    ["relatedPostList", targetTag],
+    ["relatedPostList", targetTag, postId],
     getRelatedPosts
   );
 
