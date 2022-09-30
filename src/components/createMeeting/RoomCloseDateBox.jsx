@@ -49,15 +49,18 @@ const RoomCloseDateBox = ({
     <StRoomCloseDateBoxContainer>
       <h1>모집마감일자 *</h1>
       <StInputbox>
-        <StDateInput
-          placeholder={"모집마감일자를 선택해주세요"}
-          value={inputDate}
-          variant="default"
-          size="large"
-          onFocus={() => setShowCalendar(true)}
-          // onBlur={()=>setShowCalendar(false)}
-          // onChange={inputonChangeHandler}
-        />
+        <span onClick={() => setShowCalendar(!showCalendar)}>
+          <StDateInput
+            className="input"
+            placeholder={"모집마감일자를 선택해주세요"}
+            value={inputDate}
+            variant="default"
+            size="large"
+            // onChange={inputonChangeHandler}
+            disabled={true}
+          />
+        </span>
+
         <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
       </StInputbox>
 
@@ -81,6 +84,9 @@ const RoomCloseDateBox = ({
 export default RoomCloseDateBox;
 
 const StRoomCloseDateBoxContainer = styled.div`
+  .input {
+    cursor: pointer;
+  }
   .calendar {
     @media ${(props) => props.theme.mobile} {
       .rdrMonth {
@@ -97,9 +103,11 @@ const CalendarIcon = styled(BsCalendar3)`
 `;
 
 const StDateInput = styled(Input)`
-  width: 80%;
   font-size: 1rem;
 `;
 const StInputbox = styled.div`
   display: flex;
+  span {
+    width: 80%;
+  }
 `;
