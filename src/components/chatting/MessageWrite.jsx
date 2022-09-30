@@ -52,6 +52,7 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
 const Container = styled.div`
   ${(props) => props.theme.flex_row};
   border-top: 1px solid var(--gray-color);
+  border-bottom: 1px solid var(--gray-color);
   background-color: var(--bg-color);
   width: 100%;
   height: 10%;
@@ -67,7 +68,7 @@ const Container = styled.div`
 `;
 
 const StButton = styled(Button)`
-  width: 90px;
+  width: 100px;
   box-shadow: none;
   ${(props) =>
     props.variant === "gray" &&

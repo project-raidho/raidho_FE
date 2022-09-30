@@ -37,11 +37,11 @@ const Container = styled.div`
 
   padding: 5px;
   height: 15%;
-  width: 80%;
+  width: 90%;
 
   ${(props) => props.theme.border_box}
 
-  margin:0 10px 20px 10px;
+  margin:0 20px 20px 20px;
   cursor: pointer;
   color: ${(props) => props.theme.font_color};
   @media ${(props) => props.theme.mobile} {

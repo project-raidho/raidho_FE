@@ -81,11 +81,6 @@ const ChattingRoom = () => {
             },
             { token: token }
           );
-          ws.send(
-            `/pub/chat/send/${id}`,
-            { token: token },
-            JSON.stringify(enterChat)
-          );
         }
       );
     } catch (error) {
