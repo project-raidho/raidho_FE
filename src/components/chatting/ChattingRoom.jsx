@@ -53,12 +53,12 @@ const ChattingRoom = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const enterChat = {
-    type: "ENTER",
-    roomId: Number(id),
-    sender: sender,
-    message: `${sender}님이 입장하셨습니다.`,
-  };
+  // const enterChat = {
+  //   type: "ENTER",
+  //   roomId: Number(id),
+  //   sender: sender,
+  //   message: `${sender}님이 입장하셨습니다.`,
+  // };
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
     try {
