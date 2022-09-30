@@ -36,7 +36,7 @@ const KakaoMap = ({ searchPlace }) => {
         map.setCenter(coords);
       }
     });
-    //키워드 검색
+    // 키워드 검색
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(searchPlace, placesSearchCB);
