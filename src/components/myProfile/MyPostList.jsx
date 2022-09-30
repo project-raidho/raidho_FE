@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../../elements/Button";
+import { Link } from "react-router-dom";
+// import Button from "../../elements/Button";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 import IconError from "../../assets/iconError.svg";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 const MyPostList = ({ data, status, error }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   console.log(data);
 
   if (status === "loading") {
@@ -23,14 +23,14 @@ const MyPostList = ({ data, status, error }) => {
       {data.length === 0 && (
         <StMessageMinePost>
           <img src={IconError} alt="에러" />
-          <p>내가 쓴 글이 없어요.</p>
-          <Button
+          <p>해당 게시글이 없습니다.</p>
+          {/* <Button
             onClick={() => navigate(`/createPost`)}
             size="square"
             variant="lineSquare"
           >
             여행후기 작성하러 가기
-          </Button>
+          </Button> */}
         </StMessageMinePost>
       )}
       <StMyPostListWrap>
@@ -57,7 +57,7 @@ const StMessageMinePost = styled.div`
   }
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--title-color);
     font-style: italic;
     padding: 1rem 0;
@@ -69,7 +69,7 @@ const StMessageMinePost = styled.div`
     }
     p {
       padding: 0.5rem 0;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
     button {
       width: 200px;
