@@ -48,9 +48,19 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     navigate("/");
   };
 
-  // ::: 로그인 여부 확인 후 채팅방 이동
+  // ::: 로그인 여부 확인 후 메뉴 이동
   const checkLoginGoToChat = () => {
     !isLogin ? handleModal() : navigate(`/chatting`);
+  };
+
+  const checkLoginGoToCreateMeeting = () => {
+    !isLogin ? handleModal() : navigate(`/createMeeting`);
+    onCloseToggle();
+  };
+
+  const checkLoginGoToCreatePost = () => {
+    !isLogin ? handleModal() : navigate(`/createPost`);
+    onCloseToggle();
   };
 
   useEffect(() => {
@@ -75,15 +85,15 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
         <li onClick={() => setIsAddToggle(!isAddToggle)}>
           <AiOutlineCloudUpload className="iconAdd" />
           <ToggleBox isToggle={isAddToggle} onCloseToggle={onCloseToggle}>
-            <li>
-              <Link to={`/createPost`} onClick={onCloseToggle}>
-                여행후기 작성
-              </Link>
+            <li onClick={() => checkLoginGoToCreatePost()}>
+              {/* <Link to={`/createPost`} onClick={onCloseToggle}> */}
+              여행후기 작성
+              {/* </Link> */}
             </li>
-            <li>
-              <Link to={`/createMeeting`} onClick={onCloseToggle}>
-                모집글 작성
-              </Link>
+            <li onClick={() => checkLoginGoToCreateMeeting()}>
+              {/* <Link to={`/createMeeting`} onClick={onCloseToggle}> */}
+              모집글 작성
+              {/* </Link> */}
             </li>
           </ToggleBox>
         </li>

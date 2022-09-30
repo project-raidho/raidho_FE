@@ -89,7 +89,7 @@ const PostDetailContainer = () => {
         <AddCommentForm />
         <CommentsList />
       </StDetailContainer>
-      <RelatedList targetTag={targetTag} />
+      <RelatedList targetTag={targetTag} postId={postDetail.id} />
 
       <div></div>
     </>
