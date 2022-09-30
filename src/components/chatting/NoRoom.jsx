@@ -5,10 +5,12 @@ import Info from "../../elements/Info";
 const NoRoom = (props) => {
   return (
     <Container>
-      <h4>
-        <Info />
-      </h4>
-      <p>{"선택한 채팅방이 없습니다."}</p>
+      <div className="box">
+        <h4>
+          <Info />
+        </h4>
+        <p>{"참여중인 채팅방이 없습니다."}</p>
+      </div>
     </Container>
   );
 };
@@ -18,6 +20,10 @@ const Container = styled.div`
   height: 70%;
   display: flex;
   justify-content: center;
+  .box {
+    display: flex;
+    justify-content: center;
+  }
   h4 {
     display: block;
     width: 60px;
@@ -25,16 +31,15 @@ const Container = styled.div`
     background-color: var(--text-color);
     border-radius: 50%;
     border: 1px solid var(--title-color);
-    margin-top: 30px;
+    margin-top: 100px;
     margin-left: 20px;
     overflow: hidden;
   }
   p {
     margin-left: 10px;
-    margin-top: 45px;
+    margin-top: 115px;
     font-size: 1.5rem;
     @media ${(props) => props.theme.mobile} {
-      margin-top: 50px;
       font-size: 1.2rem;
     }
   }

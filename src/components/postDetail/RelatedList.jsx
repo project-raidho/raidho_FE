@@ -18,12 +18,7 @@ const RelatedList = ({ targetTag }) => {
 
   const relatedPostListQuery = useQuery(
     ["relatedPostList", targetTag],
-    getRelatedPosts,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
+    getRelatedPosts
   );
 
   if (relatedPostListQuery.isLoading) {
@@ -99,7 +94,7 @@ const StRelatedListWrap = styled.div`
   height: ${(props) => (props.isMore === true ? "auto" : "400px")};
   background-color: var(--bg-color);
   overflow: hidden;
-
+  margin-bottom: 80px;
   @media (max-width: 1023px) {
     grid-template-columns: repeat(3, 1fr);
   }

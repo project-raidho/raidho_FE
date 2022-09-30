@@ -1,47 +1,47 @@
-import React, { useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { authInstance } from "../../shared/api";
-import { useInfiniteQuery } from "react-query";
-import { useInView } from "react-intersection-observer";
+import { useQuery } from "react-query";
+// import { useInView } from "react-intersection-observer";
 import MainPostCard from "../main/MainPostCard";
 import styled from "styled-components";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 import SearchAlert from "./SearchAlert";
 
-const getSearchTagPostList = async (tagName, pageParam) => {
-  // console.log("====>tag", tagName);
-  try {
-    const response = await authInstance.get(
-      `/api/search/${tagName}?page=${pageParam}`
-    );
-
-    const { content, last, number } = response.data.data;
-    return { content, nextPage: number + 1, last };
-  } catch (error) {
-    console.log(error);
-  }
+const getSearchTagPostList = async ({ queryKey }) => {
+  const res = await authInstance.get(`/api/search/${queryKey[1]}?page=0`);
+  console.log(res);
+  return res.data.data;
 };
 
-const SearchTagPost = ({ tagName }) => {
-  const { ref, inView } = useInView();
-  const { data, status, fetchNextPage, isFetchingNextPage, error } =
-    useInfiniteQuery(
-      ["tagPostList"],
-      ({ pageParam = 0 }) => getSearchTagPostList(tagName, pageParam),
-      {
-        cacheTime: 3000,
-        getNextPageParam: (lastPage) => {
-          return !lastPage.last
-            ? lastPage.nextPage
-            : console.log("====> 마지막페이지 입니다");
-        },
-      }
-    );
+// 무한스크롤
+// const SearchTagPost = ({ tagName }) => {
+//   const { ref, inView } = useInView();
+//   const { data, status, fetchNextPage, isFetchingNextPage, error } =
+//     useInfiniteQuery(
+//       ["tagPostList"],
+//       ({ pageParam = 0 }) => getSearchTagPostList(tagName, pageParam),
+//       {
+//         cacheTime: 3000,
+//         getNextPageParam: (lastPage) => {
+//           return !lastPage.last
+//             ? lastPage.nextPage
+//             : console.log("====> 마지막페이지 입니다");
+//         },
+//       }
+//     );
 
-  useEffect(() => {
-    if (inView) fetchNextPage();
-    // eslint-disable-next-line
-  }, [inView]);
+//   useEffect(() => {
+//     if (inView) fetchNextPage();
+//     // eslint-disable-next-line
+//   }, [inView]);
+
+const SearchTagPost = ({ tagName }) => {
+  const { data, status, error } = useQuery(
+    ["tagPostList", tagName],
+    getSearchTagPostList
+  );
+  console.log(data);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
@@ -49,17 +49,26 @@ const SearchTagPost = ({ tagName }) => {
   // console.log("tagPostListQuery :::", data);
 
   return (
+    // <>
+    //   {data.pages[0].content.length === 0 && <SearchAlert tagName={tagName} />}
+    //   <StPostCardBox>
+    //     {data?.pages.map((page, index) => (
+    //       <Fragment key={index}>
+    //         {page.content.map((post) => (
+    //           <MainPostCard key={post.id} post={post} />
+    //         ))}
+    //       </Fragment>
+    //     ))}
+    //     {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
+    //   </StPostCardBox>
+    // </>
+
     <>
-      {data.pages[0].content.length === 0 && <SearchAlert tagName={tagName} />}
+      {data.content.length === 0 && <SearchAlert tagName={tagName} />}
       <StPostCardBox>
-        {data?.pages.map((page, index) => (
-          <Fragment key={index}>
-            {page.content.map((post) => (
-              <MainPostCard key={post.id} post={post} />
-            ))}
-          </Fragment>
+        {data.content.map((post) => (
+          <MainPostCard key={post.id} post={post} />
         ))}
-        {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       </StPostCardBox>
     </>
   );

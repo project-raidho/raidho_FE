@@ -71,7 +71,7 @@ const ChattingRoom = () => {
             `/sub/chat/message/${id}`,
             (data) => {
               const newMessage = JSON.parse(data.body);
-              console.log(messages);
+
               //트러블 슈팅 적어보기 밑에건 안쌓이고 밑밑에건 쌓인다 왜??
               // setMessages([...messages, newMessage]);
 

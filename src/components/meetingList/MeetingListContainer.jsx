@@ -124,7 +124,7 @@ const MeetingListContainer = () => {
           <StMeetingCategoryRow className="themeCategoryRow">
             {themeList.map((theme, index) => (
               <p
-                className={`themeCategoryButton ${theme.themePath}`}
+                className="themeCategoryButton"
                 key={theme.themeName + index}
                 onClick={() => onClickTheme(theme.themeName)}
               >
@@ -370,37 +370,6 @@ const StMeetingCategoryRow = styled.div`
         color: #ffffff;
       }
     }
-    /* &.korea {
-      a.active {
-        background-color: var(--theme-korea-color);
-      }
-    }
-    &.europe {
-      a.active {
-        background-color: var(--theme-europe-color);
-      }
-    }
-    &.america {
-      a.active {
-        background-color: var(--theme-america-color);
-        color: var(--title-color);
-      }
-    }
-    &.asia {
-      a.active {
-        background-color: var(--theme-asia-color);
-      }
-    }
-    &.oseania {
-      a.active {
-        background-color: var(--theme-oseania-color);
-      }
-    }
-    &.africa {
-      a.active {
-        background-color: var(--theme-africa-color);
-      }
-    } */
   }
 
   @media (max-width: 767px) {

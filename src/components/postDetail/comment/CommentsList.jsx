@@ -15,11 +15,7 @@ function CommentsList() {
   const { id } = useParams();
   const [isAll, setIsAll] = useState(false);
 
-  const commentgAllListQuery = useQuery(["commentList", id], getCommentList, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const commentgAllListQuery = useQuery(["commentList", id], getCommentList);
 
   // console.log(commentgAllListQuery);
   if (commentgAllListQuery.isLoading) {
