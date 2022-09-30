@@ -24,7 +24,7 @@ const PostDetailImg = ({ images }) => {
 export default PostDetailImg;
 
 const StyledSlider = styled(Slider)`
-  width: 100%;
+  width: 99.7%;
   text-align: center;
   margin-bottom: 10px;
   .imageBox {
