@@ -151,12 +151,14 @@ const MeetingListCard = ({ meeting }) => {
           <p className="infoStatus">
             {meeting.meetingStatus === 1 && (
               <span className="statusIng">
-                <i></i>모집중 D-<b>{dday === 0 ? "day" : dday}</b>
+                <i></i>모집중 D-
+                <b>{Number(dday) === 0 ? "day" : Number(dday)}</b>
               </span>
             )}
             {meeting.meetingStatus === 2 && (
               <span className="statusComplete">
-                <i></i>모집마감 D-<b>{dday === 0 ? "day" : dday}</b>
+                <i></i>모집마감 D-
+                <b>{Number(dday) === 0 ? "day" : Number(dday)}</b>
               </span>
             )}
             {meeting.meetingStatus === 3 && (

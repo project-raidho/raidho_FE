@@ -116,7 +116,9 @@ const Comment = ({ comment }) => {
                 )}
               </div>
 
-              <p className="dday">{dday === 0 ? "오늘" : `${dday}일전`}</p>
+              <p className="dday">
+                {Number(dday) === 0 ? "오늘" : `${Number(dday)}일전`}
+              </p>
             </StmiddleBox>
           </div>
           {userInfo === comment.memberName && (
