@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import MainPostCard from "./MainPostCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
+import LastPageInfo from "../../elements/LastPageInfo";
 import styled from "styled-components";
 
 const getPostList = async (state, pageParam) => {
@@ -24,9 +25,7 @@ const MainPostList = ({ state }) => {
       {
         cacheTime: 3000,
         getNextPageParam: (lastPage) => {
-          return !lastPage.last
-            ? lastPage.nextPage
-            : console.log("====> 마지막페이지");
+          return !lastPage.last ? lastPage.nextPage : console.log("");
         },
       }
     );
