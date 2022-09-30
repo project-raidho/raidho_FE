@@ -102,6 +102,7 @@ const UpdateMyProfile = (props) => {
         }
       );
 
+
       localStorage.setItem("memberImage", response.data);
       localStorage.setItem("memberName", updateNickname);
       localStorage.setItem("memberIntro", updateComment);

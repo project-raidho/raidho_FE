@@ -62,6 +62,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     /* scroll-behavior: smooth; */
+    word-break: break-all;
   }
   h1, h2, h3, h4, h5, h6 {
     font-weight: 700;

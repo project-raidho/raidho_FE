@@ -226,6 +226,13 @@ const Container = styled.div`
     div {
       margin-top: 3px;
       color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media ${(props) => props.theme.mobile} {
+        max-width: 140px;
+      }
     }
   }
   .icon {

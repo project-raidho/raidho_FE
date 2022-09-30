@@ -133,8 +133,12 @@ const StContentBox = styled.div`
   width: 100%;
   height: auto;
   line-height: 1.5;
+  max-width: 738px;
+  padding: 20px 0px;
+  margin: 0 auto;
 
   @media ${(props) => props.theme.mobile} {
-    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 `;
