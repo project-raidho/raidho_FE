@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
@@ -79,15 +79,16 @@ const AddCommentForm = () => {
       />
       {errors.content && <small role="alert">{errors.content.message}</small>}
 
-      <Button
+      <StButton
         size="small"
         variant={content === "" ? "lineGray" : "lineLightBlue"}
         onClick={mutate}
         className="addButton"
         type="submit"
+        disabled={content === ""}
       >
         게시
-      </Button>
+      </StButton>
       <Potal>{modalOn && <LoginModal onClose={handleModal} />}</Potal>
     </CommentForm>
   );
@@ -138,4 +139,17 @@ const CommentForm = styled.div`
       font-size: 0.9rem;
     }
   }
+`;
+
+const StButton = styled(Button)`
+  ${(props) =>
+    props.variant === "lineGray" &&
+    css`
+      cursor: default;
+
+      &:hover {
+        background-color: var(--bg-color);
+        color: var(--gray-color);
+      }
+    `};
 `;
