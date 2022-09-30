@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import PostDetailImage from "./PostDetailImg";
@@ -16,7 +16,9 @@ import PostDetailTagList from "./PostDetailTagList";
 import PostDetailDate from "./PostDetailDate";
 import AddCommentForm from "./comment/AddCommentForm";
 import CommentsList from "./comment/CommentsList";
-
+import AlertModal from "../../global/globalModal/AlertModal";
+import CofirmModal from "../../global/globalModal/CofirmModal";
+import Potal from "../../global/globalModal/Potal";
 // ::: 상세페이지 조회 axios
 const getPostDetail = async ({ queryKey }) => {
   return await authInstance.get(`/api/post/${queryKey[1]}`);
@@ -31,6 +33,32 @@ const PostDetailContainer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // 게시글 삭제시 뜨는 모달
+  const [confirmModalOn, setConfirmModalOn] = useState(false);
+  const [alertModalOn, setAlertModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onCloseModal = () => {
+    confirmModalOn(false);
+    setAlertModalOn(false);
+  };
+
+  const onClickYesConfirm = () => {
+    mutate(id);
+    setConfirmModalOn(false);
+  };
+  const onClickYesAlert = () => {
+    setConfirmModalOn(false);
+    navigate(-1);
+  };
+
+  const onDeleteHandler = () => {
+    setModalIcon("warning");
+    setAlertMsg("정말 이 게시글을 삭제하시겠습니까?");
+    setConfirmModalOn(true);
+  };
+
   //스크롤 맨위로 올리는 함수
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +70,9 @@ const PostDetailContainer = () => {
   const { mutate } = useMutation(deletePostDetail, {
     onSuccess: () => {
       queryClient.invalidateQueries("postLists");
-      navigate(-1);
+      setModalIcon("success");
+      setAlertMsg("게시글 삭제가 완료되었습니다.");
+      setAlertModalOn(true);
     },
   });
 
@@ -68,7 +98,7 @@ const PostDetailContainer = () => {
             <RiDeleteBin6Fill
               className="deleteButton"
               size="24"
-              onClick={() => mutate(id)}
+              onClick={() => onDeleteHandler()}
             />
 
             <RiEdit2Fill
@@ -91,7 +121,27 @@ const PostDetailContainer = () => {
       </StDetailContainer>
       <RelatedList targetTag={targetTag} postId={postDetail.id} />
 
-      <div></div>
+      <Potal>
+        {confirmModalOn && (
+          <CofirmModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYesConfirm}
+            onClickNo={onCloseModal}
+          />
+        )}
+      </Potal>
+      <Potal>
+        {alertModalOn && (
+          <AlertModal
+            onCloseModal={onClickYesAlert}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYesAlert}
+          />
+        )}
+      </Potal>
     </>
   );
 };
