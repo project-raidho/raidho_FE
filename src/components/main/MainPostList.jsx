@@ -24,7 +24,11 @@ const MainPostList = ({ state }) => {
       {
         cacheTime: 3000,
         getNextPageParam: (lastPage) => {
-          return !lastPage.last ? lastPage.nextPage : console.log("");
+          if (!lastPage.last) {
+            return lastPage.nextPage;
+          } else {
+            return;
+          }
         },
       }
     );

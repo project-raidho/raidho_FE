@@ -179,7 +179,12 @@ const MeetingListContainer = () => {
       </StFixedMenu>
       <StMeetingCardBox>
         {meetingAllListQuery.data.data.data.content.map((meeting) => (
-          <MeetingListCard key={meeting.id} meeting={meeting} />
+          <MeetingListCard
+            key={meeting.id}
+            meeting={meeting}
+            themeList={themeList}
+            onClickTheme={onClickTheme}
+          />
         ))}
       </StMeetingCardBox>
     </StMeetingListContainerWrap>

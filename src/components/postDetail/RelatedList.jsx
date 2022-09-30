@@ -6,16 +6,11 @@ import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 
 const RelatedList = ({ targetTag, postId }) => {
-  // console.log(targetTag, "targetTag");
-
   // ::: 관련 여행후기 게시글 조회
   const getRelatedPosts = async () => {
     const response = await authInstance.get(
       `/api/search/review/${targetTag}/${postId}`
     );
-
-    // const response = await authInstance.get(`/api/search/${targetTag}`);
-    console.log("######====>", response);
     return response;
   };
 
@@ -29,7 +24,6 @@ const RelatedList = ({ targetTag, postId }) => {
   }
 
   const relatedPostList = relatedPostListQuery.data.data.data.content;
-  // console.log("relatedPostListQuery", relatedPostListQuery);
   return (
     <>
       <StRelatedTitleRow>

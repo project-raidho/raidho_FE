@@ -30,7 +30,7 @@ const ChatName = () => {
   const navigate = useNavigate();
   const [isOpenInfo, setIsOpenInfo] = useState(false);
 
-  // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
+  // ::: 채팅방 나기기 클릭시 모달
   const [modalOn, setModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
