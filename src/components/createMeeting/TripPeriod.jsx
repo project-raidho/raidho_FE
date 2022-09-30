@@ -71,27 +71,32 @@ const TripPeriod = ({
         <InputBox>
           <div>
             <p>시작일</p>
-            <Input
-              value={start}
-              placeholder=""
-              onFocus={() => setShowCalendar(true)}
-              variant="default"
-              size="large"
-              onChange={startinputonChangeHandler}
-            />
+            <InputSpan onClick={() => setShowCalendar(!showCalendar)}>
+              <Input
+                className="input"
+                value={start || ""}
+                placeholder=""
+                variant="default"
+                size="large"
+                onChange={startinputonChangeHandler}
+                disabled={true}
+              />
+            </InputSpan>
           </div>
           <h4 className="calenderIconAndInput">
             <div>
               <p>종료일</p>
-
-              <Input
-                value={end}
-                placeholder=""
-                onFocus={() => setShowCalendar(true)}
-                variant="default"
-                size="large"
-                onChange={endinputonChangeHandler}
-              />
+              <InputSpan onClick={() => setShowCalendar(!showCalendar)}>
+                <Input
+                  className="input"
+                  value={end || ""}
+                  placeholder=""
+                  variant="default"
+                  size="large"
+                  onChange={endinputonChangeHandler}
+                  disabled={true}
+                />
+              </InputSpan>
             </div>
             <CalendarIcon onClick={() => setShowCalendar(!showCalendar)} />
           </h4>
@@ -144,6 +149,9 @@ const InputBox = styled.div`
     flex-direction: column;
     gap: 10px;
   }
+  .input {
+    cursor: pointer;
+  }
   .calenderIconAndInput {
     display: flex;
     margin-left: 5px;
@@ -156,5 +164,9 @@ const InputBox = styled.div`
 const CalendarIcon = styled(BsCalendar3)`
   font-size: 25px;
   margin: 47px 0 0 8px;
+  cursor: pointer;
+`;
+
+const InputSpan = styled.span`
   cursor: pointer;
 `;
