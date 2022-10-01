@@ -69,10 +69,10 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
       <KakaoMap searchPlace={Place} />
 
       <textarea
-        placeholder="도로명 주소 또는 주소 키워드를 적을 수 있습니다."
+        placeholder="도로명 주소 또는 주소 키워드를 적을 수 있습니다.(25자이내)"
         onChange={onChange}
         value={text}
-        maxLength="100"
+        maxLength="25"
       />
     </SearchWrapp>
   );

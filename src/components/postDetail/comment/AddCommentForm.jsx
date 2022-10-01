@@ -17,7 +17,7 @@ const AddCommentForm = () => {
       ? localStorage.getItem("memberImage")
       : DefaultProfileImage;
   const memberName = localStorage.getItem("memberName");
-  const { id } = useParams();
+  const { postId } = useParams();
 
   const [content, setContent] = useState("");
   const [commentLength, setCommentLength] = useState(0);
@@ -28,7 +28,7 @@ const AddCommentForm = () => {
   };
 
   const onAddComment = async () => {
-    await authInstance.post(`/api/comment/${id}`, { content: content });
+    await authInstance.post(`/api/comment/${postId}`, { content: content });
     setContent("");
   };
   const queryClient = useQueryClient();

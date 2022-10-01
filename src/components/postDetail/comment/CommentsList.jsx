@@ -14,10 +14,13 @@ const getCommentList = ({ queryKey }) => {
 };
 
 function CommentsList() {
-  const { id } = useParams();
+  const { postId } = useParams();
   const [isAll, setIsAll] = useState(false);
 
-  const commentgAllListQuery = useQuery(["commentList", id], getCommentList);
+  const commentgAllListQuery = useQuery(
+    ["commentList", postId],
+    getCommentList
+  );
 
   if (commentgAllListQuery.isLoading) {
     return null;

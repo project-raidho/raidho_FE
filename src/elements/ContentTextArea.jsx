@@ -29,12 +29,12 @@ const ContentTextArea = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength="250"
+        maxLength="199"
         minLength="10"
       />
       <StValMsgSet>
         <StValRedMsg>{ValRedMsg}</StValRedMsg>
-        <StValidationMsg>{checkTextLength} / 250자</StValidationMsg>
+        <StValidationMsg>{checkTextLength} / 200자</StValidationMsg>
       </StValMsgSet>
     </StContentTextAreaWrap>
   );

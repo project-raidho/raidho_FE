@@ -7,11 +7,11 @@ import { useParams } from "react-router-dom";
 
 // 현재 존재하는 채팅을 보여주는 컴포넌트
 const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
-  const { id } = useParams();
+  const { chattingId } = useParams();
 
   let is_same = false;
   // 사용자의 현재 방 id와 채팅 리스트의 방 id가 같은 경우
-  if (Number(id) === roomId) {
+  if (Number(chattingId) === roomId) {
     is_same = true;
   }
   return (
