@@ -207,15 +207,17 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
         <StMeetingCardRow>
-          {meeting.meetingTags.map((tag, index) => (
-            <span
-              key={index}
-              className="tag"
-              onClick={() => onClickMeetingTag(tag)}
-            >
-              {tag}&nbsp;
-            </span>
-          ))}
+          <div className="tagList">
+            {meeting.meetingTags.map((tag, index) => (
+              <span
+                key={index}
+                className="tag"
+                onClick={() => onClickMeetingTag(tag)}
+              >
+                {tag}&nbsp;
+              </span>
+            ))}
+          </div>
         </StMeetingCardRow>
         <StMeetingCardRow>
           <p className="memberImageBox">
@@ -376,9 +378,15 @@ const StMeetingListCardWrap = styled.div`
     }
   }
 
+  .tagList {
+    display: block;
+    text-align: left;
+  }
   .tag {
+    display: inline-block;
     color: var(--lightBlue-color);
     font-size: 1rem;
+    margin-right: 0.3rem;
     cursor: pointer;
   }
 
