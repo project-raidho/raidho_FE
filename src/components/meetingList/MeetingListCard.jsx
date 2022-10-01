@@ -53,8 +53,8 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
 
   // ::: 날짜 차이 계산하기
   const dateCalculation = (day1, day2) => {
-    const dateStart = new Date(day1);
-    const dateEnd = new Date(day2);
+    const dateStart = new Date(day1.replace(/-/g, "/"));
+    const dateEnd = new Date(day2.replace(/-/g, "/"));
 
     const diffDate = dateStart.getTime() - dateEnd.getTime();
     return Math.abs(diffDate / (1000 * 60 * 60 * 24));
