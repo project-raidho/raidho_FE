@@ -5,7 +5,7 @@ import {
   addRecentSearch,
   deleteRecentSearch,
 } from "../../../redux/modules/searchSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import AlertModal from "../../../global/globalModal/AlertModal";
@@ -100,7 +100,13 @@ const SearchContainer = ({ isMobile }) => {
   const onClickDeleteRecentSearch = (tag) => {
     setIsFocusSearch(true);
     dispatch(deleteRecentSearch(tag));
-    setIsFocusSearch(true);
+  };
+
+  // ::: 최근검색기록, 추천검색기록 이동하기
+  const onClickLinkTagSearch = (tag) => {
+    setSearchInput(tag);
+    navigate(`/post/best?tag=${tag}`);
+    setIsFocusSearch(false);
   };
 
   // ::: 처음 들어왔을 때 데이터 불러오기
@@ -130,37 +136,38 @@ const SearchContainer = ({ isMobile }) => {
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
-              <Button key={tag + index} size="tag" variant="line">
-                <Link
-                  to={`/post/best?tag=${tag}`}
-                  onClick={() => setSearchInput(tag)}
+              <p className="recentTagBox" key={tag + index}>
+                <Button
+                  size="tag"
+                  variant="line"
+                  onClick={() => onClickLinkTagSearch(tag)}
                 >
                   {tag}
-                </Link>
+                </Button>
                 <span
                   className="tagCloseIcon"
                   onClick={() => {
                     onClickDeleteRecentSearch(tag);
                   }}
                 >
-                  X
+                  삭제
                 </span>
-              </Button>
+              </p>
             ))}
           </StSearchDetailRow>
 
           <h3>추천 검색어</h3>
           <StTagCardWrap>
             {recommendTagList.map((tagCard) => (
-              <Link
+              <StTagCard
                 key={tagCard.recommendTagName}
-                to={`/post/best?tag=${tagCard.recommendTagName}`}
-                onClick={() => setSearchInput(tagCard.recommendTagName)}
+                bgImage={`url(${tagCard.recommendTagImage})`}
+                onClick={() => {
+                  onClickLinkTagSearch(tagCard.recommendTagName);
+                }}
               >
-                <StTagCard bgImage={`url(${tagCard.recommendTagImage})`}>
-                  {tagCard.recommendTagName}
-                </StTagCard>
-              </Link>
+                {tagCard.recommendTagName}
+              </StTagCard>
             ))}
           </StTagCardWrap>
         </StSearchDetailList>
@@ -201,7 +208,7 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "500px" : "40px")};
+  height: ${(props) => (props.isFocusSearch === true ? "580px" : "40px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
   border-radius: 15px;
@@ -234,11 +241,11 @@ const StSearchDetailBox = styled.div`
   }
   @media (max-width: 767px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "630px" : "40px")};
+    height: ${(props) => (props.isFocusSearch === true ? "670px" : "40px")};
   }
-  @media ${(props) => props.theme.mobile} {
+  @media (max-width: 639px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "550px" : "34px")};
+    height: ${(props) => (props.isFocusSearch === true ? "540px" : "34px")};
 
     input {
       height: 34px;
@@ -275,42 +282,37 @@ const StSearchDetailList = styled.div`
 `;
 
 const StSearchDetailRow = styled.div`
-  button {
-    position: relative;
-    margin-bottom: 15px;
+  width: 100%;
+  .recentTagBox {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
 
-    a {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      font-size: 1.2rem;
+    button {
+      width: auto;
+      height: 34px;
+      font-size: 1rem;
       padding: 0 20px;
     }
-  }
 
-  .tagCloseIcon {
-    display: block;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--main-color);
-    border-radius: 50%;
-    background: var(--bg-color);
-    cursor: pointer;
+    .tagCloseIcon {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      width: 40px;
+      height: 30px;
+      font-size: 1rem;
+      color: var(--gray-color);
+      cursor: pointer;
+    }
+    .tagCloseIcon:hover {
+      color: var(--title-color);
+    }
   }
   @media (max-width: 767px) {
     button {
-      a {
-        font-size: 1.1rem;
-      }
     }
   }
   @media ${(props) => props.theme.mobile} {
@@ -344,6 +346,8 @@ const StTagCardWrap = styled.div`
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    height: 135px;
+    overflow: hidden;
   }
 `;
 

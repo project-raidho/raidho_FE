@@ -40,7 +40,6 @@ const SearchTagPost = ({ tagName }) => {
     ["tagPostList", tagName],
     getSearchTagPostList
   );
-  console.log(data);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <Error message={error.message} />;
