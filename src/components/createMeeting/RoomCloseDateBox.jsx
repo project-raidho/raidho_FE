@@ -35,7 +35,7 @@ const RoomCloseDateBox = ({
   //   setInputdate(e.target.value);
   //   // setRoomCloseDate(inputdate);
   // };
-  console.log(maxRoomCloseDate);
+
   useEffect(() => {
     setInputDate(roomCloseDate);
     if (maxRoomCloseDate === "") {
