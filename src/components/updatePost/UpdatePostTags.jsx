@@ -7,6 +7,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(false);
+  const [tagLength, setTagLength] = useState(0);
 
   // ::: 태그 삭제하기
   const removeTags = (indexToRemove) => {
@@ -19,6 +20,10 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   // ::: 태그 추가하기
   const addTags = (event) => {
     if (event.target.value !== "") {
+      if (postTags.length > 4) {
+        setTagValidationMsg("입력할 수 있는 개수를 초과했습니다.");
+        return false;
+      }
       const checkDuplicateTag = postTags.filter(
         (tag) => tag !== `#${event.target.value}`
       );
@@ -27,7 +32,11 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
       event.target.value = "";
 
       if (checkDuplicateTag.length === postTags.length) {
-        setTagValidationMsg("태그가 성공적으로 입력되었습니다.");
+        setTagValidationMsg(
+          `태그가 성공적으로 입력되었습니다. 최대 5개까지 입력 가능합니다. (현재 개수 ${
+            postTags.length + 1
+          }개)`
+        );
         setCheckAlert(false);
       } else {
         setTagValidationMsg("중복된 값이 입력되었습니다.");
@@ -56,11 +65,14 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
         <Input
           type="text"
           onKeyUp={(event) => (event.key === "Enter" ? addTags(event) : null)}
+          onChange={(event) => setTagLength(event.target.value.length)}
           placeholder={tagMassage}
+          maxLength="20"
         />
       </StCreatePostTagsWrap>
       <StValidationMsg checkAlert={checkAlert}>
-        {tagValidationMsg}
+        <span>{tagValidationMsg}</span>
+        <strong>{tagLength} / 20자</strong>
       </StValidationMsg>
     </>
   );
@@ -150,14 +162,31 @@ const StCreatePostTagsWrap = styled.div`
 `;
 
 const StValidationMsg = styled.p`
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: ${(props) =>
-    props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 
+  span {
+    font-size: 1rem;
+    font-weight: 300;
+    font-style: italic;
+    color: ${(props) =>
+      props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
+    margin-bottom: 1rem;
+  }
+  strong {
+    font-size: 1rem;
+    font-weight: 300;
+    font-style: italic;
+  }
   @media (max-width: 639px) {
-    font-size: 0.9rem;
+    span {
+      width: calc(100% - 70px);
+      font-size: 0.9rem;
+    }
+    strong {
+      font-size: 0.9rem;
+    }
   }
 `;
