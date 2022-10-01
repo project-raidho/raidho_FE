@@ -10,7 +10,6 @@ import SearchAlert from "./SearchAlert";
 
 const getSearchTagPostList = async ({ queryKey }) => {
   const res = await authInstance.get(`/api/search/${queryKey[1]}?page=0`);
-  console.log(res);
   return res.data.data;
 };
 

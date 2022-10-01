@@ -8,6 +8,8 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
+import AlertModal from "../../../global/globalModal/AlertModal";
+import Potal from "../../../global/globalModal/Potal";
 import styled from "styled-components";
 
 const SearchContainer = ({ isMobile }) => {
@@ -32,6 +34,18 @@ const SearchContainer = ({ isMobile }) => {
   // ::: 검색 입력 내용 확인하기
   const [searchInput, setSearchInput] = useState("");
 
+  // ::: 모달 컨트롤 하기
+  const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+  };
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+
   // ::: 검색창에 입력한 값 확인하기
   const onChangeSearchContent = (event) => {
     setSearchInput(event.target.value);
@@ -46,20 +60,32 @@ const SearchContainer = ({ isMobile }) => {
     });
   };
 
-  // console.log("=====*****====>", location);
+  // ::: 검색 이벤트
+  const onSearchTag = () => {
+    if (searchInput === "") {
+      setModalIcon("info");
+      setAlertMsg("검색어를 입력해주세요.");
+      setModalOn(true);
+      return;
+    }
+    setIsFocusSearch(false);
+    dispatch(addRecentSearch(searchInput));
+    dispatch(getRecentSearch());
+
+    // ::: 태그별 상세페이지 이동
+    goSearchDetail(searchInput);
+  };
+
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
   const onKeyPressSearchEnter = (event) => {
     if (event.key === "Enter") {
-      if (searchInput === "") {
-        return false;
-      }
-      setIsFocusSearch(false);
-      dispatch(addRecentSearch(searchInput));
-      dispatch(getRecentSearch());
-
-      // ::: 태그별 상세페이지 이동
-      goSearchDetail(searchInput);
+      onSearchTag();
     }
+  };
+
+  // ::: 검색어를 입력하고 검색 버튼을 눌렀을 때 페이지 이동 및 최근 검색에 저장
+  const onClickSearchButton = () => {
+    onSearchTag();
   };
 
   const onFocusSearch = () => {
@@ -99,6 +125,7 @@ const SearchContainer = ({ isMobile }) => {
             isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."
           }
         />
+        <button className="buttonSearch" onClick={onClickSearchButton}></button>
         <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
@@ -138,6 +165,16 @@ const SearchContainer = ({ isMobile }) => {
           </StTagCardWrap>
         </StSearchDetailList>
       </StSearchDetailBox>
+      <Potal>
+        {modalOn && (
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
+        )}
+      </Potal>
     </StSearchContainerWrap>
   );
 };
@@ -172,7 +209,7 @@ const StSearchDetailBox = styled.div`
   background-color: var(--bg-color);
   overflow: hidden;
   z-index: 5;
-  transition: 0.5s;
+  transition: 0.8s;
 
   input {
     border: ${(props) => props.isFocusSearch === true && "none"};
@@ -180,6 +217,20 @@ const StSearchDetailBox = styled.div`
     box-shadow: ${(props) =>
       props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
     transition: 0.5s;
+  }
+
+  button.buttonSearch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  button.buttonSearch:hover {
+    box-shadow: none;
   }
   @media (max-width: 767px) {
     width: 100%;
@@ -195,6 +246,10 @@ const StSearchDetailBox = styled.div`
       background-size: 27px 27px;
       background-position: 96% center;
       padding: 8px 20px;
+    }
+    button.buttonSearch {
+      width: 40px;
+      height: 35px;
     }
   }
 `;
