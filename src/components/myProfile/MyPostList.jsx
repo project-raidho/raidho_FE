@@ -75,7 +75,7 @@ const MyPostList = ({ data, status, error }) => {
         </StMessageMinePost>
       )}
       <StMyPostListWrap>
-        {(data.length < 4 && isMobile) || (data.length < 5 && !isMobile) ? (
+        {(data.length < 4 && isMobile) || ( !isMobile) ? (
           <StPostCardBox>
             {data?.map((post) => (
               <StPostCard key={post.id}>
