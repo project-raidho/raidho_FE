@@ -439,6 +439,7 @@ const StMeetingCardUpDown = styled.div`
 
 const Stdesc = styled.p`
   padding-top: 10px;
+  white-space: pre-wrap;
 
   ${(props) => props.length === "long" && `font-size:0.8rem `}
   ${(props) => props.length === "short" && `font-size:1rem `}
