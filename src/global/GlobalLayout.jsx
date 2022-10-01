@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const GlobalLayout = ({ children }) => {
+  const location = useLocation();
+
+  // ::: 페이지 변경될 때마다 스크롤 제일 위로 올리기
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, [location.pathname]);
   return <StGlobalLayoutWrap>{children}</StGlobalLayoutWrap>;
 };
 

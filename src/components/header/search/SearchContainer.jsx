@@ -5,9 +5,11 @@ import {
   addRecentSearch,
   deleteRecentSearch,
 } from "../../../redux/modules/searchSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
+import AlertModal from "../../../global/globalModal/AlertModal";
+import Potal from "../../../global/globalModal/Potal";
 import styled from "styled-components";
 
 const SearchContainer = ({ isMobile }) => {
@@ -32,6 +34,18 @@ const SearchContainer = ({ isMobile }) => {
   // ::: 검색 입력 내용 확인하기
   const [searchInput, setSearchInput] = useState("");
 
+  // ::: 모달 컨트롤 하기
+  const [modalOn, setModalOn] = useState(false);
+  const [modalIcon, setModalIcon] = useState("");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const onClickYes = () => {
+    setModalOn(!modalOn);
+  };
+  const onCloseModal = () => {
+    setModalOn(!modalOn);
+  };
+
   // ::: 검색창에 입력한 값 확인하기
   const onChangeSearchContent = (event) => {
     setSearchInput(event.target.value);
@@ -46,20 +60,32 @@ const SearchContainer = ({ isMobile }) => {
     });
   };
 
-  // console.log("=====*****====>", location);
+  // ::: 검색 이벤트
+  const onSearchTag = () => {
+    if (searchInput === "") {
+      setModalIcon("info");
+      setAlertMsg("검색어를 입력해주세요.");
+      setModalOn(true);
+      return;
+    }
+    setIsFocusSearch(false);
+    dispatch(addRecentSearch(searchInput));
+    dispatch(getRecentSearch());
+
+    // ::: 태그별 상세페이지 이동
+    goSearchDetail(searchInput);
+  };
+
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
   const onKeyPressSearchEnter = (event) => {
     if (event.key === "Enter") {
-      if (searchInput === "") {
-        return false;
-      }
-      setIsFocusSearch(false);
-      dispatch(addRecentSearch(searchInput));
-      dispatch(getRecentSearch());
-
-      // ::: 태그별 상세페이지 이동
-      goSearchDetail(searchInput);
+      onSearchTag();
     }
+  };
+
+  // ::: 검색어를 입력하고 검색 버튼을 눌렀을 때 페이지 이동 및 최근 검색에 저장
+  const onClickSearchButton = () => {
+    onSearchTag();
   };
 
   const onFocusSearch = () => {
@@ -74,7 +100,13 @@ const SearchContainer = ({ isMobile }) => {
   const onClickDeleteRecentSearch = (tag) => {
     setIsFocusSearch(true);
     dispatch(deleteRecentSearch(tag));
-    setIsFocusSearch(true);
+  };
+
+  // ::: 최근검색기록, 추천검색기록 이동하기
+  const onClickLinkTagSearch = (tag) => {
+    setSearchInput(tag);
+    navigate(`/post/best?tag=${tag}`);
+    setIsFocusSearch(false);
   };
 
   // ::: 처음 들어왔을 때 데이터 불러오기
@@ -99,45 +131,57 @@ const SearchContainer = ({ isMobile }) => {
             isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."
           }
         />
+        <button className="buttonSearch" onClick={onClickSearchButton}></button>
         <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
-              <Button key={tag + index} size="tag" variant="line">
-                <Link
-                  to={`/post/best?tag=${tag}`}
-                  onClick={() => setSearchInput(tag)}
+              <p className="recentTagBox" key={tag + index}>
+                <Button
+                  size="tag"
+                  variant="line"
+                  onClick={() => onClickLinkTagSearch(tag)}
                 >
                   {tag}
-                </Link>
+                </Button>
                 <span
                   className="tagCloseIcon"
                   onClick={() => {
                     onClickDeleteRecentSearch(tag);
                   }}
                 >
-                  X
+                  삭제
                 </span>
-              </Button>
+              </p>
             ))}
           </StSearchDetailRow>
 
           <h3>추천 검색어</h3>
           <StTagCardWrap>
             {recommendTagList.map((tagCard) => (
-              <Link
+              <StTagCard
                 key={tagCard.recommendTagName}
-                to={`/post/best?tag=${tagCard.recommendTagName}`}
-                onClick={() => setSearchInput(tagCard.recommendTagName)}
+                bgImage={`url(${tagCard.recommendTagImage})`}
+                onClick={() => {
+                  onClickLinkTagSearch(tagCard.recommendTagName);
+                }}
               >
-                <StTagCard bgImage={`url(${tagCard.recommendTagImage})`}>
-                  {tagCard.recommendTagName}
-                </StTagCard>
-              </Link>
+                {tagCard.recommendTagName}
+              </StTagCard>
             ))}
           </StTagCardWrap>
         </StSearchDetailList>
       </StSearchDetailBox>
+      <Potal>
+        {modalOn && (
+          <AlertModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYes}
+          />
+        )}
+      </Potal>
     </StSearchContainerWrap>
   );
 };
@@ -164,7 +208,7 @@ const StSearchDetailBox = styled.div`
   left: 0;
   top: 0;
   width: 100%;
-  height: ${(props) => (props.isFocusSearch === true ? "500px" : "40px")};
+  height: ${(props) => (props.isFocusSearch === true ? "580px" : "40px")};
   border: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
   border-radius: 15px;
@@ -172,7 +216,7 @@ const StSearchDetailBox = styled.div`
   background-color: var(--bg-color);
   overflow: hidden;
   z-index: 5;
-  transition: 0.5s;
+  transition: 0.8s;
 
   input {
     border: ${(props) => props.isFocusSearch === true && "none"};
@@ -181,13 +225,27 @@ const StSearchDetailBox = styled.div`
       props.isFocusSearch === true ? "none" : "0px 4px 5px rgba(0, 0, 0, 0.1)"};
     transition: 0.5s;
   }
+
+  button.buttonSearch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  button.buttonSearch:hover {
+    box-shadow: none;
+  }
   @media (max-width: 767px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "630px" : "40px")};
+    height: ${(props) => (props.isFocusSearch === true ? "670px" : "40px")};
   }
-  @media ${(props) => props.theme.mobile} {
+  @media (max-width: 639px) {
     width: 100%;
-    height: ${(props) => (props.isFocusSearch === true ? "550px" : "34px")};
+    height: ${(props) => (props.isFocusSearch === true ? "540px" : "34px")};
 
     input {
       height: 34px;
@@ -195,6 +253,10 @@ const StSearchDetailBox = styled.div`
       background-size: 27px 27px;
       background-position: 96% center;
       padding: 8px 20px;
+    }
+    button.buttonSearch {
+      width: 40px;
+      height: 35px;
     }
   }
 `;
@@ -220,42 +282,37 @@ const StSearchDetailList = styled.div`
 `;
 
 const StSearchDetailRow = styled.div`
-  button {
-    position: relative;
-    margin-bottom: 15px;
+  width: 100%;
+  .recentTagBox {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
 
-    a {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      font-size: 1.2rem;
+    button {
+      width: auto;
+      height: 34px;
+      font-size: 1rem;
       padding: 0 20px;
     }
-  }
 
-  .tagCloseIcon {
-    display: block;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--main-color);
-    border-radius: 50%;
-    background: var(--bg-color);
-    cursor: pointer;
+    .tagCloseIcon {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      width: 40px;
+      height: 30px;
+      font-size: 1rem;
+      color: var(--gray-color);
+      cursor: pointer;
+    }
+    .tagCloseIcon:hover {
+      color: var(--title-color);
+    }
   }
   @media (max-width: 767px) {
     button {
-      a {
-        font-size: 1.1rem;
-      }
     }
   }
   @media ${(props) => props.theme.mobile} {
@@ -289,6 +346,8 @@ const StTagCardWrap = styled.div`
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    height: 135px;
+    overflow: hidden;
   }
 `;
 

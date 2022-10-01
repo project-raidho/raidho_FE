@@ -36,6 +36,10 @@ const searchSlice = createSlice({
     },
     deleteRecentSearch: (state, action) => {
       state.recentSearch = [...state.recentSearch.filter((tag) => tag !== action.payload)];
+      localStorage.setItem(
+        "recentSearches",
+        JSON.stringify(state.recentSearch)
+      );
     },
     getDarkMode: (state, action) => {
       const initDarkMode = localStorage.getItem("bgMode");
