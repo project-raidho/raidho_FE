@@ -56,7 +56,9 @@ const MyMeetingList = ({ status, data, error }) => {
   // console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
-      {data.length < 3 && (!isMobile || !isTablet) ? (
+      {(data.length < 2 && isMobile) ||
+      (data.length < 3 && isTablet) ||
+      (data.length < 4 && !isMobile && !isTablet) ? (
         <StMeetingCardBox>
           {data.map((meeting) => (
             <MeetingListCard key={meeting.id} meeting={meeting} />
