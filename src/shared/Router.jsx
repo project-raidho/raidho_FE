@@ -22,6 +22,7 @@ import styled from "styled-components";
 
 const Routers = () => {
   const dispatch = useDispatch();
+
   const themeList = useSelector((state) => state.themeSlice.themeList);
   const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
 

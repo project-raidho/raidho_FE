@@ -30,15 +30,27 @@ const PostDetailTagList = ({ tagList }) => {
 export default PostDetailTagList;
 
 const StTagWrapper = styled.div`
+  display: flex;
+  width: 100%;
   .tagList {
-    display: flex;
-    gap: 10px;
+    display: block;
+    width: 100%;
+    line-height: 1.2;
+    text-align: left;
   }
   .tag {
+    display: inline-block;
+    width: auto;
+    margin-right: 1rem;
     color: var(--main-color);
     cursor: pointer;
   }
   @media ${(props) => props.theme.mobile} {
     margin-left: 10px;
+
+    .tag {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
   }
 `;

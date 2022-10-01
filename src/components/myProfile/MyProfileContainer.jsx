@@ -207,6 +207,7 @@ const StMyProfileContainerWrap = styled.div`
   .moreIcon {
     font-size: 1.5rem;
     margin-right: 10px;
+    cursor: pointer;
   }
 `;
 
