@@ -21,12 +21,12 @@ const getChatDetail = async ({ queryKey }) => {
 };
 
 //채팅방 삭제 axios
-const deleteChatDetail = async (id) => {
-  return await authInstance.delete(`/api/chat/rooms/${Number(id)}`);
+const deleteChatDetail = async (chattingId) => {
+  return await authInstance.delete(`/api/chat/rooms/${Number(chattingId)}`);
 };
 
 const ChatName = () => {
-  const { id } = useParams();
+  const { chattingId } = useParams();
   const navigate = useNavigate();
   const [isOpenInfo, setIsOpenInfo] = useState(false);
 
@@ -40,12 +40,12 @@ const ChatName = () => {
   };
 
   const onClickYes = () => {
-    mutate(id);
+    mutate(chattingId);
     setModalOn(!modalOn);
   };
 
   //채팅단건 조회 useQuery
-  const chatDetailQuery = useQuery(["chatDetail", id], getChatDetail, {
+  const chatDetailQuery = useQuery(["chatDetail", chattingId], getChatDetail, {
     onSuccess: (data) => {},
   });
 

@@ -6,42 +6,20 @@ import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 import AlertModal from "../../global/globalModal/AlertModal";
+import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";
 import MarkButton from "../../elements/MarkButton";
 
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId) => {
-  try {
-    await authInstance.delete(`/api/meeting/${meetingId}`);
-  } catch (error) {
-    console.log(error);
-  }
+  await authInstance.delete(`/api/meeting/${meetingId}`);
 };
 
 const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
-  //   function connect() {
-  //     // pub/sub event
-  //     ws.connect({}, function(frame) {
-  //         ws.subscribe("/sub/chat/room/"+vm.$data.roomId, function(message) {
-  //             var recv = JSON.parse(message.body);
-  //             vm.recvMessage(recv);
-  //         });
-  //         ws.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId:vm.$data.roomId, sender:vm.$data.sender}));
-  //     }, function(error) {
-  //         if(reconnect++ <= 5) {
-  //             setTimeout(function() {
-  //                 console.log("connection reconnect");
-  //                 sock = new SockJS("/ws-stomp");
-  //                 ws = Stomp.over(sock);
-  //                 connect();
-  //             },10*1000);
-  //         }
-  //     });
-  // }
-
   //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
+  const [confirmModalOn, setConfirmModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
 
@@ -50,12 +28,20 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
     setLoginModalOn(!loginModalOn);
   };
   const onCloseModal = () => {
-    setModalOn(!modalOn);
+    setModalOn(false);
+    setConfirmModalOn(false);
   };
-  const onClickYes = () => {
-    setModalOn(!modalOn);
-    navigate(`/meetingList/all`);
+
+  const onClickYesConfirm = () => {
+    mutate(meeting.id);
+    setConfirmModalOn(false);
   };
+  const onDeleteHandler = () => {
+    setModalIcon("warning");
+    setAlertMsg("정말 이 모집글을 삭제하시겠습니까?");
+    setConfirmModalOn(true);
+  };
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onDeleteMeeting, {
@@ -262,7 +248,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
                 className="deleteButton"
                 size="small"
                 variant="lineGray"
-                onClick={() => mutate(meeting.id)}
+                onClick={() => onDeleteHandler()}
               >
                 삭제하기
               </Button>
@@ -295,7 +281,18 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
             onCloseModal={onCloseModal}
             modalIcon={modalIcon}
             alertMsg={alertMsg}
-            onClickYes={onClickYes}
+            onClickYes={onCloseModal}
+          />
+        )}
+      </Potal>
+      <Potal>
+        {confirmModalOn && (
+          <CofirmModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={onClickYesConfirm}
+            onClickNo={onCloseModal}
           />
         )}
       </Potal>

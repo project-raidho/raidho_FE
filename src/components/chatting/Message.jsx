@@ -12,7 +12,7 @@ import Image from "../../elements/Image";
 const Message = ({ messageInfo }) => {
   // 사용자 아이디, 프로필 사진을 가져오기
   // let { id, profileUrl } = useSelector((state) => state.user.userInfo);
-  let id = Number(localStorage.getItem("memberId"));
+  let memberId = Number(localStorage.getItem("memberId"));
   React.useEffect(() => {
     // 로딩중
     if (!messageInfo) {
@@ -27,7 +27,7 @@ const Message = ({ messageInfo }) => {
   }, []);
 
   // 메시지의 유저 id 정보와 현재 유저 id가 같으면 본인 메시지
-  if (id === Number(messageInfo.memberId)) {
+  if (memberId === Number(messageInfo.memberId)) {
     return (
       <MessageWrap is_me={true}>
         <SenderWrap>

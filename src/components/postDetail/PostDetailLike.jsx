@@ -8,7 +8,7 @@ import Potal from "../../global/globalModal/Potal";
 import { useMutation, useQueryClient } from "react-query";
 import { BsChat } from "react-icons/bs";
 const PostDetailLike = ({ postDetail }) => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const [modalOn, setModalOn] = useState(false);
 
   const [modalIcon, setModalIcon] = useState("");
@@ -23,9 +23,9 @@ const PostDetailLike = ({ postDetail }) => {
 
   const toggleLike = async () => {
     if (!postDetail.isHeartMine) {
-      await authInstance.post(`/api/postheart/${id}`);
+      await authInstance.post(`/api/postheart/${postId}`);
     } else {
-      await authInstance.delete(`/api/postheart/${id}`);
+      await authInstance.delete(`/api/postheart/${postId}`);
     }
   };
 
