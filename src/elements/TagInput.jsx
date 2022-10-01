@@ -35,7 +35,6 @@ const TagInput = ({ tags, selectedTags, tagMassage, tagValMsg, tagStatus }) => {
       setTagLength(0);
 
       if (checkDuplicateTag.length === postTags.length) {
-        console.log(postTags.length);
         setTagValidationMsg(
           `태그가 성공적으로 입력되었습니다. 최대 5개까지 입력 가능합니다. (현재 개수 ${
             postTags.length + 1

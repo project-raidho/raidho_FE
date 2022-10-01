@@ -81,6 +81,9 @@ const GlobalStyle = createGlobalStyle`
   button:hover {
     box-shadow: var(--button-shadow);
   }
+  textarea {
+    resize: none;
+  }
 `;
 
 export default GlobalStyle;
