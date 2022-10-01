@@ -256,6 +256,7 @@ const CreateMeetingContatiner = () => {
             meetingTags.length === 0 ? "엔터키를 치시면 입력됩니다." : ""
           }
           tagValMsg={tagValMsg}
+          tagStatus={true}
         />
       </StTags>
       <StPeriodPeople>
