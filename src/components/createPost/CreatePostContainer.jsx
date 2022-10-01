@@ -95,9 +95,10 @@ const CreatePostContainer = () => {
         navigate(`/postdetail/${response.data.data.data}`);
         return response;
       } catch (error) {
-        console.log("게시글 등록 데이터 전송 오류가 났습니다!", error);
         setModalIcon("warning");
-        setAlertMsg("게시글을 등록하는 데 오류가 났습니다.");
+        setAlertMsg(
+          `게시글을 등록하는 데 오류가 났습니다. 오류 메시지 : ${error}`
+        );
         setModalOn(true);
       }
     }
