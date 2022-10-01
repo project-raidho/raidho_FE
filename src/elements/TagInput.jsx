@@ -184,6 +184,10 @@ const StValidationMsg = styled.p`
   }
   @media (max-width: 639px) {
     span {
+      width: calc(100% - 70px);
+      font-size: 0.9rem;
+    }
+    strong {
       font-size: 0.9rem;
     }
   }
