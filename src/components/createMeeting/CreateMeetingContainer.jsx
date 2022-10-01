@@ -200,7 +200,7 @@ const CreateMeetingContatiner = () => {
     roomCloseDate.length >= 1 &&
     startDate.length >= 1 &&
     endDate.length >= 1 &&
-    departLocation.length >= 1;
+    String(departLocation)?.length >= 1;
 
   //날짜 유효성 검사
   function isValidDateFormat(date) {
