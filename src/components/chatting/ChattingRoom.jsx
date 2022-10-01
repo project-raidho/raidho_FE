@@ -23,7 +23,7 @@ const ChattingRoom = () => {
   const sock = new SockJS(`https://wjsxogns.shop/ws-stomp`);
   const ws = Stomp.over(sock);
 
-  const { id } = useParams();
+  const { chattingId } = useParams();
 
   // 토큰
   const token = localStorage.getItem("Authorization");
@@ -51,7 +51,7 @@ const ChattingRoom = () => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [chattingId]);
 
   // const enterChat = {
   //   type: "ENTER",
@@ -68,7 +68,7 @@ const ChattingRoom = () => {
         },
         () => {
           ws.subscribe(
-            `/sub/chat/message/${id}`,
+            `/sub/chat/message/${chattingId}`,
             (data) => {
               const newMessage = JSON.parse(data.body);
 
@@ -139,7 +139,7 @@ const ChattingRoom = () => {
       // send할 데이터
       const data = {
         type: "TALK",
-        roomId: Number(id),
+        roomId: Number(chattingId),
         sender: sender,
         message: messageInput,
         memberId: Number(memberId),
@@ -152,7 +152,11 @@ const ChattingRoom = () => {
 
       //   // 로딩 중
       waitForConnection(ws, function () {
-        ws.send(`/pub/chat/send/${id}`, { token: token }, JSON.stringify(data));
+        ws.send(
+          `/pub/chat/send/${chattingId}`,
+          { token: token },
+          JSON.stringify(data)
+        );
 
         setMessageInput("");
       });
@@ -175,12 +179,16 @@ const ChattingRoom = () => {
 
   return (
     <Container>
-      <ChatList prevRoomId={id} />
-      {!id && <NoRoom />}
-      {id && (
+      <ChatList prevRoomId={chattingId} />
+      {!chattingId && <NoRoom />}
+      {chattingId && (
         <ChatWrap>
           <ChatName />
-          <MessageList id={id} messages={messages} setMessages={setMessages} />
+          <MessageList
+            chattingId={chattingId}
+            messages={messages}
+            setMessages={setMessages}
+          />
           <MessageWrite
             setMessageInput={setMessageInput}
             sendMessage={sendMessage}

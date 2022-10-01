@@ -196,7 +196,7 @@ export default MeetingListContainer;
 const StMeetingListContainerWrap = styled.div`
   min-height: 100vh;
   background-color: var(--bg-color);
-  padding-top: 180px;
+  padding-top: 110px;
 
   h2 {
     font-size: 1.8rem;
@@ -236,7 +236,7 @@ const StCheckStatus = styled.div`
     align-items: center;
     justify-content: flex-end;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
 
     &.activeButton,
     &.inactiveButton {
@@ -331,8 +331,8 @@ const StMeetingCategoryRow = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 1rem 0 0 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem 0 0 0.6rem;
+  margin-bottom: 0.6rem;
   &.flexRightLayout {
     justify-content: flex-end;
   }
@@ -342,12 +342,12 @@ const StMeetingCategoryRow = styled.div`
     align-items: center;
     justify-content: center;
     width: 250px;
-    height: 55px;
+    height: 35px;
     border: 1px solid var(--gray-color);
     border-radius: 15px;
     background-color: var(--bg-color);
     margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     transition: all 0.3s ease;
     overflow: hidden;
     cursor: pointer;

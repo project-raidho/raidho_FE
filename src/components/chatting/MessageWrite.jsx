@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import MessageInput from "./MessageInput";
 import Button from "../../elements/Button";
@@ -6,7 +6,7 @@ import Button from "../../elements/Button";
 // 메시지 입력 컴포넌트
 const MessageWrite = ({ sendMessage, setMessageInput }) => {
   // 메시지 텍스트 입력받기
-  const [messageText, setMessageText] = React.useState("");
+  const [messageText, setMessageText] = useState("");
 
   // 텍스트 기록 함수
   const handleMessageText = (e) => {
@@ -16,8 +16,8 @@ const MessageWrite = ({ sendMessage, setMessageInput }) => {
   };
 
   // 오토 포커스 대상
-  const autoFocusRef = React.useRef(null);
-  React.useEffect(() => {
+  const autoFocusRef = useRef(null);
+  useEffect(() => {
     autoFocusRef.current?.focus();
   }, []);
 
