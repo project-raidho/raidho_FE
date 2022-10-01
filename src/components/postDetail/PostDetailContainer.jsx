@@ -25,12 +25,12 @@ const getPostDetail = async ({ queryKey }) => {
 };
 
 // ::: 상세페이지 삭제 axios
-const deletePostDetail = async (id) => {
-  return await authInstance.delete(`/api/post/${id}`);
+const deletePostDetail = async (postId) => {
+  return await authInstance.delete(`/api/post/${postId}`);
 };
 
 const PostDetailContainer = () => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   // 게시글 삭제시 뜨는 모달
@@ -45,7 +45,7 @@ const PostDetailContainer = () => {
   };
 
   const onClickYesConfirm = () => {
-    mutate(id);
+    mutate(postId);
     setConfirmModalOn(false);
   };
   const onClickYesAlert = () => {
@@ -64,7 +64,7 @@ const PostDetailContainer = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const postDetailQuery = useQuery(["postDetail", id], getPostDetail);
+  const postDetailQuery = useQuery(["postDetail", postId], getPostDetail);
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(deletePostDetail, {
@@ -105,7 +105,7 @@ const PostDetailContainer = () => {
               className="editButton"
               size="24"
               onClick={() => {
-                navigate(`/updatePost/${id}`);
+                navigate(`/updatePost/${postId}`);
               }}
             />
           </>

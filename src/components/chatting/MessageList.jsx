@@ -19,7 +19,7 @@ const getMessageList = async ({ queryKey }) => {
 };
 
 // 메시지 리스트 컴포넌트
-const MessageList = ({ messages, setMessages, id }) => {
+const MessageList = ({ messages, setMessages, chattingId }) => {
   // const { id } = useParams();
 
   // const { ref, inView } = useInView();
@@ -41,12 +41,16 @@ const MessageList = ({ messages, setMessages, id }) => {
   //   if (inView) fetchNextPage();
   // }, [inView, fetchNextPage]);
 
-  const allMessageListQuery = useQuery(["messageList", id], getMessageList, {
-    // staleTime: 1000 * 60 * 60 * 24,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const allMessageListQuery = useQuery(
+    ["messageList", chattingId],
+    getMessageList,
+    {
+      // staleTime: 1000 * 60 * 60 * 24,
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
 
   console.log(allMessageListQuery);
 
@@ -64,7 +68,7 @@ const MessageList = ({ messages, setMessages, id }) => {
   // 렌더링시 이동
   useEffect(() => {
     scrollTomBottom();
-  }, [messages, id]);
+  }, [messages, chattingId]);
 
   if (allMessageListQuery.status === "loading") return <Loading />;
   // if (status === "error") return <Error message={error.message} />;

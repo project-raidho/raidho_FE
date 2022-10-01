@@ -42,7 +42,7 @@ const Routers = () => {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/:stateName" element={<MainPage />} />
-            <Route path="/postDetail/:id" element={<PostDetailPage />} />
+            <Route path="/postDetail/:postId" element={<PostDetailPage />} />
             <Route path="/myProfile" element={<MyProfilePage />} />
             <Route path="/createPost" element={<CreatePostPage />} />
             <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
@@ -68,7 +68,7 @@ const Routers = () => {
               />
             ))}
             <Route path="/chatting" element={<ChattingPage />} />
-            <Route path="/chatting/:id" element={<ChattingPage />} />
+            <Route path="/chatting/:chattingId" element={<ChattingPage />} />
             <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/naver" element={<NaverLogin />} />
             <Route path="/*" element={<NotFound />} />
