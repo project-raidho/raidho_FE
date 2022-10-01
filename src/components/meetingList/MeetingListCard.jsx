@@ -308,7 +308,7 @@ const StMeetingListCardWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-width: 320px;
-  height: 550px;
+  height: 450px;
   margin: 1rem;
   padding: 1.7rem;
   background-color: var(--subBg-color);
@@ -327,8 +327,8 @@ const StMeetingListCardWrap = styled.div`
   }
 
   h3 {
-    font-size: 1.7rem;
-    margin-top: 1.3rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
   }
 
@@ -350,7 +350,7 @@ const StMeetingListCardWrap = styled.div`
       }
       span {
         width: 190px;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         background-color: var(--bg-color);
         padding-left: 0.5rem;
         z-index: 2;
@@ -418,8 +418,8 @@ const StMeetingCardUpDown = styled.div`
   width: 100%;
 
   .desc {
-    padding-top: 1rem;
-    font-size: 1rem;
+    padding-top: 10px;
+    font-size: 0.8rem;
   }
 `;
 
