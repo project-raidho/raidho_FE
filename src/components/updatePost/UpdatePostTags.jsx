@@ -3,10 +3,10 @@ import Input from "../../elements/Input";
 import { MdClose } from "react-icons/md";
 import styled from "styled-components";
 
-const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
+const CreatePostTags = ({ tags, selectedTags, tagMassage, tagStatus }) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
-  const [checkAlert, setCheckAlert] = useState(false);
+  const [checkAlert, setCheckAlert] = useState(tagStatus);
   const [tagLength, setTagLength] = useState(0);
 
   // ::: 태그 삭제하기
@@ -21,6 +21,7 @@ const CreatePostTags = ({ tags, selectedTags, tagMassage }) => {
   const addTags = (event) => {
     if (event.target.value !== "") {
       if (postTags.length > 4) {
+        setCheckAlert(true);
         setTagValidationMsg("입력할 수 있는 개수를 초과했습니다.");
         return false;
       }
@@ -170,7 +171,7 @@ const StValidationMsg = styled.p`
   span {
     font-size: 1rem;
     font-weight: 300;
-    font-style: italic;
+    font-style: ${(props) => (props.checkAlert ? "normal" : "italic")};
     color: ${(props) =>
       props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
     margin-bottom: 1rem;

@@ -70,7 +70,10 @@ const UpdatePostContainer = () => {
     if (postContent !== "" && postTags.length > 0) {
       // ::: 변경내용이 없으면 반려하기
       if (postContent === postDetail.content && postTags === postDetail.tags) {
-        return alert("변경한 내용이 없습니다.");
+        setAlertMsg("변경한 내용이 없습니다.");
+        setModalIcon("info");
+        setModalOn(true);
+        return;
       }
 
       const formData = new FormData();
@@ -158,6 +161,7 @@ const UpdatePostContainer = () => {
           tags={postDetail.tags}
           tagMassage={"엔터키를 치시면 입력됩니다."}
           setValidationTags={setValidationTags}
+          tagStatus={true}
         />
         <StValidationMessage>{validationTags}</StValidationMessage>
         <StButtonWrap>

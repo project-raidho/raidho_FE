@@ -63,6 +63,18 @@ const CreatePostContainer = () => {
       setValidationTags("태그를 입력해주세요.");
     }
 
+    if (
+      postImages.length === 0 ||
+      postContent === "" ||
+      postContent.length < 10 ||
+      postTags.length === 0
+    ) {
+      setModalIcon("info");
+      setAlertMsg("내용을 모두 입력해주세요.");
+      setModalOn(true);
+      return;
+    }
+
     // ::: 입력이 다 되었다면, 서버 전송
     if (postImages.length > 0 && postContent !== "" && postTags.length > 0) {
       const formData = new FormData();
@@ -119,7 +131,6 @@ const CreatePostContainer = () => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(onCreatePost, {
     onSuccess: (data) => {
-      // console.log("여행후기 게시글 등록 데이터 :::", data);
       queryClient.invalidateQueries(["postLists"]);
     },
   });
@@ -152,6 +163,7 @@ const CreatePostContainer = () => {
         tags={[]}
         tagMassage={"엔터키를 치시면 태그가 입력됩니다."}
         tagValMsg={validationTags}
+        tagStatus={true}
       />
       <StButtonWrap>
         <Button
