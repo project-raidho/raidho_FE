@@ -195,7 +195,15 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
           <span>{meeting.departLocation}</span>
           <i className="bgMiddleLine"></i>
         </p>
-        <p className="desc">{meeting.desc}</p>
+        {meeting.desc.length > 100 ? (
+          <Stdesc className="desc" length="long">
+            {meeting.desc}
+          </Stdesc>
+        ) : (
+          <Stdesc className="desc" length="short">
+            {meeting.desc}
+          </Stdesc>
+        )}
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
         <StMeetingCardRow>
@@ -308,7 +316,7 @@ const StMeetingListCardWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-width: 320px;
-  height: 450px;
+  height: 460px;
   margin: 1rem;
   padding: 1.7rem;
   background-color: var(--subBg-color);
@@ -333,11 +341,11 @@ const StMeetingListCardWrap = styled.div`
   }
 
   p {
-    font-size: 1.2rem;
     margin-bottom: 0.5rem;
 
     &.meetingPeriod,
     &.meetingAddress {
+      font-size: 1.2rem;
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -386,7 +394,6 @@ const StMeetingListCardWrap = styled.div`
     }
 
     p {
-      font-size: 1rem;
       margin-bottom: 0.5rem;
 
       &.meetingPeriod {
@@ -403,6 +410,7 @@ const StMeetingListCardWrap = styled.div`
 
       &.meetingPeriod,
       &.meetingAddress {
+        font-size: 1rem;
         strong {
           font-size: 1rem;
         }
@@ -418,9 +426,14 @@ const StMeetingCardUpDown = styled.div`
   width: 100%;
 
   .desc {
-    padding-top: 10px;
-    font-size: 0.8rem;
   }
+`;
+
+const Stdesc = styled.p`
+  padding-top: 10px;
+
+  ${(props) => props.length === "long" && `font-size:0.8rem `}
+  ${(props) => props.length === "short" && `font-size:1rem `}
 `;
 
 const StMeetingCardRow = styled.div`
