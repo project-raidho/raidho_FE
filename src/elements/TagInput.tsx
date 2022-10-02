@@ -1,17 +1,34 @@
 import React, { useState } from "react";
-import Input from "./Input";
 import { MdClose } from "react-icons/md";
 import styled from "styled-components";
 import { useEffect } from "react";
 
-const TagInput = ({ tags, selectedTags, tagMassage, tagValMsg, tagStatus }) => {
+interface InputProps {
+  tags: string[];
+  selectedTags(arg0: string[]): void;
+  tagMassage: string;
+  tagValMsg: string;
+  tagStatus: boolean;
+}
+
+interface Style {
+  checkAlert: boolean;
+}
+
+const TagInput = ({
+  tags,
+  selectedTags,
+  tagMassage,
+  tagValMsg,
+  tagStatus,
+}: InputProps) => {
   const [postTags, setPostTags] = useState(tags);
   const [tagValidationMsg, setTagValidationMsg] = useState("");
   const [checkAlert, setCheckAlert] = useState(tagStatus);
   const [tagLength, setTagLength] = useState(0);
 
   // ::: 태그 삭제하기
-  const removeTags = (indexToRemove) => {
+  const removeTags = (indexToRemove: number) => {
     setTagValidationMsg(`${postTags[indexToRemove]} 태그가 삭제되었습니다.`);
     setCheckAlert(true);
     selectedTags([...postTags.filter((_, index) => index !== indexToRemove)]);
@@ -19,19 +36,25 @@ const TagInput = ({ tags, selectedTags, tagMassage, tagValMsg, tagStatus }) => {
   };
 
   // ::: 태그 추가하기
-  const addTags = (event) => {
-    if (event.target.value !== "") {
+  const addTags = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if ((event.target as HTMLInputElement).value !== "") {
       if (postTags.length > 4) {
         setCheckAlert(true);
         setTagValidationMsg("입력할 수 있는 개수를 초과했습니다.");
         return false;
       }
       const checkDuplicateTag = postTags.filter(
-        (tag) => tag !== `#${event.target.value}`
+        (tag) => tag !== `#${(event.target as HTMLInputElement).value}`
       );
-      setPostTags([...checkDuplicateTag, `#${event.target.value}`]);
-      selectedTags([...checkDuplicateTag, `#${event.target.value}`]);
-      event.target.value = "";
+      setPostTags([
+        ...checkDuplicateTag,
+        `#${(event.target as HTMLInputElement).value}`,
+      ]);
+      selectedTags([
+        ...checkDuplicateTag,
+        `#${(event.target as HTMLInputElement).value}`,
+      ]);
+      (event.target as HTMLInputElement).value = "";
       setTagLength(0);
 
       if (checkDuplicateTag.length === postTags.length) {
@@ -64,12 +87,15 @@ const TagInput = ({ tags, selectedTags, tagMassage, tagValMsg, tagStatus }) => {
             </li>
           ))}
         </ul>
-        <Input
+        <input
           type="text"
           onKeyUp={(event) => (event.key === "Enter" ? addTags(event) : null)}
-          onChange={(event) => setTagLength(event.target.value.length)}
+          onChange={(event: { target: { value: string | any[] } }) =>
+            setTagLength(event.target.value.length)
+          }
           placeholder={tagMassage}
-          maxLength="20"
+          maxLength={20}
+          disabled={undefined}
         />
       </StCreatePostTagsWrap>
       <StValidationMsg checkAlert={checkAlert}>
@@ -172,7 +198,7 @@ const StValidationMsg = styled.p`
   span {
     font-size: 1rem;
     font-weight: 300;
-    font-style: ${(props) => (props.checkAlert ? "nomal" : "italic")};
+    font-style: ${(props: Style) => (props.checkAlert ? "nomal" : "italic")};
     color: ${(props) =>
       props.checkAlert ? "var(--red-color)" : "var(--main-color)"};
     margin-bottom: 1rem;

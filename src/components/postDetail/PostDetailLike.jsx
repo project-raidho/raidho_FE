@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
-import AlertModal from "../../global/globalModal/AlertModal";
+import AlertModal from "../../global/globalModal/AlertModal.jsx";
 import Potal from "../../global/globalModal/Potal";
 import { useMutation, useQueryClient } from "react-query";
 import { BsChat } from "react-icons/bs";

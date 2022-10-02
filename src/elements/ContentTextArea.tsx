@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+interface TextArea {
+  initialContent: string;
+  typedPostContent: (x: string) => void;
+  placeholderText: string;
+  ValRedMsg: string;
+}
 const ContentTextArea = ({
   initialContent,
   typedPostContent,
   placeholderText,
   ValRedMsg,
-}) => {
+}: TextArea) => {
   const [checkTextLength, setCheckTextLength] = useState(
     initialContent?.length
   );
   const [changeContent, setChangeContent] = useState(initialContent);
 
-  const onChangeContent = (event) => {
+  const onChangeContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     typedPostContent(event.target.value);
     setCheckTextLength(event.target.value.length);
     setChangeContent(event.target.value);
@@ -29,8 +35,8 @@ const ContentTextArea = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength="199"
-        minLength="10"
+        maxLength={199}
+        minLength={10}
       />
       <StValMsgSet>
         <StValRedMsg>{ValRedMsg}</StValRedMsg>

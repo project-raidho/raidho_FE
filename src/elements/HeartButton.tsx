@@ -3,7 +3,13 @@ import styled from "styled-components";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoIosHeart } from "react-icons/io";
 
-const HeartButton = ({ like, onClick }) => {
+const HeartButton = ({
+  like,
+  onClick,
+}: {
+  like: boolean;
+  onClick: React.MouseEventHandler<HTMLSpanElement>;
+}) => {
   return (
     <StHeart onClick={onClick}>
       {like ? (

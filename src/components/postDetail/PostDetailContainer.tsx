@@ -20,17 +20,21 @@ import AlertModal from "../../global/globalModal/AlertModal";
 import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 // ::: 상세페이지 조회 axios
-const getPostDetail = async ({ queryKey }) => {
-  return await authInstance.get(`/api/post/${queryKey[1]}`);
+const getPostDetail = async ({
+  queryKey,
+}: {
+  queryKey: (string | undefined)[];
+}) => {
+  return await authInstance.get(`/api/post/${Number(queryKey[1])}`);
 };
 
 // ::: 상세페이지 삭제 axios
-const deletePostDetail = async (postId) => {
-  return await authInstance.delete(`/api/post/${postId}`);
+const deletePostDetail = async (postId: string | undefined) => {
+  return await authInstance.delete(`/api/post/${Number(postId)}`);
 };
 
 const PostDetailContainer = () => {
-  const { postId } = useParams();
+  const { postId } = useParams<string>();
   const navigate = useNavigate();
 
   // 게시글 삭제시 뜨는 모달
@@ -80,7 +84,7 @@ const PostDetailContainer = () => {
     return null;
   }
 
-  const postDetail = postDetailQuery.data.data.data[0];
+  const postDetail = postDetailQuery.data?.data.data[0];
   const targetTag = postDetail.tags[0].split("#")[1];
   // console.log(targetTag);
   return (

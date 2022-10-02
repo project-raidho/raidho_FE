@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MdOutlineError } from "react-icons/md";
 
-const Error = ({ message }) => {
+const Error = ({ message }: { message: string }) => {
   return (
     <StErrorWrap>
       <MdOutlineError />

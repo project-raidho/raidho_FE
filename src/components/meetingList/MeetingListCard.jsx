@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-import AlertModal from "../../global/globalModal/AlertModal";
+import AlertModal from "../../global/globalModal/AlertModal.jsx";
 import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";

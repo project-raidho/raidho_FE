@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import Grid from "../../elements/Grid";
-
 const MessageInput = (props) => {
   const {
     label,
@@ -18,7 +16,7 @@ const MessageInput = (props) => {
 
   if (multiLine) {
     return (
-      <Grid>
+      <>
         {label && <p margin="0px">{label}</p>}
         <StTextarea
           rows={13}
@@ -26,7 +24,7 @@ const MessageInput = (props) => {
           placeholder={placeholder}
           onChange={_onChange}
         ></StTextarea>
-      </Grid>
+      </>
     );
   }
 

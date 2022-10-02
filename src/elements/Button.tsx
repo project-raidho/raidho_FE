@@ -1,5 +1,21 @@
-import styled, { css } from "styled-components";
+import React from "react";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
+interface ButtonProps {
+  size: "small" | "medium" | "large" | "tag" | "square" | "squareTheme";
+  variant:
+    | "primary"
+    | "gray"
+    | "line"
+    | "lineSquare"
+    | "linePrimary"
+    | "lineLightBlue"
+    | "lineGray"
+    | "lineSquare"
+    | "lineBlue";
+  children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
 const SIZES = {
   small: css`
     --button-height: 30px;
@@ -121,7 +137,12 @@ const VARIANTS = {
   `,
 };
 
-function Button({ size, variant, children, ...props }) {
+function Button({
+  size = "small",
+  variant = "primary",
+  children,
+  ...props
+}: ButtonProps) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
@@ -132,7 +153,10 @@ function Button({ size, variant, children, ...props }) {
   );
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{
+  sizeStyle: FlattenSimpleInterpolation;
+  variantStyle: FlattenSimpleInterpolation;
+}>`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
  

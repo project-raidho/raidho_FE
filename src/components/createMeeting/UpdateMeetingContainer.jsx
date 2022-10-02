@@ -10,7 +10,7 @@ import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
 import TripPeopleCount from "./TripPeopleCount";
 
-import AlertModal from "../../global/globalModal/AlertModal";
+import AlertModal from "../../global/globalModal/AlertModal.jsx";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
