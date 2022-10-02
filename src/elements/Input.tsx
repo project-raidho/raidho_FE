@@ -9,9 +9,8 @@ interface InputProps {
   type?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-
+  onSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void;
@@ -59,10 +58,12 @@ const VARIANTS = {
 };
 
 function Input({
+  placeholder,
   disabled,
   size = "square",
   variant = "default",
-  children,
+  onChange,
+  onSubmit,
   ...props
 }: InputProps) {
   const sizeStyle = SIZES[size];
@@ -72,11 +73,19 @@ function Input({
     <StyledInput
       disabled={disabled}
       sizeStyle={sizeStyle}
+      placeholder={placeholder}
       variantStyle={variantStyle}
+      onChange={onChange}
+      onKeyPress={(e) => {
+        if (e.key === "Enter") {
+          if (onSubmit === undefined) {
+            return;
+          }
+          onSubmit(e);
+        }
+      }}
       {...props}
-    >
-      {children}
-    </StyledInput>
+    ></StyledInput>
   );
 }
 

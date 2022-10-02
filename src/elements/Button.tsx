@@ -17,6 +17,7 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "reset" | "submit" | undefined;
   disabled?: boolean;
+  value?: string;
 }
 const SIZES = {
   small: css`

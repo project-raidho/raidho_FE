@@ -15,13 +15,32 @@ import { FaAngleUp } from "react-icons/fa";
 // import { IoExitOutline } from "react-icons/io5";
 // import { RiDeleteBin6Fill } from "react-icons/ri";
 import Button from "../../elements/Button";
+
+interface ChatDetail {
+  startDate: string;
+  endDate: string;
+  roomCloseDate: string;
+  isMine: boolean;
+  title: string;
+  themeCategory: string;
+  meetingTags: string[];
+  memberNames: string[];
+  memberCount: number;
+  people: number;
+  departLocation: string;
+}
+
 // 채팅방 정보 단건조회
-const getChatDetail = async ({ queryKey }) => {
+const getChatDetail = async ({
+  queryKey,
+}: {
+  queryKey: (string | undefined)[];
+}) => {
   return await authInstance.get(`/api/chat/rooms/${Number(queryKey[1])}`);
 };
 
 //채팅방 삭제 axios
-const deleteChatDetail = async (chattingId) => {
+const deleteChatDetail = async (chattingId: string) => {
   return await authInstance.delete(`/api/chat/rooms/${Number(chattingId)}`);
 };
 
@@ -32,7 +51,9 @@ const ChatName = () => {
 
   // ::: 채팅방 나기기 클릭시 모달
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
@@ -40,6 +61,9 @@ const ChatName = () => {
   };
 
   const onClickYes = () => {
+    if (chattingId === undefined) {
+      return setModalOn(!modalOn);
+    }
     mutate(chattingId);
     setModalOn(!modalOn);
   };
@@ -63,10 +87,10 @@ const ChatName = () => {
     return null;
   }
 
-  const chatDetail = chatDetailQuery.data.data;
+  const chatDetail: ChatDetail = chatDetailQuery.data?.data;
 
   // ::: 날짜 차이 계산하기
-  const dateCalculation = (day1, day2) => {
+  const dateCalculation = (day1: string, day2: string) => {
     const dateStart = new Date(day1);
     const dateEnd = new Date(day2);
 
@@ -129,7 +153,6 @@ const ChatName = () => {
             <Button
               size="small"
               variant="lineBlue"
-              className="button"
               onClick={() => onDeleteHandler()}
             >
               나가기
@@ -141,8 +164,8 @@ const ChatName = () => {
             <p>카테고리 : {chatDetail.themeCategory}</p>
             <p>
               여행장소 :{" "}
-              {chatDetail.meetingTags.map((tag, index) => (
-                <span key={tag + index}>{tag.slice(1)}&nbsp;</span>
+              {chatDetail.meetingTags.map((tag: string, index: number) => (
+                <span key={index}>{tag.slice(1)}&nbsp;</span>
               ))}
             </p>
             <p>
@@ -158,7 +181,7 @@ const ChatName = () => {
             </p>
             <p>
               채팅상대 :{" "}
-              {chatDetail.memberNames.map((name, idx) => (
+              {chatDetail.memberNames.map((name: string, idx: number) => (
                 <span key={idx}>{name} </span>
               ))}
             </p>
@@ -234,7 +257,7 @@ const Container = styled.div`
       color: #fff;
     }
   }
-  .button {
+  button {
     width: 70px;
     font-size: 1rem;
     background-color: transparent;
@@ -250,7 +273,7 @@ const Container = styled.div`
   }
 `;
 
-const StInfoBox = styled.div`
+const StInfoBox = styled.div<{ isOpenInfo: boolean }>`
   padding: 0 10px;
   width: 100%;
   position: absolute;

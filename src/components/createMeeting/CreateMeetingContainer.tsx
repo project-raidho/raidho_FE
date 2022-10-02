@@ -22,15 +22,15 @@ import ContentTextArea from "../../elements/ContentTextArea";
 
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
-  const [meetingTags, setMeetingTags] = useState([]);
+  const [meetingTags, setMeetingTags] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState("");
-  const [people, setPeople] = useState(2);
+  const [people, setPeople] = useState<number | undefined>();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [roomCloseDate, setRoomCloseDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
-  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState("");
+  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState<Date | undefined>();
   //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState<
@@ -52,11 +52,10 @@ const CreateMeetingContatiner = () => {
     desc: desc,
     startDate: startDate,
     endDate: endDate,
-    people: Number(people),
+    people: people,
     roomCloseDate: roomCloseDate,
     departLocation: departLocation,
   };
-  // console.log(data, people);
 
   const navigate = useNavigate();
   const postCreateMeeting = async () => {
@@ -146,7 +145,7 @@ const CreateMeetingContatiner = () => {
     if (isValidDateFormat(endDate)) {
       setPeriodValMsg("");
     }
-    if (people.length > 0) {
+    if (String(people).length > 0) {
       setPeopleValMsg("");
     }
     if (title.length > 0) {
@@ -205,7 +204,7 @@ const CreateMeetingContatiner = () => {
     String(departLocation)?.length >= 1;
 
   //날짜 유효성 검사
-  function isValidDateFormat(date) {
+  function isValidDateFormat(date: string) {
     // 자릿수검사
     if (date.length !== 10) return false;
 
@@ -231,7 +230,7 @@ const CreateMeetingContatiner = () => {
     return true;
   }
 
-  const selectedMeetingTags = (tags) => {
+  const selectedMeetingTags = (tags: string[]) => {
     setMeetingTags(tags);
   };
   const typedMeetingContent = (text: string) => {
@@ -303,12 +302,7 @@ const CreateMeetingContatiner = () => {
       <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
         <span className="createButton">
-          <Button
-            size="small"
-            variant="primary"
-            onClick={() => mutate}
-            // disabled={validState ? false : true}
-          >
+          <Button size="small" variant="primary" onClick={() => mutate()}>
             등록하기
           </Button>
         </span>

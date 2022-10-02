@@ -12,12 +12,21 @@ import NoRoom from "./NoRoom";
 // 소켓 통신
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-// import { authInstance } from "../../shared/api";
 
 // 채팅 방 컴포넌트
 const ChattingRoom = () => {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<
+    {
+      memberId: number;
+      memberImage: string | null;
+      message: string;
+      messageTime: string | null;
+      roomId: string;
+      sender: string;
+      type: string;
+    }[]
+  >([]);
 
   // 소켓 통신 객체
   const sock = new SockJS(`https://wjsxogns.shop/ws-stomp`);
@@ -29,36 +38,21 @@ const ChattingRoom = () => {
   const token = localStorage.getItem("Authorization");
 
   // 보낼 메시지 텍스트
-  const [messageInput, setMessageInput] = useState();
+  const [messageInput, setMessageInput] = useState("");
 
   let sender = localStorage.getItem("memberName");
   let memberImage = localStorage.getItem("memberImage");
   let memberId = localStorage.getItem("memberId");
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
-  // React.useEffect(() => {
-  //   // wsConnectSubscribe();
-  //   // getMessageList(id);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [id, messages]);
-
   React.useEffect(() => {
     setMessages([]);
     wsConnectSubscribe();
-    // sendEnterMessage();
-    // getMessageList(id);
     return () => {
       wsDisConnectUnsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chattingId]);
 
-  // const enterChat = {
-  //   type: "ENTER",
-  //   roomId: Number(id),
-  //   sender: sender,
-  //   message: `${sender}님이 입장하셨습니다.`,
-  // };
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
     try {
@@ -69,7 +63,7 @@ const ChattingRoom = () => {
         () => {
           ws.subscribe(
             `/sub/chat/message/${chattingId}`,
-            (data) => {
+            (data: { body: string }) => {
               const newMessage = JSON.parse(data.body);
 
               //트러블 슈팅 적어보기 밑에건 안쌓이고 밑밑에건 쌓인다 왜??
@@ -103,7 +97,10 @@ const ChattingRoom = () => {
   }
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
-  function waitForConnection(ws, callback) {
+  function waitForConnection(
+    ws: { ws: { readyState: number } },
+    callback: { (): void; (): void }
+  ) {
     setTimeout(
       function () {
         // 연결되었을 때 콜백함수 실행
@@ -117,16 +114,6 @@ const ChattingRoom = () => {
       1 // 밀리초 간격으로 실행
     );
   }
-
-  // function sendEnterMessage() {
-  //   waitForConnection(ws, function () {
-  //     ws.send(
-  //       `/pub/chat/send/${id}`,
-  //       { token: token },
-  //       JSON.stringify(enterChat)
-  //     );
-  //   });
-  // }
 
   // 메시지 보내기
   function sendMessage() {
@@ -166,17 +153,6 @@ const ChattingRoom = () => {
     }
   }
 
-  // DB에 존재하는 채팅방 메시지들 가져오기
-  // const getMessageList = async (roomId) => {
-  //   try {
-  //     const res = await authInstance.get(`/api/chat/messages/${roomId}`);
-  //     console.log(res);
-  //     return setMessages(res.data.content);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <Container>
       <ChatList prevRoomId={chattingId} />
@@ -184,11 +160,7 @@ const ChattingRoom = () => {
       {chattingId && (
         <ChatWrap>
           <ChatName />
-          <MessageList
-            chattingId={chattingId}
-            messages={messages}
-            setMessages={setMessages}
-          />
+          <MessageList chattingId={chattingId} messages={messages} />
           <MessageWrite
             setMessageInput={setMessageInput}
             sendMessage={sendMessage}

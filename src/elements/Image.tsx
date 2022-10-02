@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import React from "react";
-
+import DefaultProfileImage from "../assets/defaultProfileImage.svg";
 interface ImageProps {
-  shape: "circle" | "rectangle";
-  src: string;
-  size: string;
-  width: string;
-  height: string;
+  src?: string;
+  size?: string;
+  width?: string;
+  height?: string;
 }
 const Image = (props: ImageProps) => {
-  let { shape, src, size, width, height } = props;
+  let { src, size = "30px", width, height } = props;
 
   // porps로 가져온 사진이 null인 경우 기본 프로필로 설정
-  if (src === null) {
-    src = "/default_img.png";
+  if (src === undefined) {
+    src = `${DefaultProfileImage}`;
   }
   const styles = {
     src: src,
@@ -22,52 +21,8 @@ const Image = (props: ImageProps) => {
     height: height,
   };
 
-  if (shape === "circle") {
-    return <ImageCircle {...styles}></ImageCircle>;
-  }
-
-  if (shape === "rectangle") {
-    return (
-      <AspectOutter>
-        <AspectInner {...styles}></AspectInner>
-      </AspectOutter>
-    );
-  }
-
-  return (
-    <React.Fragment>
-      <ImageDefault {...styles}></ImageDefault>
-    </React.Fragment>
-  );
+  return <ImageCircle {...styles}></ImageCircle>;
 };
-
-Image.defaultProps = {
-  shape: "circle",
-  src: "/default_img.png",
-  size: "30px",
-};
-
-const ImageDefault = styled.div<{ size: string; src: string }>`
-  --size: ${(props) => props.size};
-  width: var(--size);
-  height: var(--size);
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-`;
-
-const AspectOutter = styled.div`
-  width: 100%;
-  object-fit: cover;
-`;
-
-const AspectInner = styled.div<{ width: string; height: string; src: string }>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  position: center;
-  padding-top: 75%;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-`;
 
 const ImageCircle = styled.div<{ size: string; src: string }>`
   --size: ${(props) => props.size};

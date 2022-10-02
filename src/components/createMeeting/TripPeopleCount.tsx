@@ -1,29 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import styled from "styled-components";
 
-const TripPeopleCount = ({ people, setPeople }) => {
+const TripPeopleCount = ({
+  people,
+  setPeople,
+}: {
+  people: number | undefined;
+  setPeople: Dispatch<SetStateAction<number | undefined>>;
+}) => {
   const countList = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-  // console.log(people);
 
-  // const index = countList.indexOf(people);
-  // const NewCountList = countList.slice(index);
+  const [count, setCount] = useState(2);
 
-  const [count, setCount] = useState("");
-  // console.log(count);
-
-  const countonChange = (e) => {
-    setCount(e.target.value);
-    setPeople(e.target.value);
+  const countonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCount(Number(e.target.value));
+    setPeople(Number(e.target.value));
   };
   useEffect(() => {
-    setCount(people);
+    if (people === undefined) {
+      setCount(2);
+    } else {
+      setCount(people);
+    }
   }, [people]);
 
   return (
     <StPeopleWrapper>
       <h1>여행희망인원(채팅인원) *</h1>
       <StSelectBox>
-        <select value={count} onChange={countonChange} className="select">
+        <select
+          value={count}
+          onChange={(e) => countonChange(e)}
+          className="select"
+        >
           {countList.map((item, i) => (
             <option value={item} key={i}>
               {item}
