@@ -40,9 +40,7 @@ const MainPostList = ({ state }: { state: string }) => {
   }, [inView]);
 
   if (status === "loading") return <Loading />;
-  if (status === "error") return <Error message={(error as any).message} />;
-
-  console.log(data);
+  if (status === "error") return <Error message={(error as Error).message} />;
 
   return (
     <StPostLisWrap>

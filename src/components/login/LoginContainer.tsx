@@ -1,66 +1,31 @@
-// import KakaoOauth from "../../shared/KaKaoOauth";
-// import FaceBookLogin from "./FacebookLogin";
 import React from "react";
 import styled from "styled-components";
-// import axios from "axios";
 
-// import NaverLogin from "./NaverLogin";
 import RaidhoLogo from "../../assets/raidhoLogo.svg";
 import { MdClose } from "react-icons/md";
-import {
-  KAKAO_AUTH_URL,
-  // GOOGLE_AUTH_URL,
-  // NAVER_AUTH_URL,
-} from "../../shared/SocialOAuth";
+import { KAKAO_AUTH_URL } from "../../shared/SocialOAuth";
 
 import kakao from "../../assets/kakao.svg";
-// import naver from "../../assets/naver.svg";
-// import facebook from "../../assets/facebook.svg";
-// import notPrepare from "../../assets/notPrepare.svg";
 
-const LoginModal = ({ onClose, message }) => {
-  // const navigate = useNavigate();
-  // const oAuthLoginHandler = (id, email) => {
-  //   let request = {
-  //     oAuhId: id,
-  //     email,
-  //   };
-  //   const URI = process.env.REACT_APP_BASE_URI;
-  //   const res = axios.post(`${URI}/ouath/facebook`, request);
-
-  //   localStorage.setItem("Authorization", res.headers.authorization);
-  //   navigate("/");
-  // };
-
+const LoginModal = ({
+  onClose,
+  message,
+}: {
+  onClose: React.MouseEventHandler<SVGSVGElement> | undefined;
+  message: string;
+}) => {
   return (
     <>
-      <Background onClick={onClose} />
+      <Background />
       <ModalContentBox>
         <MdClose className="closeButton" onClick={onClose} />
         <img className="logoImg" src={RaidhoLogo} alt="RaidhoLogo" />
 
         <div className="contents">
-          <SocialLoginbutton className="kaako" href={KAKAO_AUTH_URL}>
+          <SocialLoginbutton href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </SocialLoginbutton>
           <p className="infoMessage">{message}</p>
-          {/* 
-          <SocialLoginbutton href={NAVER_AUTH_URL}>
-            <img src={naver} alt="네이버로그인" />
-          <NaverLogin />
-          </SocialLoginbutton> */}
-
-          {/* <div className="prepareBox">
-           
-              <SocialLoginbutton href={GOOGLE_AUTH_URL} >
-              <img src={facebook} alt="페이스북로그인" />
-            </SocialLoginbutton>
-            <img src={notPrepare} alt="준비중" />
-          </div> */}
-          {/* <FaceBookLogin
-            className="faceBookLogin"
-            oAuthLoginHandler={oAuthLoginHandler}
-          /> */}
         </div>
       </ModalContentBox>
     </>
