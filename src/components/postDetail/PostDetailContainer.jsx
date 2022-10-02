@@ -186,6 +186,7 @@ const StContentBox = styled.div`
   max-width: 738px;
   padding: 20px 0px;
   margin: 0 auto;
+  white-space: pre-wrap;
 
   @media ${(props) => props.theme.mobile} {
     padding-left: 10px;
