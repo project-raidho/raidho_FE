@@ -1,5 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface ThemeProps {
+  isLoading: boolean;
+  error: null | string;
+  themeList: Array<ThemeListProps>;
+  recommendTagList: Array<RecommandTagProps>;
+}
+export interface ThemeListProps {
+  themeName: string;
+  themeImage: string;
+  themePath: string;
+}
+export interface RecommandTagProps {
+  recommendTagName: string;
+  recommendTagImage: string;
+  recommendTagPath: string;
+}
+
 // ::: 초기값
 const initialState = {
   isLoading: false,
@@ -9,43 +26,43 @@ const initialState = {
       themeName: "전체",
       themeImage:
         "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dHJhdmVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      themePath: "all"
+      themePath: "all",
     },
     {
       themeName: "국내",
       themeImage:
         "https://images.unsplash.com/photo-1616738227115-954748f35c61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-      themePath: "korea"
+      themePath: "korea",
     },
     {
       themeName: "유럽",
       themeImage:
         "https://images.unsplash.com/photo-1493707553966-283afac8c358?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      themePath: "europe"
+      themePath: "europe",
     },
     {
       themeName: "아메리카",
       themeImage:
         "https://images.unsplash.com/photo-1536277885040-c57f00adb449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
-      themePath: "america"
+      themePath: "america",
     },
     {
       themeName: "아시아",
       themeImage:
         "https://images.unsplash.com/photo-1532236395709-7d70320fec2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1202&q=80",
-      themePath: "asia"
+      themePath: "asia",
     },
     {
       themeName: "오세아니아",
       themeImage:
         "https://images.unsplash.com/photo-1509259305526-037fbbf698fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80",
-      themePath: "oseania"
+      themePath: "oseania",
     },
     {
       themeName: "아프리카",
       themeImage:
         "https://images.unsplash.com/photo-1523805009345-7448845a9e53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80",
-      themePath: "africa"
+      themePath: "africa",
     },
   ],
 
@@ -91,24 +108,21 @@ const initialState = {
         "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
     },
   ],
-}
+} as ThemeProps;
 
 const themeSlice = createSlice({
   name: "themeSlice",
   initialState,
   reducers: {
-    getTheme: (state, action) => {
+    getTheme: (state) => {
       state.themeList = initialState.themeList;
-      // console.log(state.themeList);
     },
-    getRecommandTag: (state, action) => {
+    getRecommandTag: (state) => {
       state.recommendTagList = initialState.recommendTagList;
-      // console.log(state.recommendTagList);
     },
   },
   extraReducers: {},
 });
-
 
 export const { getTheme, getRecommandTag } = themeSlice.actions;
 export default themeSlice.reducer;

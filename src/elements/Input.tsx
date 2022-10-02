@@ -13,8 +13,12 @@ interface InputProps {
       value: string | any[];
     };
   }) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onKeyPress?: () => void;
   placeholder?: string;
   maxLength?: number;
+  value?: string | undefined;
 }
 
 const SIZES = {
