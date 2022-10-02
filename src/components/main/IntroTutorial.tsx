@@ -25,7 +25,6 @@ const IntroTutorial = ({ onClose }: { onClose: Function }) => {
     <>
       <Background />
       <ModalContentBox>
-        {/* <MdClose className="closeButton" onClick={onClose} /> */}
         <div className="contents">
           <StIntroTutorialWrap>
             <Slider {...settings}>
@@ -38,10 +37,9 @@ const IntroTutorial = ({ onClose }: { onClose: Function }) => {
               <div className="slideItems slideItemLast">
                 <img src={ImageIntro2} alt="서비스소개" />
                 <Button
-                  className="buttonStart"
                   size="medium"
                   variant="linePrimary"
-                  onClick={changeFirstUser}
+                  onClick={() => changeFirstUser}
                 >
                   시작하기
                 </Button>
@@ -73,7 +71,7 @@ const StIntroTutorialWrap = styled.div`
         width: 90%;
         margin: 0 auto;
       }
-      .buttonStart {
+      button {
         position: absolute;
         bottom: 10px;
         left: 50%;
@@ -94,7 +92,7 @@ const StIntroTutorialWrap = styled.div`
           width: 90%;
           margin: 0 auto;
         }
-        .buttonStart {
+        button {
           position: absolute;
           width: 100px;
           height: 32px;

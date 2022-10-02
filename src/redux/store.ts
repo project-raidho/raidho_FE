@@ -13,3 +13,5 @@ export default configureStore({
   reducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
+
+export type RootState = ReturnType<typeof reducer>;

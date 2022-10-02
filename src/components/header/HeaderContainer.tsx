@@ -8,9 +8,9 @@ import SearchContainer from "./search/SearchContainer";
 
 const HeaderContainer = () => {
   // ::: 로그인 여부 확인하기
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   // ::: 모바일 여부 확인하기
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // ::: 디바이스 화면 크기 확인
   const checkDiviceWidth = () => {
@@ -104,7 +104,7 @@ const StHeaderLogo = styled.h1`
   }
 `;
 
-const StSearchBox = styled.div`
+const StSearchBox = styled.div<{ isLogin: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,7 @@ const StSearchBox = styled.div`
     props.isLogin ? "calc(100% - 480px)" : "calc(100% - 560px)"};
   height: 40px;
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     width: ${(props) =>
       props.isLogin ? "calc(100% - 40px)" : "calc(100% - 40px)"};
   }

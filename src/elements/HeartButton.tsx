@@ -8,7 +8,7 @@ const HeartButton = ({
   onClick,
 }: {
   like: boolean;
-  onClick: UseMutateFunction<void, unknown, void, unknown>;
+  onClick: React.MouseEventHandler<HTMLSpanElement>;
 }) => {
   return (
     <StHeart onClick={onClick}>

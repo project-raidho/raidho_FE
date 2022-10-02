@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 import {
   getRecentSearch,
   addRecentSearch,
@@ -9,35 +10,41 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
 import AlertModal from "../../../global/globalModal/AlertModal";
+
 import Potal from "../../../global/globalModal/Potal";
 import styled from "styled-components";
 
-const SearchContainer = ({ isMobile }) => {
-  // ::: 검색기록 전역상태관리 하기(리덕스 툴킷 이용)
-  const dispatch = useDispatch();
-  const recentSearchList = useSelector(
-    (state) => state.searchSlice.recentSearch
-  );
+interface LocationProps {
+  tagKeyword: string;
+}
 
-  // ::: 태그별 상세 페이지 이동하기
+const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  // ::: 검색기록 전역상태관리 하기(리덕스 툴킷 이용)
+  const recentSearchList = useSelector(
+    (state: RootState) => state.searchSlice.recentSearch
+  );
+
   // ::: 추천 태그 리스트 전역에서 불러오기
   const recommendTagList = useSelector(
-    (state) => state.themeSlice.recommendTagList
+    (state: RootState) => state.themeSlice.recommendTagList
   );
 
   // ::: 검색창 focus 여부 확인하기
-  const [isFocusSearch, setIsFocusSearch] = useState(false);
+  const [isFocusSearch, setIsFocusSearch] = useState<boolean>(false);
 
   // ::: 검색 입력 내용 확인하기
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState<string>("");
 
   // ::: 모달 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
-  const [alertMsg, setAlertMsg] = useState("");
+  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [modalIcon, setModalIcon] = useState<
+    "success" | "warning" | "info" | ""
+  >("");
+  const [alertMsg, setAlertMsg] = useState<string>("");
 
   const onClickYes = () => {
     setModalOn(!modalOn);
@@ -47,12 +54,14 @@ const SearchContainer = ({ isMobile }) => {
   };
 
   // ::: 검색창에 입력한 값 확인하기
-  const onChangeSearchContent = (event) => {
+  const onChangeSearchContent = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchInput(event.target.value);
   };
 
   // ::: 검색 상세보기 페이지 이동하기
-  const goSearchDetail = (url) => {
+  const goSearchDetail = (url: string) => {
     navigate(`/post/best?tag=${url}`, {
       state: {
         tagKeyword: url,
@@ -77,7 +86,9 @@ const SearchContainer = ({ isMobile }) => {
   };
 
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
-  const onKeyPressSearchEnter = (event) => {
+  const onKeyPressSearchEnter = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === "Enter") {
       onSearchTag();
     }
@@ -97,13 +108,13 @@ const SearchContainer = ({ isMobile }) => {
   };
 
   // ::: 최근검색기록 삭제하기
-  const onClickDeleteRecentSearch = (tag) => {
+  const onClickDeleteRecentSearch = (tag: string) => {
     setIsFocusSearch(true);
     dispatch(deleteRecentSearch(tag));
   };
 
   // ::: 최근검색기록, 추천검색기록 이동하기
-  const onClickLinkTagSearch = (tag) => {
+  const onClickLinkTagSearch = (tag: string) => {
     setSearchInput(tag);
     navigate(`/post/best?tag=${tag}`);
     setIsFocusSearch(false);
@@ -111,8 +122,11 @@ const SearchContainer = ({ isMobile }) => {
 
   // ::: 처음 들어왔을 때 데이터 불러오기
   useEffect(() => {
+    const state = location.state as LocationProps;
     dispatch(getRecentSearch());
-    location.state !== null && setSearchInput(location.state.tagKeyword);
+    location.state !== null
+      ? setSearchInput(state.tagKeyword)
+      : setSearchInput("");
     location.search === "" && setSearchInput("");
   }, [dispatch, location.state, location.search]);
 
@@ -122,10 +136,10 @@ const SearchContainer = ({ isMobile }) => {
         <Input
           size="large"
           variant="search"
-          onFocus={onFocusSearch}
-          onBlur={onBlurSearch}
-          onChange={onChangeSearchContent}
-          onKeyPress={onKeyPressSearchEnter}
+          onFocus={() => onFocusSearch}
+          onBlur={() => onBlurSearch}
+          onChange={() => onChangeSearchContent}
+          onKeyPress={() => onKeyPressSearchEnter}
           value={searchInput}
           placeholder={
             isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."
@@ -203,7 +217,7 @@ const StSearchContainerWrap = styled.div`
   }
 `;
 
-const StSearchDetailBox = styled.div`
+const StSearchDetailBox = styled.div<{ isFocusSearch: boolean }>`
   position: absolute;
   left: 0;
   top: 0;
@@ -261,7 +275,7 @@ const StSearchDetailBox = styled.div`
   }
 `;
 
-const StSearchDetailList = styled.div`
+const StSearchDetailList = styled.div<{ isFocusSearch: boolean }>`
   width: calc(100% - 3rem);
   border-top: ${(props) =>
     props.isFocusSearch === true ? "1px solid var(--gray-color)" : "none"};
@@ -351,7 +365,7 @@ const StTagCardWrap = styled.div`
   }
 `;
 
-const StTagCard = styled.p`
+const StTagCard = styled.p<{ bgImage: string }>`
   display: flex;
   align-items: center;
   justify-content: center;

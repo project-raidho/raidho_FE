@@ -9,7 +9,12 @@ interface InputProps {
   type?: string;
   children?: React.ReactNode;
   disabled?: boolean;
+
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onKeyPress?: () => void;
 
   placeholder?: string;
   maxLength?: number;

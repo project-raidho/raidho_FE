@@ -1,12 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 import BgToggleBoxLight from "../../../assets/header/toggleBoxLight.svg";
 import BgToggleBoxDark from "../../../assets/header/toggleBoxDark.svg";
 import styled from "styled-components";
 
-const ToggleBox = ({ children, isToggle, onCloseToggle }) => {
+interface ToggleProps {
+  children: React.ReactNode;
+  isToggle: boolean;
+  onCloseToggle: React.MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+const ToggleBox = ({ children, isToggle, onCloseToggle }: ToggleProps) => {
   // ::: 다크모드 여부 체크 true : dark / false : light
-  const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
+  const checkDarkMode = useSelector(
+    (state: RootState) => state.searchSlice.darkMode
+  );
 
   return (
     <>
@@ -21,7 +30,7 @@ const ToggleBox = ({ children, isToggle, onCloseToggle }) => {
 
 export default ToggleBox;
 
-const StToggleBox = styled.ul`
+const StToggleBox = styled.ul<{ isToggle: boolean; checkDarkMode: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,12 +87,11 @@ const StToggleBox = styled.ul`
   }
 `;
 
-const StToggleBackground = styled.div`
+const StToggleBackground = styled.div<{ isToggle: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) =>
-    props.isToggle || props.isAddPostToggle ? "block" : "none"};
+  display: ${(props) => (props.isToggle ? "block" : "none")};
   width: 100vw;
   height: 100vh;
   z-index: 2;

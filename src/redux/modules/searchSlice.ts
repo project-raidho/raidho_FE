@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface SearchProps {
   isLoading: boolean;
-  error: null;
+  error: null | string;
   recentSearch: string[];
   darkMode: boolean;
 }
@@ -13,22 +13,22 @@ const initialState = {
   error: null,
   recentSearch: [],
   darkMode: localStorage.getItem("bgMode") === "dark" ? true : false,
-};
+} as SearchProps;
 
 const searchSlice = createSlice({
   name: "searchSlice",
   initialState,
   reducers: {
-    getRecentSearch: (state, action) => {
-      let initRecentSearches = localStorage.getItem("recentSearches");
-      if (initRecentSearches === null) {
-        initRecentSearches = "";
+    getRecentSearch: (state) => {
+      const initRecentSearches = localStorage.getItem("recentSearches");
+      if (!initRecentSearches) {
+        throw new Error("저장된 최근검색어가 없습니다.");
       }
       initRecentSearches
         ? (state.recentSearch = JSON.parse(initRecentSearches))
         : (state.recentSearch = []);
     },
-    addRecentSearch: (state, action: PayloadAction<SearchProps>) => {
+    addRecentSearch: (state, action) => {
       let count = 0;
       const maxCount = 4;
       const resultRecentSearch = state.recentSearch.filter((tag) => {
@@ -53,7 +53,7 @@ const searchSlice = createSlice({
         JSON.stringify(state.recentSearch)
       );
     },
-    getDarkMode: (state, action) => {
+    getDarkMode: (state) => {
       const initDarkMode = localStorage.getItem("bgMode");
       initDarkMode === "dark"
         ? (state.darkMode = true)
