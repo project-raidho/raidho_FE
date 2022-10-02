@@ -6,14 +6,22 @@ import Success from "../../elements/Success";
 import Warning from "../../elements/Warning";
 import Info from "../../elements/Info";
 
+interface ModalProps {
+  onCloseModal: React.MouseEventHandler<SVGElement> | undefined;
+  modalIcon: "success" | "warning" | "info" | "";
+  alertMsg: String;
+  onClickYes: Function;
+  onClickNo?: Function;
+}
+
 const AlertModal = ({
   onCloseModal,
   modalIcon,
   alertMsg,
   onClickYes,
   onClickNo,
-}) => {
-  const [Icon, setIcon] = useState();
+}: ModalProps) => {
+  const [Icon, setIcon] = useState<React.ReactNode | String>();
   useEffect(() => {
     if (modalIcon === "success") {
       setIcon(<Success />);
@@ -37,9 +45,6 @@ const AlertModal = ({
             <p>{alertMsg}</p>
 
             <StButtonWrap>
-              <Button size="square" variant="lineSquare" onClick={onClickNo}>
-                취소
-              </Button>
               <Button size="square" variant="lineSquare" onClick={onClickYes}>
                 확인
               </Button>
@@ -135,9 +140,9 @@ const StModalContent = styled.div`
 
   h4 {
     display: block;
-    width: 100px;
-    height: 100px;
-    margin-top: 30px;
+    width: 80px;
+    height: 80px;
+    margin-top: 20px;
     overflow: hidden;
   }
 
@@ -147,7 +152,7 @@ const StModalContent = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
   @media (max-width: 639px) {
     h4 {

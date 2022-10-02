@@ -2,14 +2,13 @@ import React from "react";
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-// import { MdClose } from "react-icons/md";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 import ImageIntro1 from "../../assets/banner/intro1.jpeg";
 import ImageIntro2 from "../../assets/banner/intro2.jpeg";
 import ImageIntro3 from "../../assets/banner/intro3.jpeg";
 
-const IntroTutorial = ({ onClose }) => {
+const IntroTutorial = ({ onClose }: { onClose: Function }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,7 +18,7 @@ const IntroTutorial = ({ onClose }) => {
   };
 
   const changeFirstUser = () => {
-    localStorage.setItem("firstUser", true);
+    localStorage.setItem("firstUser", "true");
     onClose();
   };
   return (
