@@ -48,7 +48,7 @@ const AddCommentForm = () => {
 
   return (
     <>
-      <CommentForm onSubmit={() => mutate}>
+      <CommentForm onSubmit={() => mutate()}>
         <div className="profileBox">
           <img className="profileImg" src={memberImage} alt="프로필이미지" />
         </div>
@@ -69,7 +69,7 @@ const AddCommentForm = () => {
           <StButton
             size="small"
             variant={content === "" ? "lineGray" : "lineLightBlue"}
-            onClick={() => mutate}
+            onClick={() => mutate()}
             type="submit"
             disabled={content === ""}
           >

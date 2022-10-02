@@ -1,8 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 const { kakao } = window;
 
-const KakaoMap = ({ searchPlace }) => {
+const KakaoMap = ({ searchPlace }: { searchPlace: string }) => {
   useEffect(() => {
     const container = document.getElementById("myMap");
     const options = {
@@ -14,34 +21,50 @@ const KakaoMap = ({ searchPlace }) => {
     // 주소-좌표 변환 객체를 생성합니다.
     const geocoder = new kakao.maps.services.Geocoder();
     // 주소로 좌표를 검색합니다..
-    geocoder.addressSearch(searchPlace, function (result, status) {
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    geocoder.addressSearch(
+      searchPlace,
+      function (
+        result: {
+          y: number;
+          x: number;
+        }[],
+        status: any
+      ) {
+        // 정상적으로 검색이 완료됐으면
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        // var marker =
-        new kakao.maps.Marker({
-          map: map,
-          position: coords,
-        });
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // // 인포윈도우로 장소에 대한 설명을 표시합니다
-        // var infowindow = new kakao.maps.InfoWindow({
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          // var marker =
+          new kakao.maps.Marker({
+            map: map,
+            position: coords,
+          });
 
-        // });
-        // infowindow.open(map, marker);
+          // // 인포윈도우로 장소에 대한 설명을 표시합니다
+          // var infowindow = new kakao.maps.InfoWindow({
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
+          // });
+          // infowindow.open(map, marker);
+
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(coords);
+        }
       }
-    });
+    );
     // 키워드 검색
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(searchPlace, placesSearchCB);
 
-    function placesSearchCB(data, status, pagination) {
+    function placesSearchCB(
+      data: {
+        y: number;
+        x: number;
+      }[],
+      status: any
+    ) {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
 
@@ -52,7 +75,11 @@ const KakaoMap = ({ searchPlace }) => {
       }
     }
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    function displayMarker(place) {
+    function displayMarker(place: {
+      y: number;
+      x: number;
+      place_name?: string;
+    }) {
       let marker = new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x),

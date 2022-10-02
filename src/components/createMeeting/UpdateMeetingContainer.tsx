@@ -25,7 +25,9 @@ const UpdateMeetingContainer = () => {
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
@@ -54,12 +56,12 @@ const UpdateMeetingContainer = () => {
   const [meetingTags, setMeetingTags] = useState([""]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [people, setPeople] = useState("");
+  const [people, setPeople] = useState<number | undefined>();
   const [roomCloseDate, setRoomCloseDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
-  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState("");
+  const [maxRoomCloseDate, setmaxRoomCloseDate] = useState<Date | undefined>();
   //서버에서 받아온 데이터
 
   const data = {
@@ -73,7 +75,7 @@ const UpdateMeetingContainer = () => {
   };
 
   //날짜 유효성 검사
-  function isValidDateFormat(date) {
+  function isValidDateFormat(date: string) {
     // 자릿수검사
     if (date?.length !== 10) return false;
 
@@ -214,11 +216,11 @@ const UpdateMeetingContainer = () => {
     setDepartLocation(meetingDetail?.departLocation);
   }, [meetingDetail]);
 
-  const onChangeContent = (content) => {
+  const onChangeContent = (content: string) => {
     setDesc(content);
   };
 
-  const onChangeTitle = (title) => {
+  const onChangeTitle = (title: string) => {
     setTitle(title);
   };
 
@@ -297,7 +299,7 @@ const UpdateMeetingContainer = () => {
             취소
           </Button>
 
-          <Button size="small" variant="primary" onClick={mutate}>
+          <Button size="small" variant="primary" onClick={() => mutate()}>
             등록
           </Button>
         </StButtonWrap>

@@ -18,23 +18,20 @@ const getChatList = async () => {
   return await authInstance.get(`/api/chat/chatList`);
 };
 
-const ChatList = ({ prevRoomId }) => {
+const ChatList = ({ prevRoomId }: { prevRoomId: string | undefined }) => {
   const navigate = useNavigate();
 
   //채팅단건 조회 useQuery
-  const chatListQuery = useQuery("chatList", getChatList, {
-    onSuccess: (data) => {},
-  });
+  const chatListQuery = useQuery("chatList", getChatList);
   if (chatListQuery.isLoading) {
     return null;
   }
 
-  const chatList = chatListQuery.data.data;
-
+  const chatList = chatListQuery.data?.data;
   // 채팅방 들어가기
-  const enterRoom = (roomId) => {
+  const enterRoom = (roomId: number) => {
     // 입장한 채팅방을 다시 클릭하면 리턴
-    if (prevRoomId === roomId) {
+    if (Number(prevRoomId) === roomId) {
       return;
     }
     navigate(`/chatting/${roomId}`);
@@ -46,19 +43,26 @@ const ChatList = ({ prevRoomId }) => {
 
       <ChatListWrap className="scroll">
         {/* 받아온 채팅 리스트 구현하기 */}
-        {chatList.map((chat) => {
-          return (
-            <Chat
-              key={chat.roomMasterId}
-              roomId={chat.roomMasterId}
-              roomName={chat.roomName}
-              roomPic={chat.roomPic}
-              _onClick={() => {
-                enterRoom(chat.roomMasterId);
-              }}
-            />
-          );
-        })}
+        {chatList.map(
+          (chat: {
+            roomMasterId: number;
+            roomName: string;
+            _onClick: React.MouseEventHandler<HTMLDivElement>;
+            roomPic: string;
+          }) => {
+            return (
+              <Chat
+                key={chat.roomMasterId}
+                roomId={chat.roomMasterId}
+                roomName={chat.roomName}
+                roomPic={chat.roomPic}
+                _onClick={() => {
+                  enterRoom(chat.roomMasterId);
+                }}
+              />
+            );
+          }
+        )}
       </ChatListWrap>
     </Container>
   );

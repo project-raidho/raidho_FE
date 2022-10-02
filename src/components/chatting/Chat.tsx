@@ -5,8 +5,14 @@ import styled from "styled-components";
 import Image from "../../elements/Image";
 import { useParams } from "react-router-dom";
 
+interface ChatProps {
+  roomId: number;
+  roomName: string;
+  _onClick: React.MouseEventHandler<HTMLDivElement>;
+  roomPic: string;
+}
 // 현재 존재하는 채팅을 보여주는 컴포넌트
-const Chat = ({ roomId, roomName, _onClick, roomPic }) => {
+const Chat = ({ roomId, roomName, _onClick, roomPic }: ChatProps) => {
   const { chattingId } = useParams();
 
   let is_same = false;
@@ -29,7 +35,7 @@ Chat.defaultProps = {
   roomName: false,
 };
 
-const Container = styled.div`
+const Container = styled.div<{ selected: boolean }>`
   ${(props) => props.theme.flex_row};
   justify-content: flex-start;
   border: ${(props) =>

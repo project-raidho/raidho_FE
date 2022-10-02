@@ -126,7 +126,7 @@ const StCommentListWrap = styled.div`
   }
 `;
 
-const StCommentsList = styled.div`
+const StCommentsList = styled.div<{ isAll: boolean }>`
   height: ${(props) => (props.isAll ? "auto" : "95px")};
   transition: 0.7s;
   overflow: hidden;

@@ -56,7 +56,7 @@ const PostDetailLike = ({ postDetail }: PostDetailProps) => {
 
   return (
     <StLikeWrapper>
-      <HeartButton like={postDetail.isHeartMine} onClick={() => mutate} />
+      <HeartButton like={postDetail.isHeartMine} onClick={() => mutate()} />
       <span className="likeNum">{postDetail.heartCount}</span>
       <BsChat className="commentIcon" />
       <span className="commentNum">{postDetail.commentCount}</span>
