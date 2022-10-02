@@ -14,7 +14,6 @@ import { MeetingContentProps } from "../../elements/Type";
 
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }: { queryKey: (string | boolean)[] }) => {
-  console.log("queryKey", queryKey);
   // ::: 기간O
   if (queryKey[3] !== "" && queryKey[4] !== "") {
     if (queryKey[1] === "") {
@@ -395,13 +394,11 @@ const StMeetingCategoryRow = styled.div`
       }
     }
   }
-
-  @media (max-width: 767px) {
+  @media ${(props) => props.theme.tablet} {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     .themeCategoryButton {
       width: auto;
-
       a {
         font-size: 1.2rem;
       }
@@ -426,10 +423,10 @@ const StMeetingCardBox = styled.div`
   grid-template-columns: repeat(3, 1fr);
   padding-bottom: 5rem;
 
-  @media (max-width: 1023px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: repeat(3, 1fr);
   }
-  @media (max-width: 767px) {
+  @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
   }
   @media ${(props) => props.theme.mobile} {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Info from "../../elements/Info";
 
-const SearchAlert = ({ tagName }) => {
+const SearchAlert = ({ tagName }: { tagName: string }) => {
   return (
     <StAlertWrap>
       <>

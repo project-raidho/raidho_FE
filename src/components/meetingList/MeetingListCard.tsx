@@ -110,7 +110,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
 
   // ::: 카테고리 클릭시 해당 카테고리로 이동
   const onClickMeetingCategory = (meetingCategory: string) => {
-    Props.themeList.map((theme: ThemeListProps) => {
+    Props.themeList?.map((theme: ThemeListProps) => {
       if (theme.themeName === meetingCategory) {
         navigate(`/meetingList/${theme.themePath}`);
         Props.onClickTheme(theme.themeName);

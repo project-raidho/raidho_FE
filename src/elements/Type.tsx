@@ -38,8 +38,8 @@ export interface MeetingContentProps {
   startDate: string;
   themeCategory: string;
   title: string;
-  themeList: ThemeListProps[];
-  onClickTheme: (theme: string) => Promise<void>;
+  themeList?: ThemeListProps[];
+  onClickTheme: (theme: string) => Promise<void> | undefined;
 }
 
 export interface ThemeListProps {

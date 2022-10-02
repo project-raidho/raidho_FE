@@ -1,5 +1,5 @@
 import React from "react";
-import SearchTagContainer from "../components/searchTag/SearchTagContainder";
+import SearchTagContainer from "../components/searchTag/SearchTagContainer";
 import styled from "styled-components";
 
 const SearchTagPage = () => {
