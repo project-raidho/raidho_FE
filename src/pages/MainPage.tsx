@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
 import MainContainer from "../components/main/MainContainer";
-// import SearchContainer from "../components/header/search/SearchContainer";
 import IntroTutorial from "../components/main/IntroTutorial";
 import Potal from "../global/globalModal/Potal";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 
 const MainPage = () => {
   const { stateName } = useParams();
-  const [state, setState] = useState(
+  const [state, setState] = useState<string>(
     stateName === undefined ? "latest" : stateName
   );
 
@@ -28,8 +27,8 @@ const MainPage = () => {
     setState(changeState);
   }, [stateName, state]);
 
-  const [ScrollY, setScrollY] = useState(0); // 스크롤값을 저장하기 위한 상태
-  const [BtnStatus, setBtnStatus] = useState(false); // 버튼 상태
+  const [ScrollY, setScrollY] = useState<number>(0); // 스크롤값을 저장하기 위한 상태
+  const [BtnStatus, setBtnStatus] = useState<boolean>(false); // 버튼 상태
   const handleFollow = () => {
     setScrollY(window.pageYOffset);
     if (ScrollY > 100) {
@@ -104,7 +103,10 @@ const MainPage = () => {
             </NavLink>
           </p>
         </StMainNav>
-        <MainContainer state={state} handleTop={handleTop} />
+        <MainContainer
+          state={state}
+          // handleTop={handleTop}
+        />
       </StLayout>
       <MdKeyboardArrowUp
         className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
@@ -161,26 +163,13 @@ const StMainPageWrap = styled.div`
   }
 `;
 
-// const StSearchWrap = styled.div`
-//   padding: 1rem 0;
-//   background-color: red;
-//   @media (max-width: 639px) {
-//     padding: 1rem;
-//   }
-// `;
-
 const StMainNav = styled.div`
-  /* position: fixed;
-  left: 0;
-  top: 70px; */
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   padding: 0.8rem 0;
-  /* box-shadow: var(--box-shadow); */
   background-color: var(--bg-color);
-  /* z-index: 4; */
 
   p {
     display: flex;
@@ -214,10 +203,9 @@ const StMainNav = styled.div`
     }
   }
   @media (max-width: 639px) {
-    /* top: 57px; */
     justify-content: center;
     padding: 0.8rem 0 0;
-    /* margin-top: 30px; */
+
     p {
       width: 100px;
       height: 30px;
@@ -232,7 +220,6 @@ const StMainNav = styled.div`
 
 const StLayout = styled.div`
   padding-top: 190px;
-  /* padding-top: 0; */
   max-width: 1305px;
   margin: 0 auto;
 

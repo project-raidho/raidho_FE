@@ -8,7 +8,7 @@ import Info from "../../elements/Info";
 
 interface ModalProps {
   onCloseModal: React.MouseEventHandler<SVGElement> | undefined;
-  modalIcon: "success" | "warning" | "info" | undefined;
+  modalIcon: "success" | "warning" | "info" | "";
   alertMsg: String;
   onClickYes: Function;
   onClickNo: Function;
