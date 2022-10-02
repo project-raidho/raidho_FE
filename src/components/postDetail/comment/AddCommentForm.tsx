@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { useParams } from "react-router-dom";
-
 import styled, { css } from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../../shared/api";
@@ -11,18 +9,18 @@ import LoginModal from "../../login/LoginContainer";
 import Potal from "../../../global/globalModal/Potal";
 
 const AddCommentForm = () => {
-  const userToken = localStorage.getItem("Authorization");
-  const memberImage =
-    userToken !== null
-      ? localStorage.getItem("memberImage")
-      : DefaultProfileImage;
+  let memberImage = localStorage.getItem("memberImage");
+
+  if (memberImage === null) {
+    memberImage = `${DefaultProfileImage}`;
+  }
   const memberName = localStorage.getItem("memberName");
   const { postId } = useParams();
 
   const [content, setContent] = useState("");
   const [commentLength, setCommentLength] = useState(0);
 
-  const onChangeContent = (e) => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
     setCommentLength(e.target.value.length);
   };
@@ -50,7 +48,7 @@ const AddCommentForm = () => {
 
   return (
     <>
-      <CommentForm onSubmit={mutate}>
+      <CommentForm onSubmit={() => mutate}>
         <div className="profileBox">
           <img className="profileImg" src={memberImage} alt="프로필이미지" />
         </div>
@@ -64,20 +62,21 @@ const AddCommentForm = () => {
           value={content}
           name="content"
           type="text"
-          maxLength="100"
+          maxLength={100}
           onChange={onChangeContent}
         />
+        <div className="addButton">
+          <StButton
+            size="small"
+            variant={content === "" ? "lineGray" : "lineLightBlue"}
+            onClick={() => mutate}
+            type="submit"
+            disabled={content === ""}
+          >
+            게시
+          </StButton>
+        </div>
 
-        <StButton
-          size="small"
-          variant={content === "" ? "lineGray" : "lineLightBlue"}
-          onClick={mutate}
-          className="addButton"
-          type="submit"
-          disabled={content === ""}
-        >
-          게시
-        </StButton>
         <Potal>
           {modalOn && (
             <LoginModal
@@ -128,9 +127,6 @@ const CommentForm = styled.div`
       max-width: 150px;
     }
   }
-  .addButton {
-    font-size: 1rem;
-  }
 
   @media ${(props) => props.theme.mobile} {
     margin: 15px 10px;
@@ -155,7 +151,9 @@ const StButton = styled(Button)`
     `};
 `;
 
-const StValidation = styled.p`
+const StValidation = styled.p<{
+  commentLength: number;
+}>`
   display: flex;
   justify-content: space-between;
   padding: 0px 10px 10px;

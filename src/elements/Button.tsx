@@ -15,6 +15,8 @@ interface ButtonProps {
     | "lineBlue";
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "reset" | "submit" | undefined;
+  disabled?: boolean;
 }
 const SIZES = {
   small: css`

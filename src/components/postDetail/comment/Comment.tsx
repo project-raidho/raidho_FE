@@ -7,7 +7,16 @@ import { useEffect } from "react";
 import CofirmModal from "../../../global/globalModal/CofirmModal";
 import Potal from "../../../global/globalModal/Potal";
 
-const Comment = ({ comment }) => {
+interface CommentProps {
+  comment: {
+    content: string;
+    id: number;
+    modifiedAt: string;
+    memberName: string;
+    memberImage: string;
+  };
+}
+const Comment = ({ comment }: CommentProps) => {
   const userInfo = localStorage.getItem("memberName");
 
   const [isEdit, setIsEdit] = useState(false);
@@ -15,12 +24,14 @@ const Comment = ({ comment }) => {
   const [commentLength, setCommentLength] = useState(comment.content.length);
   // const { content } = useSelector((state) => state.comment.data);
   // 댓글 삭제 axios
-  const onDeleteComment = async (commentId) => {
+  const onDeleteComment = async (commentId: number) => {
     await authInstance.delete(`/api/comment/${commentId}`);
   };
   //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
@@ -38,7 +49,7 @@ const Comment = ({ comment }) => {
   };
 
   // 댓글 수정 axios(저장 버튼 클릭시)
-  const onUpadteComment = async (commentId) => {
+  const onUpadteComment = async (commentId: number) => {
     await authInstance.put(`/api/comment/${commentId}`, {
       content: updatedComment,
     });
@@ -73,7 +84,7 @@ const Comment = ({ comment }) => {
   }, [comment]);
 
   // ::: 날짜 차이 계산하기
-  const dateCalculation = (day1, day2) => {
+  const dateCalculation = (day1: string, day2: string) => {
     const dateStart = new Date(day1.replace(/-/g, "/"));
     const dateEnd = new Date(day2.replace(/-/g, "/"));
 
@@ -117,7 +128,7 @@ const Comment = ({ comment }) => {
                         setUpdatedComment(e.target.value);
                         setCommentLength(e.target.value.length);
                       }}
-                      maxLength="100"
+                      maxLength={100}
                     />
                     <span>{commentLength}/100자</span>
                   </>
@@ -181,7 +192,7 @@ const Comment = ({ comment }) => {
               modalIcon={modalIcon}
               alertMsg={alertMsg}
               onClickYes={() => {
-                onClickYes(comment.id);
+                onClickYes();
               }}
               onClickNo={onCloseModal}
             />

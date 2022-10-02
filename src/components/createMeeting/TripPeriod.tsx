@@ -1,10 +1,10 @@
-import { DateRange } from "react-date-range";
+import { DateRange, RangeKeyDict } from "react-date-range";
 import { addDays } from "date-fns";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-import React, { useState } from "react";
+import React, { useState, SetStateAction, Dispatch } from "react";
 import styled from "styled-components";
 import { ko } from "date-fns/esm/locale";
 import moment from "moment";
@@ -13,13 +13,22 @@ import "moment/locale/ko";
 import Input from "../../elements/Input";
 import { BsCalendar3 } from "react-icons/bs";
 import { useEffect } from "react";
+
+interface TripPeriodProps {
+  startDate?: string;
+  endDate?: string;
+  setStartDate: Dispatch<SetStateAction<string>>;
+  setEndDate: Dispatch<SetStateAction<string>>;
+  setmaxRoomCloseDate: Dispatch<SetStateAction<Date>>;
+}
+
 const TripPeriod = ({
   startDate,
   endDate,
   setStartDate,
   setEndDate,
   setmaxRoomCloseDate,
-}) => {
+}: TripPeriodProps) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -33,15 +42,15 @@ const TripPeriod = ({
   const [end, setEnd] = useState("");
   // setInputdate(moment(date).format('YYYY-MM-DD'))
   const [count, setCount] = useState(0);
-  const onChangeHandler = (item) => {
-    setState([item.selection]);
-    setStart(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
-    setEnd(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
-    setStartDate(moment([item.selection][0].startDate).format("YYYY-MM-DD"));
-    setEndDate(moment([item.selection][0].endDate).format("YYYY-MM-DD"));
-    setmaxRoomCloseDate(
-      moment([item.selection][0].startDate).add(-1, "d").toDate()
-    );
+  const onChangeHandler = (e: {
+    selection: { startDate: Date; endDate: Date; key: string };
+  }) => {
+    setState([e.selection]);
+    setStart(moment(e.selection.startDate).format("YYYY-MM-DD"));
+    setEnd(moment(e.selection.endDate).format("YYYY-MM-DD"));
+    setStartDate(moment(e.selection.startDate).format("YYYY-MM-DD"));
+    setEndDate(moment(e.selection.endDate).format("YYYY-MM-DD"));
+    setmaxRoomCloseDate(moment(e.selection.startDate).add(-1, "d").toDate());
     if (count !== 1) {
       return setCount((prev) => prev + 1);
     } else {
@@ -49,16 +58,24 @@ const TripPeriod = ({
       return setCount(0);
     }
   };
-  const startinputonChangeHandler = (e) => {
+  const startinputonChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setStartDate(e.target.value);
     setStart(e.target.value);
   };
 
-  const endinputonChangeHandler = (e) => {
+  const endinputonChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEndDate(e.target.value);
     setEnd(e.target.value);
   };
   useEffect(() => {
+    if (!startDate) {
+      return;
+    }
+    if (!endDate) {
+      return;
+    }
     setStart(startDate);
     setEnd(endDate);
     // eslint-disable-next-line
@@ -73,7 +90,6 @@ const TripPeriod = ({
             <p>시작일</p>
             <InputSpan onClick={() => setShowCalendar(!showCalendar)}>
               <Input
-                className="input"
                 value={start || ""}
                 placeholder=""
                 variant="default"
@@ -88,7 +104,6 @@ const TripPeriod = ({
               <p>종료일</p>
               <InputSpan onClick={() => setShowCalendar(!showCalendar)}>
                 <Input
-                  className="input"
                   value={end || ""}
                   placeholder=""
                   variant="default"
@@ -107,7 +122,7 @@ const TripPeriod = ({
             showPreview={false}
             locale={ko}
             minDate={tomorrow}
-            onChange={(item) => onChangeHandler(item)}
+            onChange={(e) => onChangeHandler(e)}
             moveRangeOnFirstSelection={false}
             ranges={state}
             months={1}
@@ -149,9 +164,7 @@ const InputBox = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  .input {
-    cursor: pointer;
-  }
+
   .calenderIconAndInput {
     display: flex;
     margin-left: 5px;

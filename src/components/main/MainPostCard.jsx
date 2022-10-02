@@ -9,16 +9,15 @@ import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 import { BsChat } from "react-icons/bs";
-import { MainContentProps } from "../../elements/Type";
 
-const MainPostCard = (props: MainContentProps) => {
+const MainPostCard = ({ post }) => {
   const navigate = useNavigate();
   // ::: 좋아요, 좋아요 취소 axios
   const changeLike = async () => {
-    if (!props.isHeartMine) {
-      await authInstance.post(`/api/postheart/${props.id}`);
+    if (!post.isHeartMine) {
+      await authInstance.post(`/api/postheart/${post.id}`);
     } else {
-      await authInstance.delete(`/api/postheart/${props.id}`);
+      await authInstance.delete(`/api/postheart/${post.id}`);
     }
   };
 
@@ -38,14 +37,10 @@ const MainPostCard = (props: MainContentProps) => {
 
   // ::: 유저 프로필 이미지 적용하기
   const memberImage =
-    props.memberImage === null
-      ? `${DefaultMemberImage}`
-      : `${props.memberImage}`;
+    post.memberImage === null ? `${DefaultMemberImage}` : `${post.memberImage}`;
 
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState<
-    "warning" | "success" | "info" | ""
-  >("");
+  const [modalIcon, setModalIcon] = useState("");
   const [alertMsg, setAlertMsg] = useState("");
   const onCloseModal = () => {
     setModalOn(!modalOn);
@@ -57,22 +52,22 @@ const MainPostCard = (props: MainContentProps) => {
     <StFigure>
       <img
         className="img"
-        src={props.multipartFiles}
+        src={post.multipartFiles[0]}
         alt="img"
-        onClick={() => navigate(`/postdetail/${props.id}`)}
+        onClick={() => navigate(`/postdetail/${post.id}`)}
         loading="lazy"
       />
-      {props.isImages && <div className="imagesicon" />}
+      {post.isImages && <div className="imagesicon" />}
       <div className="userBox">
         <div className="profileBox">
           <img className="profileImg" src={memberImage} alt="프로필 이미지" />
         </div>
-        <h2>{props.memberName}</h2>
+        <h2>{post.memberName}</h2>
         <div className="cardButtonBox">
-          <HeartButton like={props.isHeartMine} onClick={() => mutate} />
-          <span className="likeNum">{props.heartCount}</span>
+          <HeartButton like={post.isHeartMine} onClick={mutate} />
+          <span className="likeNum">{post.heartCount}</span>
           <BsChat className="commentIcon" />
-          <span className="commentNum">{props.commentCount}</span>
+          <span className="commentNum">{post.commentCount}</span>
         </div>
       </div>
 

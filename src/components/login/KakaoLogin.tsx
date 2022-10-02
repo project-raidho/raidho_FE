@@ -1,3 +1,4 @@
+import React from "react";
 import { instance } from "../../shared/api";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -31,6 +32,7 @@ const KakaoLogin = () => {
     kakaoLoginAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  return <></>;
 };
 
 export default KakaoLogin;

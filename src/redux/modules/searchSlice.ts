@@ -20,11 +20,12 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     getRecentSearch: (state, action) => {
-      const initRecentSearches = localStorage.getItem("recentSearches");
+      let initRecentSearches = localStorage.getItem("recentSearches");
+      if (initRecentSearches === null) {
+        initRecentSearches = "";
+      }
       initRecentSearches
-        ? (state.recentSearch = JSON.parse(
-            localStorage.getItem("recentSearches")
-          ))
+        ? (state.recentSearch = JSON.parse(initRecentSearches))
         : (state.recentSearch = []);
     },
     addRecentSearch: (state, action: PayloadAction<SearchProps>) => {

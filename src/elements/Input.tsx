@@ -3,16 +3,14 @@ import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 import SearchIcon from "../assets/search.svg";
 
 interface InputProps {
+  value?: string;
   size?: "medium" | "square" | "large";
   variant?: "default" | "search";
   type?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  onChange?: (event: {
-    target: {
-      value: string | any[];
-    };
-  }) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+
   placeholder?: string;
   maxLength?: number;
 }

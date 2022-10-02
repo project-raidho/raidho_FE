@@ -8,7 +8,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../elements/Input";
 import Button from "../../../elements/Button";
-import AlertModal from "../../../global/globalModal/AlertModal.jsx";
+import AlertModal from "../../../global/globalModal/AlertModal";
 import Potal from "../../../global/globalModal/Potal";
 import styled from "styled-components";
 
