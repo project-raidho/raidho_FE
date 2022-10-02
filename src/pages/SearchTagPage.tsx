@@ -1,5 +1,4 @@
 import React from "react";
-
 import SearchTagContainer from "../components/searchTag/SearchTagContainder";
 import styled from "styled-components";
 

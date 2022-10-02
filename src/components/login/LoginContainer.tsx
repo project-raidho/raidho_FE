@@ -12,7 +12,7 @@ const LoginModal = ({
   message,
 }: {
   onClose: React.MouseEventHandler<SVGSVGElement> | undefined;
-  message: string;
+  message?: string;
 }) => {
   return (
     <>

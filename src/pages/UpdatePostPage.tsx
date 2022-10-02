@@ -1,5 +1,4 @@
 import React from "react";
-
 import UpdatePostContainer from "../components/updatePost/UpdatePostContainer";
 import styled from "styled-components";
 

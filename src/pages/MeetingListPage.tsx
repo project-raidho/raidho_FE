@@ -1,5 +1,4 @@
 import React from "react";
-
 import MeetingListContainer from "../components/meetingList/MeetingListContainer";
 import styled from "styled-components";
 

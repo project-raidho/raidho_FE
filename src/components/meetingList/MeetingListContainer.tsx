@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { authInstance } from "../../shared/api";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -9,10 +10,11 @@ import { ko } from "date-fns/esm/locale";
 import MeetingListCard from "./MeetingListCard";
 import Button from "../../elements/Button";
 import styled from "styled-components";
+import { MeetingContentProps } from "../../elements/Type";
 
 //::: 모집글 카테고리별 조회 axios
-const getMeetingList = ({ queryKey }) => {
-  // console.log("queryKey", queryKey);
+const getMeetingList = ({ queryKey }: { queryKey: (string | boolean)[] }) => {
+  console.log("queryKey", queryKey);
   // ::: 기간O
   if (queryKey[3] !== "" && queryKey[4] !== "") {
     if (queryKey[1] === "") {
@@ -35,17 +37,19 @@ const getMeetingList = ({ queryKey }) => {
 };
 
 const MeetingListContainer = () => {
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-  const [selectedTheme, setSelectedTheme] = useState("");
-  const [checkStatus, setCheckStatus] = useState(false);
-  const [checkStartDate, setCheckStartDate] = useState(new Date());
-  const [checkEndDate, setCheckEndDate] = useState(new Date());
+  const themeList = useSelector(
+    (state: RootState) => state.themeSlice.themeList
+  );
+  const [selectedTheme, setSelectedTheme] = useState<string>("");
+  const [checkStatus, setCheckStatus] = useState<boolean>(false);
+  const [checkStartDate, setCheckStartDate] = useState<Date>(new Date());
+  const [checkEndDate, setCheckEndDate] = useState<Date>(new Date());
 
   // ::: 조회 시작 날짜, 조회 종료 날짜 문자열 변환 "yyyy-mm-dd"
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
 
-  const meetingAllListQuery = useQuery(
+  const { data, isLoading } = useQuery(
     ["meetingList", selectedTheme, checkStatus, startDate, endDate],
     getMeetingList,
     {
@@ -59,8 +63,8 @@ const MeetingListContainer = () => {
   const clickStatus = () => {
     if (checkStatus) {
       // ::: 초기화
-      setCheckStartDate("");
-      setCheckEndDate("");
+      setCheckStartDate(new Date());
+      setCheckEndDate(new Date());
       setStartDate("");
       setEndDate("");
       setCheckStatus(!checkStatus);
@@ -102,20 +106,19 @@ const MeetingListContainer = () => {
     setCheckStatus(true);
   };
 
-  // console.log(checkStartDate, checkEndDate);
-  // console.log(startDate, endDate);
-
   // ::: 현재테마 바꾸는 함수
-  const onClickTheme = async (theme) => {
+  const onClickTheme = async (theme: string) => {
     if (theme === "전체") {
       return setSelectedTheme("");
     }
     setSelectedTheme(theme);
   };
 
-  if (meetingAllListQuery.isLoading) {
+  if (isLoading) {
     return null;
   }
+
+  const meetingAllList = data?.data.data.content;
 
   return (
     <StMeetingListContainerWrap>
@@ -143,7 +146,7 @@ const MeetingListContainer = () => {
                 locale={ko}
                 dateFormat="yyyy-MM-dd(eee)"
                 selected={checkStartDate}
-                onChange={(date) => setCheckStartDate(date)}
+                onChange={(date: Date) => setCheckStartDate(date)}
                 selectsStart
                 startDate={checkStartDate}
                 endDate={checkEndDate}
@@ -153,7 +156,7 @@ const MeetingListContainer = () => {
                 locale={ko}
                 dateFormat="yyyy-MM-dd(eee)"
                 selected={checkEndDate}
-                onChange={(date) => setCheckEndDate(date)}
+                onChange={(date: Date) => setCheckEndDate(date)}
                 selectsEnd
                 startDate={checkStartDate}
                 endDate={checkEndDate}
@@ -178,12 +181,28 @@ const MeetingListContainer = () => {
         </div>
       </StFixedMenu>
       <StMeetingCardBox>
-        {meetingAllListQuery.data.data.data.content.map((meeting) => (
+        {meetingAllList.map((meeting: MeetingContentProps) => (
           <MeetingListCard
             key={meeting.id}
-            meeting={meeting}
             themeList={themeList}
             onClickTheme={onClickTheme}
+            departLocation={meeting.departLocation}
+            desc={meeting.desc}
+            endDate={meeting.endDate}
+            id={meeting.id}
+            isAlreadyJoin={meeting.isAlreadyJoin}
+            isMine={meeting.isMine}
+            isStarMine={meeting.isStarMine}
+            meetingStatus={meeting.meetingStatus}
+            meetingTags={meeting.meetingTags}
+            memberCount={meeting.memberCount}
+            memberImage={meeting.memberImage}
+            memberName={meeting.memberName}
+            people={meeting.people}
+            roomCloseDate={meeting.roomCloseDate}
+            startDate={meeting.startDate}
+            themeCategory={meeting.themeCategory}
+            title={meeting.title}
           />
         ))}
       </StMeetingCardBox>
