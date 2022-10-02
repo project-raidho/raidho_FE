@@ -1,5 +1,21 @@
-import styled, { css } from "styled-components";
+import React from "react";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 import SearchIcon from "../assets/search.svg";
+
+interface InputProps {
+  size?: "medium" | "square" | "large";
+  variant?: "default" | "search";
+  type?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  onChange?: (event: {
+    target: {
+      value: string | any[];
+    };
+  }) => void;
+  placeholder?: string;
+  maxLength?: number;
+}
 
 const SIZES = {
   medium: css`
@@ -39,7 +55,13 @@ const VARIANTS = {
   `,
 };
 
-function Input({ disabled, size, variant, children, ...props }) {
+function Input({
+  disabled,
+  size = "square",
+  variant = "default",
+  children,
+  ...props
+}: InputProps) {
   const sizeStyle = SIZES[size];
   const variantStyle = VARIANTS[variant];
 
@@ -55,7 +77,10 @@ function Input({ disabled, size, variant, children, ...props }) {
   );
 }
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{
+  sizeStyle: FlattenSimpleInterpolation;
+  variantStyle: FlattenSimpleInterpolation;
+}>`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
 

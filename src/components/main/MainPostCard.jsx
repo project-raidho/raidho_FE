@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
-import AlertModal from "../../global/globalModal/AlertModal";
+import AlertModal from "../../global/globalModal/AlertModal.jsx";
 import Potal from "../../global/globalModal/Potal";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";

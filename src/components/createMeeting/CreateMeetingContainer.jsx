@@ -5,7 +5,7 @@ import ThemeSelect from "./ThemeSelect";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
-import AlertModal from "../../global/globalModal/AlertModal";
+import AlertModal from "../../global/globalModal/AlertModal.jsx";
 import Potal from "../../global/globalModal/Potal";
 
 import TagInput from "../../elements/TagInput";

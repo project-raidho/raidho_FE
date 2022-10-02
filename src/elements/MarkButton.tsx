@@ -3,7 +3,13 @@ import styled from "styled-components";
 import { RiBookmarkLine } from "react-icons/ri";
 import { RiBookmarkFill } from "react-icons/ri";
 
-const MarkButton = ({ star, onClick }) => {
+const MarkButton = ({
+  star,
+  onClick,
+}: {
+  star: boolean;
+  onClick: React.MouseEventHandler<HTMLSpanElement>;
+}) => {
   return (
     <StMark onClick={onClick}>
       {star ? (

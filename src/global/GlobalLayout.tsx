@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const GlobalLayout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const GlobalLayout = ({ children }: LayoutProps) => {
   const location = useLocation();
 
   // ::: 페이지 변경될 때마다 스크롤 제일 위로 올리기
