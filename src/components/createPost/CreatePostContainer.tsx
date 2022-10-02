@@ -27,16 +27,16 @@ const CreatePostContainer = () => {
   };
 
   // ::: 입력된 데이터 취합하기
-  const [postImages, setPostImages] = useState<string[] | Blob[]>([]);
+  const [postImages, setPostImages] = useState<Blob[]>([]);
   const [postContent, setpostContent] = useState<string>("");
-  const [postTags, setPostTags] = useState([]);
+  const [postTags, setPostTags] = useState<string[]>([]);
 
   // ::: 유효성 검사 메시지 상태관리하기
   const [validationImages, setValidationImages] = useState<string>("");
   const [validationContent, setValidationContent] = useState<string>("");
   const [validationTags, setValidationTags] = useState<string>("");
 
-  const selectedPostImages = (images: Blob[] | string[]) => {
+  const selectedPostImages = (images: Blob[]) => {
     setPostImages(images);
   };
 
@@ -44,7 +44,7 @@ const CreatePostContainer = () => {
     setpostContent(text);
   };
 
-  const selectedTags = (tags: any) => {
+  const selectedTags = (tags: string[]) => {
     setPostTags(tags);
   };
 
@@ -142,10 +142,7 @@ const CreatePostContainer = () => {
       <StStepTitle>
         이미지 업로드 <span>*</span>
       </StStepTitle>
-      <CreatePostImage
-        selectedPostImages={selectedPostImages}
-        setValidationImages={setValidationImages}
-      />
+      <CreatePostImage selectedPostImages={selectedPostImages} />
       <StValidationMessage>{validationImages}</StValidationMessage>
       <StStepTitle>
         내용 <span>*</span>
@@ -177,7 +174,7 @@ const CreatePostContainer = () => {
         >
           취소
         </Button>
-        <Button size="medium" variant="linePrimary" onClick={() => mutate}>
+        <Button size="medium" variant="linePrimary" onClick={() => mutate()}>
           등록
         </Button>
       </StButtonWrap>

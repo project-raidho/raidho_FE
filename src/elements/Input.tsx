@@ -14,7 +14,7 @@ interface InputProps {
 
   onFocus?: () => void;
   onBlur?: () => void;
-  onKeyPress?: () => void;
+  onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void;
 
   placeholder?: string;
   maxLength?: number;
