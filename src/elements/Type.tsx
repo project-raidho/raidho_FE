@@ -17,3 +17,33 @@ export interface MainContentProps {
   modifiedAt?: string;
   multipartFiles: string;
 }
+
+export interface MeetingContentProps {
+  createdAt?: null | string;
+  departLocation: string;
+  desc: string;
+  endDate: string;
+  id: number;
+  isAlreadyJoin: boolean;
+  isMine: boolean;
+  isStarMine: boolean;
+  meetingStatus: number;
+  meetingTags: string[];
+  memberCount: number;
+  memberImage: string;
+  memberName: string;
+  modifiedAt?: null | string;
+  people: number;
+  roomCloseDate: string;
+  startDate: string;
+  themeCategory: string;
+  title: string;
+  themeList?: ThemeListProps[];
+  onClickTheme: (theme: string) => Promise<void> | undefined;
+}
+
+export interface ThemeListProps {
+  themeName: string;
+  themeImage: string;
+  themePath: string;
+}

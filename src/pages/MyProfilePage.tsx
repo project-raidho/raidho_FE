@@ -1,5 +1,4 @@
 import React from "react";
-
 import MyProfileContainer from "../components/myProfile/MyProfileContainer";
 import styled from "styled-components";
 

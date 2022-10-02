@@ -10,20 +10,23 @@ import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";
 import MarkButton from "../../elements/MarkButton";
+import { MeetingContentProps, ThemeListProps } from "../../elements/Type";
 
 // ::: 모집글 삭제 axios
-const onDeleteMeeting = async (meetingId) => {
+const onDeleteMeeting = async (meetingId: number) => {
   await authInstance.delete(`/api/meeting/${meetingId}`);
 };
 
-const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
+const MeetingListCard = (Props: MeetingContentProps) => {
   //모달 상태관리
-  const [modalOn, setModalOn] = useState(false);
-  const [confirmModalOn, setConfirmModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
-  const [alertMsg, setAlertMsg] = useState("");
+  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [confirmModalOn, setConfirmModalOn] = useState<boolean>(false);
+  const [modalIcon, setModalIcon] = useState<
+    "success" | "warning" | "info" | ""
+  >("");
+  const [alertMsg, setAlertMsg] = useState<string>("");
 
-  const [loginModalOn, setLoginModalOn] = useState(false);
+  const [loginModalOn, setLoginModalOn] = useState<boolean>(false);
   const handleLoginModal = () => {
     setLoginModalOn(!loginModalOn);
   };
@@ -33,7 +36,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   };
 
   const onClickYesConfirm = () => {
-    mutate(meeting.id);
+    mutate(Props.id);
     setConfirmModalOn(false);
   };
   const onDeleteHandler = () => {
@@ -52,7 +55,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   });
 
   // ::: 날짜 차이 계산하기
-  const dateCalculation = (day1, day2) => {
+  const dateCalculation = (day1: string, day2: string) => {
     const dateStart = new Date(day1.replace(/-/g, "/"));
     const dateEnd = new Date(day2.replace(/-/g, "/"));
 
@@ -61,7 +64,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   };
 
   // ::: 모집날짜 몇 박 몇 일 계산하기
-  const tripPeriod = dateCalculation(meeting.startDate, meeting.endDate);
+  const tripPeriod = dateCalculation(Props.startDate, Props.endDate);
 
   // ::: 오늘 날짜 계산하기
   const todayCalculation = () => {
@@ -75,9 +78,9 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   const today = todayCalculation();
 
   // ::: 디데이 계산하기
-  const dday = Math.floor(dateCalculation(today, meeting.roomCloseDate));
+  const dday = Math.floor(dateCalculation(today, Props.roomCloseDate));
 
-  const onJoinRoom = async (id) => {
+  const onJoinRoom = async (id: number) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
 
@@ -87,7 +90,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
         setAlertMsg("인원이 가득찼습니다");
         return setModalOn(true);
       }
-      navigate(`/chatting/${meeting.id}`);
+      navigate(`/chatting/${Props.id}`);
     } catch (e) {
       console.log(e);
       setLoginModalOn(true);
@@ -95,7 +98,7 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   };
 
   // ::: 태그 클릭시 상세페이지 이동
-  const onClickMeetingTag = (tag) => {
+  const onClickMeetingTag = (tag: string) => {
     const sliceTag = tag.substr(1);
     // console.log(sliceTag);
     navigate(`/meeting/chat?tag=${sliceTag}`, {
@@ -106,11 +109,11 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   };
 
   // ::: 카테고리 클릭시 해당 카테고리로 이동
-  const onClickMeetingCategory = (meetingCategory) => {
-    themeList.map((theme) => {
+  const onClickMeetingCategory = (meetingCategory: string) => {
+    Props.themeList?.map((theme: ThemeListProps) => {
       if (theme.themeName === meetingCategory) {
         navigate(`/meetingList/${theme.themePath}`);
-        onClickTheme(theme.themeName);
+        Props.onClickTheme(theme.themeName);
       }
       return false;
     });
@@ -118,10 +121,10 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
 
   // ::: 찜하기 버튼 기능 구현
   const changeStar = async () => {
-    if (!meeting.isStarMine) {
-      await authInstance.post(`/api/meetingPostStar/${meeting.id}`);
+    if (!Props.isStarMine) {
+      await authInstance.post(`/api/meetingPostStar/${Props.id}`);
     } else {
-      await authInstance.delete(`/api/meetingPostStar/${meeting.id}`);
+      await authInstance.delete(`/api/meetingPostStar/${Props.id}`);
     }
   };
 
@@ -141,49 +144,50 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
   return (
     <StMeetingListCardWrap>
       <p className="markButton">
-        <MarkButton star={meeting.isStarMine} onClick={mutateStar.mutate} />
+        <MarkButton
+          star={Props.isStarMine}
+          onClick={() => mutateStar.mutate()}
+        />
       </p>
       <StMeetingCardUpDown>
         <StMeetingCardRow className="flexBetweenLayout">
           <p className="infoStatus">
-            {meeting.meetingStatus === 1 && (
+            {Props.meetingStatus === 1 && (
               <span className="statusIng">
                 <i></i>모집중 D-
                 <b>{Number(dday) === 0 ? "day" : Number(dday)}</b>
               </span>
             )}
-            {meeting.meetingStatus === 2 && (
+            {Props.meetingStatus === 2 && (
               <span className="statusComplete">
                 <i></i>모집마감 D-
                 <b>{Number(dday) === 0 ? "day" : Number(dday)}</b>
               </span>
             )}
-            {meeting.meetingStatus === 3 && (
+            {Props.meetingStatus === 3 && (
               <span className="statusFinished">
                 <i></i>모집종료
               </span>
             )}
           </p>
-          {meeting.meetingStatus === 1 && (
+          {Props.meetingStatus === 1 && (
             <p className="infoStatus">
-              모집인원 {meeting.memberCount}/{meeting.people}
+              모집인원 {Props.memberCount}/{Props.people}
             </p>
           )}
-          {meeting.meetingStatus === 2 && (
+          {Props.meetingStatus === 2 && (
             <p className="infoStatus statusComplete">
-              모집인원 {meeting.memberCount}/{meeting.people}
+              모집인원 {Props.memberCount}/{Props.people}
             </p>
           )}
         </StMeetingCardRow>
-        <h3>{meeting.title}</h3>
+        <h3>{Props.title}</h3>
         <p className="meetingPeriod">
           <strong>여행 날짜</strong>
           <span>
-            {` ${meeting.startDate.split("-")[1]}/${
-              meeting.startDate.split("-")[2]
-            }-${meeting.endDate.split("-")[1]}/${
-              meeting.endDate.split("-")[2]
-            }`}
+            {` ${Props.startDate.split("-")[1]}/${
+              Props.startDate.split("-")[2]
+            }-${Props.endDate.split("-")[1]}/${Props.endDate.split("-")[2]}`}
             {tripPeriod === 0
               ? `(${tripPeriod + 1}일)`
               : `(${tripPeriod}박 ${tripPeriod + 1}일)`}
@@ -192,23 +196,23 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
         </p>
         <p className="meetingAddress">
           <strong>만남 장소</strong>
-          <span>{meeting.departLocation}</span>
+          <span>{Props.departLocation}</span>
           <i className="bgMiddleLine"></i>
         </p>
-        {meeting.desc.length > 100 ? (
+        {Props.desc.length > 100 ? (
           <Stdesc className="desc" length="long">
-            {meeting.desc}
+            {Props.desc}
           </Stdesc>
         ) : (
           <Stdesc className="desc" length="short">
-            {meeting.desc}
+            {Props.desc}
           </Stdesc>
         )}
       </StMeetingCardUpDown>
       <StMeetingCardUpDown>
         <StMeetingCardRow>
           <div className="tagList">
-            {meeting.meetingTags.map((tag, index) => (
+            {Props.meetingTags.map((tag, index) => (
               <span
                 key={index}
                 className="tag"
@@ -223,37 +227,37 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
           <p className="memberImageBox">
             <img
               src={
-                meeting.memberImage === null
+                Props.memberImage === null
                   ? DefaultProfileImage
-                  : meeting.memberImage
+                  : Props.memberImage
               }
-              alt={meeting.memberName}
+              alt={Props.memberName}
             />
           </p>
-          <p className="memberNameBox">@{meeting.memberName}</p>
+          <p className="memberNameBox">@{Props.memberName}</p>
         </StMeetingCardRow>
         <StMeetingCardRow className="flexBetweenLayout">
           <StThemeButton
             size="tag"
             variant="gray"
-            theme={meeting.themeCategory}
-            onClick={() => onClickMeetingCategory(meeting.themeCategory)}
+            theme={Props.themeCategory}
+            onClick={() => onClickMeetingCategory(Props.themeCategory)}
           >
-            {meeting.themeCategory}
+            {Props.themeCategory}
           </StThemeButton>
           <div>
-            {meeting.isMine && (
+            {Props.isMine && (
               <Button
                 size="small"
                 variant="lineLightBlue"
                 onClick={() => {
-                  navigate(`/updateMeeting/${meeting.id}`);
+                  navigate(`/updateMeeting/${Props.id}`);
                 }}
               >
                 수정하기
               </Button>
             )}
-            {meeting.isMine && (
+            {Props.isMine && (
               <Button
                 className="deleteButton"
                 size="small"
@@ -263,27 +267,23 @@ const MeetingListCard = ({ meeting, themeList, onClickTheme }) => {
                 삭제하기
               </Button>
             )}
-            {!meeting.isMine &&
-              meeting.meetingStatus === 1 &&
-              !meeting.isAlreadyJoin && (
+            {!Props.isMine &&
+              Props.meetingStatus === 1 &&
+              !Props.isAlreadyJoin && (
                 <Button
                   size="small"
                   variant="lineLightBlue"
-                  onClick={() => onJoinRoom(meeting.id)}
+                  onClick={() => onJoinRoom(Props.id)}
                 >
                   참여하기
                 </Button>
               )}
 
-            {meeting.isAlreadyJoin && <p className="isInMeetingMsg">참여중</p>}
+            {Props.isAlreadyJoin && <p className="isInMeetingMsg">참여중</p>}
           </div>
         </StMeetingCardRow>
       </StMeetingCardUpDown>
-      <Potal>
-        {loginModalOn && (
-          <LoginModal className="loginModal" onClose={handleLoginModal} />
-        )}
-      </Potal>
+      <Potal>{loginModalOn && <LoginModal onClose={handleLoginModal} />}</Potal>
 
       <Potal>
         {modalOn && (
@@ -437,7 +437,7 @@ const StMeetingCardUpDown = styled.div`
   }
 `;
 
-const Stdesc = styled.p`
+const Stdesc = styled.p<{ length: string }>`
   padding-top: 10px;
   white-space: pre-wrap;
 

@@ -1,4 +1,11 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import AlertModal from "../../global/globalModal/AlertModal";
@@ -8,7 +15,11 @@ import Button from "../../elements/Button";
 import styled from "styled-components";
 
 // ::: 이미지 크롭 사전 세팅
-const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
+const centerAspectCrop = (
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number
+) => {
   return centerCrop(
     makeAspectCrop(
       {
@@ -24,6 +35,24 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   );
 };
 
+interface CreatePostProps {
+  files: Blob[];
+  previewFiles: string[];
+  selectedImage: string | undefined;
+  selectedImageIndex: number;
+  selectedPostImages: (images: Blob[]) => void;
+  setSelectedImageIndex: Dispatch<SetStateAction<number>>;
+  setSelectedImage: Dispatch<SetStateAction<string | undefined>>;
+}
+
+interface CropProps {
+  height: number;
+  unit: string;
+  width: number;
+  x: number;
+  y: number;
+}
+
 const CreatePostImageCrop = ({
   files,
   previewFiles,
@@ -32,22 +61,25 @@ const CreatePostImageCrop = ({
   selectedPostImages,
   setSelectedImageIndex,
   setSelectedImage,
-}) => {
-  const imageRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [buttonActive, setButtonActive] = useState(0);
-  const [crop, setCrop] = useState(null);
-  const [completedCrop, setCompletedCrop] = useState(null);
-  const [uploadImages, setUploadImages] = useState([]);
-  const [aspect, setAspect] = useState(16 / 9);
-  const [saveImagesIndex, setSaveImagesIndex] = useState([]);
-  const [saveImageValidationMsg, setSaveImageTagValidationMsg] = useState("");
-  const [saveButtonStatus, setSaveButtonStatus] = useState(true);
+}: CreatePostProps) => {
+  const imageRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [buttonActive, setButtonActive] = useState<number>(0);
+  const [crop, setCrop] = useState<CropProps | null>(null);
+  const [completedCrop, setCompletedCrop] = useState<CropProps | null>(null);
+  const [uploadImages, setUploadImages] = useState<Blob[]>([]);
+  const [aspect, setAspect] = useState<number>(16 / 9);
+  const [saveImagesIndex, setSaveImagesIndex] = useState<number[]>([]);
+  const [saveImageValidationMsg, setSaveImageTagValidationMsg] =
+    useState<string>("");
+  const [saveButtonStatus, setSaveButtonStatus] = useState<boolean>(true);
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
-  const [alertMsg, setAlertMsg] = useState("");
+  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [modalIcon, setModalIcon] = useState<
+    "success" | "warning" | "info" | ""
+  >("");
+  const [alertMsg, setAlertMsg] = useState<string>("");
   const onCloseModal = () => {
     setModalOn(!modalOn);
   };
@@ -77,7 +109,7 @@ const CreatePostImageCrop = ({
   ];
 
   // ::: 이미지 비율 버튼 클릭 이벤트
-  const onClickImageSize = (selectAspect, index) => {
+  const onClickImageSize = (selectAspect: number, index: number) => {
     const alertMessageImageSize = window.confirm(
       "이미지 비율 버튼을 선택하면, 지금까지 편집한 이미지 내용이 초기화 됩니다. 그래도 계속 진행하시겠습니까?"
     );
@@ -96,7 +128,9 @@ const CreatePostImageCrop = ({
   };
 
   // ::: 이미지 로드 되었을 때
-  const onImageLoad = (event) => {
+  const onImageLoad = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
     const { width, height } = event.currentTarget;
     setCrop(centerAspectCrop(width, height, aspect));
     setSaveImageTagValidationMsg("");
@@ -114,13 +148,8 @@ const CreatePostImageCrop = ({
     const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
 
-    // console.log(
-    //   "::: imageRef.current.naturalWidth :::",
-    //   imageRef.current.naturalWidth
-    // );
-
     // ::: 원본 이미지 사이즈에 따라서 비율조절 : 가로 사이즈 1,500픽셀로 맞춤
-    const caculatePixelRatio = (originWidth, deviceRatio) => {
+    const caculatePixelRatio = (originWidth: number, deviceRatio: number) => {
       if (originWidth >= 4000) {
         return deviceRatio * 0.37;
       } else if (originWidth >= 3000) {
@@ -134,7 +163,6 @@ const CreatePostImageCrop = ({
 
     const pixelRatio = caculatePixelRatio(imageRef.current.naturalWidth, 1);
     // window.devicePixelRatio ===> 1(기본값)
-    // console.log("::: pixelRatio :::", pixelRatio);
 
     canvasRef.current.width = cropping.width * pixelRatio * scaleX;
     canvasRef.current.height = cropping?.height * pixelRatio * scaleY;
@@ -156,7 +184,7 @@ const CreatePostImageCrop = ({
   }, [completedCrop]);
 
   // ::: 이미지 저장하기 버튼 클릭하기
-  const onChangeCropImage = (event) => {
+  const onChangeCropImage = () => {
     if (saveButtonStatus === false) {
       setModalIcon("info");
       setAlertMsg("이미 이미지 저장이 완료되었습니다.");
@@ -193,7 +221,7 @@ const CreatePostImageCrop = ({
   // ::: 썸네일 이미지 출력하기
   const thumbs = files.map((file, index) => (
     <StThumb
-      key={file.name}
+      key={index}
       onClick={() => clickThumbImage(file, index)}
       className={selectedImageIndex === index ? "doing" : "doingNot"}
     >
@@ -204,14 +232,14 @@ const CreatePostImageCrop = ({
           onLoad={() => {
             URL.revokeObjectURL(previewFiles[index]);
           }}
-          alt={file.name}
+          alt="썸네일"
         />
       </StThumbInner>
     </StThumb>
   ));
 
   // ::: 썸네일 이미지 클릭시 편집 화면에 이미지 띄우기
-  const clickThumbImage = (file, index) => {
+  const clickThumbImage = (file: File, index: number) => {
     // ::: 편집완료한 이미지 체크하기
     const checkDuplicateImage = saveImagesIndex.filter(
       (imageIndex) => imageIndex === index
@@ -249,12 +277,6 @@ const CreatePostImageCrop = ({
   useEffect(() => {
     createCanvas();
   }, [completedCrop, createCanvas, crop]);
-
-  // ::: 확인용 console
-  // console.log(
-  //   "::: CreatePostImageCrop : 최종 이미지 업로드 파일 ===>",
-  //   uploadImages
-  // );
 
   return (
     <StCreatePostImageCrop>

@@ -16,7 +16,7 @@ const theme = {
 
   mobile: `(max-width: 639px)`,
   tablet: `(max-width: 767px)`,
-  desktop: `(min-width: 1025px)`,
+  desktop: `(min-width: 1023px)`,
   flex_column:
     "display: flex; flex-direction:column; align-items: center; justify-content: space-between; ",
   flex_row:

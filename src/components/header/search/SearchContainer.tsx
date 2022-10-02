@@ -86,9 +86,7 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
   };
 
   // ::: 검색어를 입력하고 엔터를 눌렀을 때 페이지 이동 및 최근 검색에 저장
-  const onKeyPressSearchEnter = (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
+  const onKeyPressSearchEnter = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === "Enter") {
       onSearchTag();
     }
@@ -136,10 +134,10 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
         <Input
           size="large"
           variant="search"
-          onFocus={() => onFocusSearch}
-          onBlur={() => onBlurSearch}
-          onChange={() => onChangeSearchContent}
-          onKeyPress={() => onKeyPressSearchEnter}
+          onFocus={onFocusSearch}
+          onBlur={onBlurSearch}
+          onChange={onChangeSearchContent}
+          onKeyPress={onKeyPressSearchEnter}
           value={searchInput}
           placeholder={
             isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."

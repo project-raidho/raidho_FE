@@ -4,9 +4,6 @@ const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
 const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_CALLBACK_URL;
 
-// const NAVER_CLIENT_ID = "oq32J_8jgLtjcSRvYUO4";
-// const NAVER_REDIRECT_URI = "https://xn--wk0b636a.com/user/naver/callback";
-
 const GOOGLE_CLIENT_ID =
   "418085046130-194eqk6jjjmn32gnfiv6g331ooh985de.apps.googleusercontent.com";
 const GOOGLE_REDIRECT_URI = "https://xn--wk0b636a.com/user/google/callback";

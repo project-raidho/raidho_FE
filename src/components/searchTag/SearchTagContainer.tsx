@@ -13,9 +13,7 @@ const SearchTagContainer = () => {
   const tagUri = location.pathname.includes("post");
 
   // ::: 검색 uri 상태 확인
-  const [checkUri, setCheckUri] = useState(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
-  // console.log("Post : True / Meeting : False ===>", checkUri);
-  // console.log("tagName===>", tagName);
+  const [checkUri, setCheckUri] = useState<boolean>(tagUri); // ::: true => 여행후기 ::: false => 여행친구찾기
 
   // ::: uri 정보 가져오기
   useEffect(() => {
@@ -32,7 +30,6 @@ const SearchTagContainer = () => {
             className={checkUri ? "active" : ""}
           >
             여행 후기
-            {/* <strong>{tagPostListQuery.data.data.data.totalElements}</strong> */}
           </NavLink>
         </li>
         <li>
@@ -41,7 +38,6 @@ const SearchTagContainer = () => {
             className={checkUri ? "" : "active"}
           >
             여행 친구 찾기
-            {/* <strong>{tagMeetingListQuery.data.data.data.totalElements}</strong> */}
           </NavLink>
         </li>
       </StTagCategoryWrap>
@@ -59,11 +55,6 @@ const StSearchTagContainerWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* h3 {
-    font-size: 1.2rem;
-    margin: 15px 0;
-    color: var(--title-color);
-  } */
 `;
 
 const StTagCategoryWrap = styled.ul`
@@ -92,7 +83,7 @@ const StTagCategoryWrap = styled.ul`
       border-bottom: 4px solid var(--main-color);
     }
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     li {
       margin-right: 0.5rem;
 

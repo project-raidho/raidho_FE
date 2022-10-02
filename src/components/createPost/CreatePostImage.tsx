@@ -4,33 +4,39 @@ import imageCompression from "browser-image-compression";
 import CreatePostImageCrop from "./CreatePostImageCrop";
 import styled from "styled-components";
 
-const CreatePostImage = ({ selectedPostImages }) => {
-  const [files, setFiles] = useState([]);
-  const [resizingFiles, setResizingFiles] = useState([]);
-  const [resizingPreviewFiles, setResizingPreviewFiles] = useState([]);
-  const [selectedImage, setSelectedImage] = useState();
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [fileRejectionsMessage, setFileRejectionsMessage] = useState(null);
+const CreatePostImage = ({
+  selectedPostImages,
+}: {
+  selectedPostImages: (images: Blob[]) => void;
+}) => {
+  const [files, setFiles] = useState<(File & { preview: string })[]>([]);
+  const [resizingFiles, setResizingFiles] = useState<Blob[]>([]);
+  const [resizingPreviewFiles, setResizingPreviewFiles] = useState<string[]>(
+    []
+  );
+  const [selectedImage, setSelectedImage] = useState<string | undefined>();
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  const [fileRejectionsMessage, setFileRejectionsMessage] =
+    useState<React.ReactNode>(null);
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: {
       "image/*": [],
     },
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+    onDrop: (acceptedFiles: File[]) => {
+      const acceptedFilesIncludedPreview = acceptedFiles.map((file: File) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
       );
+      setFiles(acceptedFilesIncludedPreview);
       // ::: 편집화면 첫 이미지는 첫번째 이미지로 설정
-      setSelectedImage(acceptedFiles[0].preview);
+      setSelectedImage(acceptedFilesIncludedPreview[0].preview);
     },
     maxFiles: 5, // ::: 최대 이미지 개수 설정하기
   });
 
   // ::: 이미지 리사이징(Resizing)
-  const compressImageAndGetImageFile = (file) => {
+  const compressImageAndGetImageFile = (file: File) => {
     const options = {
       maxSizeMB: 1.5,
       maxWidthOrHeight: 1920,
@@ -40,17 +46,15 @@ const CreatePostImage = ({ selectedPostImages }) => {
     return compressedFile;
   };
 
-  // console.log("files ===>", files);
-
   // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
 
-  const originImageToResizingImage = async (files) => {
+  const originImageToResizingImage = async (files: File[]) => {
     let temp = [];
     let previewTemp = [];
     for (let i = 0; i < files.length; i++) {
       const complessedFile = await compressImageAndGetImageFile(files[i]);
-      // console.log("complessedFile===>", i, "번째!!!", complessedFile);
       temp.push(complessedFile);
+
       const previewCompressedFile = await imageCompression.getDataUrlFromFile(
         complessedFile
       );
@@ -75,9 +79,6 @@ const CreatePostImage = ({ selectedPostImages }) => {
 
     // eslint-disable-next-line
   }, [fileRejections, files]);
-
-  // console.log("resizingFiles ===>", resizingFiles);
-  // console.log("resizingPreviewFiles ===>", resizingPreviewFiles);
 
   return (
     <StCreatePostImageWrap>

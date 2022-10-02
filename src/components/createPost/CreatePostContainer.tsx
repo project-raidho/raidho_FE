@@ -14,10 +14,11 @@ const CreatePostContainer = () => {
   const navigate = useNavigate();
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
-  // const [checkNext, setCheckNext] = useState(false);
-  const [alertMsg, setAlertMsg] = useState("");
+  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [modalIcon, setModalIcon] = useState<
+    "success" | "warning" | "info" | ""
+  >("");
+  const [alertMsg, setAlertMsg] = useState<string>("");
   const onCloseModal = () => {
     setModalOn(!modalOn);
   };
@@ -26,24 +27,24 @@ const CreatePostContainer = () => {
   };
 
   // ::: 입력된 데이터 취합하기
-  const [postImages, setPostImages] = useState([]);
-  const [postContent, setpostContent] = useState("");
-  const [postTags, setPostTags] = useState([]);
+  const [postImages, setPostImages] = useState<Blob[]>([]);
+  const [postContent, setpostContent] = useState<string>("");
+  const [postTags, setPostTags] = useState<string[]>([]);
 
   // ::: 유효성 검사 메시지 상태관리하기
-  const [validationImages, setValidationImages] = useState("");
-  const [validationContent, setValidationContent] = useState("");
-  const [validationTags, setValidationTags] = useState("");
+  const [validationImages, setValidationImages] = useState<string>("");
+  const [validationContent, setValidationContent] = useState<string>("");
+  const [validationTags, setValidationTags] = useState<string>("");
 
-  const selectedPostImages = (images) => {
+  const selectedPostImages = (images: Blob[]) => {
     setPostImages(images);
   };
 
-  const typedPostContent = (text) => {
+  const typedPostContent = (text: string) => {
     setpostContent(text);
   };
 
-  const selectedTags = (tags) => {
+  const selectedTags = (tags: string[]) => {
     setPostTags(tags);
   };
 
@@ -141,10 +142,7 @@ const CreatePostContainer = () => {
       <StStepTitle>
         이미지 업로드 <span>*</span>
       </StStepTitle>
-      <CreatePostImage
-        selectedPostImages={selectedPostImages}
-        setValidationImages={setValidationImages}
-      />
+      <CreatePostImage selectedPostImages={selectedPostImages} />
       <StValidationMessage>{validationImages}</StValidationMessage>
       <StStepTitle>
         내용 <span>*</span>
@@ -176,7 +174,7 @@ const CreatePostContainer = () => {
         >
           취소
         </Button>
-        <Button size="medium" variant="linePrimary" onClick={mutate}>
+        <Button size="medium" variant="linePrimary" onClick={() => mutate()}>
           등록
         </Button>
       </StButtonWrap>

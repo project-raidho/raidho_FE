@@ -18,6 +18,7 @@ interface ButtonProps {
   type?: "button" | "reset" | "submit" | undefined;
   disabled?: boolean;
   value?: string;
+  className?: string;
 }
 const SIZES = {
   small: css`

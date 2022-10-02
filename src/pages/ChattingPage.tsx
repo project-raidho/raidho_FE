@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
 import ChattingRoom from "../components/chatting/ChattingRoom";
 
 // 채팅 페이지 컴포넌트
