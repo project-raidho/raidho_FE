@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+interface MeetingTitleProps {
+  onChangeMeetingTitle: (arg: string) => void;
+  placeholderText: string;
+  initialContent?: string;
+}
+
 const MeetingTitle = ({
   onChangeMeetingTitle,
   placeholderText,
   initialContent,
-}) => {
+}: MeetingTitleProps) => {
   const [checkTextLength, setCheckTextLength] = useState(0);
   const [changeContent, setChangeContent] = useState(initialContent);
-  const onChangeContent = (event) => {
+  const onChangeContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChangeMeetingTitle(event.target.value);
     setCheckTextLength(event.target.value.length);
     setChangeContent(event.target.value);
@@ -24,8 +30,8 @@ const MeetingTitle = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength="20"
-        minLength="1"
+        maxLength={20}
+        minLength={1}
       />
       <StValidationMsg>{checkTextLength} / 20자</StValidationMsg>
     </StMeetingTitletWrap>

@@ -1,15 +1,28 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { Calendar } from "react-date-range"; // 얘가 캘린더 라이브러리
 import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
 import moment from "moment";
 import Input from "../../elements/Input";
 import styled from "styled-components";
 import { BsCalendar3 } from "react-icons/bs";
+
+interface RoomCloseDateBoxProps {
+  roomCloseDate?: string;
+  setRoomCloseDate: Dispatch<SetStateAction<string>>;
+  maxRoomCloseDate: Date | undefined;
+}
+
 const RoomCloseDateBox = ({
   roomCloseDate,
   setRoomCloseDate,
   maxRoomCloseDate,
-}) => {
+}: RoomCloseDateBoxProps) => {
   // 캘린더 여는 토글
   const [showCalendar, setShowCalendar] = useState(false);
   // 오늘 날짜 기본값지정을 위해
@@ -19,7 +32,7 @@ const RoomCloseDateBox = ({
   const [date, setDate] = useState(today);
   const [inputDate, setInputDate] = useState(roomCloseDate);
   const onChangeDate = useCallback(
-    (date) => {
+    (date: Date) => {
       // date 변경값을 받아오는 함수
       if (!date) {
         return;
@@ -35,10 +48,10 @@ const RoomCloseDateBox = ({
   //   setInputdate(e.target.value);
   //   // setRoomCloseDate(inputdate);
   // };
-  console.log(maxRoomCloseDate);
+
   useEffect(() => {
     setInputDate(roomCloseDate);
-    if (maxRoomCloseDate === "") {
+    if (maxRoomCloseDate === undefined) {
       return setmMaxDate(moment().add(600, "d").toDate());
     } else {
       return setmMaxDate(maxRoomCloseDate);
@@ -49,9 +62,8 @@ const RoomCloseDateBox = ({
     <StRoomCloseDateBoxContainer>
       <h1>모집마감일자 *</h1>
       <StInputbox>
-        <span onClick={() => setShowCalendar(!showCalendar)}>
+        <span className="input" onClick={() => setShowCalendar(!showCalendar)}>
           <StDateInput
-            className="input"
             placeholder={"모집마감일자를 선택해주세요"}
             value={inputDate}
             variant="default"

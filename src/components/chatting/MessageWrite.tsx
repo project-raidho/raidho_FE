@@ -1,37 +1,34 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, SetStateAction, Dispatch } from "react";
 import styled, { css } from "styled-components";
-import MessageInput from "./MessageInput";
 import Button from "../../elements/Button";
+import Input from "../../elements/Input";
+
+interface MessageWriteProps {
+  sendMessage: () => void;
+  setMessageInput: Dispatch<SetStateAction<string>>;
+}
 
 // 메시지 입력 컴포넌트
-const MessageWrite = ({ sendMessage, setMessageInput }) => {
+const MessageWrite = ({ sendMessage, setMessageInput }: MessageWriteProps) => {
   // 메시지 텍스트 입력받기
   const [messageText, setMessageText] = useState("");
 
   // 텍스트 기록 함수
-  const handleMessageText = (e) => {
+  const handleMessageText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessageText(e.target.value);
     setMessageInput(e.target.value);
-    // dispatch(chatActions.writeMessage(e.target.value));
   };
-
-  // 오토 포커스 대상
-  const autoFocusRef = useRef(null);
-  useEffect(() => {
-    autoFocusRef.current?.focus();
-  }, []);
 
   return (
     <Container>
-      <MessageInput
-        MessageWrite
+      <Input
         value={messageText}
-        _onChange={handleMessageText}
+        onChange={handleMessageText}
+        placeholder={"텍스트를 입력해주세요."}
         onSubmit={() => {
           sendMessage();
           setMessageText("");
         }}
-        mref={autoFocusRef}
       />
 
       <StButton
@@ -64,6 +61,25 @@ const Container = styled.div`
     bottom: 45px;
     height: 8%;
     z-index: 10;
+  }
+  input {
+    height: auto;
+    border: none;
+    width: 75%;
+    margin-left: 10px;
+    padding: 12px 4px;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    outline: none;
+    font-size: 20px;
+    border-radius: 0;
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+    @media ${(props) => props.theme.mobile} {
+      font-size: 1rem;
+    }
   }
 `;
 

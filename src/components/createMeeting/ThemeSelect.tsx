@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import styled from "styled-components";
 import Button from "../../elements/Button";
 
-const ThemeSelect = ({ theme, setTheme }) => {
+const ThemeSelect = ({
+  theme,
+  setTheme,
+}: {
+  theme: string;
+  setTheme: React.Dispatch<SetStateAction<string>>;
+}) => {
   let [btnActive, setBtnActive] = useState(theme);
 
   const themeList = [
@@ -13,9 +19,9 @@ const ThemeSelect = ({ theme, setTheme }) => {
     "오세아니아",
     "아프리카",
   ];
-  const toggleActive = (e) => {
-    setTheme(e.target.value);
-    setBtnActive(e.target.value);
+  const toggleActive = (theme: string) => {
+    setTheme(theme);
+    setBtnActive(theme);
   };
 
   return (
@@ -23,13 +29,11 @@ const ThemeSelect = ({ theme, setTheme }) => {
       {themeList.map((theme, index) => {
         return (
           <StButton
+            size="medium"
             value={theme}
-            size="large"
             variant={theme === btnActive ? "primary" : "lineGray"}
             key={index}
-            onClick={toggleActive}
-            themeImage={theme}
-            className="themeName"
+            onClick={() => toggleActive(theme)}
           >
             {theme}
           </StButton>
@@ -52,15 +56,14 @@ const StThemeSelectBox = styled.div`
   @media ${(props) => props.theme.mobile} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    .themeName {
+
+    button {
       width: 90px;
       margin-bottom: 15px;
-    }
-    button {
       height: 30px;
     }
   }
-  .themeName {
+  button {
     font-size: 1rem;
     font-weight: 800;
   }
@@ -69,8 +72,4 @@ const StThemeSelectBox = styled.div`
 const StButton = styled(Button)`
   margin-right: 20px;
   border-radius: 15px;
-
-  /* width: 300px; */
-  /* background-image:URL(${(props) => props.themeImage}); 
-    background-size: cover; */
 `;

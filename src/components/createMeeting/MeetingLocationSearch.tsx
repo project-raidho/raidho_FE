@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
 import KakaoMap from "./KakaoMap";
 import DaumPostcode from "react-daum-postcode";
 // import Input from "../../elements/Input";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
-const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
-  const [text, setText] = useState(departLocation);
+interface SearchProps {
+  departLocation?: string;
+  setDepartLocation: Dispatch<SetStateAction<string>>;
+}
+
+const MeetingLocationSearch = ({
+  departLocation,
+  setDepartLocation,
+}: SearchProps) => {
+  const [text, setText] = useState("");
   const [Place, setPlace] = useState("");
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
+
     setPlace(text);
     setDepartLocation(text);
   };
@@ -20,7 +29,12 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
     setIsOpenPost(!isOpenPost);
   };
 
-  const onCompletePost = (data) => {
+  const onCompletePost = (data: {
+    address: any;
+    addressType: string;
+    bname: string;
+    buildingName: string;
+  }) => {
     let fullAddr = data.address;
     let extraAddr = "";
 
@@ -42,8 +56,13 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
   };
 
   useEffect(() => {
-    setText(departLocation);
-    setPlace(departLocation);
+    if (departLocation === undefined) {
+      setText("");
+      setPlace("");
+    } else {
+      setText(departLocation);
+      setPlace(departLocation);
+    }
   }, [departLocation]);
 
   return (
@@ -72,7 +91,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
         placeholder="도로명 주소 또는 주소 키워드를 적을 수 있습니다.(25자이내)"
         onChange={onChange}
         value={text}
-        maxLength="25"
+        maxLength={25}
       />
     </SearchWrapp>
   );

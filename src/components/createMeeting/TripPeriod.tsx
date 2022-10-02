@@ -19,7 +19,7 @@ interface TripPeriodProps {
   endDate?: string;
   setStartDate: Dispatch<SetStateAction<string>>;
   setEndDate: Dispatch<SetStateAction<string>>;
-  setmaxRoomCloseDate: Dispatch<SetStateAction<Date>>;
+  setmaxRoomCloseDate: Dispatch<SetStateAction<Date | undefined>>;
 }
 
 const TripPeriod = ({
@@ -29,7 +29,13 @@ const TripPeriod = ({
   setEndDate,
   setmaxRoomCloseDate,
 }: TripPeriodProps) => {
-  const [state, setState] = useState([
+  const [state, setState] = useState<
+    {
+      startDate?: Date | undefined;
+      endDate?: Date | undefined;
+      key?: string | undefined;
+    }[]
+  >([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
@@ -42,10 +48,15 @@ const TripPeriod = ({
   const [end, setEnd] = useState("");
   // setInputdate(moment(date).format('YYYY-MM-DD'))
   const [count, setCount] = useState(0);
-  const onChangeHandler = (e: {
-    selection: { startDate: Date; endDate: Date; key: string };
-  }) => {
+  const onChangeHandler = (e: RangeKeyDict) => {
     setState([e.selection]);
+    if (e.selection === undefined) {
+      return;
+    }
+    if (e.selection.endDate === undefined) {
+      return;
+    }
+
     setStart(moment(e.selection.startDate).format("YYYY-MM-DD"));
     setEnd(moment(e.selection.endDate).format("YYYY-MM-DD"));
     setStartDate(moment(e.selection.startDate).format("YYYY-MM-DD"));
@@ -122,7 +133,7 @@ const TripPeriod = ({
             showPreview={false}
             locale={ko}
             minDate={tomorrow}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e: RangeKeyDict) => onChangeHandler(e)}
             moveRangeOnFirstSelection={false}
             ranges={state}
             months={1}

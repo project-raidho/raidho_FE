@@ -1,46 +1,54 @@
 import React from "react";
 
 import styled from "styled-components";
-
-// 프로필 사진
+import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import Image from "../../elements/Image";
+import Loading from "../../elements/Loading";
 
-// Spinner
-// import { Spinner } from '@class101/ui';
+interface MssageProps {
+  messageInfo: {
+    type: string;
+    memberId: number;
+    sender: string;
+    messageTime: string | null;
+    memberImage: string | null;
+    message: string;
+  };
+}
 
 // 사용자 - 상대방의 메시지 내용을 출력할 말풍선 컴포넌트
-const Message = ({ messageInfo }) => {
+const Message = ({ messageInfo }: MssageProps) => {
   // 사용자 아이디, 프로필 사진을 가져오기
-  // let { id, profileUrl } = useSelector((state) => state.user.userInfo);
+  let memberImage = localStorage.getItem("memberImage");
+  if (memberImage === null) {
+    memberImage = `${DefaultProfileImage}`;
+  }
+  if (messageInfo.memberImage === null) {
+    messageInfo.memberImage = `${DefaultProfileImage}`;
+  }
   let memberId = Number(localStorage.getItem("memberId"));
-  React.useEffect(() => {
-    // 로딩중
-    if (!messageInfo) {
-      return (
-        <MessageWrap>
-          {/* <Spinner /> */}
-          <p>로딩중</p>
-        </MessageWrap>
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+  if (!messageInfo) {
+    return (
+      <MessageWrap is_me={false}>
+        <Loading />
+      </MessageWrap>
+    );
+  }
 
   // 메시지의 유저 id 정보와 현재 유저 id가 같으면 본인 메시지
   if (memberId === Number(messageInfo.memberId)) {
     return (
       <MessageWrap is_me={true}>
         <SenderWrap>
-          <SenderSpan is_me={true}>
-            {messageInfo.user ? messageInfo.user.username : messageInfo.sender}
-          </SenderSpan>
+          <SenderSpan is_me={true}>{messageInfo.sender}</SenderSpan>
           <div>
             <SenderSpan is_me={true}>{messageInfo.messageTime}</SenderSpan>
             <ElMessage is_me={true}>{messageInfo.message}</ElMessage>
           </div>
         </SenderWrap>
         <ImageWrap>
-          <Image size="40px" src={messageInfo.memberImage} />
+          <Image size="40px" src={memberImage} />
         </ImageWrap>
       </MessageWrap>
     );
@@ -56,17 +64,15 @@ const Message = ({ messageInfo }) => {
   // 상대방 메시지
   else {
     return (
-      <MessageWrap>
+      <MessageWrap is_me={false}>
         <ImageWrap>
           <Image size="40px" src={messageInfo.memberImage} />
         </ImageWrap>
         <SenderWrap>
-          <SenderSpan>
-            {messageInfo.user ? messageInfo.user.username : messageInfo.sender}
-          </SenderSpan>
+          <SenderSpan is_me={false}>{messageInfo.sender}</SenderSpan>
           <div>
-            <ElMessage>{messageInfo.message}</ElMessage>
-            <SenderSpan>{messageInfo.messageTime}</SenderSpan>
+            <ElMessage is_me={false}>{messageInfo.message}</ElMessage>
+            <SenderSpan is_me={false}>{messageInfo.messageTime}</SenderSpan>
           </div>
         </SenderWrap>
       </MessageWrap>
@@ -77,7 +83,7 @@ const Message = ({ messageInfo }) => {
 Message.defaultProps = {};
 export default Message;
 
-const MessageWrap = styled.div`
+const MessageWrap = styled.div<{ is_me: boolean }>`
   ${(props) => props.theme.border_box};
   ${(props) => props.theme.flex_row};
   justify-content: ${(props) => (props.is_me ? "flex-end" : "flex-start")};
@@ -86,7 +92,7 @@ const MessageWrap = styled.div`
   margin: 0px 0px 15px 0px;
 `;
 
-const ElMessage = styled.span`
+const ElMessage = styled.span<{ is_me: boolean }>`
   display: inline-block;
   ${(props) => props.theme.border_box};
   background-color: ${(props) =>
@@ -141,7 +147,7 @@ const SenderWrap = styled.div`
   color: ${(props) => props.theme.main_color};
 `;
 
-const SenderSpan = styled.span`
+const SenderSpan = styled.span<{ is_me: boolean }>`
   font-size: 0.9rem;
   min-width: 50px;
   width: 100%;
