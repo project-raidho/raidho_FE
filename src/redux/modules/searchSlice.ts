@@ -1,4 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export interface SearchProps {
+  isLoading: boolean;
+  error: null;
+  recentSearch: string[];
+  darkMode: boolean;
+}
 
 // ::: 초기값
 const initialState = {
@@ -6,7 +13,7 @@ const initialState = {
   error: null,
   recentSearch: [],
   darkMode: localStorage.getItem("bgMode") === "dark" ? true : false,
-}
+};
 
 const searchSlice = createSlice({
   name: "searchSlice",
@@ -15,10 +22,12 @@ const searchSlice = createSlice({
     getRecentSearch: (state, action) => {
       const initRecentSearches = localStorage.getItem("recentSearches");
       initRecentSearches
-        ? state.recentSearch = JSON.parse(localStorage.getItem("recentSearches"))
-        : state.recentSearch = [];
+        ? (state.recentSearch = JSON.parse(
+            localStorage.getItem("recentSearches")
+          ))
+        : (state.recentSearch = []);
     },
-    addRecentSearch: (state, action) => {
+    addRecentSearch: (state, action: PayloadAction<SearchProps>) => {
       let count = 0;
       const maxCount = 4;
       const resultRecentSearch = state.recentSearch.filter((tag) => {
@@ -35,7 +44,9 @@ const searchSlice = createSlice({
       );
     },
     deleteRecentSearch: (state, action) => {
-      state.recentSearch = [...state.recentSearch.filter((tag) => tag !== action.payload)];
+      state.recentSearch = [
+        ...state.recentSearch.filter((tag) => tag !== action.payload),
+      ];
       localStorage.setItem(
         "recentSearches",
         JSON.stringify(state.recentSearch)
@@ -43,15 +54,24 @@ const searchSlice = createSlice({
     },
     getDarkMode: (state, action) => {
       const initDarkMode = localStorage.getItem("bgMode");
-      initDarkMode === "dark" ? state.darkMode = true : state.darkMode = false;
+      initDarkMode === "dark"
+        ? (state.darkMode = true)
+        : (state.darkMode = false);
     },
     updateDarkMode: (state, action) => {
       state.darkMode = action.payload;
-      state.darkMode === true ? localStorage.setItem("bgMode", "dark") : localStorage.setItem("bgMode", "light");
-    }
+      state.darkMode === true
+        ? localStorage.setItem("bgMode", "dark")
+        : localStorage.setItem("bgMode", "light");
+    },
   },
 });
 
-export const { getRecentSearch, addRecentSearch, deleteRecentSearch, getDarkMode, updateDarkMode } = searchSlice.actions;
+export const {
+  getRecentSearch,
+  addRecentSearch,
+  deleteRecentSearch,
+  getDarkMode,
+  updateDarkMode,
+} = searchSlice.actions;
 export default searchSlice.reducer;
-

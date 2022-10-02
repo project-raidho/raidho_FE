@@ -2,7 +2,11 @@ import React from "react";
 import MainPostList from "./MainPostList";
 import styled from "styled-components";
 
-const MainContainer = ({ state }) => {
+interface MainProps {
+  state: string;
+}
+
+const MainContainer = ({ state }: MainProps) => {
   return (
     <StMainContainerWrap>
       {state === "latest" && <MainPostList state={state} />}

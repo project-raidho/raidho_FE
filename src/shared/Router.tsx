@@ -13,7 +13,6 @@ import UpdateMeetingPage from "../pages/UpdateMeetingPage";
 import MeetingListPage from "../pages/MeetingListPage";
 import ChattingPage from "../pages/ChattingPage";
 import KakaoLogin from "../components/login/KakaoLogin";
-import NaverLogin from "../components/login/NaverLogin";
 import NotFound from "../pages/NotFound";
 import HeaderContainer from "../components/header/HeaderContainer";
 import GlobalLayout from "../global/GlobalLayout";
@@ -70,7 +69,6 @@ const Routers = () => {
             <Route path="/chatting" element={<ChattingPage />} />
             <Route path="/chatting/:chattingId" element={<ChattingPage />} />
             <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
-            <Route path="/oauth/naver" element={<NaverLogin />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </GlobalLayout>

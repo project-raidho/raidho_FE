@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
-const Modal = ({ onClose, children }) => {
+interface ModalProps {
+  onClose: React.MouseEventHandler<SVGElement> | undefined;
+  children: React.ReactNode;
+}
+
+const Modal = ({ onClose, children }: ModalProps) => {
   return (
     <>
       <Background />
