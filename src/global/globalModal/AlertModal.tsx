@@ -10,7 +10,7 @@ interface ModalProps {
   onCloseModal: React.MouseEventHandler<SVGElement> | undefined;
   modalIcon: "success" | "warning" | "info" | "";
   alertMsg: String;
-  onClickYes: Function;
+  onClickYes: React.MouseEventHandler<HTMLButtonElement> | undefined;
   onClickNo?: Function;
 }
 

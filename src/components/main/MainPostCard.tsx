@@ -69,7 +69,7 @@ const MainPostCard = (props: MainContentProps) => {
         </div>
         <h2>{props.memberName}</h2>
         <div className="cardButtonBox">
-          <HeartButton like={props.isHeartMine} onClick={mutate} />
+          <HeartButton like={props.isHeartMine} onClick={() => mutate} />
           <span className="likeNum">{props.heartCount}</span>
           <BsChat className="commentIcon" />
           <span className="commentNum">{props.commentCount}</span>

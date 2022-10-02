@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import { getDarkMode } from "../redux/modules/searchSlice";
 import MainPage from "../pages/MainPage";
 import PostDetailPage from "../pages/PostDetailPage";
@@ -22,8 +23,12 @@ import styled from "styled-components";
 const Routers = () => {
   const dispatch = useDispatch();
 
-  const themeList = useSelector((state) => state.themeSlice.themeList);
-  const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
+  const themeList = useSelector(
+    (state: RootState) => state.themeSlice.themeList
+  );
+  const checkDarkMode = useSelector(
+    (state: RootState) => state.searchSlice.darkMode
+  );
 
   // ::: Dark & Light 기능구현
   useEffect(() => {
