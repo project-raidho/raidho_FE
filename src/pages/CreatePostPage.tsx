@@ -1,5 +1,4 @@
 import React from "react";
-
 import CreatePostContainer from "../components/createPost/CreatePostContainer";
 import styled from "styled-components";
 
