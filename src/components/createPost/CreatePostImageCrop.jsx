@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import AlertModal from "../../global/globalModal/AlertModal.jsx";
+import AlertModal from "../../global/globalModal/AlertModal";
 // import ConfirmModal from "../../global/globalModal/ConfirmModal"
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";

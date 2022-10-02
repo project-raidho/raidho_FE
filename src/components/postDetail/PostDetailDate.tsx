@@ -1,11 +1,18 @@
+import React from "react";
 import styled from "styled-components";
 
-const PostDetailDate = ({ postDetail }) => {
+interface postDetail {
+  postDetail: {
+    createdAt: string;
+  };
+}
+
+const PostDetailDate = ({ postDetail }: postDetail) => {
   return (
     <StDateWrapper>
       <div className="date">
-        {postDetail.createdAt.substr(0, 4)}. {postDetail.createdAt.substr(5, 2)}
-        . {postDetail.createdAt.substr(8, 2)}
+        {postDetail.createdAt.slice(0, 4)}. {postDetail.createdAt.slice(5, 7)}.{" "}
+        {postDetail.createdAt.slice(8, 10)}
       </div>
     </StDateWrapper>
   );

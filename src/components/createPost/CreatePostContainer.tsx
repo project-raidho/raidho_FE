@@ -5,7 +5,7 @@ import { authInstance } from "../../shared/api";
 import CreatePostImage from "./CreatePostImage";
 import ContentTextArea from "../../elements/ContentTextArea";
 import TagInput from "../../elements/TagInput";
-import AlertModal from "../../global/globalModal/AlertModal.jsx";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";

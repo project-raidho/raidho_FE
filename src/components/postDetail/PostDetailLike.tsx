@@ -3,15 +3,26 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
-import AlertModal from "../../global/globalModal/AlertModal.jsx";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import { useMutation, useQueryClient } from "react-query";
 import { BsChat } from "react-icons/bs";
-const PostDetailLike = ({ postDetail }) => {
+
+interface PostDetailProps {
+  postDetail: {
+    isHeartMine: boolean;
+    heartCount: number;
+    commentCount: number;
+  };
+}
+
+const PostDetailLike = ({ postDetail }: PostDetailProps) => {
   const { postId } = useParams();
   const [modalOn, setModalOn] = useState(false);
 
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
@@ -45,11 +56,7 @@ const PostDetailLike = ({ postDetail }) => {
 
   return (
     <StLikeWrapper>
-      <HeartButton
-        like={postDetail.isHeartMine}
-        onClick={mutate}
-        className="iconHeart"
-      />
+      <HeartButton like={postDetail.isHeartMine} onClick={() => mutate} />
       <span className="likeNum">{postDetail.heartCount}</span>
       <BsChat className="commentIcon" />
       <span className="commentNum">{postDetail.commentCount}</span>

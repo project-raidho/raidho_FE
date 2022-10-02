@@ -1,9 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
 import Slider from "react-slick";
+interface images {
+  images: string[];
+}
 
-const PostDetailImg = ({ images }) => {
+const PostDetailImg = ({ images }: images) => {
   const settings = {
     dots: true,
     infinite: true,

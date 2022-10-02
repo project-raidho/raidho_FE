@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import PostDetailImage from "./PostDetailImg";
 import PostDetailLike from "./PostDetailLike";
 import PostDetailUser from "./PostDetailUser";
 import RelatedList from "./RelatedList";
-import { useNavigate, useParams } from "react-router-dom";
+import PostDetailTagList from "./PostDetailTagList";
+import PostDetailDate from "./PostDetailDate";
 
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { authInstance } from "../../shared/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import PostDetailTagList from "./PostDetailTagList";
-import PostDetailDate from "./PostDetailDate";
+//댓글 컴포넌트
 import AddCommentForm from "./comment/AddCommentForm";
 import CommentsList from "./comment/CommentsList";
+//모다 컴포넌트
 import AlertModal from "../../global/globalModal/AlertModal";
 import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";
+
 // ::: 상세페이지 조회 axios
 const getPostDetail = async ({
   queryKey,
@@ -40,7 +43,9 @@ const PostDetailContainer = () => {
   // 게시글 삭제시 뜨는 모달
   const [confirmModalOn, setConfirmModalOn] = useState(false);
   const [alertModalOn, setAlertModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {

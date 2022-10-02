@@ -5,7 +5,12 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 
-const RelatedList = ({ targetTag, postId }) => {
+interface RelatedProps {
+  targetTag: string;
+  postId: Number;
+}
+
+const RelatedList = ({ targetTag, postId }: RelatedProps) => {
   // ::: 관련 여행후기 게시글 조회
   const getRelatedPosts = async () => {
     const response = await authInstance.get(
@@ -23,7 +28,7 @@ const RelatedList = ({ targetTag, postId }) => {
     return null;
   }
 
-  const relatedPostList = relatedPostListQuery.data.data.data.content;
+  const relatedPostList = relatedPostListQuery.data?.data.data.content;
   return (
     <>
       <StRelatedTitleRow>
@@ -32,18 +37,24 @@ const RelatedList = ({ targetTag, postId }) => {
       </StRelatedTitleRow>
       <StRelatedListWrap>
         {relatedPostList.length !== 0 &&
-          relatedPostList.map((post) => (
-            <StPostCard key={post.id}>
-              <Link to={`/postDetail/${post.id}`}>
-                {post.isImages && <div className="imagesIcon" />}
-                <img
-                  src={post.multipartFiles[0]}
-                  alt={post.id}
-                  loading="lazy"
-                />
-              </Link>
-            </StPostCard>
-          ))}
+          relatedPostList.map(
+            (post: {
+              id: number;
+              isImages: boolean;
+              multipartFiles: string[];
+            }) => (
+              <StPostCard key={post.id}>
+                <Link to={`/postDetail/${post.id}`}>
+                  {post.isImages && <div className="imagesIcon" />}
+                  <img
+                    src={post.multipartFiles[0]}
+                    alt={"이미지"}
+                    loading="lazy"
+                  />
+                </Link>
+              </StPostCard>
+            )
+          )}
       </StRelatedListWrap>
     </>
   );
@@ -88,7 +99,7 @@ const StRelatedListWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  height: ${(props) => (props.isMore === true ? "auto" : "400px")};
+  height: auto;
   background-color: var(--bg-color);
   overflow: hidden;
   margin-bottom: 80px;
@@ -98,7 +109,7 @@ const StRelatedListWrap = styled.div`
   @media (max-width: 767px) {
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    height: ${(props) => (props.isMore === true ? "auto" : "200px")};
+    height: auto;
   }
   @media (max-width: 639px) {
     grid-template-columns: repeat(3, 1fr);

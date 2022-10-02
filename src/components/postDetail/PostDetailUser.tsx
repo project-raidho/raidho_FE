@@ -1,7 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
-const PostDetailUser = ({ postDetail }) => {
+interface PostDetailProps {
+  postDetail: {
+    memberImage: string;
+    memberName: string;
+  };
+}
+
+const PostDetailUser = ({ postDetail }: PostDetailProps) => {
   const memberImage =
     postDetail.memberImage === null
       ? `${DefaultMemberImage}`

@@ -8,10 +8,10 @@ const HeartButton = ({
   onClick,
 }: {
   like: boolean;
-  onClick?: React.MouseEventHandler<HTMLSpanElement> | undefined;
+  onClick: React.MouseEventHandler<HTMLSpanElement>;
 }) => {
   return (
-    <StHeart onClick={() => onClick}>
+    <StHeart onClick={onClick}>
       {like ? (
         <IoIosHeart className="heart" />
       ) : (

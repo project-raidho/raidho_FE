@@ -1,13 +1,17 @@
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const PostDetailTagList = ({ tagList }) => {
+interface TagList {
+  tagList: string[];
+}
+
+const PostDetailTagList = ({ tagList }: TagList) => {
   // console.log(tagList);
   const navigate = useNavigate();
 
-  const onClickTagHandler = (tag) => {
-    const sliceTag = tag.substr(1);
-    // console.log(sliceTag);
+  const onClickTagHandler = (tag: string) => {
+    const sliceTag = tag.slice(1);
     navigate(`/post/best?tag=${sliceTag}`, {
       state: {
         tagKeyword: sliceTag,
