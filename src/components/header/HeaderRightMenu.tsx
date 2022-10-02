@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ToggleBox from "./toggle/ToggleBox";
 import Button from "../../elements/Button";
@@ -11,28 +11,33 @@ import { MdOutlineTravelExplore } from "react-icons/md";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
 
-const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
+interface HeaderProps {
+  isLogin: boolean;
+  setIsLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
   const navigate = useNavigate();
   const userIsLogin = localStorage.getItem("Authorization");
 
   // ::: 유저 프로필 이미지 적용하기
-  const memberImage =
-    localStorage.getItem("memberImage") === "null"
-      ? `${DefaultMemberImage}`
-      : localStorage.getItem("memberImage");
+  let memberImage = localStorage.getItem("memberImage");
+  if (memberImage === null) {
+    memberImage = `${DefaultMemberImage}`;
+  }
 
   // ::: 모달 여부 확인하기
-  const [modalOn, setModalOn] = useState(false);
+  const [modalOn, setModalOn] = useState<boolean>(false);
   const handleModal = () => {
     setModalOn(!modalOn);
     modalOn && setInfoMessage("");
   };
 
   // ::: 토글 메뉴 확인하기
-  const [isAddToggle, setIsAddToggle] = useState(false);
-  const [isUserToggle, setIsUserToggle] = useState(false);
+  const [isAddToggle, setIsAddToggle] = useState<boolean>(false);
+  const [isUserToggle, setIsUserToggle] = useState<boolean>(false);
 
-  const [infoMessage, setInfoMessage] = useState("");
+  const [infoMessage, setInfoMessage] = useState<string>("");
 
   // ::: 토글 메뉴 닫기
   const onCloseToggle = () => {
@@ -53,7 +58,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
   };
 
   // ::: 로그인 여부 확인 후 메뉴 이동
-  const checkLoginGoToChat = (message) => {
+  const checkLoginGoToChat = (message: string) => {
     if (!isLogin) {
       setInfoMessage(message);
       handleModal();
@@ -62,7 +67,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     }
   };
 
-  const checkLoginGoToCreateMeeting = (message) => {
+  const checkLoginGoToCreateMeeting = (message: string) => {
     if (!isLogin) {
       setInfoMessage(message);
       handleModal();
@@ -72,7 +77,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
     onCloseToggle();
   };
 
-  const checkLoginGoToCreatePost = (message) => {
+  const checkLoginGoToCreatePost = (message: string) => {
     if (!isLogin) {
       setInfoMessage(message);
       handleModal();
@@ -89,8 +94,8 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
   }, [userIsLogin]);
 
   return (
-    <StHeaderRightMenuWrap isLogin={isLogin}>
-      <StLoginRightMenu isLogin={isLogin}>
+    <StHeaderRightMenuWrap>
+      <StLoginRightMenu>
         <li>
           <Link to={`/`}>
             <BiImage className="iconPost" />
@@ -139,12 +144,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }) => {
           </li>
         ) : (
           <li className="loginMenu">
-            <Button
-              className="loginButton"
-              size="small"
-              variant="primary"
-              onClick={handleModal}
-            >
+            <Button size="small" variant="primary" onClick={handleModal}>
               로그인
             </Button>
 
@@ -277,7 +277,7 @@ const StLoginRightMenu = styled.ul`
   }
   li.loginMenu {
     width: 100px;
-    .loginButton {
+    & > button {
       margin-right: 0%;
       padding: 0 25px;
     }
@@ -308,7 +308,7 @@ const StLoginRightMenu = styled.ul`
 
     li.loginMenu {
       width: 76px;
-      .loginButton {
+      & > button {
         margin-right: 0%;
         padding: 0 10px;
       }
