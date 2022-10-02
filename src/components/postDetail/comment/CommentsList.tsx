@@ -9,8 +9,8 @@ import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const getCommentList = ({ queryKey }) => {
-  return authInstance.get(`/api/comment/${queryKey[1]}`);
+const getCommentList = ({ queryKey }: { queryKey: (string | undefined)[] }) => {
+  return authInstance.get(`/api/comment/${Number(queryKey[1])}`);
 };
 
 function CommentsList() {
@@ -25,37 +25,40 @@ function CommentsList() {
   if (commentgAllListQuery.isLoading) {
     return null;
   }
-  const commentsList = commentgAllListQuery.data.data.data;
+  const commentsList = commentgAllListQuery.data?.data.data;
   return (
     <StCommentListWrap>
       {commentsList.totalElements < 2 ? null : (
         <p className="buttonCommentToggle" onClick={() => setIsAll(!isAll)}>
           {isAll ? (
-            <Button
-              size="small"
-              variant="lineGray"
-              className="buttonCommentSummary"
-            >
+            <Button size="small" variant="lineGray">
               요약해서 보기
               <IoIosArrowUp />
             </Button>
           ) : (
-            <Button
-              size="small"
-              variant="linePrimary"
-              className="buttonCommentAll"
-            >
-              댓글{commentsList.totalElements}개 모두보기
-              <IoIosArrowDown />
-            </Button>
+            <span className="buttonCommentAll">
+              <Button size="small" variant="linePrimary">
+                댓글{commentsList.totalElements}개 모두보기
+                <IoIosArrowDown />
+              </Button>
+            </span>
           )}
         </p>
       )}
       <StCommentsList className="StCommentsList" isAll={isAll}>
         {commentsList.content.length > 1 && isAll
-          ? commentsList.content.map((comment, i) => (
-              <Comment key={i} comment={comment} />
-            ))
+          ? commentsList.content.map(
+              (
+                comment: {
+                  content: string;
+                  id: number;
+                  modifiedAt: string;
+                  memberName: string;
+                  memberImage: string;
+                },
+                i: number
+              ) => <Comment key={i} comment={comment} />
+            )
           : commentsList.content.length !== 0 && (
               <Comment comment={commentsList.content[0]} />
             )}

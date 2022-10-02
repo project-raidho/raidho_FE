@@ -5,7 +5,7 @@ import ThemeSelect from "./ThemeSelect";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TripPeriod from "./TripPeriod";
-import AlertModal from "../../global/globalModal/AlertModal.jsx";
+import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 
 import TagInput from "../../elements/TagInput";
@@ -23,7 +23,7 @@ import ContentTextArea from "../../elements/ContentTextArea";
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
   const [meetingTags, setMeetingTags] = useState([]);
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState("");
   const [people, setPeople] = useState(2);
   const [title, setTitle] = useState("");
@@ -33,7 +33,9 @@ const CreateMeetingContatiner = () => {
   const [maxRoomCloseDate, setmaxRoomCloseDate] = useState("");
   //모달 상태관리
   const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
+  const [modalIcon, setModalIcon] = useState<
+    "" | "success" | "warning" | "info"
+  >("");
   const [alertMsg, setAlertMsg] = useState("");
 
   const onCloseModal = () => {
@@ -232,11 +234,11 @@ const CreateMeetingContatiner = () => {
   const selectedMeetingTags = (tags) => {
     setMeetingTags(tags);
   };
-  const typedMeetingContent = (text) => {
+  const typedMeetingContent = (text: string) => {
     setDesc(text);
   };
 
-  const onChangeMeetingTitle = (text) => {
+  const onChangeMeetingTitle = (text: string) => {
     setTitle(text);
   };
 
@@ -261,12 +263,14 @@ const CreateMeetingContatiner = () => {
       </StTags>
       <StPeriodPeople>
         <div>
-          <TripPeriod
-            className="periodBox"
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setmaxRoomCloseDate={setmaxRoomCloseDate}
-          />
+          <span className="periodBox">
+            <TripPeriod
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              setmaxRoomCloseDate={setmaxRoomCloseDate}
+            />
+          </span>
+
           <StValidationMsg>{periodValMsg}</StValidationMsg>
         </div>
         <div className="peopleBox">
@@ -298,15 +302,17 @@ const CreateMeetingContatiner = () => {
       <MeetingLocationSearch setDepartLocation={setDepartLocation} />
       <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
-        <Button
-          className="createButton"
-          size="small"
-          variant="primary"
-          onClick={mutate}
-          // disabled={validState ? false : true}
-        >
-          등록하기
-        </Button>
+        <span className="createButton">
+          <Button
+            size="small"
+            variant="primary"
+            onClick={() => mutate}
+            // disabled={validState ? false : true}
+          >
+            등록하기
+          </Button>
+        </span>
+
         <StValidationMsg>{allValMsg}</StValidationMsg>
       </StbottonBox>
       <Potal>
