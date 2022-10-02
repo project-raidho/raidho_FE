@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
 import { updateDarkMode } from "../../redux/modules/searchSlice";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -38,14 +39,17 @@ const getPostliked = async () => {
 const MyProfileContainer = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const checkDarkMode = useSelector((state) => state.searchSlice.darkMode);
+  const checkDarkMode = useSelector(
+    (state: RootState) => state.searchSlice.darkMode
+  );
 
   // ::: 게시글 더보기 기능 구현
-  const [isMoreMeeting, setIsMoreMeeting] = useState(false);
-  const [isMoreMeetingLiked, setIsMoreMeetingLiked] = useState(false);
-  const [isMorePost, setIsMorePost] = useState(false);
-  const [isMorePostCommented, setIsMorePostCommented] = useState(false);
-  const [isMorePostLiked, setIsMorePostLiked] = useState(false);
+  const [isMoreMeeting, setIsMoreMeeting] = useState<boolean>(false);
+  const [isMoreMeetingLiked, setIsMoreMeetingLiked] = useState<boolean>(false);
+  const [isMorePost, setIsMorePost] = useState<boolean>(false);
+  const [isMorePostCommented, setIsMorePostCommented] =
+    useState<boolean>(false);
+  const [isMorePostLiked, setIsMorePostLiked] = useState<boolean>(false);
 
   const MeetingListQuery = useQuery("meetingListMine", getMeetingMineList);
   const MeetingLikedQuery = useQuery("MeetingListLiked", getMeetingListLiked);
@@ -72,7 +76,7 @@ const MyProfileContainer = () => {
     setIsMorePostLiked(!isMorePostLiked);
   };
 
-  const darkOnOff = (event) => {
+  const darkOnOff = () => {
     if (
       document.getElementsByTagName("html")[0].classList.contains("darkMode")
     ) {
@@ -183,7 +187,7 @@ const MyProfileContainer = () => {
           <input
             type="checkbox"
             onClick={darkOnOff}
-            defaultChecked={checkDarkMode && "checked"}
+            defaultChecked={checkDarkMode ? "checked" : ""}
           />
           <span className="onoffSwitch"></span>
           <strong>{checkDarkMode ? "on" : "off"}</strong>
@@ -211,7 +215,7 @@ const StMyProfileContainerWrap = styled.div`
   }
 `;
 
-const StMyProfileTitleRow = styled.div`
+const StMyProfileTitleRow = styled.div<{ isMore: boolean }>`
   border-bottom: 1px solid var(--gray-color);
   position: relative;
   display: flex;
@@ -262,7 +266,7 @@ const StMyProfileTitleRow = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     h3 {
       font-size: 1.2rem;
       padding-left: 1rem;
@@ -290,7 +294,7 @@ const StMyProfileTextRow = styled.div`
     }
   }
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     p {
       font-size: 1.2rem;
       padding: 0.5rem 0 0.5rem 1rem;
@@ -298,7 +302,7 @@ const StMyProfileTextRow = styled.div`
   }
 `;
 
-const StSwitchButton = styled.label`
+const StSwitchButton = styled.label<{ checkDarkMode: boolean }>`
   position: relative;
   width: 80px;
   height: 30px;
@@ -362,7 +366,7 @@ const StSwitchButton = styled.label`
     margin-top: -7px;
     z-index: 1;
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     margin-right: 1rem;
     width: 60px;
     height: 24px;
