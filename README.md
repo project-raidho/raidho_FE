@@ -7,13 +7,13 @@
 - 📌 함께 <u>여행하고 싶은 사람을 모집</u>하고, <u>여행 경험을 공유</u>하는 웹 커뮤니티 서비스
 - 📌 국내 여행 뿐 아니라 카테고리를 이용해 전세계 여행 어디든 모집하고 찾아 볼수있는 서비스
 
-### 프로젝트 기간
+### 🛫 프로젝트 기간
 
 - 📌 2022.08.26 - 2022.10.07
 
-### [라이도 사이트 🔗](https://raidho.site/)
+### 🛫 [라이도 사이트 🔗](https://raidho.site/)
 
-### [자세한 프로젝트 정보 🔗](https://github.com/project-raidho/raidho_FE/wiki)
+### 🛫 [자세한 프로젝트 정보 🔗](https://github.com/project-raidho/raidho_FE/wiki)
 
 ---
 
@@ -38,13 +38,13 @@
 
 ## 🌏 주요 기능
 
-- 🛫 소셜로그인을 통한 간편한 회원가입
-- 🛫 여행 후기 작성
-- 🛫 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능
-- 🛫 태그를 통한 검색 기능
-- 🛫 여행 모집글 작성
-- 🛫 실시간 소통을 할 수 있는 채팅 기능
-- 🛫 화면 다크 & 라이트 모드
+> 🛫 소셜로그인을 통한 간편한 회원가입<br>
+> 🛫 여행 후기 작성<br>
+> 🛫 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능<br>
+> 🛫 태그를 통한 검색 기능<br>
+> 🛫 여행 모집글 작성<br>
+> 🛫 실시간 소통을 할 수 있는 채팅 기능<br>
+> 🛫 화면 다크 & 라이트 모드<br>
 
 ---
 
@@ -52,7 +52,7 @@
 
 <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/tech.png?raw=true" width="900">
 
-> - 🛫 [기술적 의사결정](https://github.com/project-raidho/raidho_FE/wiki/기술적-의사결정)
+- 🛫 [기술적 의사결정](https://github.com/project-raidho/raidho_FE/wiki/기술적-의사결정)
 
 ---
 
@@ -77,7 +77,7 @@
 
 ---
 
-#### 🌏 모듈화
+## 🌏 모듈화
 
 > - 🛫 [모달](https://github.com/project-raidho/raidho_FE/wiki/모달)
 > - 🛫 [버튼](https://github.com/project-raidho/raidho_FE/wiki/버튼)
@@ -116,15 +116,15 @@
 
 ---
 
-## 맴버 정보
+## 🌏 맴버 정보
 
-| Position         | Name   | Blog                                                     | MBTI |
-| ---------------- | ------ | -------------------------------------------------------- | ---- |
-| 리더·FE·ReactJS  | 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
-| FE·ReactJS       | 김경문 | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
-| 부리더·BE·Spring | 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
-| BE·Spring        | 김성호 | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
-| BE·Spring        | 전태훈 | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
-| UX/UI            | 강예진 |                                                          | ENFP |
+| Position              | Name      | Blog                                                     | MBTI |
+| --------------------- | --------- | -------------------------------------------------------- | ---- |
+| FE·ReactJS·Typescript | 🔰 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
+| FE·ReactJS·Typescript | 김경문    | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
+| BE·Spring             | 🔰 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
+| BE·Spring             | 김성호    | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
+| BE·Spring             | 전태훈    | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
+| UX/UI                 | 강예진    |                                                          | ENFP |
 
 ---
