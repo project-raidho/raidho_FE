@@ -284,7 +284,7 @@ reducers: {
 - 아이폰 사파리 브라우저를 통해 업로드 테스트 진행
   - 최대로 편집을 진행해도 잘 업로드 되는 점을 확인 할 수 있었음
   - 원본 화질과 업로드된 이미지 화질 차이가 많이 나지 않는다는 점을 육안으로 확인할 수 있었음
-    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSampleMobile.png?raw=true" width="900">
+    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSampleMobile2.png?raw=true" width="900">
 
 ---
 
