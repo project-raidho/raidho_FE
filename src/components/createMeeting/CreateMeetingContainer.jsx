@@ -239,6 +239,9 @@ const CreateMeetingContatiner = () => {
   const onChangeMeetingTitle = (text) => {
     setTitle(text);
   };
+  const onChangeLocation = (Location) => {
+    setDepartLocation(Location);
+  };
 
   return (
     <StContainer>
@@ -295,7 +298,7 @@ const CreateMeetingContatiner = () => {
         maxRoomCloseDate={maxRoomCloseDate}
       />
       <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
-      <MeetingLocationSearch setDepartLocation={setDepartLocation} />
+      <MeetingLocationSearch onChangeLocation={onChangeLocation} />
       <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
         <Button
