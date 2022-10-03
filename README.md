@@ -52,7 +52,9 @@
 
 <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/tech.png?raw=true" width="900">
 
-- 🛫 [기술적 의사결정](https://github.com/project-raidho/raidho_FE/wiki/기술적-의사결정)
+---
+
+## 🌏 [기술적 의사결정](https://github.com/project-raidho/raidho_FE/wiki/기술적-의사결정)
 
 ---
 
