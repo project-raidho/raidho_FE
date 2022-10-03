@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DesktopLogo from "../../assets/raidhoLogo.svg";
 import MobileLogo from "../../assets/raidhoMobileLogo.svg";
 import HeaderRightMenu from "./HeaderRightMenu";
-import SearchContainer from "./search/SearchContainer";
+import SearchContainer from "./SearchContainer";
 
 const HeaderContainer = () => {
   // ::: 로그인 여부 확인하기

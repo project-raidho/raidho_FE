@@ -50,12 +50,7 @@ const MeetingListContainer = () => {
 
   const { data, isLoading } = useQuery(
     ["meetingList", selectedTheme, checkStatus, startDate, endDate],
-    getMeetingList,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
+    getMeetingList
   );
 
   // ::: 모집중 클릭시 상태 조절
