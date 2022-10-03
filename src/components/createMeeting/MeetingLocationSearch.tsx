@@ -1,27 +1,25 @@
-import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import KakaoMap from "./KakaoMap";
 import DaumPostcode from "react-daum-postcode";
-// import Input from "../../elements/Input";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
 interface SearchProps {
   departLocation?: string;
-  setDepartLocation: Dispatch<SetStateAction<string>>;
+  onChangeLocation: (arg: string) => void;
 }
 
 const MeetingLocationSearch = ({
   departLocation,
-  setDepartLocation,
+  onChangeLocation,
 }: SearchProps) => {
   const [text, setText] = useState("");
   const [Place, setPlace] = useState("");
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
-
-    setPlace(text);
-    setDepartLocation(text);
+    setPlace(e.target.value);
+    onChangeLocation(e.target.value);
   };
 
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -51,7 +49,7 @@ const MeetingLocationSearch = ({
 
     setText(fullAddr);
     setPlace(fullAddr);
-    setDepartLocation(fullAddr);
+    onChangeLocation(fullAddr);
     setIsOpenPost(false);
   };
 
