@@ -10,13 +10,16 @@
 
 ## 주요 기능
 
-- 소셜로그인을 통한 간편한 회원가입
-- 여행 후기 작성
-- 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능
-- 태그를 통한 검색 기능
-- 여행 모집글 작성
+- 소셜로그인(카카오)을 통한 간편한 회원가입
+- 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능을 이용한 여행후기 등록
+- 좋아요, 찜하기, 댓글 기능
+- 태그를 통한 검색 기능(+최근검색기록)
+- 날짜 및 장소 등을 통한 여행 모집 등록
+- 날짜 및 카테고리 필터를 통한 모집 리스트
+- 카카오 맵 API를 이용한 지도서비스(도로명검색&키워드검색)
 - 실시간 소통을 할 수 있는 채팅 기능
 - 화면 다크 & 라이트 모드
+- 크롬 웹 & 모바일 최적화(반응형)
 
 ---
 
@@ -63,16 +66,17 @@
 
 ## 사용한 패키지
 
-- 스타일 적용 : styled-components
-- router : yarn add react-router-dom
-- 리덕스 설치 : yarn add react-redux
-- 툴킷 (리덕스) 설치 : yarn add @reduxjs/toolkit
-- thunk (미들웨어) 설치 : yarn add redux-thunk
-- axios(통신) 설치 : yarn add axios
-- logger (개발 편하게 도와줌) 설치 : yarn add redux-logger
-- image resizing : yarn add browser-image-compression
-- 이미지 drop 업로드 : yarn add react-dropzone
-- 이미지 crop : yarn add react-image-crop
+- 스타일 적용 : `styled-components`
+- router : `react-router-dom`
+- 툴킷 (리덕스) 설치 : `@reduxjs/toolkit`
+- axios(통신) 설치 : `axios`
+- 실시간 서버 통신 : `react-query`
+- 무한스크롤 : `react-query`, `react-intersection-observer`
+- image resizing : `browser-image-compression`
+- 이미지 drop 업로드 : `react-dropzone`
+- 이미지 crop : `react-image-crop`
+- 달력 : `react-date-range`, `react-datepicker`
+- swiper : `react-slick`
 
 ---
 
@@ -292,18 +296,12 @@ reducers: {
 
 ## 반응형 세팅
 
-- 데스크탑 퍼스트로 break point 높은 순서부터 작성 : 데스크탑 기준의 서비스 제작
+- 데스크탑 퍼스트로 break point 높은 순서부터 작성 : 데스크탑 기준의 서비스 제작(theme 파일 적용)
 
 ```
-  @media (max-width: 1023px) {
-
-  }
-  @media (max-width: 767px) {
-
-  }
-  @media (max-width: 639px) {
-
-  }
+  mobile: `(max-width: 639px)`,
+  tablet: `(max-width: 767px)`,
+  desktop: `(min-width: 1025px)`,
 ```
 
 ---
