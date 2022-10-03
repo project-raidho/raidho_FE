@@ -36,25 +36,24 @@ const RelatedList = ({ targetTag, postId }: RelatedProps) => {
         <span className="bgMiddleLine" />
       </StRelatedTitleRow>
       <StRelatedListWrap>
-        {relatedPostList.length !== 0 &&
-          relatedPostList.map(
-            (post: {
-              id: number;
-              isImages: boolean;
-              multipartFiles: string[];
-            }) => (
-              <StPostCard key={post.id}>
-                <Link to={`/postDetail/${post.id}`}>
-                  {post.isImages && <div className="imagesIcon" />}
-                  <img
-                    src={post.multipartFiles[0]}
-                    alt={"이미지"}
-                    loading="lazy"
-                  />
-                </Link>
-              </StPostCard>
-            )
-          )}
+        {relatedPostList.map(
+          (post: {
+            id: number;
+            isImages: boolean;
+            multipartFiles: string[];
+          }) => (
+            <StPostCard key={post.id}>
+              <Link to={`/postDetail/${post.id}`}>
+                {post.isImages && <div className="imagesIcon" />}
+                <img
+                  src={post.multipartFiles[0]}
+                  alt={"이미지"}
+                  loading="lazy"
+                />
+              </Link>
+            </StPostCard>
+          )
+        )}
       </StRelatedListWrap>
     </>
   );

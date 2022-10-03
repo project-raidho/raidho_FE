@@ -28,6 +28,7 @@ const MainPostCard = (props: MainContentProps) => {
   const { mutate } = useMutation(changeLike, {
     onSuccess: () => {
       queryClient.invalidateQueries("postLists");
+      queryClient.invalidateQueries("tagPostList");
     },
     onError: () => {
       setModalIcon("warning");

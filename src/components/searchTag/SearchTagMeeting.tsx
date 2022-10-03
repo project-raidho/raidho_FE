@@ -16,12 +16,7 @@ const SearchTagMeeting = ({ tagName }: { tagName: string }) => {
 
   const { data, status, error } = useQuery(
     ["tagMeetingList", tagName],
-    getSearchTagMeetingList,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
+    getSearchTagMeetingList
   );
 
   if (status === "loading") return <Loading />;
