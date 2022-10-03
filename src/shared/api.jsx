@@ -10,10 +10,10 @@ const axiosApi = (url, options) => {
 
 // post, delete등 api요청 시 인증값이 필요한 경우
 const axiosAuthApi = (url, options) => {
-  const token = localStorage.getItem("Authorization");
+  // const token = localStorage.getItem("Authorization");
   const instance = axios.create({
     baseURL: url,
-    headers: { Authorization: token },
+    // headers: { Authorization: token },
     ...options,
   });
 
