@@ -241,6 +241,10 @@ const CreateMeetingContatiner = () => {
     setTitle(text);
   };
 
+  const onChangeLocation = (Location: string) => {
+    setDepartLocation(Location);
+  };
+
   return (
     <StContainer>
       <StStepTitle>여행정보 입력</StStepTitle>
@@ -298,7 +302,7 @@ const CreateMeetingContatiner = () => {
         maxRoomCloseDate={maxRoomCloseDate}
       />
       <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
-      <MeetingLocationSearch setDepartLocation={setDepartLocation} />
+      <MeetingLocationSearch onChangeLocation={onChangeLocation} />
       <StValidationMsg>{departLocationValMsg}</StValidationMsg>
       <StbottonBox>
         <span className="createButton">
