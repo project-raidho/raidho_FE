@@ -7,29 +7,37 @@ import Modal from "../../global/globalModal/Modal";
 import styled from "styled-components";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
-const UpdateMyProfile = (props) => {
+const UpdateMyProfile = () => {
   // ::: 유저 정보 가져오기
   const memberInfo = {
     memberId: localStorage.getItem("memberId"),
     memberName: localStorage.getItem("memberName"),
-    memberImage:
-      localStorage.getItem("memberImage") === "null"
-        ? `${DefaultMemberImage}`
-        : localStorage.getItem("memberImage"),
+    memberImage: localStorage.getItem("memberImage"),
     memberIntro: localStorage.getItem("memberIntro"),
   };
+  if (memberInfo.memberImage === null) {
+    memberInfo.memberImage = `${DefaultMemberImage}`;
+  }
+  if (memberInfo.memberIntro === null) {
+    memberInfo.memberIntro = "";
+  }
+  if (memberInfo.memberName === null) {
+    memberInfo.memberName = "";
+  }
 
-  const [compressedImageFile, setCompressedImageFile] = useState(null);
-  const [previewUpdateImage, setPreviewUpdateImage] = useState(null);
-  const [updateNickname, setUpdateNickname] = useState(null);
-  const [updateComment, setUpdateComment] = useState(null);
+  const [compressedImageFile, setCompressedImageFile] = useState<File>();
+  const [previewUpdateImage, setPreviewUpdateImage] = useState<
+    string | ArrayBuffer
+  >();
+  const [updateNickname, setUpdateNickname] = useState("");
+  const [updateComment, setUpdateComment] = useState("");
 
   // ::: 프로필 수정 글자수 제한
   const [nickNameLength, setNickNameLength] = useState(0);
   const [introLength, setIntroLength] = useState(0);
 
   // ::: 유효성 검사 메시지 상태관리하기
-  const [validationAlert, setValidationAlert] = useState("");
+  const [validationAlert, setValidationAlert] = useState<string>();
 
   // ::: 프로필 편집 모달(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState(false);
@@ -38,15 +46,20 @@ const UpdateMyProfile = (props) => {
 
     // ::: 유저가 입력한 값 초기화 시키기
 
-    setCompressedImageFile(null);
-    setUpdateNickname(null);
-    setUpdateComment(null);
-    setValidationAlert(null);
+    setCompressedImageFile(undefined);
+    setUpdateNickname("");
+    setUpdateComment("");
+    setValidationAlert("");
   };
 
   // ::: 이미지 미리보기(Image Preview)
-  const onChangePostImageFile = (event) => {
+  const onChangePostImageFile = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let reader = new FileReader();
+    if (event.target.files === null) {
+      return;
+    }
     const postImageFile = event.target.files[0];
     setCompressedImageFile(postImageFile);
     if (postImageFile) {
@@ -54,18 +67,24 @@ const UpdateMyProfile = (props) => {
     }
     reader.onloadend = () => {
       const resultImage = reader.result;
+      if (resultImage === null) {
+        return;
+      }
+
       setPreviewUpdateImage(resultImage);
     };
   };
 
-  // console.log(previewUpdateImage);
-
-  const onChangeUpdateMemberName = (event) => {
+  const onChangeUpdateMemberName = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUpdateNickname(event.target.value);
     setNickNameLength(event.target.value.length);
   };
 
-  const onChangeUpdateMemberComment = (event) => {
+  const onChangeUpdateMemberComment = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUpdateComment(event.target.value);
     setIntroLength(event.target.value.length);
   };
@@ -92,13 +111,25 @@ const UpdateMyProfile = (props) => {
     // :: image file formData 형식 변환
     const formData = new FormData();
 
-    if (compressedImageFile !== null) {
+    if (compressedImageFile !== undefined) {
       const fileName =
         "raidho_member_image_" + new Date().getMilliseconds() + ".jpeg";
       formData.append("memberImage", compressedImageFile, fileName);
+      if (finalNickname === null) {
+        return;
+      }
+      if (finalIntro === null) {
+        return;
+      }
       formData.append("memberName", finalNickname);
       formData.append("memberIntro", finalIntro);
     } else {
+      if (finalNickname === null) {
+        return;
+      }
+      if (finalIntro === null) {
+        return;
+      }
       formData.append("memberName", finalNickname);
       formData.append("memberIntro", finalIntro);
     }
@@ -128,7 +159,7 @@ const UpdateMyProfile = (props) => {
     <StUpdateMyProfileWrap>
       <StMyProfileBox>
         <p>
-          <img src={memberInfo.memberImage} alt={memberInfo.memberName} />
+          <img src={memberInfo.memberImage} alt={"멤버이미지"} />
         </p>
         <dl>
           <dt>@{memberInfo.memberName}</dt>
@@ -154,9 +185,9 @@ const UpdateMyProfile = (props) => {
                       onChange={onChangePostImageFile}
                       accept="image/jpg, image/jpeg, image/png"
                     />
-                    {previewUpdateImage !== null ? (
+                    {previewUpdateImage !== undefined ? (
                       <img
-                        src={previewUpdateImage}
+                        src={previewUpdateImage as string}
                         alt="preview"
                         style={{
                           width: "100%",
@@ -178,7 +209,7 @@ const UpdateMyProfile = (props) => {
                         value={updateNickname}
                         placeholder={memberInfo.memberName}
                         onChange={(event) => onChangeUpdateMemberName(event)}
-                        maxLength="10"
+                        maxLength={10}
                       />
                       <StValidationLength>
                         {nickNameLength}/10자
@@ -195,7 +226,7 @@ const UpdateMyProfile = (props) => {
                     placeholder={memberInfo.memberIntro}
                     onChange={(event) => onChangeUpdateMemberComment(event)}
                     value={updateComment}
-                    maxLength="50"
+                    maxLength={50}
                   />
                   <StValidationLength>{introLength}/50자</StValidationLength>
                 </div>
@@ -414,7 +445,7 @@ const StUpdateProfileRow = styled.div`
   }
 `;
 
-const StMemberImageBox = styled.label`
+const StMemberImageBox = styled.label<{ userImageProfile: string }>`
   position: relative;
   display: flex;
   align-items: center;

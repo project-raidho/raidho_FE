@@ -57,7 +57,7 @@ const MyProfileContainer = () => {
   const PostCommentedQuery = useQuery("postListCommented", getPostCommented);
   const PostLikedQuery = useQuery("postListLiked", getPostliked);
 
-  const onClickMoreMeeting = () => {
+  const onClickMoreMeeting = (): void => {
     setIsMoreMeeting(!isMoreMeeting);
   };
 
@@ -108,10 +108,6 @@ const MyProfileContainer = () => {
       </StMyProfileTextRow>
 
       <UpdateMyProfile />
-      <div>
-        <div className="menubox"></div>
-        <div></div>
-      </div>
 
       <StMyProfileTitleRow>
         <h3>내가 작성한 모집글</h3>
@@ -125,7 +121,7 @@ const MyProfileContainer = () => {
         <MyMeetingList
           status={MeetingListQuery.status}
           data={MeetingListQuery.data}
-          error={MeetingListQuery.error}
+          error={MeetingListQuery.error as Error}
         />
       )}
 
@@ -141,7 +137,7 @@ const MyProfileContainer = () => {
         <MyMeetingList
           status={MeetingLikedQuery.status}
           data={MeetingLikedQuery.data}
-          error={MeetingLikedQuery.error}
+          error={MeetingLikedQuery.error as Error}
         />
       )}
 
@@ -153,7 +149,13 @@ const MyProfileContainer = () => {
           <FaAngleDown className="moreIcon" onClick={onClickMorePost} />
         )}
       </StMyProfileTitleRow>
-      {isMorePost && <MyPostList data={PostListQuery.data} />}
+      {isMorePost && (
+        <MyPostList
+          data={PostListQuery.data}
+          status={PostLikedQuery.status}
+          error={PostLikedQuery.error as Error}
+        />
+      )}
 
       <StMyProfileTitleRow>
         <h3>내가 댓글단 여행후기</h3>
@@ -166,7 +168,13 @@ const MyProfileContainer = () => {
           />
         )}
       </StMyProfileTitleRow>
-      {isMorePostCommented && <MyPostList data={PostCommentedQuery.data} />}
+      {isMorePostCommented && (
+        <MyPostList
+          data={PostCommentedQuery.data}
+          status={PostLikedQuery.status}
+          error={PostLikedQuery.error as Error}
+        />
+      )}
 
       <StMyProfileTitleRow>
         <h3>내가 좋아요한 여행후기</h3>
@@ -176,7 +184,13 @@ const MyProfileContainer = () => {
           <FaAngleDown className="moreIcon" onClick={onClickMorePostLiked} />
         )}
       </StMyProfileTitleRow>
-      {isMorePostLiked && <MyPostList data={PostLikedQuery.data} />}
+      {isMorePostLiked && (
+        <MyPostList
+          data={PostLikedQuery.data}
+          status={PostLikedQuery.status}
+          error={PostLikedQuery.error as Error}
+        />
+      )}
 
       <StMyProfileTextRow>
         <p>설정</p>
@@ -187,7 +201,7 @@ const MyProfileContainer = () => {
           <input
             type="checkbox"
             onClick={darkOnOff}
-            defaultChecked={checkDarkMode ? "checked" : ""}
+            defaultChecked={checkDarkMode ? true : false}
           />
           <span className="onoffSwitch"></span>
           <strong>{checkDarkMode ? "on" : "off"}</strong>
@@ -215,7 +229,7 @@ const StMyProfileContainerWrap = styled.div`
   }
 `;
 
-const StMyProfileTitleRow = styled.div<{ isMore: boolean }>`
+const StMyProfileTitleRow = styled.div`
   border-bottom: 1px solid var(--gray-color);
   position: relative;
   display: flex;
@@ -255,7 +269,6 @@ const StMyProfileTitleRow = styled.div<{ isMore: boolean }>`
   }
 
   p {
-    display: ${(props) => props.isMore && "none"};
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--title-color);

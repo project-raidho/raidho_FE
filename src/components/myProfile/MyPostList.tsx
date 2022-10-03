@@ -10,9 +10,20 @@ import Error from "../../elements/Error";
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-const MyPostList = ({ data, status, error }) => {
+
+interface MyPostListProps {
+  data: {
+    isImages: boolean;
+    id: number;
+    multipartFiles: string[];
+  }[];
+  status: string;
+  error: { message: string };
+}
+
+const MyPostList = ({ data, status, error }: MyPostListProps) => {
   // const navigate = useNavigate();
-  // console.log(data);
+  console.log(data);
 
   // ::: 디바이스 화면 크기 확인
   const [isMobile, setIsMobile] = useState(false);
@@ -65,45 +76,50 @@ const MyPostList = ({ data, status, error }) => {
         <StMessageMinePost>
           <img src={IconError} alt="에러" />
           <p>해당 게시글이 없습니다.</p>
-          {/* <Button
-            onClick={() => navigate(`/createPost`)}
-            size="square"
-            variant="lineSquare"
-          >
-            여행후기 작성하러 가기
-          </Button> */}
         </StMessageMinePost>
       )}
       <StMyPostListWrap>
-        {(data.length < 4 && isMobile) || ( !isMobile) ? (
+        {(data.length < 4 && isMobile) || !isMobile ? (
           <StPostCardBox>
-            {data?.map((post) => (
-              <StPostCard key={post.id}>
-                <Link to={`/postDetail/${post.id}`}>
-                  {post.isImages && <div className="imagesIcon" />}
-                  <img
-                    src={post.multipartFiles[0]}
-                    alt={post.id}
-                    loading="lazy"
-                  />
-                </Link>
-              </StPostCard>
-            ))}
+            {data?.map(
+              (post: {
+                isImages: boolean;
+                id: number;
+                multipartFiles: string[];
+              }) => (
+                <StPostCard key={post.id}>
+                  <Link to={`/postDetail/${post.id}`}>
+                    {post.isImages && <div className="imagesIcon" />}
+                    <img
+                      src={post.multipartFiles[0]}
+                      alt={"이미지"}
+                      loading="lazy"
+                    />
+                  </Link>
+                </StPostCard>
+              )
+            )}
           </StPostCardBox>
         ) : (
           <Slider {...settings}>
-            {data?.map((post) => (
-              <StPostCard key={post.id}>
-                <Link to={`/postDetail/${post.id}`}>
-                  {post.isImages && <div className="imagesIcon" />}
-                  <img
-                    src={post.multipartFiles[0]}
-                    alt={post.id}
-                    loading="lazy"
-                  />
-                </Link>
-              </StPostCard>
-            ))}
+            {data?.map(
+              (post: {
+                isImages: boolean;
+                id: number;
+                multipartFiles: string[];
+              }) => (
+                <StPostCard key={post.id}>
+                  <Link to={`/postDetail/${post.id}`}>
+                    {post.isImages && <div className="imagesIcon" />}
+                    <img
+                      src={post.multipartFiles[0]}
+                      alt={"이미지"}
+                      loading="lazy"
+                    />
+                  </Link>
+                </StPostCard>
+              )
+            )}
           </Slider>
         )}
       </StMyPostListWrap>
@@ -142,26 +158,9 @@ const StMessageMinePost = styled.div`
 `;
 
 const StMyPostListWrap = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(4, 1fr); */
-
-  /* height: ${(props) => (props.isMore === true ? "auto" : "400px")}; */
   height: auto;
   background-color: var(--bg-color);
   overflow: hidden;
-
-  /* @media (max-width: 1023px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 767px) {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    height: ${(props) => (props.isMore === true ? "auto" : "200px")};
-  }
-  @media (max-width: 639px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  } */
 `;
 
 const StPostCardBox = styled.div`
@@ -172,7 +171,7 @@ const StPostCardBox = styled.div`
   @media (max-width: 1023px) {
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    height: ${(props) => (props.isMore === true ? "auto" : "200px")};
+    height: auto;
   }
   @media (max-width: 639px) {
     grid-template-columns: repeat(3, 1fr);

@@ -39,7 +39,7 @@ export interface MeetingContentProps {
   themeCategory: string;
   title: string;
   themeList?: ThemeListProps[];
-  onClickTheme: (theme: string) => Promise<void> | undefined;
+  onClickTheme?: (theme: string) => Promise<void>;
 }
 
 export interface ThemeListProps {

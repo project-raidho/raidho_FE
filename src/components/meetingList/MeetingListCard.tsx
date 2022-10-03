@@ -113,7 +113,11 @@ const MeetingListCard = (Props: MeetingContentProps) => {
     Props.themeList?.map((theme: ThemeListProps) => {
       if (theme.themeName === meetingCategory) {
         navigate(`/meetingList/${theme.themePath}`);
-        Props.onClickTheme(theme.themeName);
+
+        if (Props.onClickTheme === undefined) {
+        } else {
+          Props.onClickTheme(theme.themeName);
+        }
       }
       return false;
     });
