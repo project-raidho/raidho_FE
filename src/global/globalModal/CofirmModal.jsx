@@ -6,7 +6,7 @@ import Success from "../../elements/Success";
 import Warning from "../../elements/Warning";
 import Info from "../../elements/Info";
 
-const AlertModal = ({
+const ConfirmModal = ({
   onCloseModal,
   modalIcon,
   alertMsg,
@@ -51,7 +51,7 @@ const AlertModal = ({
   );
 };
 
-export default AlertModal;
+export default ConfirmModal;
 
 const Background = styled.div`
   height: 100%;

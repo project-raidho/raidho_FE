@@ -10,13 +10,16 @@
 
 ## 주요 기능
 
-- 소셜로그인을 통한 간편한 회원가입
-- 여행 후기 작성
-- 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능
-- 태그를 통한 검색 기능
-- 여행 모집글 작성
+- 소셜로그인(카카오)을 통한 간편한 회원가입
+- 원하는 비율과 원하는 사이즈로 이미지를 편집하는 기능을 이용한 여행후기 등록
+- 좋아요, 찜하기, 댓글 기능
+- 태그를 통한 검색 기능(+최근검색기록)
+- 날짜 및 장소 등을 통한 여행 모집 등록
+- 날짜 및 카테고리 필터를 통한 모집 리스트
+- 카카오 맵 API를 이용한 지도서비스(도로명검색&키워드검색)
 - 실시간 소통을 할 수 있는 채팅 기능
 - 화면 다크 & 라이트 모드
+- 크롬 웹 & 모바일 최적화(반응형)
 
 ---
 
@@ -36,6 +39,12 @@
   <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
   <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
 </p>
+
+---
+
+## 아키텍처
+
+<img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/tech.png?raw=true" width="900">
 
 ---
 
@@ -63,16 +72,17 @@
 
 ## 사용한 패키지
 
-- 스타일 적용 : styled-components
-- router : yarn add react-router-dom
-- 리덕스 설치 : yarn add react-redux
-- 툴킷 (리덕스) 설치 : yarn add @reduxjs/toolkit
-- thunk (미들웨어) 설치 : yarn add redux-thunk
-- axios(통신) 설치 : yarn add axios
-- logger (개발 편하게 도와줌) 설치 : yarn add redux-logger
-- image resizing : yarn add browser-image-compression
-- 이미지 drop 업로드 : yarn add react-dropzone
-- 이미지 crop : yarn add react-image-crop
+- 스타일 적용 : `styled-components`
+- router : `react-router-dom`
+- 툴킷 (리덕스) 설치 : `@reduxjs/toolkit`
+- axios(통신) 설치 : `axios`
+- 실시간 서버 통신 : `react-query`
+- 무한스크롤 : `react-query`, `react-intersection-observer`
+- image resizing : `browser-image-compression`
+- 이미지 drop 업로드 : `react-dropzone`
+- 이미지 crop : `react-image-crop`
+- 달력 : `react-date-range`, `react-datepicker`
+- swiper : `react-slick`
 
 ---
 
@@ -127,6 +137,9 @@
 |      2022.09.27       | - 게시글 등록 스타일 수정 <br> - 모집리스트 스타일 수정 <br> - NotFound 페이지 작업 <br> - 채팅 오류 해결 : DB에서 채팅내역 못 받음 <br> - 마이페이지 스타일 적용 <br> - 여행후기 상세페이지 스타일 수정 <br> - 다크모드 오류 해결 : 다크모드 초기 미적용 <br> - 반응형 스타일 : 헤더, 메인, 검색상세, 마이페이지                                          |
 |      2022.09.28       | - 스타일 적용(반응형) : 마이페이지 모집글 리스트, 채팅, 모집글 작성페이지, 댓글, 모집글 작성, 게시글 등록, 미팅리스트 달력, 모집글수정, 채팅, 자랑글 상세 <br> - 푸터 세팅 <br> - 여행상세페이지 댓글 기능 추가 <br> - 미팅 리스트 날짜 조회 필터 기능 구현 <br> - 배너 적용방식 변경 <br> - 메인 탑버튼 수정 <br> - 마이페이지 프로필 수정 기능 오류 해결 |
 |      2022.09.29       | - 스타일 수정(반응형, 다크모드) : 오류팝업, 헤더, 채팅, 모집글 작성페이지 <br> - textarea, tag 공통 컨포넌트 수정<br> - 가이드 팝업 구현 <br> - 모집글 찜기능 구현<br> - 마이페이지 내가쓴 댓글, 좋아요 조회 기능 구현 <br> - 그 외 배포 전 오류 처리                                                                                                      |
+|      2022.10.01       | - 상세페이지 댓글&모집글 삭제 시 모달처리 <br> - 마이페이지 슬라이드 적용 <br> - 프로필 수정 유효성 검사 <br> - 검색버튼 기능 구현 추가 <br> - 라우터 아이디 구체화 작업 <br> - 태그 많은 경우 화면깨지는 현상 해결 & 태그 입력 개수 제한                                                                                                                  |
+|      2022.10.02       | - 타입스크립트 변환(세팅, 메인, 공통컨포넌트(리덕스, 라우터), 로그인, 모집글, 여행후기, 검색 상세 등) <br> - 주소 입력시 튕기는 오류 해결 <br> - 아이폰 날짜 계산 오류 해결 <br> - 내용 내려쓰기 출력 처리                                                                                                                                                 |
+|      2022.10.03       | - 타입스크립트 변환(마이페이지) <br> - 브로셔 작성 <br> - 트러블 슈팅, 아키텍처 등 문서 작성 <br> - 피드백 선물 전달                                                                                                                                                                                                                                       |
 
 ---
 
@@ -271,7 +284,7 @@ reducers: {
 - 아이폰 사파리 브라우저를 통해 업로드 테스트 진행
   - 최대로 편집을 진행해도 잘 업로드 되는 점을 확인 할 수 있었음
   - 원본 화질과 업로드된 이미지 화질 차이가 많이 나지 않는다는 점을 육안으로 확인할 수 있었음
-    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSampleMobile.png?raw=true" width="900">
+    <img src="https://github.com/project-raidho/raidho_FE/blob/yoojin/docs/imageResizingSampleMobile2.png?raw=true" width="900">
 
 ---
 
@@ -292,18 +305,12 @@ reducers: {
 
 ## 반응형 세팅
 
-- 데스크탑 퍼스트로 break point 높은 순서부터 작성 : 데스크탑 기준의 서비스 제작
+- 데스크탑 퍼스트로 break point 높은 순서부터 작성 : 데스크탑 기준의 서비스 제작(theme 파일 적용)
 
 ```
-  @media (max-width: 1023px) {
-
-  }
-  @media (max-width: 767px) {
-
-  }
-  @media (max-width: 639px) {
-
-  }
+  mobile: `(max-width: 639px)`,
+  tablet: `(max-width: 767px)`,
+  desktop: `(min-width: 1025px)`,
 ```
 
 ---
