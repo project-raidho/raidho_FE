@@ -10,10 +10,24 @@ import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
+interface PostDetailProps {
+  id: string;
+  content: string;
+  multipartFiles: string[];
+  tags: string[];
+  locationTags: string[];
+  heartCount: number;
+  isHeartMine: boolean;
+  isMine: boolean;
+  memberId: number;
+  memberImage: string;
+  memberName: string;
+}
+
 const UpdatePostContainer = () => {
   const navigate = useNavigate();
 
-  const [postDetail, setPostDetail] = useState({
+  const [postDetail, setPostDetail] = useState<PostDetailProps>({
     id: "",
     content: "",
     multipartFiles: [],
@@ -27,29 +41,31 @@ const UpdatePostContainer = () => {
     memberName: "",
   });
   // ::: 입력된 데이터 취합하기
-  const [postContent, setPostContent] = useState(postDetail.content);
-  const [postTags, setPostTags] = useState(postDetail.tags);
+  const [postContent, setPostContent] = useState<string>(postDetail.content);
+  const [postTags, setPostTags] = useState<string[]>(postDetail.tags);
 
   // ::: 유효성 검사 메시지 상태관리하기
-  const [validationContent, setValidationContent] = useState("");
-  const [validationTags, setValidationTags] = useState("");
+  const [validationContent, setValidationContent] = useState<string>("");
+  const [validationTags, setValidationTags] = useState<string>("");
 
   // // ::: 게시글 아이디
   const postId = useParams().postId;
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
-  const [modalOn, setModalOn] = useState(false);
-  const [modalIcon, setModalIcon] = useState("");
-  const [alertMsg, setAlertMsg] = useState("");
+  const [modalOn, setModalOn] = useState<boolean>(false);
+  const [modalIcon, setModalIcon] = useState<
+    "success" | "warning" | "info" | ""
+  >("");
+  const [alertMsg, setAlertMsg] = useState<string>("");
 
   const onCloseModal = () => {
     setModalOn(!modalOn);
   };
-  const typedPostContent = (text) => {
+  const typedPostContent = (text: string) => {
     setPostContent(text);
   };
 
-  const selectedTags = (tags) => {
+  const selectedTags = (tags: string[]) => {
     setPostTags(tags);
   };
 
@@ -78,7 +94,9 @@ const UpdatePostContainer = () => {
 
       const formData = new FormData();
       formData.append("content", postContent);
-      formData.append("tags", postTags);
+      for (const tag of postTags) {
+        formData.append("tags", tag);
+      }
 
       await authInstance.put(`/api/post/${postId}`, formData);
 
@@ -86,7 +104,7 @@ const UpdatePostContainer = () => {
     }
   };
 
-  const getPostDetail = async (postId) => {
+  const getPostDetail = async (postId: string | undefined) => {
     try {
       const responsePostDetail = await authInstance.get(`/api/post/${postId}`);
 
@@ -152,6 +170,7 @@ const UpdatePostContainer = () => {
           typedPostContent={typedPostContent}
           initialContent={postDetail.content}
           placeholderText={"여행에서 경험한 내용을 입력해주세요."}
+          ValRedMsg={""}
         />
         <StValidationMessage>{validationContent}</StValidationMessage>
 
@@ -160,7 +179,6 @@ const UpdatePostContainer = () => {
           selectedTags={selectedTags}
           tags={postDetail.tags}
           tagMassage={"엔터키를 치시면 입력됩니다."}
-          setValidationTags={setValidationTags}
           tagStatus={true}
         />
         <StValidationMessage>{validationTags}</StValidationMessage>
@@ -174,7 +192,7 @@ const UpdatePostContainer = () => {
           >
             취소
           </Button>
-          <Button size="medium" variant="linePrimary" onClick={mutate}>
+          <Button size="medium" variant="linePrimary" onClick={() => mutate()}>
             등록
           </Button>
         </StButtonWrap>

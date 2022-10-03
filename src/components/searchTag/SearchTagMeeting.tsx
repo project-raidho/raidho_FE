@@ -53,9 +53,7 @@ const SearchTagMeeting = ({ tagName }: { tagName: string }) => {
               startDate={meeting.startDate}
               themeCategory={meeting.themeCategory}
               title={meeting.title}
-              onClickTheme={() => {
-                return undefined;
-              }}
+              onClickTheme={undefined}
             />
           ))}
         </StMeetingCardBox>

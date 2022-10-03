@@ -243,7 +243,7 @@ const CreatePostImageCrop = ({
   ));
 
   // ::: 썸네일 이미지 클릭시 편집 화면에 이미지 띄우기
-  const clickThumbImage = (file: File, index: number) => {
+  const clickThumbImage = (file: Blob, index: number) => {
     // ::: 편집완료한 이미지 체크하기
     const checkDuplicateImage = saveImagesIndex.filter(
       (imageIndex) => imageIndex === index
