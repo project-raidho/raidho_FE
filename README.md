@@ -108,7 +108,7 @@
 | 여행후기 등록       | - 이미지 편집 및 등록 <br /> - 태그 등록, 태그 삭제, 태그 중복방지                                               |
 | 여행후기 상세       | - 여행후기 삭제 <br /> - 댓글 CRUD <br /> - 연관 게시글 조회                                                     |
 | 여행후기 수정       | - 여행후기 수정                                                                                                  |
-| 여행친구찾기 리스트 | - 여행친구 찾기 조회 <br /> - 찜기능                                                                             |
+| 여행친구찾기 리스트 | - 여행친구 찾기 조회 <br /> - 찜기능 <br /> - 기간, 상태 & 카테고리에 따른 조회 기능                             |
 | 여행친구찾기 등록   | - 달력 <br/> - 카카오맵 주소검색, 태그                                                                           |
 | 여행친구찾기 상세   | - 여행친구찾기 삭제                                                                                              |
 | 여행친구찾기 수정   | - 여행친구찾기 수정                                                                                              |
@@ -120,13 +120,13 @@
 
 ## 🌏 맴버 정보
 
-| Position              | Name      | Blog                                                     | MBTI |
-| --------------------- | --------- | -------------------------------------------------------- | ---- |
-| FE·ReactJS·Typescript | 🔰 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
-| FE·ReactJS·Typescript | 김경문    | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
-| BE·Spring             | 🔰 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
-| BE·Spring             | 김성호    | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
-| BE·Spring             | 전태훈    | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
-| UX/UI                 | 강예진    |                                                          | ENFP |
+| Position                 | Name   | Blog                                                     | MBTI |
+| ------------------------ | ------ | -------------------------------------------------------- | ---- |
+| 🔰 FE·ReactJS·Typescript | 나유진 | 🔗 [GitHub::YooJinRa](https://github.com/YooJinRa)       | INFP |
+| FE·ReactJS·Typescript    | 김경문 | 🔗 [GitHub::rudans987](https://github.com/rudans987)     | INFJ |
+| 🔰 BE·Spring             | 박상욱 | 🔗 [GitHub::ParkRio](https://github.com/ParkRio/ParkRio) | ENFP |
+| BE·Spring                | 김성호 | 🔗 [GitHub::kimsoungho](https://github.com/kimsoungho)   | INFP |
+| BE·Spring                | 전태훈 | 🔗 [GitHub::JeonTaehun](https://github.com/JeonTaehun)   | INFJ |
+| UX/UI                    | 강예진 |                                                          | ENFP |
 
 ---
