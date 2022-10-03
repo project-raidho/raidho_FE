@@ -14,7 +14,7 @@ interface ModalProps {
   onClickNo: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const AlertModal = ({
+const CofirmModal = ({
   onCloseModal,
   modalIcon,
   alertMsg,
@@ -59,7 +59,7 @@ const AlertModal = ({
   );
 };
 
-export default AlertModal;
+export default CofirmModal;
 
 const Background = styled.div`
   height: 100%;
