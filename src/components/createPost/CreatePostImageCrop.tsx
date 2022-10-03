@@ -6,7 +6,7 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
+import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import AlertModal from "../../global/globalModal/AlertModal";
 // import ConfirmModal from "../../global/globalModal/ConfirmModal"
@@ -65,7 +65,7 @@ const CreatePostImageCrop = ({
   const imageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [buttonActive, setButtonActive] = useState<number>(0);
-  const [crop, setCrop] = useState<CropProps | null>(null);
+  const [crop, setCrop] = useState<Crop | undefined>(undefined);
   const [completedCrop, setCompletedCrop] = useState<CropProps | null>(null);
   const [uploadImages, setUploadImages] = useState<Blob[]>([]);
   const [aspect, setAspect] = useState<number>(16 / 9);
@@ -115,7 +115,11 @@ const CreatePostImageCrop = ({
     );
 
     if (alertMessageImageSize) {
-      const { width, height } = imageRef.current;
+      // const { width, height } = imageRef.current;
+      const width = imageRef.current?.width ?? null;
+      const height = imageRef.current?.height ?? null;
+      if (!width || !height) return;
+
       setAspect(selectAspect);
       setCrop(centerAspectCrop(width, height, selectAspect));
       setUploadImages([]);
@@ -249,7 +253,9 @@ const CreatePostImageCrop = ({
       setSelectedImageIndex(index);
 
       // ::: 썸네일 클릭시 이미지 미리보기 되게 하기
-      const { width, height } = imageRef.current;
+      const width = imageRef.current?.width ?? null;
+      const height = imageRef.current?.height ?? null;
+      if (!width || !height) return;
       setCrop(centerAspectCrop(width, height, aspect));
     } else {
       setModalIcon("info");
