@@ -84,8 +84,10 @@ const CreatePostContainer = () => {
       for (const image of postImages) {
         formData.append("imgUrl", image, fileName);
       }
+      for (const tag of postTags) {
+        formData.append("tags", tag);
+      }
       formData.append("content", postContent);
-      formData.append("tags", postTags);
 
       try {
         const response = await authInstance.post(`/api/post`, formData, {

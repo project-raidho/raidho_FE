@@ -137,6 +137,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
       queryClient.invalidateQueries("meetingList");
       queryClient.invalidateQueries("meetingListMine");
       queryClient.invalidateQueries("MeetingListLiked");
+      queryClient.invalidateQueries("tagMeetingList");
     },
     onError: () => {
       setModalIcon("warning");
