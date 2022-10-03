@@ -5,14 +5,14 @@ import DaumPostcode from "react-daum-postcode";
 import Button from "../../elements/Button";
 import styled from "styled-components";
 
-const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
-  const [text, setText] = useState(departLocation);
+const MeetingLocationSearch = ({ departLocation, onChangeLocation }) => {
+  const [text, setText] = useState("");
   const [Place, setPlace] = useState("");
 
   const onChange = (e) => {
     setText(e.target.value);
-    setPlace(text);
-    setDepartLocation(text);
+    setPlace(e.target.value);
+    onChangeLocation(e.target.value);
   };
 
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -37,7 +37,7 @@ const MeetingLocationSearch = ({ departLocation, setDepartLocation }) => {
 
     setText(fullAddr);
     setPlace(fullAddr);
-    setDepartLocation(fullAddr);
+    onChangeLocation(fullAddr);
     setIsOpenPost(false);
   };
 

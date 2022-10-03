@@ -217,6 +217,9 @@ const UpdateMeetingContainer = () => {
   const onChangeContent = (content) => {
     setDesc(content);
   };
+  const onChangeLocation = (Location) => {
+    setDepartLocation(Location);
+  };
 
   const onChangeTitle = (title) => {
     setTitle(title);
@@ -283,7 +286,7 @@ const UpdateMeetingContainer = () => {
         <StValidationMsg>{roomCloseDateValMsg}</StValidationMsg>
         <MeetingLocationSearch
           departLocation={departLocation}
-          setDepartLocation={setDepartLocation}
+          onChangeLocation={onChangeLocation}
         />
         <StValidationMsg>{departLocationValMsg}</StValidationMsg>
         <StButtonWrap>

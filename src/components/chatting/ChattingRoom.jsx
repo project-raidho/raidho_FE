@@ -144,7 +144,6 @@ const ChattingRoom = () => {
         return;
       }
 
-      //   // 로딩 중
       waitForConnection(ws, function () {
         ws.send(
           `/pub/chat/send/${chattingId}`,
