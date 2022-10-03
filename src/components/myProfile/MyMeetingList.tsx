@@ -7,8 +7,17 @@ import MeetingListCard from "../meetingList/MeetingListCard";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 import styled from "styled-components";
+import { MeetingContentProps } from "../../elements/Type";
 
-const MyMeetingList = ({ status, data, error }) => {
+const MyMeetingList = ({
+  status,
+  data,
+  error,
+}: {
+  status: string;
+  error: { message: string };
+  data: MeetingContentProps[];
+}) => {
   // ::: 디바이스 화면 크기 확인
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
@@ -53,21 +62,58 @@ const MyMeetingList = ({ status, data, error }) => {
     slidesToScroll: 1,
   };
 
-  // console.log("내가 작성한 모집글 리스트 ::::", data);
   return (
     <StMyMeetingListWrap>
       {(data.length < 2 && isMobile) ||
       (data.length < 3 && isTablet) ||
       (data.length < 4 && !isMobile && !isTablet) ? (
         <StMeetingCardBox>
-          {data.map((meeting) => (
-            <MeetingListCard key={meeting.id} meeting={meeting} />
+          {data.map((meeting: MeetingContentProps) => (
+            <MeetingListCard
+              key={meeting.id}
+              departLocation={meeting.departLocation}
+              desc={meeting.desc}
+              endDate={meeting.endDate}
+              id={meeting.id}
+              isAlreadyJoin={meeting.isAlreadyJoin}
+              isMine={meeting.isMine}
+              isStarMine={meeting.isStarMine}
+              meetingStatus={meeting.meetingStatus}
+              meetingTags={meeting.meetingTags}
+              memberCount={meeting.memberCount}
+              memberImage={meeting.memberImage}
+              memberName={meeting.memberName}
+              people={meeting.people}
+              roomCloseDate={meeting.roomCloseDate}
+              startDate={meeting.startDate}
+              themeCategory={meeting.themeCategory}
+              title={meeting.title}
+            />
           ))}
         </StMeetingCardBox>
       ) : (
         <Slider {...settings}>
-          {data.map((meeting) => (
-            <MeetingListCard key={meeting.id} meeting={meeting} />
+          {data.map((meeting: MeetingContentProps) => (
+            <MeetingListCard
+              key={meeting.id}
+              departLocation={meeting.departLocation}
+              desc={meeting.desc}
+              endDate={meeting.endDate}
+              id={meeting.id}
+              isAlreadyJoin={meeting.isAlreadyJoin}
+              isMine={meeting.isMine}
+              isStarMine={meeting.isStarMine}
+              meetingStatus={meeting.meetingStatus}
+              meetingTags={meeting.meetingTags}
+              memberCount={meeting.memberCount}
+              memberImage={meeting.memberImage}
+              memberName={meeting.memberName}
+              people={meeting.people}
+              roomCloseDate={meeting.roomCloseDate}
+              startDate={meeting.startDate}
+              themeCategory={meeting.themeCategory}
+              title={meeting.title}
+            />
           ))}
         </Slider>
       )}
