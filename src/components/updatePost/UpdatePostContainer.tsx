@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { authInstance } from "../../shared/api";
 import PostDetailImg from "../postDetail/PostDetailImg";
 import ContentTextArea from "../../elements/ContentTextArea";
-import UpdatePostTags from "./UpdatePostTags";
+import TagInput from "../../elements/TagInput";
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
 import Button from "../../elements/Button";
@@ -175,13 +175,13 @@ const UpdatePostContainer = () => {
         <StValidationMessage>{validationContent}</StValidationMessage>
 
         <StStepTitle>태그</StStepTitle>
-        <UpdatePostTags
+        <TagInput
           selectedTags={selectedTags}
           tags={postDetail.tags}
           tagMassage={"엔터키를 치시면 입력됩니다."}
           tagStatus={true}
+          tagValMsg={validationTags}
         />
-        <StValidationMessage>{validationTags}</StValidationMessage>
         <StButtonWrap>
           <Button
             size="medium"
