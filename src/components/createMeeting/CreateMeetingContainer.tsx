@@ -22,7 +22,7 @@ const CreateMeetingContatiner = () => {
   const [meetingTags, setMeetingTags] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState("");
-  const [people, setPeople] = useState<number | undefined>();
+  const [people, setPeople] = useState<number | undefined>(2);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [roomCloseDate, setRoomCloseDate] = useState("");
