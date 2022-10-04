@@ -22,7 +22,7 @@ const searchSlice = createSlice({
     getRecentSearch: (state) => {
       const initRecentSearches = localStorage.getItem("recentSearches");
       if (!initRecentSearches) {
-        throw new Error("저장된 최근검색어가 없습니다.");
+        localStorage.setItem("recentSearches", "");
       }
       initRecentSearches
         ? (state.recentSearch = JSON.parse(initRecentSearches))
