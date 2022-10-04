@@ -219,9 +219,6 @@ const UpdateMeetingContainer = () => {
   const onChangeContent = (content: string) => {
     setDesc(content);
   };
-  const onChangeLocation = (Location) => {
-    setDepartLocation(Location);
-  };
 
   const onChangeLocation = (Location: string) => {
     setDepartLocation(Location);
