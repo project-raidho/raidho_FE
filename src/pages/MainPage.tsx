@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import MainBanner from "../components/main/MainBanner";
 import MainContainer from "../components/main/MainContainer";
 import IntroTutorial from "../components/main/IntroTutorial";
@@ -8,13 +8,14 @@ import styled from "styled-components";
 import { MdKeyboardArrowUp } from "react-icons/md";
 
 const MainPage = () => {
-  const { stateName } = useParams();
+  const location = useLocation();
   const [state, setState] = useState<string>(
-    stateName === undefined ? "latest" : stateName
+    location.pathname === "/" ? "latest" : location.pathname.split("/")[1]
   );
+  console.log(location);
 
   // ::: 모달 여부 확인하기
-  const [modalOn, setModalOn] = useState(false);
+  const [modalOn, setModalOn] = useState<boolean>(false);
   const handleModal = () => {
     setModalOn(!modalOn);
   };
@@ -23,9 +24,10 @@ const MainPage = () => {
   const isFirstUser = localStorage.getItem("firstUser");
 
   useEffect(() => {
-    const changeState = stateName === undefined ? "latest" : stateName;
+    const changeState =
+      location.pathname === "/" ? "latest" : location.pathname.split("/")[1];
     setState(changeState);
-  }, [stateName, state]);
+  }, [location.pathname, state]);
 
   const [ScrollY, setScrollY] = useState<number>(0); // 스크롤값을 저장하기 위한 상태
   const [BtnStatus, setBtnStatus] = useState<boolean>(false); // 버튼 상태
@@ -73,12 +75,9 @@ const MainPage = () => {
   return (
     <StMainPageWrap>
       <MainBanner />
-      {/* <StSearchWrap>
-        <SearchContainer />
-      </StSearchWrap> */}
       <StLayout>
         <StMainNav>
-          {stateName === undefined ? (
+          {location.pathname === "/" ? (
             <p>
               <a href="/" className="active">
                 최신순
@@ -103,10 +102,7 @@ const MainPage = () => {
             </NavLink>
           </p>
         </StMainNav>
-        <MainContainer
-          state={state}
-          // handleTop={handleTop}
-        />
+        <MainContainer state={state} />
       </StLayout>
       <MdKeyboardArrowUp
         className={BtnStatus ? "topBtn active" : "topBtn"} // 버튼 노출 여부
@@ -201,7 +197,7 @@ const StMainNav = styled.div`
       background-color: var(--main-color);
     }
   }
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     justify-content: center;
     padding: 0.8rem 0 0;
 
@@ -222,7 +218,7 @@ const StLayout = styled.div`
   max-width: 1305px;
   margin: 0 auto;
 
-  @media (max-width: 639px) {
+  @media ${(props) => props.theme.mobile} {
     padding-top: 70px;
   }
 `;
