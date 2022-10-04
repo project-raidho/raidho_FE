@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import BgToggleBoxLight from "../../../assets/header/toggleBoxLight.svg";
-import BgToggleBoxDark from "../../../assets/header/toggleBoxDark.svg";
+import { RootState } from "../../redux/store";
+import BgToggleBoxLight from "../../assets/header/toggleBoxLight.svg";
+import BgToggleBoxDark from "../../assets/header/toggleBoxDark.svg";
 import styled from "styled-components";
 
 interface ToggleProps {

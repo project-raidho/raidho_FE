@@ -16,12 +16,7 @@ const SearchTagMeeting = ({ tagName }: { tagName: string }) => {
 
   const { data, status, error } = useQuery(
     ["tagMeetingList", tagName],
-    getSearchTagMeetingList,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
+    getSearchTagMeetingList
   );
 
   if (status === "loading") return <Loading />;
@@ -53,9 +48,7 @@ const SearchTagMeeting = ({ tagName }: { tagName: string }) => {
               startDate={meeting.startDate}
               themeCategory={meeting.themeCategory}
               title={meeting.title}
-              onClickTheme={() => {
-                return undefined;
-              }}
+              onClickTheme={undefined}
             />
           ))}
         </StMeetingCardBox>

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "../../redux/store";
 import {
   getRecentSearch,
   addRecentSearch,
   deleteRecentSearch,
-} from "../../../redux/modules/searchSlice";
+} from "../../redux/modules/searchSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import Input from "../../../elements/Input";
-import Button from "../../../elements/Button";
-import AlertModal from "../../../global/globalModal/AlertModal";
+import Input from "../../elements/Input";
+import Button from "../../elements/Button";
+import AlertModal from "../../global/globalModal/AlertModal";
 
-import Potal from "../../../global/globalModal/Potal";
+import Potal from "../../global/globalModal/Potal";
 import styled from "styled-components";
 
 interface LocationProps {

@@ -3,7 +3,7 @@ import { MdClose } from "react-icons/md";
 import styled from "styled-components";
 import { useEffect } from "react";
 
-interface InputProps {
+interface TagInputProps {
   tags: string[];
   selectedTags(arg0: string[]): void;
   tagMassage: string;
@@ -21,11 +21,11 @@ const TagInput = ({
   tagMassage,
   tagValMsg,
   tagStatus,
-}: InputProps) => {
-  const [postTags, setPostTags] = useState(tags);
-  const [tagValidationMsg, setTagValidationMsg] = useState("");
-  const [checkAlert, setCheckAlert] = useState(tagStatus);
-  const [tagLength, setTagLength] = useState(0);
+}: TagInputProps) => {
+  const [postTags, setPostTags] = useState<string[]>(tags);
+  const [tagValidationMsg, setTagValidationMsg] = useState<string>("");
+  const [checkAlert, setCheckAlert] = useState<boolean>(tagStatus);
+  const [tagLength, setTagLength] = useState<number>(0);
 
   // ::: 태그 삭제하기
   const removeTags = (indexToRemove: number) => {
@@ -73,6 +73,14 @@ const TagInput = ({
   useEffect(() => {
     setTagValidationMsg(tagValMsg);
   }, [tagValMsg]);
+
+  useEffect(() => {
+    if (tags.length !== 0) {
+      setPostTags(tags);
+    } else {
+      return;
+    }
+  }, [tags]);
 
   return (
     <>

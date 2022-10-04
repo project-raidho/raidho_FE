@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import Button from "../../elements/Button";
 import styled from "styled-components";
 import fileIcon from "../../assets/fileIcon.svg";
 import IconError from "../../assets/iconError.svg";
@@ -22,9 +21,6 @@ interface MyPostListProps {
 }
 
 const MyPostList = ({ data, status, error }: MyPostListProps) => {
-  // const navigate = useNavigate();
-  console.log(data);
-
   // ::: 디바이스 화면 크기 확인
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);

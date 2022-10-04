@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ToggleBox from "./toggle/ToggleBox";
+import ToggleBox from "./ToggleBox";
 import Button from "../../elements/Button";
 import Potal from "../../global/globalModal/Potal";
 import LoginModal from "../login/LoginContainer";
