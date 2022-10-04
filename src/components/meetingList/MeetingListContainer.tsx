@@ -166,12 +166,12 @@ const MeetingListContainer = () => {
                 조회
               </Button>
             </div>
-            <p
-              onClick={clickStatus}
-              className={checkStatus ? "activeButton" : "inactiveButton"}
-            >
-              <span className="filterMeetingStatus"></span>
-              <strong>모집중만 보기</strong>
+            <p className={checkStatus ? "activeButton" : "inactiveButton"}>
+              <span
+                onClick={clickStatus}
+                className="filterMeetingStatus"
+              ></span>
+              <strong onClick={clickStatus}>모집중만 보기</strong>
             </p>
           </StCheckStatus>
         </div>
@@ -265,10 +265,12 @@ const StCheckStatus = styled.div`
       border: 1px solid var(--gray-color);
       background-color: var(--bg-color);
       margin-right: 8px;
+      cursor: pointer;
     }
     strong {
       color: var(--gray-color);
       font-weight: 300;
+      cursor: pointer;
     }
 
     &.activeButton span {
