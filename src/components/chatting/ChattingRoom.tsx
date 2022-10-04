@@ -44,6 +44,7 @@ const ChattingRoom = () => {
   let memberImage = localStorage.getItem("memberImage");
   let memberId = localStorage.getItem("memberId");
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
+
   React.useEffect(() => {
     setMessages([]);
     wsConnectSubscribe();
@@ -137,7 +138,6 @@ const ChattingRoom = () => {
         return;
       }
 
-      //   // 로딩 중
       waitForConnection(ws, function () {
         ws.send(
           `/pub/chat/send/${chattingId}`,

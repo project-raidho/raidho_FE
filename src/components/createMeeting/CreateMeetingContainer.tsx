@@ -240,6 +240,9 @@ const CreateMeetingContatiner = () => {
   const onChangeMeetingTitle = (text: string) => {
     setTitle(text);
   };
+  const onChangeLocation = (Location) => {
+    setDepartLocation(Location);
+  };
 
   const onChangeLocation = (Location: string) => {
     setDepartLocation(Location);
