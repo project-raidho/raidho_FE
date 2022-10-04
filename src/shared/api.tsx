@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const URI = process.env.REACT_APP_BASE_URI;
 
@@ -9,11 +9,11 @@ const axiosApi = (url, options) => {
 };
 
 // post, delete등 api요청 시 인증값이 필요한 경우
-const axiosAuthApi = (url, options) => {
-  const token = localStorage.getItem("Authorization");
+const axiosAuthApi = (url: string, options: AxiosRequestConfig<any>) => {
+  // const token = localStorage.getItem("Authorization");
   const instance = axios.create({
     baseURL: url,
-    headers: { Authorization: token },
+    // headers: { Authorization: token },
     ...options,
   });
 
