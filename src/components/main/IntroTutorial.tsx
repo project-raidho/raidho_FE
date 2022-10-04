@@ -39,7 +39,7 @@ const IntroTutorial = ({ onClose }: { onClose: Function }) => {
                 <Button
                   size="medium"
                   variant="linePrimary"
-                  onClick={() => changeFirstUser}
+                  onClick={() => changeFirstUser()}
                 >
                   시작하기
                 </Button>
