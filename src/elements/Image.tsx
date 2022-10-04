@@ -24,6 +24,8 @@ const Image = (props: ImageProps) => {
   return <ImageCircle {...styles}></ImageCircle>;
 };
 
+export default Image;
+
 const ImageCircle = styled.div<{ size: string; src: string }>`
   --size: ${(props) => props.size};
   width: var(--size);
@@ -34,5 +36,3 @@ const ImageCircle = styled.div<{ size: string; src: string }>`
   background-color: ${(props) => props.theme.main_color_blur};
   margin: 4px;
 `;
-
-export default Image;

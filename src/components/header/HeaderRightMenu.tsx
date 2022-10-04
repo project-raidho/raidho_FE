@@ -95,7 +95,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
   }, [userIsLogin]);
 
   return (
-    <StHeaderRightMenuWrap>
+    <StHeaderRightMenu>
       <StLoginRightMenu>
         <li>
           <Link to={`/`}>
@@ -157,13 +157,13 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
           </li>
         )}
       </StLoginRightMenu>
-    </StHeaderRightMenuWrap>
+    </StHeaderRightMenu>
   );
 };
 
 export default HeaderRightMenu;
 
-const StHeaderRightMenuWrap = styled.div`
+const StHeaderRightMenu = styled.div`
   @media ${(props) => props.theme.mobile} {
     position: fixed;
     left: 0;

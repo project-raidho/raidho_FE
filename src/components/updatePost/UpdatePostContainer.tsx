@@ -7,7 +7,7 @@ import PostDetailImg from "../postDetail/PostDetailImg";
 
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
-import ContentTextArea from "../../elements/ContentTextArea";
+import TextArea from "../../elements/TextArea";
 import TagInput from "../../elements/TagInput";
 import Potal from "../../global/globalModal/Potal";
 import AlertModal from "../../global/globalModal/AlertModal";
@@ -168,7 +168,7 @@ const UpdatePostContainer = () => {
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>내용</StStepTitle>
-        <ContentTextArea
+        <TextArea
           typedPostContent={typedPostContent}
           initialContent={postDetail.content}
           placeholderText={"여행에서 경험한 내용을 입력해주세요."}

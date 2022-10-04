@@ -4,16 +4,16 @@ import { MdOutlineError } from "react-icons/md";
 
 const Error = ({ message }: { message: string }) => {
   return (
-    <StErrorWrap>
+    <StError>
       <MdOutlineError />
       <p>{message}</p>
-    </StErrorWrap>
+    </StError>
   );
 };
 
 export default Error;
 
-const StErrorWrap = styled.div`
+const StError = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

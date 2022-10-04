@@ -71,7 +71,7 @@ function Input({
   const variantStyle = VARIANTS[variant];
 
   return (
-    <StyledInput
+    <StInput
       disabled={disabled}
       sizeStyle={sizeStyle}
       placeholder={placeholder}
@@ -86,11 +86,11 @@ function Input({
         }
       }}
       {...props}
-    ></StyledInput>
+    />
   );
 }
 
-const StyledInput = styled.input<{
+const StInput = styled.input<{
   sizeStyle: FlattenSimpleInterpolation;
   variantStyle: FlattenSimpleInterpolation;
 }>`

@@ -130,7 +130,7 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
   }, [dispatch, location.state, location.search]);
 
   return (
-    <StSearchContainerWrap>
+    <StSearchContainer>
       <StSearchDetailBox isFocusSearch={isFocusSearch}>
         <Input
           size="large"
@@ -195,22 +195,18 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
           />
         )}
       </Potal>
-    </StSearchContainerWrap>
+    </StSearchContainer>
   );
 };
 
 export default SearchContainer;
 
-const StSearchContainerWrap = styled.div`
+const StSearchContainer = styled.div`
   position: relative;
   display: block;
   width: 100%;
   height: 40px;
 
-  @media (max-width: 1023px) {
-  }
-  @media (max-width: 767px) {
-  }
   @media ${(props) => props.theme.mobile} {
     height: 36px;
   }
@@ -324,10 +320,7 @@ const StSearchDetailRow = styled.div`
       color: var(--title-color);
     }
   }
-  @media (max-width: 767px) {
-    button {
-    }
-  }
+
   @media ${(props) => props.theme.mobile} {
     button {
       height: 28px;

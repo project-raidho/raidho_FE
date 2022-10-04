@@ -13,7 +13,7 @@ import MeetingLocationSearch from "./MeetingLocationSearch";
 
 import Button from "../../elements/Button";
 import TagInput from "../../elements/TagInput";
-import ContentTextArea from "../../elements/ContentTextArea";
+import TextArea from "../../elements/TextArea";
 import Potal from "../../global/globalModal/Potal";
 import AlertModal from "../../global/globalModal/AlertModal";
 
@@ -249,7 +249,7 @@ const CreateMeetingContatiner = () => {
       <h1>대륙 선택 *</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
       <StValidationMsg>{themeValMsg}</StValidationMsg>
-      <h1>여행갈 나라/도시 태그 입력 *(태그입력은 엔터로 입력됩니다!)</h1>
+      <h1>여행갈 나라/도시 태그 입력(태그입력은 엔터로 입력됩니다!) *</h1>
       <StTags>
         <TagInput
           selectedTags={selectedMeetingTags}
@@ -283,7 +283,7 @@ const CreateMeetingContatiner = () => {
       <StStepTitle>모집글정보 입력</StStepTitle>
       <h1>모집글/채팅방 제목 *</h1>
       <span className="titleArea">
-        <ContentTextArea
+        <TextArea
           typedPostContent={onChangeMeetingTitle}
           placeholderText={"모집글 제목을 써주세요."}
           initialContent=""
@@ -292,7 +292,7 @@ const CreateMeetingContatiner = () => {
         />
       </span>
       <h1>모집글 설명 *</h1>
-      <ContentTextArea
+      <TextArea
         typedPostContent={onChangeDesc}
         placeholderText={"모집글 설명을 써주세요."}
         initialContent=""

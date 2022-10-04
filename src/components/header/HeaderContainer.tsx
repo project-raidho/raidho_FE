@@ -28,8 +28,8 @@ const HeaderContainer = () => {
   }, []);
 
   return (
-    <StHeaderWrap>
-      <StHeaderContainerWrap>
+    <StHeaderContainer>
+      <StHeader>
         <StHeaderLogo>
           <Link to="/">
             {isMobile ? (
@@ -43,14 +43,14 @@ const HeaderContainer = () => {
           <SearchContainer isMobile={isMobile} />
         </StSearchBox>
         <HeaderRightMenu isLogin={isLogin} setIsLogin={setIsLogin} />
-      </StHeaderContainerWrap>
-    </StHeaderWrap>
+      </StHeader>
+    </StHeaderContainer>
   );
 };
 
 export default HeaderContainer;
 
-const StHeaderWrap = styled.div`
+const StHeaderContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -64,7 +64,7 @@ const StHeaderWrap = styled.div`
   z-index: 15;
 `;
 
-const StHeaderContainerWrap = styled.div`
+const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

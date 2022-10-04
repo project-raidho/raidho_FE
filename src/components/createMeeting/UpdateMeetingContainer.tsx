@@ -10,7 +10,7 @@ import MeetingLocationSearch from "./MeetingLocationSearch";
 
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
-import ContentTextArea from "../../elements/ContentTextArea";
+import TextArea from "../../elements/TextArea";
 import Potal from "../../global/globalModal/Potal";
 import AlertModal from "../../global/globalModal/AlertModal";
 
@@ -262,7 +262,7 @@ const UpdateMeetingContainer = () => {
         <StStepTitle>2. 모집글정보 수정</StStepTitle>
         <h1>모집글/채팅방 제목 *</h1>
         <span className="titleArea">
-          <ContentTextArea
+          <TextArea
             typedPostContent={onChangeTitle}
             placeholderText={"모집글 제목을 써주세요."}
             initialContent={title}
@@ -272,7 +272,7 @@ const UpdateMeetingContainer = () => {
         </span>
         <StValidationMsg>{titleValMsg}</StValidationMsg>
         <h1>모집글 설명 *</h1>
-        <ContentTextArea
+        <TextArea
           typedPostContent={onChangeDesc}
           placeholderText={"모집글 설명을 써주세요."}
           initialContent={desc}

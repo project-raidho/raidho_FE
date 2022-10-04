@@ -8,7 +8,7 @@ import CreatePostImage from "./CreatePostImage";
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import TagInput from "../../elements/TagInput";
-import ContentTextArea from "../../elements/ContentTextArea";
+import TextArea from "../../elements/TextArea";
 import Potal from "../../global/globalModal/Potal";
 import AlertModal from "../../global/globalModal/AlertModal";
 const CreatePostContainer = () => {
@@ -21,7 +21,7 @@ const CreatePostContainer = () => {
   >("");
   const [alertMsg, setAlertMsg] = useState<string>("");
   const onCloseModal = () => {
-    setModalOn(!modalOn);
+    setModalOn(false);
   };
   const onClickYes = () => {
     setModalOn(!modalOn);
@@ -150,7 +150,7 @@ const CreatePostContainer = () => {
       <StStepTitle>
         내용 <span>*</span>
       </StStepTitle>
-      <ContentTextArea
+      <TextArea
         typedPostContent={typedPostContent}
         placeholderText={"여행에서 경험한 내용을 작성해주세요."}
         initialContent=""

@@ -85,9 +85,14 @@ const MeetingListCard = (Props: MeetingContentProps) => {
   const onJoinRoom = async (id: number) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
-
+      console.log(res);
       //인원 풀이면 오류 처리
       if (res.data.body === "FULL") {
+        setModalIcon("info");
+        setAlertMsg("인원이 가득찼습니다");
+        return setModalOn(true);
+      }
+      if (res.data.body.errorCode === "CHATTING_ROOM_ALREADY_FULL") {
         setModalIcon("info");
         setAlertMsg("인원이 가득찼습니다");
         return setModalOn(true);
