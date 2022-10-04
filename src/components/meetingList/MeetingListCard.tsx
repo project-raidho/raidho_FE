@@ -53,6 +53,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
       queryClient.invalidateQueries("meetingListMine");
+      queryClient.invalidateQueries("tagMeetingList");
     },
   });
 
