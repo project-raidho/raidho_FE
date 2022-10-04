@@ -22,6 +22,7 @@ const StNotFoundWrap = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  min-height: calc(100vh - 330px);
 
   p {
     width: 140px;
