@@ -45,7 +45,7 @@ const MainPostList = ({ state }: { state: string }) => {
   if (status === "error") return <Error message={(error as Error).message} />;
 
   return (
-    <StPostLisWrap>
+    <StMainPostList>
       <StitemList>
         {data?.pages.map((page, index) => (
           <Fragment key={index}>
@@ -66,13 +66,13 @@ const MainPostList = ({ state }: { state: string }) => {
         ))}
         {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       </StitemList>
-    </StPostLisWrap>
+    </StMainPostList>
   );
 };
 
 export default MainPostList;
 
-const StPostLisWrap = styled.div`
+const StMainPostList = styled.div`
   display: flex;
 `;
 

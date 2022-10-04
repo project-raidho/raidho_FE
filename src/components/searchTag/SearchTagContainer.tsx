@@ -23,7 +23,7 @@ const SearchTagContainer = () => {
   }, [location]);
 
   return (
-    <StSearchTagContainerWrap>
+    <StSearchTagContainer>
       <StTagCategoryWrap>
         <li>
           <NavLink
@@ -46,13 +46,13 @@ const SearchTagContainer = () => {
         {checkUri && <SearchTagPost tagName={tagName} />}
         {!checkUri && <SearchTagMeeting tagName={tagName} />}
       </StTagContentWrap>
-    </StSearchTagContainerWrap>
+    </StSearchTagContainer>
   );
 };
 
 export default SearchTagContainer;
 
-const StSearchTagContainerWrap = styled.div`
+const StSearchTagContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

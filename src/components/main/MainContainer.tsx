@@ -9,16 +9,16 @@ interface MainProps {
 
 const MainContainer = ({ state }: MainProps) => {
   return (
-    <StMainContainerWrap>
+    <StMainContainer>
       {state === "latest" && <MainPostList state={state} />}
       {state === "likelist" && <MainPostList state={state} />}
-    </StMainContainerWrap>
+    </StMainContainer>
   );
 };
 
 export default MainContainer;
 
-const StMainContainerWrap = styled.div`
+const StMainContainer = styled.div`
   @media (max-width: 767px) {
     padding-top: 0;
   }

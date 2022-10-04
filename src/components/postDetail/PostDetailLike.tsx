@@ -56,7 +56,7 @@ const PostDetailLike = ({ postDetail }: PostDetailProps) => {
   });
 
   return (
-    <StLikeWrapper>
+    <StPostDetailLike>
       <HeartButton like={postDetail.isHeartMine} onClick={() => mutate()} />
       <span className="likeNum">{postDetail.heartCount}</span>
       <BsChat className="commentIcon" />
@@ -72,13 +72,13 @@ const PostDetailLike = ({ postDetail }: PostDetailProps) => {
           />
         )}
       </Potal>
-    </StLikeWrapper>
+    </StPostDetailLike>
   );
 };
 
 export default PostDetailLike;
 
-const StLikeWrapper = styled.div`
+const StPostDetailLike = styled.div`
   display: flex;
   float: right;
   @media ${(props) => props.theme.mobile} {

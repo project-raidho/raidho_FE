@@ -27,7 +27,7 @@ function CommentsList() {
   }
   const commentsList = commentgAllListQuery.data?.data.data;
   return (
-    <StCommentListWrap>
+    <StCommentList>
       {commentsList.totalElements < 2 ? null : (
         <p className="buttonCommentToggle" onClick={() => setIsAll(!isAll)}>
           {isAll ? (
@@ -63,13 +63,13 @@ function CommentsList() {
               <Comment comment={commentsList.content[0]} />
             )}
       </StCommentsList>
-    </StCommentListWrap>
+    </StCommentList>
   );
 }
 
 export default CommentsList;
 
-const StCommentListWrap = styled.div`
+const StCommentList = styled.div`
   p.buttonCommentToggle {
     display: flex;
     align-items: center;

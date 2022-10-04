@@ -17,20 +17,20 @@ const PostDetailUser = ({ postDetail }: PostDetailProps) => {
       : `${postDetail.memberImage}`;
 
   return (
-    <StUserWrapper>
+    <StPostDetailUser>
       <div className="profileBox">
         <img className="profileImg" src={memberImage} alt="프로필이미지" />
       </div>
       <StProfileRightBox>
         <h2>{postDetail.memberName}</h2>
       </StProfileRightBox>
-    </StUserWrapper>
+    </StPostDetailUser>
   );
 };
 
 export default PostDetailUser;
 
-const StUserWrapper = styled.div`
+const StPostDetailUser = styled.div`
   display: flex;
   margin: 10px 0 20px;
 

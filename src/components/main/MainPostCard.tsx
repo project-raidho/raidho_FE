@@ -57,7 +57,7 @@ const MainPostCard = (props: MainContentProps) => {
     setModalOn(!modalOn);
   };
   return (
-    <StFigure>
+    <StMainPostCard>
       <img
         className="img"
         src={props.multipartFiles}
@@ -98,13 +98,13 @@ const MainPostCard = (props: MainContentProps) => {
           />
         )} */}
       </Potal>
-    </StFigure>
+    </StMainPostCard>
   );
 };
 
 export default MainPostCard;
 
-const StFigure = styled.figure`
+const StMainPostCard = styled.figure`
   display: inline-block;
   position: relative;
   margin: 0;

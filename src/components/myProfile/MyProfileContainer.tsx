@@ -104,7 +104,7 @@ const MyProfileContainer = () => {
     return null;
   }
   return (
-    <StMyProfileContainerWrap>
+    <StMyProfileContainer>
       <StMyProfileTextRow>
         <p>프로필</p>
       </StMyProfileTextRow>
@@ -214,13 +214,13 @@ const MyProfileContainer = () => {
           로그아웃
         </p>
       </StMyProfileTextRow>
-    </StMyProfileContainerWrap>
+    </StMyProfileContainer>
   );
 };
 
 export default MyProfileContainer;
 
-const StMyProfileContainerWrap = styled.div`
+const StMyProfileContainer = styled.div`
   padding-bottom: 5rem;
   background-color: var(--bg-color);
 

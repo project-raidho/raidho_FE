@@ -154,7 +154,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
   });
 
   return (
-    <StMeetingListCardWrap>
+    <StMeetingListCard>
       <p className="markButton">
         <MarkButton
           star={Props.isStarMine}
@@ -318,13 +318,13 @@ const MeetingListCard = (Props: MeetingContentProps) => {
           />
         )}
       </Potal>
-    </StMeetingListCardWrap>
+    </StMeetingListCard>
   );
 };
 
 export default MeetingListCard;
 
-const StMeetingListCardWrap = styled.div`
+const StMeetingListCard = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

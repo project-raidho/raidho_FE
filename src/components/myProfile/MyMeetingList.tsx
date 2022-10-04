@@ -64,7 +64,7 @@ const MyMeetingList = ({
   };
 
   return (
-    <StMyMeetingListWrap>
+    <StMyMeetingList>
       {(data.length < 2 && isMobile) ||
       (data.length < 3 && isTablet) ||
       (data.length < 4 && !isMobile && !isTablet) ? (
@@ -118,13 +118,13 @@ const MyMeetingList = ({
           ))}
         </Slider>
       )}
-    </StMyMeetingListWrap>
+    </StMyMeetingList>
   );
 };
 
 export default MyMeetingList;
 
-const StMyMeetingListWrap = styled.div``;
+const StMyMeetingList = styled.div``;
 
 const StMeetingCardBox = styled.div`
   width: 100%;

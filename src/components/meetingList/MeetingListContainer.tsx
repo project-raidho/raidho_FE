@@ -117,7 +117,7 @@ const MeetingListContainer = () => {
   const meetingAllList = data?.data.data.content;
 
   return (
-    <StMeetingListContainerWrap>
+    <StMeetingListContainer>
       <StFixedMenu>
         <div className="centerBox">
           <StMeetingCategoryRow className="themeCategoryRow">
@@ -202,13 +202,13 @@ const MeetingListContainer = () => {
           />
         ))}
       </StMeetingCardBox>
-    </StMeetingListContainerWrap>
+    </StMeetingListContainer>
   );
 };
 
 export default MeetingListContainer;
 
-const StMeetingListContainerWrap = styled.div`
+const StMeetingListContainer = styled.div`
   min-height: 100vh;
   background-color: var(--bg-color);
   padding-top: 110px;

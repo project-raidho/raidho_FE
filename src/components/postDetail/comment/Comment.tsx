@@ -106,100 +106,98 @@ const Comment = ({ comment }: CommentProps) => {
   // ::: 디데이 계산하기
   const dday = Math.floor(dateCalculation(today, comment.modifiedAt));
   return (
-    <div>
-      <>
-        <StComment>
-          <div className="textbox">
-            <div className="profileBox">
-              <img
-                className="profileImg"
-                src={comment.memberImage}
-                alt="프로필이미지"
-              />
-            </div>
-            <StmiddleBox>
-              <div className="nameAndContent">
-                <p className="name">{comment.memberName}</p>
-                {isEdit ? (
-                  <>
-                    <input
-                      value={updatedComment}
-                      onChange={(e) => {
-                        setUpdatedComment(e.target.value);
-                        setCommentLength(e.target.value.length);
-                      }}
-                      maxLength={100}
-                    />
-                    <span>{commentLength}/100자</span>
-                  </>
-                ) : (
-                  <Stcontent>{comment.content}</Stcontent>
-                )}
-              </div>
-
-              <StBottomRow>
-                <p className="dday">
-                  {Number(dday) === 0 ? "오늘" : `${Number(dday)}일전`}
-                </p>
-                {userInfo === comment.memberName && (
-                  <>
-                    {isEdit ? (
-                      <div className="buttonbox">
-                        <Button
-                          size="small"
-                          variant="linePrimary"
-                          onClick={() => onCancle()}
-                        >
-                          취소
-                        </Button>
-
-                        <Button
-                          size="small"
-                          variant="linePrimary"
-                          onClick={() => updateMutate.mutate(comment.id)}
-                        >
-                          저장
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="buttonbox">
-                        <Button
-                          size="small"
-                          variant="linePrimary"
-                          onClick={onChangeEdit}
-                        >
-                          수정
-                        </Button>
-                        <Button
-                          size="small"
-                          variant="linePrimary"
-                          onClick={() => onDeleteHandler()}
-                        >
-                          삭제
-                        </Button>
-                      </div>
-                    )}
-                  </>
-                )}
-              </StBottomRow>
-            </StmiddleBox>
-          </div>
-        </StComment>
-        <Potal>
-          {modalOn && (
-            <CofirmModal
-              onCloseModal={onCloseModal}
-              modalIcon={modalIcon}
-              alertMsg={alertMsg}
-              onClickYes={() => {
-                onClickYes();
-              }}
-              onClickNo={onCloseModal}
+    <>
+      <StComment>
+        <div className="textbox">
+          <div className="profileBox">
+            <img
+              className="profileImg"
+              src={comment.memberImage}
+              alt="프로필이미지"
             />
-          )}
-        </Potal>
-      </>
-    </div>
+          </div>
+          <StmiddleBox>
+            <div className="nameAndContent">
+              <p className="name">{comment.memberName}</p>
+              {isEdit ? (
+                <>
+                  <input
+                    value={updatedComment}
+                    onChange={(e) => {
+                      setUpdatedComment(e.target.value);
+                      setCommentLength(e.target.value.length);
+                    }}
+                    maxLength={100}
+                  />
+                  <span>{commentLength}/100자</span>
+                </>
+              ) : (
+                <Stcontent>{comment.content}</Stcontent>
+              )}
+            </div>
+
+            <StBottomRow>
+              <p className="dday">
+                {Number(dday) === 0 ? "오늘" : `${Number(dday)}일전`}
+              </p>
+              {userInfo === comment.memberName && (
+                <>
+                  {isEdit ? (
+                    <div className="buttonbox">
+                      <Button
+                        size="small"
+                        variant="linePrimary"
+                        onClick={() => onCancle()}
+                      >
+                        취소
+                      </Button>
+
+                      <Button
+                        size="small"
+                        variant="linePrimary"
+                        onClick={() => updateMutate.mutate(comment.id)}
+                      >
+                        저장
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="buttonbox">
+                      <Button
+                        size="small"
+                        variant="linePrimary"
+                        onClick={onChangeEdit}
+                      >
+                        수정
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="linePrimary"
+                        onClick={() => onDeleteHandler()}
+                      >
+                        삭제
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </StBottomRow>
+          </StmiddleBox>
+        </div>
+      </StComment>
+      <Potal>
+        {modalOn && (
+          <CofirmModal
+            onCloseModal={onCloseModal}
+            modalIcon={modalIcon}
+            alertMsg={alertMsg}
+            onClickYes={() => {
+              onClickYes();
+            }}
+            onClickNo={onCloseModal}
+          />
+        )}
+      </Potal>
+    </>
   );
 };
 

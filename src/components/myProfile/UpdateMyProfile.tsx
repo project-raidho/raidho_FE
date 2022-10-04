@@ -158,7 +158,7 @@ const UpdateMyProfile = () => {
     }
   };
   return (
-    <StUpdateMyProfileWrap>
+    <StUpdateMyProfile>
       <StMyProfileBox>
         <p>
           <img src={memberInfo.memberImage} alt={"멤버이미지"} />
@@ -254,13 +254,13 @@ const UpdateMyProfile = () => {
           </Modal>
         )}
       </Potal>
-    </StUpdateMyProfileWrap>
+    </StUpdateMyProfile>
   );
 };
 
 export default UpdateMyProfile;
 
-const StUpdateMyProfileWrap = styled.div`
+const StUpdateMyProfile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
