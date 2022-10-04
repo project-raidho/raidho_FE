@@ -70,6 +70,22 @@ const TagInput = ({
       }
     }
   };
+
+  // ::: 특수문자 입력 막기
+  const characterCheck = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line
+    const regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    if (regExp.test(event.currentTarget.value)) {
+      event.currentTarget.value = event.currentTarget.value.substring(
+        0,
+        event.currentTarget.value.length - 1
+      );
+      setTagValidationMsg("공백 및 특수문자를 입력할 수 없습니다.");
+      setCheckAlert(true);
+    }
+  };
+
   useEffect(() => {
     setTagValidationMsg(tagValMsg);
   }, [tagValMsg]);
@@ -97,7 +113,9 @@ const TagInput = ({
         </ul>
         <input
           type="text"
-          onKeyUp={(event) => (event.key === "Enter" ? addTags(event) : null)}
+          onKeyUp={(event) =>
+            event.key === "Enter" ? addTags(event) : characterCheck(event)
+          }
           onChange={(event: { target: { value: string | any[] } }) =>
             setTagLength(event.target.value.length)
           }
