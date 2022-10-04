@@ -43,6 +43,7 @@ interface CreatePostProps {
   selectedPostImages: (images: Blob[]) => void;
   setSelectedImageIndex: Dispatch<SetStateAction<number>>;
   setSelectedImage: Dispatch<SetStateAction<string | undefined>>;
+  handleTop: (status: boolean) => void;
 }
 
 interface CropProps {
@@ -61,6 +62,7 @@ const CreatePostImageCrop = ({
   selectedPostImages,
   setSelectedImageIndex,
   setSelectedImage,
+  handleTop,
 }: CreatePostProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -115,7 +117,6 @@ const CreatePostImageCrop = ({
     );
 
     if (alertMessageImageSize) {
-      // const { width, height } = imageRef.current;
       const width = imageRef.current?.width ?? null;
       const height = imageRef.current?.height ?? null;
       if (!width || !height) return;
@@ -195,6 +196,13 @@ const CreatePostImageCrop = ({
       setModalOn(true);
       return;
     }
+    if (saveButtonStatus && saveImagesIndex.length < files.length - 1) {
+      handleTop(true);
+    }
+    if (saveButtonStatus && saveImagesIndex.length === files.length - 1) {
+      handleTop(false);
+    }
+
     createCanvas();
     if (!canvasRef.current) return;
 
@@ -333,7 +341,10 @@ const CreatePostImageCrop = ({
           <p className="guideText viewMobile">
             <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요.
           </p>
-          <StCanvasPreview ref={canvasRef} />
+          <StCanvasPreview
+            ref={canvasRef}
+            saveButtonStatus={saveButtonStatus}
+          />
           <div className="postImageCropBottom">
             <p className="guideText">
               <span>4</span>편집이 완료되었다면, 저장하기 버튼을 눌러 주세요.
@@ -481,6 +492,8 @@ const StPostImageCropColumn = styled.div`
     height: auto;
     margin: 1rem 0;
   }
+  @media (max-width: 639px) {
+  }
 `;
 
 const StImageSizeButtonWrap = styled.div`
@@ -522,7 +535,7 @@ const StImageSizeButtonWrap = styled.div`
   }
 `;
 
-const StCanvasPreview = styled.canvas`
+const StCanvasPreview = styled.canvas<{ saveButtonStatus: boolean }>`
   max-width: 100%;
   min-height: 0px;
   max-height: 420px;
@@ -531,6 +544,12 @@ const StCanvasPreview = styled.canvas`
   @media (max-width: 767px) {
     max-height: 300px;
     margin-bottom: 1rem;
+  }
+  @media (max-width: 639px) {
+    position: ${(props) => (props.saveButtonStatus ? "fixed" : "static")};
+    bottom: ${(props) => (props.saveButtonStatus ? "40px" : "none")};
+    left: ${(props) => (props.saveButtonStatus ? "0.5rem" : "none")};
+    max-width: ${(props) => (props.saveButtonStatus ? "150px" : "100%")};
   }
 `;
 
