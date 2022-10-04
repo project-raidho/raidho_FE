@@ -3,14 +3,19 @@ import axios, { AxiosRequestConfig } from "axios";
 const URI = process.env.REACT_APP_BASE_URI;
 
 // 단순 get요청으로 인증값이 필요없는 경우
-const axiosApi = (url, options) => {
+const axiosApi = (
+  url: string | undefined,
+  options?: AxiosRequestConfig<any>
+) => {
   const instance = axios.create({ baseURL: url, ...options });
   return instance;
 };
 
 // post, delete등 api요청 시 인증값이 필요한 경우
-const axiosAuthApi = (url: string, options: AxiosRequestConfig<any>) => {
-  // const token = localStorage.getItem("Authorization");
+const axiosAuthApi = (
+  url: string | undefined,
+  options?: AxiosRequestConfig<any>
+) => {
   const instance = axios.create({
     baseURL: url,
     // headers: { Authorization: token },
@@ -19,8 +24,18 @@ const axiosAuthApi = (url: string, options: AxiosRequestConfig<any>) => {
 
   instance.interceptors.request.use(
     (config) => {
-      config.headers["Authorization"] = localStorage.getItem("Authorization");
-      config.headers["RefreshToken"] = localStorage.getItem("refreshToken");
+      if (!config.headers) {
+        config.headers = {};
+      }
+
+      config.headers["Authorization"] = `${localStorage.getItem(
+        "Authorization"
+      )}`;
+
+      config.headers["RefreshToken"] = `${localStorage.getItem(
+        "refreshToken"
+      )}`;
+
       return config;
     },
     (err) => {
@@ -31,18 +46,5 @@ const axiosAuthApi = (url: string, options: AxiosRequestConfig<any>) => {
   return instance;
 };
 
-const axiosFormDataApi = (url, options) => {
-  const instance = axios.create({
-    baseURL: url,
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: localStorage.getItem("Authorization"),
-    },
-    ...options,
-  });
-  return instance;
-};
-
 export const instance = axiosApi(URI);
 export const authInstance = axiosAuthApi(URI);
-export const formDataInstance = axiosFormDataApi(URI);
