@@ -159,7 +159,7 @@ const UpdatePostContainer = () => {
   });
 
   return (
-    <StCreatePostContainerWrap>
+    <StUpdatePostContainer>
       <StCreatePostColumn>
         <StStepTitle>이미지 확인</StStepTitle>
         <PostDetailImg images={postDetail.multipartFiles} />
@@ -207,13 +207,13 @@ const UpdatePostContainer = () => {
           />
         )}
       </Potal>
-    </StCreatePostContainerWrap>
+    </StUpdatePostContainer>
   );
 };
 
 export default UpdatePostContainer;
 
-const StCreatePostContainerWrap = styled.div`
+const StUpdatePostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

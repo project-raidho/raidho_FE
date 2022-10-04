@@ -173,9 +173,12 @@ const ChattingRoom = () => {
 
 const Container = styled.div`
   ${(props) => props.theme.border_box};
+
+  justify-content: flex-start;
   display: flex;
+  height: 90vh;
   width: 100%;
-  height: 100%;
+  position: relative;
 
   @media ${(props) => props.theme.mobile} {
     flex-direction: column;

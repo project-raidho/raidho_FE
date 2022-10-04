@@ -331,7 +331,7 @@ export default CreateMeetingContatiner;
 const StContainer = styled.div`
   width: 90%;
   margin: 0 auto;
-  padding-bottom: 50px;
+  padding-bottom: 100px;
   h2 {
     font-size: 30px;
     margin-top: 30px;

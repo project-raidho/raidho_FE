@@ -1,17 +1,8 @@
 import React from "react";
 import SearchTagContainer from "../components/searchTag/SearchTagContainer";
-import styled from "styled-components";
 
 const SearchTagPage = () => {
-  return (
-    <StSearchTagPageWrap>
-      <SearchTagContainer />
-    </StSearchTagPageWrap>
-  );
+  return <SearchTagContainer />;
 };
 
 export default SearchTagPage;
-
-const StSearchTagPageWrap = styled.div`
-  min-height: 100vh;
-`;
