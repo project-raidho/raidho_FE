@@ -43,6 +43,7 @@ interface CreatePostProps {
   selectedPostImages: (images: Blob[]) => void;
   setSelectedImageIndex: Dispatch<SetStateAction<number>>;
   setSelectedImage: Dispatch<SetStateAction<string | undefined>>;
+  handleTop: (status: boolean) => void;
 }
 
 interface CropProps {
@@ -61,6 +62,7 @@ const CreatePostImageCrop = ({
   selectedPostImages,
   setSelectedImageIndex,
   setSelectedImage,
+  handleTop,
 }: CreatePostProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -115,7 +117,6 @@ const CreatePostImageCrop = ({
     );
 
     if (alertMessageImageSize) {
-      // const { width, height } = imageRef.current;
       const width = imageRef.current?.width ?? null;
       const height = imageRef.current?.height ?? null;
       if (!width || !height) return;
@@ -195,6 +196,13 @@ const CreatePostImageCrop = ({
       setModalOn(true);
       return;
     }
+    if (saveButtonStatus && saveImagesIndex.length < files.length - 1) {
+      handleTop(true);
+    }
+    if (saveButtonStatus && saveImagesIndex.length === files.length - 1) {
+      handleTop(false);
+    }
+
     createCanvas();
     if (!canvasRef.current) return;
 

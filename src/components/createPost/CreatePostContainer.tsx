@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
@@ -13,6 +13,7 @@ import Potal from "../../global/globalModal/Potal";
 import AlertModal from "../../global/globalModal/AlertModal";
 const CreatePostContainer = () => {
   const navigate = useNavigate();
+  const contentRef = useRef<HTMLHeadingElement>(null);
 
   // ::: 에러메세지(createPotal) 컨트롤 하기
   const [modalOn, setModalOn] = useState<boolean>(false);
@@ -108,6 +109,32 @@ const CreatePostContainer = () => {
     }
   };
 
+  // eslint-disable-next-line
+  const [scrollY, setScrollY] = useState<number>(0); // 스크롤값을 저장하기 위한 상태
+  const handleFollow = () => {
+    setScrollY(window.pageYOffset);
+  };
+
+  const handleTop = (status: boolean) => {
+    const contentTop = contentRef.current?.offsetTop;
+    // 클릭하면 스크롤이 위로 올라가는 함수
+    window.scrollTo({
+      top: status ? 0 : contentTop,
+      behavior: "smooth",
+    });
+    setScrollY(0);
+  };
+
+  useEffect(() => {
+    const watch = () => {
+      window.addEventListener("scroll", handleFollow);
+    };
+    watch();
+    return () => {
+      window.removeEventListener("scroll", handleFollow);
+    };
+  });
+
   // ::: 입력여부에 따른 유효성검사
   useEffect(() => {
     if (postImages.length > 0) {
@@ -145,9 +172,12 @@ const CreatePostContainer = () => {
       <StStepTitle>
         이미지 업로드 <span>*</span>
       </StStepTitle>
-      <CreatePostImage selectedPostImages={selectedPostImages} />
+      <CreatePostImage
+        selectedPostImages={selectedPostImages}
+        handleTop={(status: boolean) => handleTop(status)}
+      />
       <StValidationMessage>{validationImages}</StValidationMessage>
-      <StStepTitle>
+      <StStepTitle ref={contentRef}>
         내용 <span>*</span>
       </StStepTitle>
       <TextArea
