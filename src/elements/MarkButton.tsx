@@ -11,19 +11,19 @@ const MarkButton = ({
   onClick: React.MouseEventHandler<HTMLSpanElement>;
 }) => {
   return (
-    <StMark onClick={onClick}>
+    <StMarkButton onClick={onClick}>
       {star ? (
         <RiBookmarkFill className="mark" />
       ) : (
         <RiBookmarkLine className="emptyMark" />
       )}
-    </StMark>
+    </StMarkButton>
   );
 };
 
 export default MarkButton;
 
-const StMark = styled.span`
+const StMarkButton = styled.span`
   cursor: pointer;
   svg {
     width: 95%;

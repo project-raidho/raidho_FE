@@ -1,18 +1,15 @@
+import React, { useState, useEffect, SetStateAction, Dispatch } from "react";
+import styled from "styled-components";
+import { BsCalendar3 } from "react-icons/bs";
 import { DateRange, RangeKeyDict } from "react-date-range";
-import { addDays } from "date-fns";
-
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-
-import React, { useState, SetStateAction, Dispatch } from "react";
-import styled from "styled-components";
+import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import moment from "moment";
-//선언하지 않아도, 디바이스 혹은 locale의 시간을 불러온다.
 import "moment/locale/ko";
+
 import Input from "../../elements/Input";
-import { BsCalendar3 } from "react-icons/bs";
-import { useEffect } from "react";
 
 interface TripPeriodProps {
   startDate?: string;
@@ -192,5 +189,8 @@ const CalendarIcon = styled(BsCalendar3)`
 `;
 
 const InputSpan = styled.span`
-  cursor: pointer;
+  .SKpjV:disabled {
+    cursor: pointer;
+    opacity: 1;
+  }
 `;

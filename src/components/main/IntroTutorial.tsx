@@ -1,9 +1,11 @@
 import React from "react";
+import styled from "styled-components";
 import Slider from "react-slick";
+
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
 import Button from "../../elements/Button";
-import styled from "styled-components";
+
 import ImageIntro1 from "../../assets/banner/intro1.jpeg";
 import ImageIntro2 from "../../assets/banner/intro2.jpeg";
 import ImageIntro3 from "../../assets/banner/intro3.jpeg";

@@ -4,7 +4,7 @@ import Info from "../../elements/Info";
 
 const SearchAlert = ({ tagName }: { tagName: string }) => {
   return (
-    <StAlertWrap>
+    <StSearchAlert>
       <>
         <StIconBox>
           <Info />
@@ -25,13 +25,13 @@ const SearchAlert = ({ tagName }: { tagName: string }) => {
           </p>
         </div>
       </>
-    </StAlertWrap>
+    </StSearchAlert>
   );
 };
 
 export default SearchAlert;
 
-const StAlertWrap = styled.div`
+const StSearchAlert = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;

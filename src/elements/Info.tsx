@@ -4,15 +4,15 @@ import { AiOutlineInfo } from "react-icons/ai";
 
 const Info = () => {
   return (
-    <StInfoWrap>
+    <StInfo>
       <AiOutlineInfo />
-    </StInfoWrap>
+    </StInfo>
   );
 };
 
 export default Info;
 
-const StInfoWrap = styled.div`
+const StInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

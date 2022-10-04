@@ -19,7 +19,7 @@ const PostDetailTagList = ({ tagList }: TagList) => {
     });
   };
   return (
-    <StTagWrapper>
+    <StPostDetailTagList>
       <div className="tagList">
         {tagList.map((tag, i) => (
           <div key={i} className="tag" onClick={() => onClickTagHandler(tag)}>
@@ -27,13 +27,13 @@ const PostDetailTagList = ({ tagList }: TagList) => {
           </div>
         ))}
       </div>
-    </StTagWrapper>
+    </StPostDetailTagList>
   );
 };
 
 export default PostDetailTagList;
 
-const StTagWrapper = styled.div`
+const StPostDetailTagList = styled.div`
   display: flex;
   width: 100%;
   .tagList {

@@ -1,20 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { authInstance } from "../../shared/api";
-import CofirmModal from "../../global/globalModal/CofirmModal";
-import Potal from "../../global/globalModal/Potal";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-
 import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
-// import { ImExit } from "react-icons/im";
-// import { AiOutlineClose } from "react-icons/ai";
-// import { IoExitOutline } from "react-icons/io5";
-// import { RiDeleteBin6Fill } from "react-icons/ri";
+import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
+import CofirmModal from "../../global/globalModal/CofirmModal";
+import Potal from "../../global/globalModal/Potal";
 
 interface ChatDetail {
   startDate: string;

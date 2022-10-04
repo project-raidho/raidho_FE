@@ -1,5 +1,6 @@
 import React, { SetStateAction, useState } from "react";
 import styled from "styled-components";
+
 import Button from "../../elements/Button";
 
 const ThemeSelect = ({
@@ -25,7 +26,7 @@ const ThemeSelect = ({
   };
 
   return (
-    <StThemeSelectBox>
+    <StThemeSelect>
       {themeList.map((theme, index) => {
         return (
           <StButton
@@ -39,13 +40,13 @@ const ThemeSelect = ({
           </StButton>
         );
       })}
-    </StThemeSelectBox>
+    </StThemeSelect>
   );
 };
 
 export default ThemeSelect;
 
-const StThemeSelectBox = styled.div`
+const StThemeSelect = styled.div`
   font-weight: bold;
   display: flex;
   flex-direction: row;

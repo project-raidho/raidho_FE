@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
+
 import CreatePostImageCrop from "./CreatePostImageCrop";
-import styled from "styled-components";
 
 const CreatePostImage = ({
   selectedPostImages,

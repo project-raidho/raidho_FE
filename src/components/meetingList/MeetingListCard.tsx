@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import Button from "../../elements/Button";
-import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 import styled from "styled-components";
-import { useMutation, useQueryClient } from "react-query";
-import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
-import AlertModal from "../../global/globalModal/AlertModal";
-import CofirmModal from "../../global/globalModal/CofirmModal";
-import Potal from "../../global/globalModal/Potal";
-import LoginModal from "../login/LoginContainer";
+import { useMutation, useQueryClient } from "react-query";
+
+import { authInstance } from "../../shared/api";
+import Button from "../../elements/Button";
 import MarkButton from "../../elements/MarkButton";
 import { MeetingContentProps, ThemeListProps } from "../../elements/Type";
+import Potal from "../../global/globalModal/Potal";
+import LoginModal from "../login/LoginContainer";
+import AlertModal from "../../global/globalModal/AlertModal";
+import CofirmModal from "../../global/globalModal/CofirmModal";
+
+import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 
 // ::: 모집글 삭제 axios
 const onDeleteMeeting = async (meetingId: number) => {
@@ -51,6 +53,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries("meetingList");
       queryClient.invalidateQueries("meetingListMine");
+      queryClient.invalidateQueries("tagMeetingList");
     },
   });
 
@@ -83,9 +86,14 @@ const MeetingListCard = (Props: MeetingContentProps) => {
   const onJoinRoom = async (id: number) => {
     try {
       const res = await authInstance.get(`/api/chat/chatting/${id}`);
-
+      console.log(res);
       //인원 풀이면 오류 처리
       if (res.data.body === "FULL") {
+        setModalIcon("info");
+        setAlertMsg("인원이 가득찼습니다");
+        return setModalOn(true);
+      }
+      if (res.data.body.errorCode === "CHATTING_ROOM_ALREADY_FULL") {
         setModalIcon("info");
         setAlertMsg("인원이 가득찼습니다");
         return setModalOn(true);
@@ -147,7 +155,7 @@ const MeetingListCard = (Props: MeetingContentProps) => {
   });
 
   return (
-    <StMeetingListCardWrap>
+    <StMeetingListCard>
       <p className="markButton">
         <MarkButton
           star={Props.isStarMine}
@@ -311,13 +319,13 @@ const MeetingListCard = (Props: MeetingContentProps) => {
           />
         )}
       </Potal>
-    </StMeetingListCardWrap>
+    </StMeetingListCard>
   );
 };
 
 export default MeetingListCard;
 
-const StMeetingListCardWrap = styled.div`
+const StMeetingListCard = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

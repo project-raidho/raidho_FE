@@ -4,15 +4,15 @@ import IconError from "../assets/iconError.svg";
 
 const Warning = () => {
   return (
-    <StWarningWrap>
+    <StWarning>
       <img src={IconError} alt="error" />
-    </StWarningWrap>
+    </StWarning>
   );
 };
 
 export default Warning;
 
-const StWarningWrap = styled.div`
+const StWarning = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

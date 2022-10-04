@@ -1,15 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import PostDetailContainer from "../components/postDetail/PostDetailContainer";
 
 const PostDetailPage = () => {
-  return (
-    <StPostDetailPageeWrap>
-      <PostDetailContainer />
-    </StPostDetailPageeWrap>
-  );
+  return <PostDetailContainer />;
 };
 
 export default PostDetailPage;
-
-const StPostDetailPageeWrap = styled.div``;

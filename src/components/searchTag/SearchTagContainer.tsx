@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { NavLink, useLocation } from "react-router-dom";
+
 import SearchTagPost from "./SearchTagPost";
 import SearchTagMeeting from "./SearchTagMeeting";
 
@@ -22,7 +23,7 @@ const SearchTagContainer = () => {
   }, [location]);
 
   return (
-    <StSearchTagContainerWrap>
+    <StSearchTagContainer>
       <StTagCategoryWrap>
         <li>
           <NavLink
@@ -45,16 +46,17 @@ const SearchTagContainer = () => {
         {checkUri && <SearchTagPost tagName={tagName} />}
         {!checkUri && <SearchTagMeeting tagName={tagName} />}
       </StTagContentWrap>
-    </StSearchTagContainerWrap>
+    </StSearchTagContainer>
   );
 };
 
 export default SearchTagContainer;
 
-const StSearchTagContainerWrap = styled.div`
+const StSearchTagContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
 `;
 
 const StTagCategoryWrap = styled.ul`

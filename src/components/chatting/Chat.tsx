@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
-// 이미지 컴포넌트
-import Image from "../../elements/Image";
 import { useParams } from "react-router-dom";
+
+import Image from "../../elements/Image";
 
 interface ChatProps {
   roomId: number;
@@ -37,6 +36,7 @@ Chat.defaultProps = {
 
 const Container = styled.div<{ selected: boolean }>`
   ${(props) => props.theme.flex_row};
+  ${(props) => props.theme.border_box}
   justify-content: flex-start;
   border: ${(props) =>
     props.selected ? `3px solid #7188FF;` : "1px solid var(--gray-color)"};
@@ -45,9 +45,7 @@ const Container = styled.div<{ selected: boolean }>`
   height: 15%;
   width: 90%;
 
-  ${(props) => props.theme.border_box}
-
-  margin:0 20px 20px 20px;
+  margin: 0 20px 20px 20px;
   cursor: pointer;
   color: ${(props) => props.theme.font_color};
   @media ${(props) => props.theme.mobile} {
@@ -55,7 +53,6 @@ const Container = styled.div<{ selected: boolean }>`
     margin: 0;
     padding: 0;
     flex-direction: column;
-
     border: ${(props) => (props.selected ? `3px solid #7188FF;` : "none")};
   }
 `;

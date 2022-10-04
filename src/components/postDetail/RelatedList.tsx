@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { authInstance } from "../../shared/api";
-import { useQuery } from "react-query";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+
+import { authInstance } from "../../shared/api";
 import fileIcon from "../../assets/fileIcon.svg";
 
 interface RelatedProps {

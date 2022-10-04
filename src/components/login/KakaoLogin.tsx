@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { instance } from "../../shared/api";
-import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const KakaoLogin = () => {

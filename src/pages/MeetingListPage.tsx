@@ -1,15 +1,8 @@
 import React from "react";
 import MeetingListContainer from "../components/meetingList/MeetingListContainer";
-import styled from "styled-components";
 
 const MeetingListPage = () => {
-  return (
-    <StMeetingListPageWrap>
-      <MeetingListContainer />
-    </StMeetingListPageWrap>
-  );
+  return <MeetingListContainer />;
 };
 
 export default MeetingListPage;
-
-const StMeetingListPageWrap = styled.div``;

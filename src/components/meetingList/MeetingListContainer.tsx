@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { authInstance } from "../../shared/api";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import styled from "styled-components";
 import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import "../../elements/datePicker/datepicker.css";
 import { ko } from "date-fns/esm/locale";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+
 import MeetingListCard from "./MeetingListCard";
+
+import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
-import styled from "styled-components";
 import { MeetingContentProps } from "../../elements/Type";
+import "../../elements/datePicker/datepicker.css";
 
 //::: 모집글 카테고리별 조회 axios
 const getMeetingList = ({ queryKey }: { queryKey: (string | boolean)[] }) => {
@@ -115,7 +117,7 @@ const MeetingListContainer = () => {
   const meetingAllList = data?.data.data.content;
 
   return (
-    <StMeetingListContainerWrap>
+    <StMeetingListContainer>
       <StFixedMenu>
         <div className="centerBox">
           <StMeetingCategoryRow className="themeCategoryRow">
@@ -164,12 +166,12 @@ const MeetingListContainer = () => {
                 조회
               </Button>
             </div>
-            <p
-              onClick={clickStatus}
-              className={checkStatus ? "activeButton" : "inactiveButton"}
-            >
-              <span className="filterMeetingStatus"></span>
-              <strong>모집중만 보기</strong>
+            <p className={checkStatus ? "activeButton" : "inactiveButton"}>
+              <span
+                onClick={clickStatus}
+                className="filterMeetingStatus"
+              ></span>
+              <strong onClick={clickStatus}>모집중만 보기</strong>
             </p>
           </StCheckStatus>
         </div>
@@ -200,13 +202,13 @@ const MeetingListContainer = () => {
           />
         ))}
       </StMeetingCardBox>
-    </StMeetingListContainerWrap>
+    </StMeetingListContainer>
   );
 };
 
 export default MeetingListContainer;
 
-const StMeetingListContainerWrap = styled.div`
+const StMeetingListContainer = styled.div`
   min-height: 100vh;
   background-color: var(--bg-color);
   padding-top: 110px;
@@ -263,10 +265,12 @@ const StCheckStatus = styled.div`
       border: 1px solid var(--gray-color);
       background-color: var(--bg-color);
       margin-right: 8px;
+      cursor: pointer;
     }
     strong {
       color: var(--gray-color);
       font-weight: 300;
+      cursor: pointer;
     }
 
     &.activeButton span {

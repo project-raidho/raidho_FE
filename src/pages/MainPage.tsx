@@ -73,7 +73,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    <StMainPageWrap>
+    <StMainPage>
       <MainBanner />
       <StLayout>
         <StMainNav>
@@ -109,13 +109,13 @@ const MainPage = () => {
         onClick={handleTop} // 버튼 클릭시 함수 호출
       />
       <Potal>{modalOn && <IntroTutorial onClose={handleModal} />}</Potal>
-    </StMainPageWrap>
+    </StMainPage>
   );
 };
 
 export default MainPage;
 
-const StMainPageWrap = styled.div`
+const StMainPage = styled.div`
   width: 100%;
   padding-top: 170px;
 

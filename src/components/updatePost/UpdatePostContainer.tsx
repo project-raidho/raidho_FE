@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
-import { authInstance } from "../../shared/api";
+
 import PostDetailImg from "../postDetail/PostDetailImg";
-import ContentTextArea from "../../elements/ContentTextArea";
-import TagInput from "../../elements/TagInput";
-import AlertModal from "../../global/globalModal/AlertModal";
-import Potal from "../../global/globalModal/Potal";
+
+import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
-import styled from "styled-components";
+import TextArea from "../../elements/TextArea";
+import TagInput from "../../elements/TagInput";
+import Potal from "../../global/globalModal/Potal";
+import AlertModal from "../../global/globalModal/AlertModal";
 
 interface PostDetailProps {
   id: string;
@@ -159,14 +161,14 @@ const UpdatePostContainer = () => {
   });
 
   return (
-    <StCreatePostContainerWrap>
+    <StUpdatePostContainer>
       <StCreatePostColumn>
         <StStepTitle>이미지 확인</StStepTitle>
         <PostDetailImg images={postDetail.multipartFiles} />
       </StCreatePostColumn>
       <StCreatePostColumn>
         <StStepTitle>내용</StStepTitle>
-        <ContentTextArea
+        <TextArea
           typedPostContent={typedPostContent}
           initialContent={postDetail.content}
           placeholderText={"여행에서 경험한 내용을 입력해주세요."}
@@ -207,13 +209,13 @@ const UpdatePostContainer = () => {
           />
         )}
       </Potal>
-    </StCreatePostContainerWrap>
+    </StUpdatePostContainer>
   );
 };
 
 export default UpdatePostContainer;
 
-const StCreatePostContainerWrap = styled.div`
+const StUpdatePostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

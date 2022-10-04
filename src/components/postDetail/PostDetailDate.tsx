@@ -9,18 +9,18 @@ interface postDetail {
 
 const PostDetailDate = ({ postDetail }: postDetail) => {
   return (
-    <StDateWrapper>
+    <StPostDetailDate>
       <div className="date">
         {postDetail.createdAt.slice(0, 4)}. {postDetail.createdAt.slice(5, 7)}.{" "}
         {postDetail.createdAt.slice(8, 10)}
       </div>
-    </StDateWrapper>
+    </StPostDetailDate>
   );
 };
 
 export default PostDetailDate;
 
-const StDateWrapper = styled.div`
+const StPostDetailDate = styled.div`
   display: block;
   margin: 10px 0;
 

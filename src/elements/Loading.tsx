@@ -4,15 +4,15 @@ import { FaSpinner } from "react-icons/fa";
 
 const Loading = () => {
   return (
-    <StLoadingWrap>
+    <StLoading>
       <FaSpinner />
-    </StLoadingWrap>
+    </StLoading>
   );
 };
 
 export default Loading;
 
-const StLoadingWrap = styled.div`
+const StLoading = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
