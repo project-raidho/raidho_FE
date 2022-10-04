@@ -1,9 +1,10 @@
 import React from "react";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
+
 import { RootState } from "../../redux/store";
 import BgToggleBoxLight from "../../assets/header/toggleBoxLight.svg";
 import BgToggleBoxDark from "../../assets/header/toggleBoxDark.svg";
-import styled from "styled-components";
 
 interface ToggleProps {
   children: React.ReactNode;

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-
+import styled from "styled-components";
 import Slider from "react-slick";
-import "../../elements/slider/slick-theme.css";
-import "../../elements/slider/slick.css";
+
 import MeetingListCard from "../meetingList/MeetingListCard";
+
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import styled from "styled-components";
 import { MeetingContentProps } from "../../elements/Type";
+import "../../elements/slider/slick-theme.css";
+import "../../elements/slider/slick.css";
 
 const MyMeetingList = ({
   status,
@@ -63,7 +64,7 @@ const MyMeetingList = ({
   };
 
   return (
-    <StMyMeetingListWrap>
+    <StMyMeetingList>
       {(data.length < 2 && isMobile) ||
       (data.length < 3 && isTablet) ||
       (data.length < 4 && !isMobile && !isTablet) ? (
@@ -117,13 +118,13 @@ const MyMeetingList = ({
           ))}
         </Slider>
       )}
-    </StMyMeetingListWrap>
+    </StMyMeetingList>
   );
 };
 
 export default MyMeetingList;
 
-const StMyMeetingListWrap = styled.div``;
+const StMyMeetingList = styled.div``;
 
 const StMeetingCardBox = styled.div`
   width: 100%;

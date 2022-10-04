@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
 import Message from "./Message";
-import { useQuery } from "react-query";
-import { authInstance } from "../../shared/api";
 
+import { authInstance } from "../../shared/api";
 import Loading from "../../elements/Loading";
-// import Error from "../../elements/Error";
+import Error from "../../elements/Error";
 
 interface MessageListProps {
   messages: {
@@ -38,9 +38,6 @@ const MessageList = ({ messages, chattingId }: MessageListProps) => {
     getMessageList,
     {
       // staleTime: 1000 * 60 * 60 * 24,
-      onSuccess: (data) => {
-        console.log(data);
-      },
     }
   );
 
@@ -50,10 +47,6 @@ const MessageList = ({ messages, chattingId }: MessageListProps) => {
   const messageEndRef = React.useRef<null | HTMLDivElement>(null);
   //  하단 스크롤 함수
   const scrollTomBottom = () => {
-    // // 모바일이면 실행하지 않기
-    // if (window.innerWidth <= 375) {
-    //   return;
-    // }
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -63,7 +56,8 @@ const MessageList = ({ messages, chattingId }: MessageListProps) => {
   }, [messages, chattingId]);
 
   if (allMessageListQuery.status === "loading") return <Loading />;
-  // if (status === "error") return <Error message={error.message} />;
+  if (allMessageListQuery.status === "error")
+    return <Error message={(allMessageListQuery.error as Error).message} />;
 
   if (allMessageListQuery.isLoading) {
     return null;

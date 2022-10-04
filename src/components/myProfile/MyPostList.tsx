@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import fileIcon from "../../assets/fileIcon.svg";
-import IconError from "../../assets/iconError.svg";
-import Loading from "../../elements/Loading";
-import Error from "../../elements/Error";
+import { Link } from "react-router-dom";
 
 import Slider from "react-slick";
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
+import Loading from "../../elements/Loading";
+import Error from "../../elements/Error";
 
+import fileIcon from "../../assets/fileIcon.svg";
+import IconError from "../../assets/iconError.svg";
 interface MyPostListProps {
   data: {
     isImages: boolean;

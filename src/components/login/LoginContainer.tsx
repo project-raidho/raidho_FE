@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-
-import RaidhoLogo from "../../assets/raidhoLogo.svg";
 import { MdClose } from "react-icons/md";
-import { KAKAO_AUTH_URL } from "../../shared/SocialOAuth";
 
 import kakao from "../../assets/kakao.svg";
+import RaidhoLogo from "../../assets/raidhoLogo.svg";
+import { KAKAO_AUTH_URL } from "../../shared/SocialOAuth";
 
 const LoginModal = ({
   onClose,

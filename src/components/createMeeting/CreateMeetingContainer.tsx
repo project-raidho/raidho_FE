@@ -1,31 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ThemeSelect from "./ThemeSelect";
-// import { useForm } from "react-hook-form";
-import { authInstance } from "../../shared/api";
-import Button from "../../elements/Button";
-import TripPeriod from "./TripPeriod";
-import AlertModal from "../../global/globalModal/AlertModal";
-import Potal from "../../global/globalModal/Potal";
 
-import TagInput from "../../elements/TagInput";
+import { authInstance } from "../../shared/api";
+import { useMutation, useQueryClient } from "react-query";
+
+import ThemeSelect from "./ThemeSelect";
+import TripPeriod from "./TripPeriod";
+import TripPeopleCount from "./TripPeopleCount";
 import RoomCloseDateBox from "./RoomCloseDateBox";
 import MeetingLocationSearch from "./MeetingLocationSearch";
-import TripPeopleCount from "./TripPeopleCount";
-import { useNavigate } from "react-router-dom";
 
-//리액트 쿼리
-import { useMutation, useQueryClient } from "react-query";
-import { useEffect } from "react";
-import MeetingTitle from "./MeetingTitle";
-import ContentTextArea from "../../elements/ContentTextArea";
+import Button from "../../elements/Button";
+import TagInput from "../../elements/TagInput";
+import TextArea from "../../elements/TextArea";
+import Potal from "../../global/globalModal/Potal";
+import AlertModal from "../../global/globalModal/AlertModal";
 
 const CreateMeetingContatiner = () => {
   const [theme, setTheme] = useState("");
   const [meetingTags, setMeetingTags] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState("");
-  const [people, setPeople] = useState<number | undefined>();
+  const [people, setPeople] = useState<number | undefined>(2);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [roomCloseDate, setRoomCloseDate] = useState("");
@@ -233,7 +230,7 @@ const CreateMeetingContatiner = () => {
   const selectedMeetingTags = (tags: string[]) => {
     setMeetingTags(tags);
   };
-  const typedMeetingContent = (text: string) => {
+  const onChangeDesc = (text: string) => {
     setDesc(text);
   };
 
@@ -246,13 +243,13 @@ const CreateMeetingContatiner = () => {
   };
 
   return (
-    <StContainer>
+    <StCreateMeetingContatiner>
       <StStepTitle>여행정보 입력</StStepTitle>
 
       <h1>대륙 선택 *</h1>
       <ThemeSelect theme={""} setTheme={setTheme} />
       <StValidationMsg>{themeValMsg}</StValidationMsg>
-      <h1>여행갈 나라/도시 태그 입력 *(태그입력은 엔터로 입력됩니다!)</h1>
+      <h1>여행갈 나라/도시 태그 입력(태그입력은 엔터로 입력됩니다!) *</h1>
       <StTags>
         <TagInput
           selectedTags={selectedMeetingTags}
@@ -285,14 +282,18 @@ const CreateMeetingContatiner = () => {
 
       <StStepTitle>모집글정보 입력</StStepTitle>
       <h1>모집글/채팅방 제목 *</h1>
-      <MeetingTitle
-        onChangeMeetingTitle={onChangeMeetingTitle}
-        placeholderText={"모집글 제목을 써주세요."}
-      />
-      <StValidationMsg>{titleValMsg}</StValidationMsg>
+      <span className="titleArea">
+        <TextArea
+          typedPostContent={onChangeMeetingTitle}
+          placeholderText={"모집글 제목을 써주세요."}
+          initialContent=""
+          ValRedMsg={titleValMsg}
+          maxLength={20}
+        />
+      </span>
       <h1>모집글 설명 *</h1>
-      <ContentTextArea
-        typedPostContent={typedMeetingContent}
+      <TextArea
+        typedPostContent={onChangeDesc}
         placeholderText={"모집글 설명을 써주세요."}
         initialContent=""
         ValRedMsg={descValMsg}
@@ -323,15 +324,15 @@ const CreateMeetingContatiner = () => {
           />
         )}
       </Potal>
-    </StContainer>
+    </StCreateMeetingContatiner>
   );
 };
 export default CreateMeetingContatiner;
 
-const StContainer = styled.div`
+const StCreateMeetingContatiner = styled.div`
   width: 90%;
   margin: 0 auto;
-  padding-bottom: 50px;
+  padding-bottom: 100px;
   h2 {
     font-size: 30px;
     margin-top: 30px;
@@ -346,6 +347,12 @@ const StContainer = styled.div`
   }
   textarea {
     border-radius: 15px;
+  }
+  .titleArea {
+    textarea {
+      height: 55px;
+      overflow: hidden;
+    }
   }
 `;
 

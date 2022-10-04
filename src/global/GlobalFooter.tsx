@@ -18,7 +18,7 @@ const GlobalFooter = () => {
   }, [pathname]);
 
   return (
-    <StFooterWrap isNoNeed={isNoNeed}>
+    <StGlobalFooter isNoNeed={isNoNeed}>
       <StCenterBox>
         <h4>
           <BsGithub
@@ -124,13 +124,13 @@ const GlobalFooter = () => {
         </StOurProfile>
         <p className="copy">&copy; 2022 RAIDHO</p>
       </StCenterBox>
-    </StFooterWrap>
+    </StGlobalFooter>
   );
 };
 
 export default GlobalFooter;
 
-const StFooterWrap = styled.div<{ isNoNeed: boolean }>`
+const StGlobalFooter = styled.div<{ isNoNeed: boolean }>`
   display: ${(props) => (props.isNoNeed ? "none" : "block")};
   width: 100%;
   height: 280px;

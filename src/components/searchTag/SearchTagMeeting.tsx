@@ -1,9 +1,11 @@
 import React from "react";
-import { authInstance } from "../../shared/api";
-import { useQuery } from "react-query";
-import MeetingListCard from "../meetingList/MeetingListCard";
-import SearchAlert from "./SearchAlert";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+
+import SearchAlert from "./SearchAlert";
+import MeetingListCard from "../meetingList/MeetingListCard";
+
+import { authInstance } from "../../shared/api";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
 import { MeetingContentProps } from "../../elements/Type";

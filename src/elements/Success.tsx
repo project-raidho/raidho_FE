@@ -4,15 +4,15 @@ import { MdCheck } from "react-icons/md";
 
 const Success = () => {
   return (
-    <StSuccessWrap>
+    <StSuccess>
       <MdCheck />
-    </StSuccessWrap>
+    </StSuccess>
   );
 };
 
 export default Success;
 
-const StSuccessWrap = styled.div`
+const StSuccess = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

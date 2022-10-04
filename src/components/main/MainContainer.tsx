@@ -1,6 +1,7 @@
 import React from "react";
-import MainPostList from "./MainPostList";
 import styled from "styled-components";
+
+import MainPostList from "./MainPostList";
 
 interface MainProps {
   state: string;
@@ -8,16 +9,16 @@ interface MainProps {
 
 const MainContainer = ({ state }: MainProps) => {
   return (
-    <StMainContainerWrap>
+    <StMainContainer>
       {state === "latest" && <MainPostList state={state} />}
       {state === "likelist" && <MainPostList state={state} />}
-    </StMainContainerWrap>
+    </StMainContainer>
   );
 };
 
 export default MainContainer;
 
-const StMainContainerWrap = styled.div`
+const StMainContainer = styled.div`
   @media (max-width: 767px) {
     padding-top: 0;
   }

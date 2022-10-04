@@ -1,15 +1,16 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import ToggleBox from "./ToggleBox";
-import Button from "../../elements/Button";
-import Potal from "../../global/globalModal/Potal";
-import LoginModal from "../login/LoginContainer";
+import styled from "styled-components";
 import { BiImage } from "react-icons/bi";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsChatRightDots } from "react-icons/bs";
 import { MdOutlineTravelExplore } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+
+import ToggleBox from "./ToggleBox";
+import Button from "../../elements/Button";
+import Potal from "../../global/globalModal/Potal";
+import LoginModal from "../login/LoginContainer";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
-import styled from "styled-components";
 
 interface HeaderProps {
   isLogin: boolean;
@@ -94,7 +95,7 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
   }, [userIsLogin]);
 
   return (
-    <StHeaderRightMenuWrap>
+    <StHeaderRightMenu>
       <StLoginRightMenu>
         <li>
           <Link to={`/`}>
@@ -156,13 +157,13 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
           </li>
         )}
       </StLoginRightMenu>
-    </StHeaderRightMenuWrap>
+    </StHeaderRightMenu>
   );
 };
 
 export default HeaderRightMenu;
 
-const StHeaderRightMenuWrap = styled.div`
+const StHeaderRightMenu = styled.div`
   @media ${(props) => props.theme.mobile} {
     position: fixed;
     left: 0;

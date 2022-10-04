@@ -4,24 +4,25 @@ import styled from "styled-components";
 
 const NotFound = () => {
   return (
-    <StNotFoundWrap>
+    <StNotFound>
       <p>
         <img src={IconError} alt="에러 페이지 입니다" />
       </p>
       <h3>NOT FOUND</h3>
       <h4>찾을 수 없는 페이지입니다.</h4>
-    </StNotFoundWrap>
+    </StNotFound>
   );
 };
 
 export default NotFound;
 
-const StNotFoundWrap = styled.div`
+const StNotFound = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  min-height: calc(100vh - 330px);
 
   p {
     width: 140px;

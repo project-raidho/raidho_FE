@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-interface TextArea {
+interface TextAreaProps {
   initialContent: string;
   typedPostContent: (x: string) => void;
   placeholderText: string;
   ValRedMsg: string;
+  maxLength?: number;
 }
-const ContentTextArea = ({
+const TextArea = ({
   initialContent,
   typedPostContent,
   placeholderText,
   ValRedMsg,
-}: TextArea) => {
+  maxLength = 200,
+}: TextAreaProps) => {
   const [checkTextLength, setCheckTextLength] = useState(
     initialContent?.length
   );
@@ -35,18 +37,19 @@ const ContentTextArea = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength={199}
-        minLength={10}
+        maxLength={maxLength}
       />
       <StValMsgSet>
         <StValRedMsg>{ValRedMsg}</StValRedMsg>
-        <StValidationMsg>{checkTextLength} / 200자</StValidationMsg>
+        <StValidationMsg>
+          {checkTextLength} / {maxLength}자
+        </StValidationMsg>
       </StValMsgSet>
     </StContentTextAreaWrap>
   );
 };
 
-export default ContentTextArea;
+export default TextArea;
 
 const StContentTextAreaWrap = styled.div`
   width: 100%;

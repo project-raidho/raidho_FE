@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect } from "react";
-import { authInstance } from "../../shared/api";
+import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+
 import MainPostCard from "./MainPostCard";
+
+import { authInstance } from "../../shared/api";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import styled from "styled-components";
 import { MainContentProps } from "../../elements/Type";
 
 const getPostList = async (state: string, pageParam: number) => {
@@ -43,7 +45,7 @@ const MainPostList = ({ state }: { state: string }) => {
   if (status === "error") return <Error message={(error as Error).message} />;
 
   return (
-    <StPostLisWrap>
+    <StMainPostList>
       <StitemList>
         {data?.pages.map((page, index) => (
           <Fragment key={index}>
@@ -64,13 +66,13 @@ const MainPostList = ({ state }: { state: string }) => {
         ))}
         {isFetchingNextPage ? <Loading /> : <div ref={ref}></div>}
       </StitemList>
-    </StPostLisWrap>
+    </StMainPostList>
   );
 };
 
 export default MainPostList;
 
-const StPostLisWrap = styled.div`
+const StMainPostList = styled.div`
   display: flex;
 `;
 

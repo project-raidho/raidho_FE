@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import Slider from "react-slick";
+
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
+
 import Banner2 from "../../assets/banner/bannerContent2.png";
 import BannerBg2 from "../../assets/banner/bannerBg2.png";
 import Banner1 from "../../assets/banner/bannerContent1.png";
 import BannerBg1 from "../../assets/banner/bannerBg1.png";
 import BannerBgMobile1 from "../../assets/banner/bannerMobile1.png";
 import BannerBgMobile2 from "../../assets/banner/bannerMobile2.png";
-import styled from "styled-components";
 
 const MainBanner = () => {
   // ::: 모바일 여부 확인하기
@@ -35,7 +37,7 @@ const MainBanner = () => {
     slidesToScroll: 1,
   };
   return (
-    <StMainBannerWrap>
+    <StMainBanner>
       <Slider {...settings}>
         <div className="contentBox contentBox1">
           <div className="centerBox">
@@ -59,13 +61,13 @@ const MainBanner = () => {
           </div>
         </div>
       </Slider>
-    </StMainBannerWrap>
+    </StMainBanner>
   );
 };
 
 export default MainBanner;
 
-const StMainBannerWrap = styled.div`
+const StMainBanner = styled.div`
   position: absolute;
   top: 55px;
   left: 0;

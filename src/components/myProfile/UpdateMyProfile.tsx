@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
 import Modal from "../../global/globalModal/Modal";
-import styled from "styled-components";
+
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const UpdateMyProfile = () => {
@@ -156,7 +158,7 @@ const UpdateMyProfile = () => {
     }
   };
   return (
-    <StUpdateMyProfileWrap>
+    <StUpdateMyProfile>
       <StMyProfileBox>
         <p>
           <img src={memberInfo.memberImage} alt={"멤버이미지"} />
@@ -252,13 +254,13 @@ const UpdateMyProfile = () => {
           </Modal>
         )}
       </Potal>
-    </StUpdateMyProfileWrap>
+    </StUpdateMyProfile>
   );
 };
 
 export default UpdateMyProfile;
 
-const StUpdateMyProfileWrap = styled.div`
+const StUpdateMyProfile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

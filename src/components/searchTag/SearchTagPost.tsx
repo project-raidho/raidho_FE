@@ -1,11 +1,13 @@
 import React from "react";
-import { authInstance } from "../../shared/api";
-import { useQuery } from "react-query";
-import MainPostCard from "../main/MainPostCard";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+
+import SearchAlert from "./SearchAlert";
+import MainPostCard from "../main/MainPostCard";
+
+import { authInstance } from "../../shared/api";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import SearchAlert from "./SearchAlert";
 import { MainContentProps } from "../../elements/Type";
 
 const getSearchTagPostList = async ({ queryKey }: { queryKey: string[] }) => {

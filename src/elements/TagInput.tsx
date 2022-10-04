@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { MdClose } from "react-icons/md";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { MdClose } from "react-icons/md";
 
 interface TagInputProps {
   tags: string[];
@@ -154,6 +153,7 @@ const StCreatePostTagsWrap = styled.div`
     height: 46px;
     font-size: 1rem;
     padding: 2px 0 0 1.3rem;
+    background-color: var(--bg-color);
     &:focus {
       outline: transparent;
     }
