@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import ThemeSelect from "./ThemeSelect";
-// import TagInput from "../../elements/TagInput";
-import { authInstance } from "../../shared/api";
-
-import TripPeriod from "./TripPeriod";
-
-import RoomCloseDateBox from "./RoomCloseDateBox";
-import MeetingLocationSearch from "./MeetingLocationSearch";
-import TripPeopleCount from "./TripPeopleCount";
-
-import AlertModal from "../../global/globalModal/AlertModal";
-import Potal from "../../global/globalModal/Potal";
-import Button from "../../elements/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import MeetingTitle from "./MeetingTitle";
+
+import TripPeriod from "./TripPeriod";
+import TripPeopleCount from "./TripPeopleCount";
+import RoomCloseDateBox from "./RoomCloseDateBox";
+import MeetingLocationSearch from "./MeetingLocationSearch";
+
+import { authInstance } from "../../shared/api";
+import Button from "../../elements/Button";
 import ContentTextArea from "../../elements/ContentTextArea";
+import Potal from "../../global/globalModal/Potal";
+import AlertModal from "../../global/globalModal/AlertModal";
 
 const UpdateMeetingContainer = () => {
   const { meetingId } = useParams();
   // ::: 입력된 데이터 취합하기
   const navigate = useNavigate();
 
-  // ::: 에러메세지(createPotal) 컨트롤 하기
+  //수정 성공시 확인 모달
   const [modalOn, setModalOn] = useState(false);
   const [modalIcon, setModalIcon] = useState<
     "" | "success" | "warning" | "info"
@@ -50,7 +46,6 @@ const UpdateMeetingContainer = () => {
       console.log(data);
     },
   });
-  // console.log(meetingDetail_query);
 
   const [theme, setTheme] = useState("");
   const [meetingTags, setMeetingTags] = useState([""]);
@@ -62,7 +57,6 @@ const UpdateMeetingContainer = () => {
   const [endDate, setEndDate] = useState("");
   const [departLocation, setDepartLocation] = useState("");
   const [maxRoomCloseDate, setmaxRoomCloseDate] = useState<Date | undefined>();
-  //서버에서 받아온 데이터
 
   const data = {
     title: title,
@@ -216,7 +210,7 @@ const UpdateMeetingContainer = () => {
     setDepartLocation(meetingDetail?.departLocation);
   }, [meetingDetail]);
 
-  const onChangeContent = (content: string) => {
+  const onChangeDesc = (content: string) => {
     setDesc(content);
   };
 
@@ -267,16 +261,19 @@ const UpdateMeetingContainer = () => {
         <br />
         <StStepTitle>2. 모집글정보 수정</StStepTitle>
         <h1>모집글/채팅방 제목 *</h1>
-
-        <MeetingTitle
-          onChangeMeetingTitle={onChangeTitle}
-          placeholderText={"모집글 제목을 써주세요."}
-          initialContent={title}
-        />
+        <span className="titleArea">
+          <ContentTextArea
+            typedPostContent={onChangeTitle}
+            placeholderText={"모집글 제목을 써주세요."}
+            initialContent={title}
+            ValRedMsg={titleValMsg}
+            maxLength={20}
+          />
+        </span>
         <StValidationMsg>{titleValMsg}</StValidationMsg>
         <h1>모집글 설명 *</h1>
         <ContentTextArea
-          typedPostContent={onChangeContent}
+          typedPostContent={onChangeDesc}
           placeholderText={"모집글 설명을 써주세요."}
           initialContent={desc}
           ValRedMsg={descValMsg}
@@ -361,6 +358,13 @@ const StContainer = styled.div`
   }
   .allValMsg {
     float: right;
+  }
+
+  .titleArea {
+    textarea {
+      height: 55px;
+      overflow: hidden;
+    }
   }
 
   @media (max-width: 1023px) {

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RiEdit2Fill } from "react-icons/ri";
+import { IoArrowBackSharp } from "react-icons/io5";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import PostDetailImage from "./PostDetailImg";
 import PostDetailLike from "./PostDetailLike";
@@ -9,15 +13,11 @@ import RelatedList from "./RelatedList";
 import PostDetailTagList from "./PostDetailTagList";
 import PostDetailDate from "./PostDetailDate";
 
-import { RiDeleteBin6Fill } from "react-icons/ri";
-import { RiEdit2Fill } from "react-icons/ri";
-import { IoArrowBackSharp } from "react-icons/io5";
-import { authInstance } from "../../shared/api";
-import { useQuery, useMutation, useQueryClient } from "react-query";
 //댓글 컴포넌트
 import AddCommentForm from "./comment/AddCommentForm";
 import CommentsList from "./comment/CommentsList";
-//모다 컴포넌트
+
+import { authInstance } from "../../shared/api";
 import AlertModal from "../../global/globalModal/AlertModal";
 import CofirmModal from "../../global/globalModal/CofirmModal";
 import Potal from "../../global/globalModal/Potal";

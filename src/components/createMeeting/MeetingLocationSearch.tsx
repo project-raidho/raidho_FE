@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./KakaoMap";
-import DaumPostcode from "react-daum-postcode";
-import Button from "../../elements/Button";
 import styled from "styled-components";
+import DaumPostcode from "react-daum-postcode";
+
+import Button from "../../elements/Button";
 
 interface SearchProps {
   departLocation?: string;

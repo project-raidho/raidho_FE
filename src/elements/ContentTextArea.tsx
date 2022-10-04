@@ -6,12 +6,14 @@ interface TextArea {
   typedPostContent: (x: string) => void;
   placeholderText: string;
   ValRedMsg: string;
+  maxLength?: number;
 }
 const ContentTextArea = ({
   initialContent,
   typedPostContent,
   placeholderText,
   ValRedMsg,
+  maxLength = 200,
 }: TextArea) => {
   const [checkTextLength, setCheckTextLength] = useState(
     initialContent?.length
@@ -35,12 +37,13 @@ const ContentTextArea = ({
         onChange={onChangeContent}
         value={changeContent}
         placeholder={placeholderText}
-        maxLength={199}
-        minLength={10}
+        maxLength={maxLength}
       />
       <StValMsgSet>
         <StValRedMsg>{ValRedMsg}</StValRedMsg>
-        <StValidationMsg>{checkTextLength} / 200자</StValidationMsg>
+        <StValidationMsg>
+          {checkTextLength} / {maxLength}자
+        </StValidationMsg>
       </StValMsgSet>
     </StContentTextAreaWrap>
   );

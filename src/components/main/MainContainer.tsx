@@ -1,6 +1,7 @@
 import React from "react";
-import MainPostList from "./MainPostList";
 import styled from "styled-components";
+
+import MainPostList from "./MainPostList";
 
 interface MainProps {
   state: string;

@@ -5,12 +5,14 @@ import React, {
   SetStateAction,
   Dispatch,
 } from "react";
-import { Calendar } from "react-date-range"; // 얘가 캘린더 라이브러리
-import ko from "date-fns/locale/ko"; // 날짜 포맷 라이브러리 (한국어 기능을 임포트)
-import moment from "moment";
-import Input from "../../elements/Input";
 import styled from "styled-components";
 import { BsCalendar3 } from "react-icons/bs";
+//달력 관련 라이브러리
+import { Calendar } from "react-date-range";
+import ko from "date-fns/locale/ko";
+import moment from "moment";
+
+import Input from "../../elements/Input";
 
 interface RoomCloseDateBoxProps {
   roomCloseDate?: string;
@@ -97,7 +99,10 @@ export default RoomCloseDateBox;
 
 const StRoomCloseDateBoxContainer = styled.div`
   .input {
-    cursor: pointer;
+    .SKpjV:disabled {
+      cursor: pointer;
+      opacity: 1;
+    }
   }
   .calendar {
     @media ${(props) => props.theme.mobile} {

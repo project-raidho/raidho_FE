@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
-import { authInstance } from "../../shared/api";
-import CreatePostImage from "./CreatePostImage";
-import ContentTextArea from "../../elements/ContentTextArea";
-import TagInput from "../../elements/TagInput";
-import AlertModal from "../../global/globalModal/AlertModal";
-import Potal from "../../global/globalModal/Potal";
-import Button from "../../elements/Button";
-import styled from "styled-components";
 
+import CreatePostImage from "./CreatePostImage";
+
+import { authInstance } from "../../shared/api";
+import Button from "../../elements/Button";
+import TagInput from "../../elements/TagInput";
+import ContentTextArea from "../../elements/ContentTextArea";
+import Potal from "../../global/globalModal/Potal";
+import AlertModal from "../../global/globalModal/AlertModal";
 const CreatePostContainer = () => {
   const navigate = useNavigate();
 
@@ -140,7 +141,7 @@ const CreatePostContainer = () => {
   });
 
   return (
-    <StCreatePostContainerWrap>
+    <StCreatePostContainer>
       <StStepTitle>
         이미지 업로드 <span>*</span>
       </StStepTitle>
@@ -190,13 +191,13 @@ const CreatePostContainer = () => {
           />
         )}
       </Potal>
-    </StCreatePostContainerWrap>
+    </StCreatePostContainer>
   );
 };
 
 export default CreatePostContainer;
 
-const StCreatePostContainerWrap = styled.div`
+const StCreatePostContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -204,11 +205,6 @@ const StCreatePostContainerWrap = styled.div`
 
   @media (max-width: 1023px) {
     padding: 0 1rem;
-  }
-  @media (max-width: 767px) {
-  }
-
-  @media ${(props) => props.theme.mobile} {
   }
 `;
 

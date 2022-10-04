@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import Info from "../../elements/Info";
 
 const NoRoom = () => {

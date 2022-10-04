@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
 
-// Components
 import MessageList from "./MessageList";
 import MessageWrite from "./MessageWrite";
 import ChatList from "./ChatList";
 import ChatName from "./ChatName";
 import NoRoom from "./NoRoom";
-
-// 소켓 통신
-import Stomp from "stompjs";
-import SockJS from "sockjs-client";
 
 // 채팅 방 컴포넌트
 const ChattingRoom = () => {

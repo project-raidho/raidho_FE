@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
+
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
-import { useEffect } from "react";
-import CofirmModal from "../../../global/globalModal/CofirmModal";
 import Potal from "../../../global/globalModal/Potal";
+import CofirmModal from "../../../global/globalModal/CofirmModal";
 
 interface CommentProps {
   comment: {

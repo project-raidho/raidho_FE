@@ -1,9 +1,9 @@
 import React from "react";
-
 import styled from "styled-components";
-import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
+
 import Image from "../../elements/Image";
 import Loading from "../../elements/Loading";
+import DefaultProfileImage from "../../assets/defaultProfileImage.svg";
 
 interface MssageProps {
   messageInfo: {

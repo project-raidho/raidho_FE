@@ -6,13 +6,13 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
+import styled from "styled-components";
 import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import AlertModal from "../../global/globalModal/AlertModal";
-// import ConfirmModal from "../../global/globalModal/ConfirmModal"
-import Potal from "../../global/globalModal/Potal";
+
 import Button from "../../elements/Button";
-import styled from "styled-components";
+import Potal from "../../global/globalModal/Potal";
+import AlertModal from "../../global/globalModal/AlertModal";
 
 // ::: 이미지 크롭 사전 세팅
 const centerAspectCrop = (

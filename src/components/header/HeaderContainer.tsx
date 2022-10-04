@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import DesktopLogo from "../../assets/raidhoLogo.svg";
-import MobileLogo from "../../assets/raidhoMobileLogo.svg";
+
 import HeaderRightMenu from "./HeaderRightMenu";
 import SearchContainer from "./SearchContainer";
+import DesktopLogo from "../../assets/raidhoLogo.svg";
+import MobileLogo from "../../assets/raidhoMobileLogo.svg";
 
 const HeaderContainer = () => {
   // ::: 로그인 여부 확인하기

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
-import { authInstance } from "../../shared/api";
+
 import PostDetailImg from "../postDetail/PostDetailImg";
+
+import { authInstance } from "../../shared/api";
+import Button from "../../elements/Button";
 import ContentTextArea from "../../elements/ContentTextArea";
 import TagInput from "../../elements/TagInput";
-import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
-import Button from "../../elements/Button";
-import styled from "styled-components";
+import AlertModal from "../../global/globalModal/AlertModal";
 
 interface PostDetailProps {
   id: string;

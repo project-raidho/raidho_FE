@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import Slider from "react-slick";
+
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-import Slider from "react-slick";
+
 interface images {
   images: string[];
 }

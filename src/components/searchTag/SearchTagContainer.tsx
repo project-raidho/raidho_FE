@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { NavLink, useLocation } from "react-router-dom";
+
 import SearchTagPost from "./SearchTagPost";
 import SearchTagMeeting from "./SearchTagMeeting";
 

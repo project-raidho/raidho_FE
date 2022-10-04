@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { BsChat } from "react-icons/bs";
+import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
+
 import { authInstance } from "../../shared/api";
 import HeartButton from "../../elements/HeartButton";
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
-import { useMutation, useQueryClient } from "react-query";
-import { BsChat } from "react-icons/bs";
 
 interface PostDetailProps {
   postDetail: {

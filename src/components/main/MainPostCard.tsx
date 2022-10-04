@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import { BsChat } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
+
 import { authInstance } from "../../shared/api";
+import { MainContentProps } from "../../elements/Type";
 import HeartButton from "../../elements/HeartButton";
 import AlertModal from "../../global/globalModal/AlertModal";
 import Potal from "../../global/globalModal/Potal";
-import styled from "styled-components";
+
 import fileIcon from "../../assets/fileIcon.svg";
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
-import { BsChat } from "react-icons/bs";
-import { MainContentProps } from "../../elements/Type";
 
 const MainPostCard = (props: MainContentProps) => {
   const navigate = useNavigate();

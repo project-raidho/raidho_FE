@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
 import { authInstance } from "../../shared/api";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import Potal from "../../global/globalModal/Potal";
 import Modal from "../../global/globalModal/Modal";
-import styled from "styled-components";
+
 import DefaultMemberImage from "../../assets/defaultProfileImage.svg";
 
 const UpdateMyProfile = () => {

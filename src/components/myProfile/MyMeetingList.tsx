@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-
+import styled from "styled-components";
 import Slider from "react-slick";
-import "../../elements/slider/slick-theme.css";
-import "../../elements/slider/slick.css";
+
 import MeetingListCard from "../meetingList/MeetingListCard";
+
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import styled from "styled-components";
 import { MeetingContentProps } from "../../elements/Type";
+import "../../elements/slider/slick-theme.css";
+import "../../elements/slider/slick.css";
 
 const MyMeetingList = ({
   status,

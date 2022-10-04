@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect } from "react";
-import { authInstance } from "../../shared/api";
+import styled from "styled-components";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+
 import MainPostCard from "./MainPostCard";
+
+import { authInstance } from "../../shared/api";
 import Loading from "../../elements/Loading";
 import Error from "../../elements/Error";
-import styled from "styled-components";
 import { MainContentProps } from "../../elements/Type";
 
 const getPostList = async (state: string, pageParam: number) => {

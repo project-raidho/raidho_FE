@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-
-// components
-import Chat from "./Chat";
-
-import { authInstance } from "../../shared/api";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+
+import Chat from "./Chat";
+import { authInstance } from "../../shared/api";
 
 // 채팅 리스트 컴포넌트
 // 모바일, 데스크탑에 따라 위치가 달리지도록 한다
@@ -38,11 +36,8 @@ const ChatList = ({ prevRoomId }: { prevRoomId: string | undefined }) => {
   };
 
   return (
-    <Container>
-      {/* <Title>채팅방 리스트</Title> */}
-
+    <StChatList>
       <ChatListWrap className="scroll">
-        {/* 받아온 채팅 리스트 구현하기 */}
         {chatList.map(
           (chat: {
             roomMasterId: number;
@@ -64,11 +59,11 @@ const ChatList = ({ prevRoomId }: { prevRoomId: string | undefined }) => {
           }
         )}
       </ChatListWrap>
-    </Container>
+    </StChatList>
   );
 };
 
-const Container = styled.div`
+const StChatList = styled.div`
   width: 30%;
   height: 100%;
 

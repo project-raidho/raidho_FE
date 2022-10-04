@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../redux/store";
-import { updateDarkMode } from "../../redux/modules/searchSlice";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { authInstance } from "../../shared/api";
+import { useSelector, useDispatch } from "react-redux";
+import { FaAngleDown } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
+
 import UpdateMyProfile from "./UpdateMyProfile";
 import MyPostList from "./MyPostList";
 import MyMeetingList from "./MyMeetingList";
-import styled from "styled-components";
-import { FaAngleDown } from "react-icons/fa";
-import { FaAngleUp } from "react-icons/fa";
+
+import { authInstance } from "../../shared/api";
+import { RootState } from "../../redux/store";
+import { updateDarkMode } from "../../redux/modules/searchSlice";
 
 const getMeetingMineList = async () => {
   const res = await authInstance.get(`/api/meeting/myMeetingPost`);

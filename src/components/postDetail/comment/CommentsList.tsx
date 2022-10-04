@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 import Comment from "./Comment";
 
-import styled from "styled-components";
-import { useQuery } from "react-query";
 import { authInstance } from "../../../shared/api";
 import Button from "../../../elements/Button";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const getCommentList = ({ queryKey }: { queryKey: (string | undefined)[] }) => {
   return authInstance.get(`/api/comment/${Number(queryKey[1])}`);
