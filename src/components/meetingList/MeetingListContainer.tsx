@@ -147,6 +147,7 @@ const MeetingListContainer = () => {
                 startDate={checkStartDate}
                 endDate={checkEndDate}
                 minDate={new Date()}
+                maxDate={checkEndDate}
               />
               <DatePicker
                 locale={ko}
