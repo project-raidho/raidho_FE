@@ -74,6 +74,7 @@ const AddCommentForm = () => {
             onClick={() => mutate()}
             type="submit"
             disabled={content === ""}
+            className="addButton"
           >
             게시
           </StButton>
