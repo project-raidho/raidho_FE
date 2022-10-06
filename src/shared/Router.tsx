@@ -22,21 +22,6 @@ const NotFound = lazy(() => import("../pages/NotFound"));
 const GlobalLayout = lazy(() => import("../global/GlobalLayout"));
 const GlobalFooter = lazy(() => import("../global/GlobalFooter"));
 
-// import MainPage from"../pages/MainPage";
-// import PostDetailPage from"../pages/PostDetailPage";
-// import MyProfilePage from"../pages/MyProfilePage";
-// import CreatePostPage from"../pages/CreatePostPage";
-// import UpdatePostPage from"../pages/UpdatePostPage";
-// import SearchTagPage from"../pages/SearchTagPage";
-// import CreateMeetingPage from"../pages/CreateMeetingPage";
-// import UpdateMeetingPage from"../pages/UpdateMeetingPage";
-// import MeetingListPage from"../pages/MeetingListPage";
-// import ChattingPage from"../pages/ChattingPage";
-// import KakaoLogin from"../components/login/KakaoLogin";
-// import NotFound from"../pages/NotFound";
-// import GlobalLayout from"../global/GlobalLayout";
-// import GlobalFooter from"../global/GlobalFooter";
-
 const Routers = () => {
   const dispatch = useDispatch();
 
