@@ -20,13 +20,13 @@ const GlobalFooter = () => {
   return (
     <StGlobalFooter isNoNeed={isNoNeed}>
       <StCenterBox>
-        <h4>
+        <p className="iconGitHub">
           <BsGithub
             onClick={() =>
               window.open("https://github.com/project-raidho", "_blank")
             }
           />
-        </h4>
+        </p>
         <h3>만든 사람들</h3>
         <StOurProfile>
           <ul>
@@ -151,7 +151,7 @@ const StCenterBox = styled.div`
   margin: 0 auto;
   padding: 1rem 1rem;
 
-  h4 {
+  p.iconGitHub {
     width: 30px;
     height: 30px;
     margin-bottom: 0.5rem;
@@ -172,7 +172,7 @@ const StCenterBox = styled.div`
 
   p.copy {
     font-size: 0.9rem;
-    color: var(--gray-color);
+    color: var(--title-color);
     margin-top: 0.5rem;
   }
   @media (max-width: 639px) {
