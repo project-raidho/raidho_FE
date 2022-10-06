@@ -3,14 +3,18 @@ import styled from "styled-components";
 
 import Info from "../../elements/Info";
 
-const NoRoom = () => {
+const NoRoom = ({ chatListLength }: { chatListLength: number }) => {
   return (
     <StNoRoom>
       <div className="box">
         <h4>
           <Info />
         </h4>
-        <p>{"참여중인 채팅방이 없습니다."}</p>
+        <p>
+          {chatListLength === 0
+            ? "참여중인 채팅방이 없습니다."
+            : "채팅방을 선택해주세요."}
+        </p>
       </div>
     </StNoRoom>
   );

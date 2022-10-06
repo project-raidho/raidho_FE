@@ -1,31 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
 
 import Chat from "./Chat";
-import { authInstance } from "../../shared/api";
 
 // 채팅 리스트 컴포넌트
-// 모바일, 데스크탑에 따라 위치가 달리지도록 한다
-//  모바일 : 채팅 리스트를 상단의 원으로 표시
-//  데스크탑 : 채팅 리스트를 좌측에 리스트로 표시
+interface ChatListProps {
+  prevRoomId: string | undefined;
+  chatList: {
+    roomMasterId: number;
+    roomName: string;
+    roomPic: string;
+  }[];
+}
 
-// ::: 채팅 리스트 가져오기
-const getChatList = async () => {
-  return await authInstance.get(`/api/chat/chatList`);
-};
-
-const ChatList = ({ prevRoomId }: { prevRoomId: string | undefined }) => {
+const ChatList = ({ prevRoomId, chatList }: ChatListProps) => {
   const navigate = useNavigate();
 
-  //채팅단건 조회 useQuery
-  const chatListQuery = useQuery("chatList", getChatList);
-  if (chatListQuery.isLoading) {
-    return null;
-  }
-
-  const chatList = chatListQuery.data?.data;
   // 채팅방 들어가기
   const enterRoom = (roomId: number) => {
     // 입장한 채팅방을 다시 클릭하면 리턴
@@ -42,7 +33,7 @@ const ChatList = ({ prevRoomId }: { prevRoomId: string | undefined }) => {
           (chat: {
             roomMasterId: number;
             roomName: string;
-            _onClick: React.MouseEventHandler<HTMLDivElement>;
+            _onClick?: React.MouseEventHandler<HTMLDivElement>;
             roomPic: string;
           }) => {
             return (

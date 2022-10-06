@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 
@@ -9,6 +10,13 @@ import MessageWrite from "./MessageWrite";
 import ChatList from "./ChatList";
 import ChatName from "./ChatName";
 import NoRoom from "./NoRoom";
+
+import { authInstance } from "../../shared/api";
+
+// ::: 채팅 리스트 가져오기
+const getChatList = async () => {
+  return await authInstance.get(`/api/chat/chatList`);
+};
 
 // 채팅 방 컴포넌트
 const ChattingRoom = () => {
@@ -150,10 +158,21 @@ const ChattingRoom = () => {
     }
   }
 
+  //채팅단건 조회 useQuery
+  const chatListQuery = useQuery("chatList", getChatList);
+  if (chatListQuery.isLoading) {
+    return null;
+  }
+
+  const chatList = chatListQuery.data?.data;
+  const chatListLength: number = chatList.length;
+  if (chatListQuery.isLoading) {
+    return null;
+  }
   return (
     <Container>
-      <ChatList prevRoomId={chattingId} />
-      {!chattingId && <NoRoom />}
+      <ChatList prevRoomId={chattingId} chatList={chatList} />
+      {!chattingId && <NoRoom chatListLength={chatListLength} />}
       {chattingId && (
         <ChatWrap>
           <ChatName />
