@@ -144,7 +144,11 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
             isMobile ? "여행을 검색해주세요." : "여행이나 지역을 검색해주세요."
           }
         />
-        <button className="buttonSearch" onClick={onClickSearchButton}></button>
+        <button
+          className="buttonSearch"
+          onClick={onClickSearchButton}
+          aria-label="buttonSearch"
+        ></button>
         <StSearchDetailList isFocusSearch={isFocusSearch}>
           <h3>최근 검색 기록</h3>
           <StSearchDetailRow>
