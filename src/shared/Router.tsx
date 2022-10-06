@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
+import styled from "styled-components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { getDarkMode } from "../redux/modules/searchSlice";
-import MainPage from "../pages/MainPage";
-import PostDetailPage from "../pages/PostDetailPage";
-import MyProfilePage from "../pages/MyProfilePage";
-import CreatePostPage from "../pages/CreatePostPage";
-import UpdatePostPage from "../pages/UpdatePostPage";
-import SearchTagPage from "../pages/SearchTagPage";
-import CreateMeetingPage from "../pages/CreateMeetingPage";
-import UpdateMeetingPage from "../pages/UpdateMeetingPage";
-import MeetingListPage from "../pages/MeetingListPage";
-import ChattingPage from "../pages/ChattingPage";
-import KakaoLogin from "../components/login/KakaoLogin";
-import NotFound from "../pages/NotFound";
 import HeaderContainer from "../components/header/HeaderContainer";
-import GlobalLayout from "../global/GlobalLayout";
-import GlobalFooter from "../global/GlobalFooter";
-import styled from "styled-components";
+import Loading from "../elements/Loading";
+
+const MainPage = lazy(() => import("../pages/MainPage"));
+const PostDetailPage = lazy(() => import("../pages/PostDetailPage"));
+const MyProfilePage = lazy(() => import("../pages/MyProfilePage"));
+const CreatePostPage = lazy(() => import("../pages/CreatePostPage"));
+const UpdatePostPage = lazy(() => import("../pages/UpdatePostPage"));
+const SearchTagPage = lazy(() => import("../pages/SearchTagPage"));
+const CreateMeetingPage = lazy(() => import("../pages/CreateMeetingPage"));
+const UpdateMeetingPage = lazy(() => import("../pages/UpdateMeetingPage"));
+const MeetingListPage = lazy(() => import("../pages/MeetingListPage"));
+const ChattingPage = lazy(() => import("../pages/ChattingPage"));
+const KakaoLogin = lazy(() => import("../components/login/KakaoLogin"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+const GlobalLayout = lazy(() => import("../global/GlobalLayout"));
+const GlobalFooter = lazy(() => import("../global/GlobalFooter"));
 
 const Routers = () => {
   const dispatch = useDispatch();
@@ -43,40 +45,42 @@ const Routers = () => {
       <StRouterWrapp>
         <HeaderContainer />
         <GlobalLayout>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/latest" element={<MainPage />} />
-            <Route path="/likelist" element={<MainPage />} />
-            <Route path="/postDetail/:postId" element={<PostDetailPage />} />
-            <Route path="/myProfile" element={<MyProfilePage />} />
-            <Route path="/createPost" element={<CreatePostPage />} />
-            <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
-            <Route path="/post/:tagName" element={<SearchTagPage />} />
-            <Route path="/meeting/:tagName" element={<SearchTagPage />} />
-            <Route path="/createMeeting" element={<CreateMeetingPage />} />
-            <Route
-              path="/updateMeeting/:meetingId"
-              element={<UpdateMeetingPage />}
-            />
-            {themeList.map((theme) => (
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/latest" element={<MainPage />} />
+              <Route path="/likelist" element={<MainPage />} />
+              <Route path="/postDetail/:postId" element={<PostDetailPage />} />
+              <Route path="/myProfile" element={<MyProfilePage />} />
+              <Route path="/createPost" element={<CreatePostPage />} />
+              <Route path="/updatePost/:postId" element={<UpdatePostPage />} />
+              <Route path="/post/:tagName" element={<SearchTagPage />} />
+              <Route path="/meeting/:tagName" element={<SearchTagPage />} />
+              <Route path="/createMeeting" element={<CreateMeetingPage />} />
               <Route
-                key={theme.themeName}
-                path={`/meetingList/${theme.themePath}`}
-                element={<MeetingListPage />}
+                path="/updateMeeting/:meetingId"
+                element={<UpdateMeetingPage />}
               />
-            ))}
-            {themeList.map((theme) => (
-              <Route
-                key={theme.themeName}
-                path={`/meeting/${theme.themePath}/:tagName`}
-                element={<SearchTagPage />}
-              />
-            ))}
-            <Route path="/chatting" element={<ChattingPage />} />
-            <Route path="/chatting/:chattingId" element={<ChattingPage />} />
-            <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
+              {themeList.map((theme) => (
+                <Route
+                  key={theme.themeName}
+                  path={`/meetingList/${theme.themePath}`}
+                  element={<MeetingListPage />}
+                />
+              ))}
+              {themeList.map((theme) => (
+                <Route
+                  key={theme.themeName}
+                  path={`/meeting/${theme.themePath}/:tagName`}
+                  element={<SearchTagPage />}
+                />
+              ))}
+              <Route path="/chatting" element={<ChattingPage />} />
+              <Route path="/chatting/:chattingId" element={<ChattingPage />} />
+              <Route path="/login/oauth2/code/kakao" element={<KakaoLogin />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </GlobalLayout>
         <GlobalFooter />
       </StRouterWrapp>
