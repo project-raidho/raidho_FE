@@ -7,8 +7,10 @@ import "../../elements/slider/slick.css";
 import Button from "../../elements/Button";
 
 import ImageIntro1 from "../../assets/banner/intro1.jpeg";
-import ImageIntro2 from "../../assets/banner/intro2.jpeg";
-import ImageIntro3 from "../../assets/banner/intro3.jpeg";
+import ImageIntro4 from "../../assets/banner/intro4.jpeg";
+import ImageIntro5 from "../../assets/banner/intro5.jpeg";
+import ImageIntro6 from "../../assets/banner/intro6.jpeg";
+import ImageIntro7 from "../../assets/banner/intro7.jpeg";
 
 const IntroTutorial = ({ onClose }: { onClose: Function }) => {
   const settings = {
@@ -33,11 +35,17 @@ const IntroTutorial = ({ onClose }: { onClose: Function }) => {
               <div className="slideItems">
                 <img src={ImageIntro1} alt="서비스소개" />
               </div>
-              <div className="slideItems">
-                <img src={ImageIntro3} alt="서비스소개" />
+              <div className="slideItems slideItemLast">
+                <img src={ImageIntro4} alt="서비스소개" />
               </div>
               <div className="slideItems slideItemLast">
-                <img src={ImageIntro2} alt="서비스소개" />
+                <img src={ImageIntro5} alt="서비스소개" />
+              </div>
+              <div className="slideItems slideItemLast">
+                <img src={ImageIntro6} alt="서비스소개" />
+              </div>
+              <div className="slideItems slideItemLast">
+                <img src={ImageIntro7} alt="서비스소개" />
                 <Button
                   size="medium"
                   variant="linePrimary"
@@ -70,7 +78,7 @@ const StIntroTutorialWrap = styled.div`
       height: 536px;
       background-color: #fff;
       img {
-        width: 90%;
+        width: 85%;
         margin: 0 auto;
       }
       button {
@@ -98,7 +106,7 @@ const StIntroTutorialWrap = styled.div`
           position: absolute;
           width: 100px;
           height: 32px;
-          bottom: 5px;
+          bottom: 0px;
           left: 50%;
           margin-left: -50px;
         }

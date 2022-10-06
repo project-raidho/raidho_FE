@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 
 import kakao from "../../assets/kakao.svg";
-import RaidhoLogo from "../../assets/raidhoLogo.svg";
+import RaidhoLogo from "../../assets/logo/logoDesktop.png";
 import { KAKAO_AUTH_URL } from "../../shared/SocialOAuth";
 
 const LoginModal = ({

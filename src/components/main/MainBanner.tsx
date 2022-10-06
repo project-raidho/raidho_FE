@@ -6,7 +6,7 @@ import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
 
 import Banner2 from "../../assets/banner/bannerContent2.png";
-import BannerBg2 from "../../assets/banner/bannerBg2.png";
+import BannerBg2 from "../../assets/banner/bannerBg2.jpg";
 import Banner1 from "../../assets/banner/bannerContent1.png";
 import BannerBg1 from "../../assets/banner/bannerBg1.png";
 import BannerBgMobile1 from "../../assets/banner/bannerMobile1.png";
@@ -90,6 +90,8 @@ const StMainBanner = styled.div`
     }
     &.contentBox2 {
       background-image: url(${BannerBg2});
+      background-repeat: repeat-x;
+      background-size: auto;
     }
     .centerBox {
       width: auto;
