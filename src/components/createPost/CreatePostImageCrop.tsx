@@ -321,7 +321,7 @@ const CreatePostImageCrop = ({
       </div>
       <StPostImageCropWrap>
         <StThumbsContainer>{thumbs}</StThumbsContainer>
-        <StPostImageCropColumn>
+        <StPostImageCropColumn saveButtonStatus={saveButtonStatus}>
           <ReactCrop
             crop={crop}
             onChange={(crop) => setCrop(crop)}
@@ -337,7 +337,7 @@ const CreatePostImageCrop = ({
             />
           </ReactCrop>
         </StPostImageCropColumn>
-        <StPostImageCropColumn>
+        <StPostImageCropColumn saveButtonStatus={saveButtonStatus}>
           <p className="guideText viewMobile">
             <span>3</span>조절한 이미지를 미리보기를 통해 확인해주세요.
           </p>
@@ -458,7 +458,7 @@ const StPostImageCropWrap = styled.div`
   }
 `;
 
-const StPostImageCropColumn = styled.div`
+const StPostImageCropColumn = styled.div<{ saveButtonStatus: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -493,6 +493,13 @@ const StPostImageCropColumn = styled.div`
     margin: 1rem 0;
   }
   @media (max-width: 639px) {
+    .saveButtonWrap {
+      button {
+        position: ${(props) => (props.saveButtonStatus ? "fixed" : "static")};
+        bottom: ${(props) => (props.saveButtonStatus ? "55px" : "none")};
+        right: ${(props) => (props.saveButtonStatus ? "0.5rem" : "none")};
+      }
+    }
   }
 `;
 
