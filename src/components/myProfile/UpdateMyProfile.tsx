@@ -163,10 +163,10 @@ const UpdateMyProfile = () => {
         <p>
           <img src={memberInfo.memberImage} alt={"멤버이미지"} />
         </p>
-        <dl>
-          <dt>@{memberInfo.memberName}</dt>
-          <dd>{memberInfo.memberIntro}</dd>
-        </dl>
+        <ul>
+          <li className="memberName">@{memberInfo.memberName}</li>
+          <li className="memberIntro">{memberInfo.memberIntro}</li>
+        </ul>
       </StMyProfileBox>
       <Button onClick={handleModal} size="square" variant="lineSquare">
         프로필 편집
@@ -312,15 +312,15 @@ const StMyProfileBox = styled.div`
     }
   }
 
-  dl {
+  ul {
     width: calc(100% - 180px);
-    dt {
+    li.memberName {
       display: flex;
       align-items: center;
       height: 54px;
       font-size: 2rem;
     }
-    dd {
+    li.memberIntro {
       display: flex;
       align-items: flex-start;
       height: 66px;
@@ -336,7 +336,7 @@ const StMyProfileBox = styled.div`
       margin-left: 1rem;
       margin-right: 1rem;
     }
-    dl {
+    ul {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -344,11 +344,11 @@ const StMyProfileBox = styled.div`
       width: calc(100% - 130px);
       height: 80px;
 
-      dt {
+      li.memberName {
         height: 30px;
         font-size: 1.2rem;
       }
-      dd {
+      li.memberIntro {
         width: 100%;
         height: auto;
         min-height: 20px;

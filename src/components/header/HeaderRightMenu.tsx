@@ -98,12 +98,15 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
     <StHeaderRightMenu>
       <StLoginRightMenu>
         <li>
-          <Link to={`/`}>
+          <Link to={`/`} aria-label="여행후기 보러가기">
             <BiImage className="iconPost" />
           </Link>
         </li>
         <li>
-          <Link to={`/meetingList/all`}>
+          <Link
+            to={`/meetingList/all`}
+            aria-label="여행친구찾기 리스트 보러가기"
+          >
             <MdOutlineTravelExplore className="iconMeeting" />
           </Link>
         </li>
@@ -136,7 +139,11 @@ const HeaderRightMenu = ({ isLogin, setIsLogin }: HeaderProps) => {
             </p>
             <ToggleBox isToggle={isUserToggle} onCloseToggle={onCloseToggle}>
               <li>
-                <Link to={`/myProfile`} onClick={onCloseToggle}>
+                <Link
+                  to={`/myProfile`}
+                  onClick={onCloseToggle}
+                  aria-label="마이페이지로 가기"
+                >
                   마이페이지
                 </Link>
               </li>
