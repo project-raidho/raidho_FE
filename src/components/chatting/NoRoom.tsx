@@ -5,18 +5,18 @@ import Info from "../../elements/Info";
 
 const NoRoom = () => {
   return (
-    <Container>
+    <StNoRoom>
       <div className="box">
         <h4>
           <Info />
         </h4>
         <p>{"참여중인 채팅방이 없습니다."}</p>
       </div>
-    </Container>
+    </StNoRoom>
   );
 };
 
-const Container = styled.div`
+const StNoRoom = styled.div`
   width: 100%;
   height: 70%;
   display: flex;

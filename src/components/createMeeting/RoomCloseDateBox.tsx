@@ -43,13 +43,9 @@ const RoomCloseDateBox = ({
       setInputDate(moment(date).format("YYYY-MM-DD"));
       setRoomCloseDate(moment(date).format("YYYY-MM-DD"));
       setShowCalendar(false);
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    [date]
+    },
+    [setRoomCloseDate]
   );
-  // const inputonChangeHandler = (e) => {
-  //   setInputdate(e.target.value);
-  //   // setRoomCloseDate(inputdate);
-  // };
 
   useEffect(() => {
     setInputDate(roomCloseDate);
@@ -70,7 +66,6 @@ const RoomCloseDateBox = ({
             value={inputDate}
             variant="default"
             size="large"
-            // onChange={inputonChangeHandler}
             disabled={true}
           />
         </span>
@@ -84,7 +79,7 @@ const RoomCloseDateBox = ({
           editableDateInputs={true}
           locale={ko} // 한국어 달력
           months={1} // 1달치 달력만 디스플레이
-          minDate={today} // 최소날짜값 내일이면 내일부터 선택가능하다.
+          minDate={today} // 최소날짜값 오늘부터 선택가능하다.
           maxDate={maxDate}
           date={date} // 날짜값
           onChange={onChangeDate} // onChange 함수

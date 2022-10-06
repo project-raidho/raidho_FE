@@ -122,6 +122,19 @@ const CreateMeetingContatiner = () => {
   const [departLocationValMsg, setDepartLocationValMsg] = useState("");
   const [allValMsg, setAllValMsg] = useState("");
 
+  //유효성 검사
+  // 모든 input의 value가 1자 이상이 되어야 한다
+  const isValidAll =
+    theme.length >= 1 &&
+    title.length >= 1 &&
+    desc.length >= 1 &&
+    meetingTags.length >= 1 &&
+    String(people).length >= 1 &&
+    roomCloseDate.length >= 1 &&
+    startDate.length >= 1 &&
+    endDate.length >= 1 &&
+    String(departLocation)?.length >= 1;
+
   //실시간 유효성 검사
   useEffect(() => {
     if (theme.length > 0) {
@@ -166,7 +179,6 @@ const CreateMeetingContatiner = () => {
     } else {
       setAllValMsg("빈칸을 모두 입력해주세요");
     }
-    // eslint-disable-next-line
   }, [
     theme,
     meetingTags,
@@ -177,6 +189,7 @@ const CreateMeetingContatiner = () => {
     desc,
     roomCloseDate,
     departLocation,
+    isValidAll,
   ]);
 
   //post mutation
@@ -186,19 +199,6 @@ const CreateMeetingContatiner = () => {
       queryClient.invalidateQueries("meetingList");
     },
   });
-
-  //유효성 검사
-  // 모든 input의 value가 1자 이상이 되어야 한다
-  const isValidAll =
-    theme.length >= 1 &&
-    title.length >= 1 &&
-    desc.length >= 1 &&
-    meetingTags.length >= 1 &&
-    String(people).length >= 1 &&
-    roomCloseDate.length >= 1 &&
-    startDate.length >= 1 &&
-    endDate.length >= 1 &&
-    String(departLocation)?.length >= 1;
 
   //날짜 유효성 검사
   function isValidDateFormat(date: string) {
