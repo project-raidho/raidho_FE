@@ -5,8 +5,8 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
   
   :root {
@@ -61,7 +61,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0; 
     padding: 0;
     box-sizing: border-box;
-    /* scroll-behavior: smooth; */
     word-break: break-all;
   }
   h1, h2, h3, h4, h5, h6 {

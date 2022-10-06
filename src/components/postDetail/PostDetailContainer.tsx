@@ -169,6 +169,9 @@ const StDetailContainer = styled.div`
     margin-top: 10px;
     margin-right: 10px;
     cursor: pointer;
+    path {
+      color: var(--text-color);
+    }
     @media ${(props) => props.theme.mobile} {
       margin-left: 10px;
     }
@@ -176,14 +179,20 @@ const StDetailContainer = styled.div`
   .deleteButton {
     float: right;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 0px;
     cursor: pointer;
+    path {
+      color: var(--text-color);
+    }
   }
   .editButton {
     float: right;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 10px;
     cursor: pointer;
+    path {
+      color: var(--text-color);
+    }
   }
 `;
 
