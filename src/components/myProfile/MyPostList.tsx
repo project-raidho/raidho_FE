@@ -179,7 +179,6 @@ const StPostCard = styled.div`
   position: relative;
   width: 100%;
   height: 400px;
-  padding: 10px;
 
   .imagesIcon {
     height: 22px;
