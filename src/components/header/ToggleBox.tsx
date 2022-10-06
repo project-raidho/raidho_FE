@@ -22,7 +22,7 @@ const ToggleBox = ({ children, isToggle, onCloseToggle }: ToggleProps) => {
     <>
       <StToggleBox isToggle={isToggle} checkDarkMode={checkDarkMode}>
         {children}
-        <span></span>
+        <li className="bgBar"></li>
       </StToggleBox>
       <StToggleBackground isToggle={isToggle} onClick={onCloseToggle} />
     </>
@@ -54,7 +54,7 @@ const StToggleBox = styled.ul<{ isToggle: boolean; checkDarkMode: boolean }>`
   overflow: hidden;
   transition: all 0.3s linear;
 
-  span {
+  li.bgBar {
     display: none;
   }
 
@@ -73,7 +73,7 @@ const StToggleBox = styled.ul<{ isToggle: boolean; checkDarkMode: boolean }>`
     box-shadow: var(--header-bottom-shadow);
     z-index: 11;
 
-    span {
+    li.bgBar {
       position: absolute;
       top: 15px;
       left: 50%;
