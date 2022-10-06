@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Slider from "react-slick";
 
 import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
-
-import Banner2 from "../../assets/banner/bannerContent2.png";
-import BannerBg2 from "../../assets/banner/bannerBg2.jpg";
-import Banner1 from "../../assets/banner/bannerContent1.png";
-import BannerBg1 from "../../assets/banner/bannerBg1.png";
-import BannerBgMobile1 from "../../assets/banner/bannerMobile1.png";
-import BannerBgMobile2 from "../../assets/banner/bannerMobile2.png";
 
 const MainBanner = () => {
   // ::: 모바일 여부 확인하기
@@ -29,22 +21,29 @@ const MainBanner = () => {
       window.removeEventListener("resize", checkDiviceWidth);
     };
   }, []);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  // };
   return (
     <StMainBanner>
-      <Slider {...settings}>
-        <div className="contentBox contentBox1">
-          <div className="centerBox">
-            <img src={isMobile ? BannerBgMobile1 : Banner1} alt="라이도" />
-          </div>
+      {/* <Slider {...settings}> */}
+      <div className="contentBox contentBox1">
+        <div className="centerBox">
+          <img
+            src={
+              isMobile
+                ? "https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_4511665043216472.jpeg"
+                : "https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_3451665043135358.jpeg"
+            }
+            alt="라이도"
+          />
         </div>
-        <div
+      </div>
+      {/* <div
           className="contentBox contentBox2"
           onClick={() =>
             window.open(
@@ -59,8 +58,8 @@ const MainBanner = () => {
               alt="라이도 서비스를 이용해주시고 피드백을 남겨주세요."
             />
           </div>
-        </div>
-      </Slider>
+        </div> */}
+      {/* </Slider> */}
     </StMainBanner>
   );
 };
@@ -73,7 +72,7 @@ const StMainBanner = styled.div`
   left: 0;
   width: 99.7%;
   height: 375px;
-  background-image: url(${BannerBg1});
+  /* background-image: url("https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/bannerBg1.png"); */
   background-repeat: repeat-x;
   background-size: cover;
 
@@ -86,12 +85,7 @@ const StMainBanner = styled.div`
     background-size: cover;
     cursor: pointer;
     &.contentBox1 {
-      background-image: url(${BannerBg1});
-    }
-    &.contentBox2 {
-      background-image: url(${BannerBg2});
-      background-repeat: repeat-x;
-      background-size: auto;
+      background-image: url("https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_7191665043004888.jpeg");
     }
     .centerBox {
       width: auto;
