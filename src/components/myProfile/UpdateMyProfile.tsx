@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import imageCompression from "browser-image-compression";
 import styled from "styled-components";
 
 import { authInstance } from "../../shared/api";
@@ -26,11 +27,10 @@ const UpdateMyProfile = () => {
   if (memberInfo.memberName === null) {
     memberInfo.memberName = "";
   }
-
+  const [selectedUserImage, setSelectedUserImage] = useState<string | null>(
+    null
+  );
   const [compressedImageFile, setCompressedImageFile] = useState<File>();
-  const [previewUpdateImage, setPreviewUpdateImage] = useState<
-    string | ArrayBuffer
-  >();
   const [updateNickname, setUpdateNickname] = useState("");
   const [updateComment, setUpdateComment] = useState("");
 
@@ -54,27 +54,36 @@ const UpdateMyProfile = () => {
     setValidationAlert("");
   };
 
+  // ::: 이미지 리사이징(Resizing)
+  const compressImageAndGetImageFile = async (postImageFile: any) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 300,
+      useWebWorker: true,
+    };
+    const compressedFile = await imageCompression(postImageFile, options);
+    return compressedFile;
+  };
+
   // ::: 이미지 미리보기(Image Preview)
-  const onChangePostImageFile = (
+  const onChangePostImageFile = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    let reader = new FileReader();
     if (event.target.files === null) {
       return;
     }
     const postImageFile = event.target.files[0];
-    setCompressedImageFile(postImageFile);
-    if (postImageFile) {
-      reader.readAsDataURL(postImageFile);
+    try {
+      const compressedFile = await compressImageAndGetImageFile(postImageFile);
+      setCompressedImageFile(compressedFile);
+      const finalCompressedImage = await imageCompression.getDataUrlFromFile(
+        compressedFile
+      );
+      setSelectedUserImage(finalCompressedImage);
+    } catch (error) {
+      console.log("__PostImage_uploadImageError ::", error);
+      alert("이미지를 업로드 하는데 문제가 생겼습니다. 다시 시도해주세요!");
     }
-    reader.onloadend = () => {
-      const resultImage = reader.result;
-      if (resultImage === null) {
-        return;
-      }
-
-      setPreviewUpdateImage(resultImage);
-    };
   };
 
   const onChangeUpdateMemberName = (
@@ -187,9 +196,9 @@ const UpdateMyProfile = () => {
                       onChange={onChangePostImageFile}
                       accept="image/jpg, image/jpeg, image/png"
                     />
-                    {previewUpdateImage !== undefined ? (
+                    {selectedUserImage !== null ? (
                       <img
-                        src={previewUpdateImage as string}
+                        src={selectedUserImage as string}
                         alt="preview"
                         style={{
                           width: "100%",
