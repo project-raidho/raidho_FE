@@ -41,8 +41,6 @@ const MessageList = ({ messages, chattingId }: MessageListProps) => {
     }
   );
 
-  console.log(allMessageListQuery.data?.data.content);
-
   // 스크롤 대상
   const messageEndRef = React.useRef<null | HTMLDivElement>(null);
   //  하단 스크롤 함수
