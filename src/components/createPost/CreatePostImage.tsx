@@ -7,8 +7,10 @@ import CreatePostImageCrop from "./CreatePostImageCrop";
 
 const CreatePostImage = ({
   selectedPostImages,
+  handleTop,
 }: {
   selectedPostImages: (images: Blob[]) => void;
+  handleTop: (status: boolean) => void;
 }) => {
   const [files, setFiles] = useState<(File & { preview: string })[]>([]);
   const [resizingFiles, setResizingFiles] = useState<Blob[]>([]);
@@ -103,6 +105,7 @@ const CreatePostImage = ({
             selectedImageIndex={selectedImageIndex}
             setSelectedImageIndex={setSelectedImageIndex}
             selectedPostImages={selectedPostImages}
+            handleTop={(status: boolean) => handleTop(status)}
           />
         )}
       </StPostImageCropWrap>

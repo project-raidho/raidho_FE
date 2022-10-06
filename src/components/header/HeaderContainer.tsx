@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import HeaderRightMenu from "./HeaderRightMenu";
 import SearchContainer from "./SearchContainer";
-import DesktopLogo from "../../assets/raidhoLogo.svg";
-import MobileLogo from "../../assets/raidhoMobileLogo.svg";
+import DesktopLogo from "../../assets/logo/logoDesktop.png";
+import MobileLogo from "../../assets/logo/logoMobile.png";
 
 const HeaderContainer = () => {
   // ::: 로그인 여부 확인하기
@@ -85,16 +85,19 @@ const StHeaderLogo = styled.h1`
     align-items: center;
     width: 100%;
     height: 100%;
+    padding: 5px 0;
 
     img {
       display: block;
       width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 
   @media ${(props) => props.theme.mobile} {
-    width: 32px;
-    padding: 14px 0;
+    width: 55px;
+    padding: 0px 0;
     a {
       img {
         width: 100%;
@@ -115,6 +118,6 @@ const StSearchBox = styled.div<{ isLogin: boolean }>`
 
   @media ${(props) => props.theme.mobile} {
     width: ${(props) =>
-      props.isLogin ? "calc(100% - 40px)" : "calc(100% - 40px)"};
+      props.isLogin ? "calc(100% - 65px)" : "calc(100% - 65px)"};
   }
 `;
