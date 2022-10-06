@@ -150,7 +150,7 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
           aria-label="buttonSearch"
         ></button>
         <StSearchDetailList isFocusSearch={isFocusSearch}>
-          <h3>최근 검색 기록</h3>
+          <h2>최근 검색 기록</h2>
           <StSearchDetailRow>
             {recentSearchList.map((tag, index) => (
               <p className="recentTagBox" key={tag + index}>
@@ -173,7 +173,7 @@ const SearchContainer = ({ isMobile }: { isMobile: boolean }) => {
             ))}
           </StSearchDetailRow>
 
-          <h3>추천 검색어</h3>
+          <h2>추천 검색어</h2>
           <StTagCardWrap>
             {recommendTagList.map((tagCard) => (
               <StTagCard
@@ -281,14 +281,14 @@ const StSearchDetailList = styled.div<{ isFocusSearch: boolean }>`
   margin: 0.8rem auto;
   transition: 0.5s;
 
-  h3 {
+  h2 {
     font-size: 1.2rem;
     margin: 15px 0;
     color: var(--title-color);
   }
 
   @media ${(props) => props.theme.mobile} {
-    h3 {
+    h2 {
       font-size: 1rem;
     }
   }
