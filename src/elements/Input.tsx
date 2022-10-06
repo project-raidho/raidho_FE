@@ -46,7 +46,6 @@ const VARIANTS = {
     --input-color: var(--text-color);
     --input-bg-color: #ffffff;
     --input-border-color: #a0a0a0;
-    --input-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     --input-focus-border: 1px solid var(--main-color);
   `,
   search: css`

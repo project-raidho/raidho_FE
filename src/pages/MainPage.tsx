@@ -12,7 +12,6 @@ const MainPage = () => {
   const [state, setState] = useState<string>(
     location.pathname === "/" ? "latest" : location.pathname.split("/")[1]
   );
-  console.log(location);
 
   // ::: 모달 여부 확인하기
   const [modalOn, setModalOn] = useState<boolean>(false);
