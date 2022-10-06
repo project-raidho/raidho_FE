@@ -6,12 +6,6 @@ import "../../elements/slider/slick-theme.css";
 import "../../elements/slider/slick.css";
 import Button from "../../elements/Button";
 
-import ImageIntro1 from "../../assets/banner/intro1.jpeg";
-import ImageIntro4 from "../../assets/banner/intro4.jpeg";
-import ImageIntro5 from "../../assets/banner/intro5.jpeg";
-import ImageIntro6 from "../../assets/banner/intro6.jpeg";
-import ImageIntro7 from "../../assets/banner/intro7.jpeg";
-
 const IntroTutorial = ({ onClose }: { onClose: Function }) => {
   const settings = {
     dots: true,
@@ -33,19 +27,34 @@ const IntroTutorial = ({ onClose }: { onClose: Function }) => {
           <StIntroTutorialWrap>
             <Slider {...settings}>
               <div className="slideItems">
-                <img src={ImageIntro1} alt="서비스소개" />
+                <img
+                  src="https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_3611665043394421.jpeg"
+                  alt="서비스소개"
+                />
               </div>
               <div className="slideItems slideItemLast">
-                <img src={ImageIntro4} alt="서비스소개" />
+                <img
+                  src="https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_8021665043401889.jpeg"
+                  alt="서비스소개"
+                />
               </div>
               <div className="slideItems slideItemLast">
-                <img src={ImageIntro5} alt="서비스소개" />
+                <img
+                  src="https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_1411665043408195.jpeg"
+                  alt="서비스소개"
+                />
               </div>
               <div className="slideItems slideItemLast">
-                <img src={ImageIntro6} alt="서비스소개" />
+                <img
+                  src="https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_2061665043414247.jpeg"
+                  alt="서비스소개"
+                />
               </div>
               <div className="slideItems slideItemLast">
-                <img src={ImageIntro7} alt="서비스소개" />
+                <img
+                  src="https://hgdjt-s3-bucket.s3.ap-northeast-2.amazonaws.com/raidho_member_image_2091665043421381.jpeg"
+                  alt="서비스소개"
+                />
                 <Button
                   size="medium"
                   variant="linePrimary"
