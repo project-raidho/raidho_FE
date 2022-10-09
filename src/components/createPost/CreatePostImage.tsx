@@ -49,8 +49,6 @@ const CreatePostImage = ({
     return compressedFile;
   };
 
-  // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
-
   const originImageToResizingImage = async (files: File[]) => {
     let temp = [];
     let previewTemp = [];
@@ -66,6 +64,8 @@ const CreatePostImage = ({
     setResizingFiles(temp);
     setResizingPreviewFiles(previewTemp);
   };
+
+  // ::: 최대 이미지보다 많은 이미지를 넣게 되면 에러 메시지 나타내기
   useEffect(() => {
     fileRejections.length > 0
       ? setFileRejectionsMessage(

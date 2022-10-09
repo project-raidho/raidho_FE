@@ -29,7 +29,7 @@ const CreatePostContainer = () => {
   };
 
   // ::: 입력된 데이터 취합하기
-  const [postImages, setPostImages] = useState<Blob[]>([]);
+  const [postImages, setPostImages] = useState<Blob[]>([]); // ::: 원본이미지
   const [postContent, setpostContent] = useState<string>("");
   const [postTags, setPostTags] = useState<string[]>([]);
 
