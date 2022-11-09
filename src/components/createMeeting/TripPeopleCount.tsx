@@ -25,7 +25,7 @@ const TripPeopleCount = ({
   }, [people]);
 
   return (
-    <StPeopleWrapper>
+    <StPeopleCount>
       <h1>여행희망인원(채팅인원) *</h1>
       <StSelectBox>
         <select
@@ -42,12 +42,12 @@ const TripPeopleCount = ({
 
         <People>명</People>
       </StSelectBox>
-    </StPeopleWrapper>
+    </StPeopleCount>
   );
 };
 export default TripPeopleCount;
 
-const StPeopleWrapper = styled.div`
+const StPeopleCount = styled.div`
   .select {
     width: 100px;
     height: 35px;

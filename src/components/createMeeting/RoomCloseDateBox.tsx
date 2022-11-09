@@ -57,7 +57,7 @@ const RoomCloseDateBox = ({
   }, [roomCloseDate, maxRoomCloseDate]);
 
   return (
-    <StRoomCloseDateBoxContainer>
+    <StRoomCloseDateBox>
       <h1>모집마감일자 *</h1>
       <StInputbox>
         <span className="input" onClick={() => setShowCalendar(!showCalendar)}>
@@ -86,13 +86,13 @@ const RoomCloseDateBox = ({
           dateDisplayFormat={"yyyy.mm.dd"} // 날짜 포맷값
         />
       )}
-    </StRoomCloseDateBoxContainer>
+    </StRoomCloseDateBox>
   );
 };
 
 export default RoomCloseDateBox;
 
-const StRoomCloseDateBoxContainer = styled.div`
+const StRoomCloseDateBox = styled.div`
   .input {
     .SKpjV:disabled {
       cursor: pointer;
