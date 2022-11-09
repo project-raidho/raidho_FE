@@ -11,7 +11,7 @@
 
 - 📌 2022.08.26 - 2022.10.07
 
-### 🛫 [라이도 사이트 🔗](https://raidho.site/)
+### 🛫 [![라이도 서비스](https://img.youtube.com/vi/U2c2a5uuEmo/0.jpg)](https://youtu.be/U2c2a5uuEmo)
 
 ### 🛫 [자세한 프로젝트 정보 🔗](https://github.com/project-raidho/raidho_FE/wiki)
 
