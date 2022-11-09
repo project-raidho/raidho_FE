@@ -14,7 +14,7 @@
 ### 🛫 라이도 서비스 영상 보기
 
 <div>
-  <iframe width="1206" height="678" src="https://www.youtube.com/embed/U2c2a5uuEmo" title="라이도 프로젝트 최종시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ <iframe width="882" height="496" src="https://www.youtube.com/embed/U2c2a5uuEmo" title="라이도 프로젝트 최종시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ### 🛫 [자세한 프로젝트 정보 🔗](https://github.com/project-raidho/raidho_FE/wiki)
