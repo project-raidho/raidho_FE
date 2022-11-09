@@ -11,11 +11,10 @@
 
 - 📌 2022.08.26 - 2022.10.07
 
-### 🛫 라이도 서비스 영상 보기
+### 🛫 [라이도 서비스 영상 보기 🔗](https://www.youtube.com/watch?v=U2c2a5uuEmo)
 
-<div>
- <iframe width="882" height="496" src="https://www.youtube.com/embed/U2c2a5uuEmo" title="라이도 프로젝트 최종시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+[![라이도사이트 영상 보기](https://img.youtube.com/vi/U2c2a5uuEmo/0.jpg)](https://www.youtube.com/watch?v=U2c2a5uuEmo)
+
 
 ### 🛫 [자세한 프로젝트 정보 🔗](https://github.com/project-raidho/raidho_FE/wiki)
 
